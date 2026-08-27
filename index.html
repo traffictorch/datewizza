@@ -1,25 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Pulse · Calendar</title>
+  <title>DateWizza · Plan Magical Dates</title>
+  <meta name="description" content="DateWizza helps you plan magical dates with friends and family – text reminders, RSVPs, no app needed.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
   <style>
-    /* ===== RESET ===== */
+    /* ===== RESET & BASE ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
       height: 100%;
       height: 100dvh;
       overflow: hidden;
-      font-family: 'Inter', sans-serif;
-      background: #f5f5f5;
-      color: #0b1120;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #fef2f2;
+      color: #1a0b0b;
       transition: background 0.4s, color 0.4s;
     }
-    body.dark { background: #0b1120; color: #f1f5f9; }
+    [data-theme="dark"] body {
+      background: #1a0b0b;
+      color: #fef2f2;
+    }
+
+    /* ===== ANIMATED MESH BACKGROUND ===== */
+    .mesh-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .mesh-bg .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: floatOrb 18s ease-in-out infinite alternate;
+    }
+    .mesh-bg .orb:nth-child(1) {
+      width: 500px; height: 500px;
+      background: #e11d48;
+      top: -10%; left: -5%;
+      animation-duration: 22s;
+    }
+    .mesh-bg .orb:nth-child(2) {
+      width: 600px; height: 600px;
+      background: #7c3aed;
+      bottom: -15%; right: -10%;
+      animation-duration: 26s;
+      animation-delay: -6s;
+    }
+    .mesh-bg .orb:nth-child(3) {
+      width: 400px; height: 400px;
+      background: #f59e0b;
+      top: 40%; left: 40%;
+      animation-duration: 20s;
+      animation-delay: -10s;
+      opacity: 0.15;
+    }
+    [data-theme="dark"] .mesh-bg .orb { opacity: 0.4; }
+    [data-theme="dark"] .mesh-bg .orb:nth-child(3) { opacity: 0.25; }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(60px, -40px) scale(1.1); }
+      66% { transform: translate(-30px, 60px) scale(0.9); }
+      100% { transform: translate(40px, -20px) scale(1.05); }
+    }
 
     /* ===== APP CONTAINER ===== */
     .app-container {
@@ -30,6 +83,7 @@
       margin: 0 auto;
       padding: 0 1rem 0.5rem;
       position: relative;
+      z-index: 2;
     }
     @media (min-width: 768px) {
       .app-container { max-width: 100%; padding: 0 2rem 1rem; }
@@ -44,21 +98,23 @@
       flex-shrink: 0;
     }
     .app-header h1 {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 900;
       letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #f97316, #ec4899);
+      background: linear-gradient(135deg, #e11d48, #7c3aed, #f59e0b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Playfair Display', serif;
     }
     .header-right { display: flex; align-items: center; gap: 0.3rem; }
     .header-right button {
       background: none; border: none; font-size: 1.3rem; cursor: pointer;
       padding: 0.2rem 0.3rem; border-radius: 40px; transition: 0.2s; color: #4b5563;
     }
-    .dark .header-right button { color: #94a3b8; }
-    .header-right button:hover { background: rgba(0,0,0,0.05); color: #f97316; }
-    .dark .header-right button:hover { background: rgba(255,255,255,0.05); color: #fb923c; }
+    [data-theme="dark"] .header-right button { color: #94a3b8; }
+    .header-right button:hover { background: rgba(225,29,72,0.1); color: #e11d48; }
+    [data-theme="dark"] .header-right button:hover { background: rgba(225,29,72,0.15); color: #fb7185; }
 
     /* ===== SEARCH ===== */
     .search-bar {
@@ -70,14 +126,14 @@
     .search-bar.open { display: block; }
     .search-bar input {
       width: 100%; padding: 0.5rem 1rem; border-radius: 60px;
-      border: 1px solid #d1d5db; background: rgba(255,255,255,0.8);
+      border: 1px solid #fecdd3; background: rgba(255,255,255,0.8);
       font-size: 0.9rem; outline: none; transition: 0.2s; color: inherit;
       backdrop-filter: blur(8px);
     }
-    .dark .search-bar input {
-      background: rgba(15,23,42,0.6); border-color: #334155; color: #f1f5f9;
+    [data-theme="dark"] .search-bar input {
+      background: rgba(30,11,11,0.6); border-color: #4a1a1a; color: #fef2f2;
     }
-    .search-bar input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.15); }
+    .search-bar input:focus { border-color: #e11d48; box-shadow: 0 0 0 3px rgba(225,29,72,0.15); }
     .search-bar .search-icon {
       position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
       color: #94a3b8; font-size: 1rem; pointer-events: none;
@@ -85,25 +141,31 @@
 
     /* ===== MONTH NAV ===== */
     .month-nav {
-      display: flex; justify-content: space-between; align-items: center;
+      display: none;
+      justify-content: space-between; align-items: center;
       padding: 0.05rem 0 0.2rem; flex-shrink: 0;
     }
-    .month-nav .month-label { font-size: 1.1rem; font-weight: 700; text-align: center; flex: 1; }
+    .month-nav .month-label {
+      font-size: 1.1rem; font-weight: 700; text-align: center; flex: 1;
+      font-family: 'Playfair Display', serif;
+      color: #1a0b0b;
+    }
+    [data-theme="dark"] .month-nav .month-label { color: #fef2f2; }
     .month-nav button {
       background: none; border: none; font-size: 1.8rem; cursor: pointer;
       color: #4b5563; padding: 0 0.3rem; transition: 0.2s; line-height: 1;
       touch-action: manipulation;
     }
-    .dark .month-nav button { color: #94a3b8; }
-    .month-nav button:hover { color: #f97316; }
+    [data-theme="dark"] .month-nav button { color: #94a3b8; }
+    .month-nav button:hover { color: #e11d48; }
 
-    /* ===== CALENDAR ===== */
+    /* ===== CALENDAR WRAPPER ===== */
     .calendar-wrapper {
       flex: 1 1 0;
       min-height: 0;
       position: relative;
+      display: none;
     }
-
     .calendar-scroll {
       height: 100%;
       overflow-y: auto;
@@ -137,7 +199,7 @@
       color: #6b7280;
       background: rgba(255,255,255,0.3);
     }
-    .dark .weekday-label {
+    [data-theme="dark"] .weekday-label {
       background: rgba(255,255,255,0.02);
       color: #9ca3af;
     }
@@ -168,42 +230,46 @@
       min-width: 0;
       min-height: 0;
       overflow: hidden;
+      border: 1px solid transparent;
     }
     .day-cell:active { transform: scale(0.96); }
-    .dark .day-cell { background: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .day-cell { background: rgba(255,255,255,0.04); }
     .day-cell.other-month { opacity: 0.2; pointer-events: none; }
     .day-cell.today {
-      background: rgba(249,115,22,0.15);
-      border: 2px solid rgba(249,115,22,0.4);
+      background: rgba(225,29,72,0.12);
+      border-color: rgba(225,29,72,0.3);
     }
-    .dark .day-cell.today {
-      background: rgba(249,115,22,0.2);
-      border-color: rgba(249,115,22,0.5);
+    [data-theme="dark"] .day-cell.today {
+      background: rgba(225,29,72,0.15);
+      border-color: rgba(225,29,72,0.4);
     }
     .day-cell.today .day-number {
-      background: #f97316; color: white; padding: 0.05rem 0.4rem;
+      background: #e11d48; color: white; padding: 0.05rem 0.4rem;
       border-radius: 40px; display: inline-block; width: fit-content;
     }
     .day-number { font-weight: 700; font-size: 1.1rem; line-height: 1.2; margin-bottom: 0.05rem; }
     .day-cell .event-dots { display: flex; flex-wrap: wrap; gap: 2px; margin-top: auto; min-height: 6px; }
-    .event-dot { width: 6px; height: 6px; border-radius: 10px; background: #f97316; flex-shrink: 0; }
-    .event-dot.shared { background: #6366f1; }
-    .event-dot.task { background: #22c55e; }
+    .event-dot { width: 6px; height: 6px; border-radius: 10px; background: #e11d48; flex-shrink: 0; }
+    .event-dot.shared { background: #7c3aed; }
+    .event-dot.task { background: #f59e0b; }
     .day-cell .badge-count { font-size: 0.5rem; font-weight: 600; color: #6b7280; margin-left: 1px; }
-    .dark .day-cell .badge-count { color: #94a3b8; }
+    [data-theme="dark"] .day-cell .badge-count { color: #94a3b8; }
     .day-cell .event-label {
       font-size: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       padding: 0.05rem 0.15rem; border-radius: 3px;
-      background: rgba(249,115,22,0.08); color: #0b1120;
+      background: rgba(225,29,72,0.08); color: #1a0b0b;
       margin-top: 1px; max-width: 100%; font-weight: 500; text-transform: uppercase;
       letter-spacing: 0.02em;
     }
-    .dark .day-cell .event-label { color: #f1f5f9; background: rgba(249,115,22,0.1); }
+    [data-theme="dark"] .day-cell .event-label {
+      color: #fef2f2;
+      background: rgba(225,29,72,0.1);
+    }
 
     @media (min-width: 768px) {
       .calendar-grid { gap: 4px; grid-template-rows: repeat(6, minmax(90px, 1fr)); }
       .day-cell { padding: 0.3rem; }
-      .day-cell:hover { background: rgba(249,115,22,0.08); }
+      .day-cell:hover { background: rgba(225,29,72,0.06); }
       .day-number { font-size: 1.2rem; }
       .day-cell .event-label { font-size: 0.6rem; }
     }
@@ -218,73 +284,173 @@
       .calendar-grid { grid-template-rows: repeat(6, minmax(65px, 1fr)); }
     }
 
-    /* ===== BOTTOM SHEET (FIXED POSITION) ===== */
-    .bottom-sheet-overlay {
-      position: fixed;
-      inset: 0;
-      height: 100dvh;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(4px);
-      z-index: 1000;
+    /* ===== LANDING HERO ===== */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1rem 0.5rem;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero.hidden {
       opacity: 0;
-      visibility: hidden;
+      transform: scale(0.95) translateY(20px);
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+    }
+    .hero .badge {
+      display: inline-block;
+      padding: 0.3rem 1.2rem;
+      border-radius: 9999px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: rgba(225,29,72,0.12);
+      color: #e11d48;
+      border: 1px solid rgba(225,29,72,0.15);
+      margin-bottom: 1rem;
+      font-family: 'Inter', sans-serif;
+    }
+    [data-theme="dark"] .hero .badge {
+      background: rgba(225,29,72,0.18);
+      color: #fb7185;
+      border-color: rgba(225,29,72,0.2);
+    }
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      max-width: 800px;
+      margin: 0 auto 0.5rem;
+    }
+    .hero h2 .highlight {
+      background: linear-gradient(135deg, #e11d48, #7c3aed, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .tagline {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #7c3aed;
+      margin-bottom: 0.25rem;
+    }
+    [data-theme="dark"] .hero .tagline { color: #a78bfa; }
+    .hero .sub {
+      font-size: 1.1rem;
+      color: #475569;
+      max-width: 500px;
+      margin: 0.5rem auto 1.5rem;
+    }
+    [data-theme="dark"] .hero .sub { color: #94a3b8; }
+    .hero .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2.8rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      background: linear-gradient(135deg, #e11d48, #7c3aed);
+      color: white;
+      box-shadow: 0 8px 25px -6px rgba(225,29,72,0.4);
+      text-decoration: none;
+    }
+    .hero .btn-primary:hover {
+      transform: scale(1.04) translateY(-2px);
+      box-shadow: 0 15px 35px -8px rgba(225,29,72,0.5);
+    }
+    .hero .pillars {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .hero .pillar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+      letter-spacing: 0.02em;
+    }
+    [data-theme="dark"] .hero .pillar { color: #94a3b8; }
+    .hero .pillar .icon { font-size: 1.8rem; }
+
+    /* ===== BOTTOM SHEET ===== */
+    .bottom-sheet-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+      z-index: 1000; opacity: 0; visibility: hidden;
       transition: opacity 0.3s, visibility 0.3s;
     }
     .bottom-sheet-overlay.visible { opacity: 1; visibility: visible; }
 
     .bottom-sheet {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 85dvh;
-      max-height: 85dvh;
-      bottom: -85dvh;               /* hidden initially */
-      transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      background: #ffffff;
-      backdrop-filter: blur(20px);
+      position: fixed; bottom: 0; left: 0; right: 0;
+      max-width: 500px; margin: 0 auto;
+      background: #ffffff; backdrop-filter: blur(20px);
       border-radius: 2rem 2rem 0 0;
       padding: 1.5rem 1.5rem 2rem;
       z-index: 1001;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 -20px 60px -20px rgba(0,0,0,0.3);
+      max-height: 85vh;
       display: flex;
       flex-direction: column;
     }
-    .dark .bottom-sheet { background: #1e293b; }
-    .bottom-sheet.visible { bottom: 0; }
+    [data-theme="dark"] .bottom-sheet { background: #1e0b0b; }
+    .bottom-sheet.visible { transform: translateY(0); }
 
     .bottom-sheet .handle {
-      width: 40px; height: 4px; background: #d1d5db; border-radius: 4px;
+      width: 40px; height: 4px; background: #fecdd3; border-radius: 4px;
       margin: 0 auto 0.8rem; flex-shrink: 0;
     }
-    .dark .bottom-sheet .handle { background: #475569; }
+    [data-theme="dark"] .bottom-sheet .handle { background: #4a1a1a; }
 
     .bottom-sheet .sheet-header {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 0.6rem; flex-shrink: 0;
     }
-    .bottom-sheet .sheet-header h2 { font-size: 1rem; font-weight: 700; }
+    .bottom-sheet .sheet-header h2 {
+      font-size: 1rem; font-weight: 700;
+      color: #1a0b0b;
+    }
+    [data-theme="dark"] .bottom-sheet .sheet-header h2 { color: #fef2f2; }
     .bottom-sheet .sheet-header .close-sheet {
       background: none; border: none; font-size: 1.8rem; cursor: pointer;
       color: #6b7280; padding: 0 0.2rem; touch-action: manipulation;
     }
-    .bottom-sheet .sheet-header .close-sheet:hover { color: #f97316; }
+    .bottom-sheet .sheet-header .close-sheet:hover { color: #e11d48; }
 
     .sheet-tabs {
       display: flex; gap: 0.3rem; margin-bottom: 0.6rem;
       border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 0.4rem;
       flex-shrink: 0;
     }
-    .dark .sheet-tabs { border-bottom-color: rgba(255,255,255,0.05); }
+    [data-theme="dark"] .sheet-tabs { border-bottom-color: rgba(255,255,255,0.05); }
     .sheet-tabs button {
       background: none; border: none; padding: 0.3rem 0.8rem; border-radius: 40px;
       font-size: 0.75rem; font-weight: 600; cursor: pointer; color: #6b7280;
       transition: 0.2s; touch-action: manipulation;
     }
-    .sheet-tabs button.active { background: rgba(249,115,22,0.1); color: #f97316; }
-    .sheet-tabs button:hover { color: #f97316; }
-    .dark .sheet-tabs button { color: #94a3b8; }
-    .dark .sheet-tabs button.active { background: rgba(249,115,22,0.15); color: #fb923c; }
+    .sheet-tabs button.active { background: rgba(225,29,72,0.1); color: #e11d48; }
+    .sheet-tabs button:hover { color: #e11d48; }
+    [data-theme="dark"] .sheet-tabs button { color: #94a3b8; }
+    [data-theme="dark"] .sheet-tabs button.active { background: rgba(225,29,72,0.15); color: #fb7185; }
 
     .sheet-content {
       flex: 1 1 0;
@@ -303,51 +469,52 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);
     }
-    .dark .sheet-event-item { border-bottom-color: rgba(255,255,255,0.05); }
+    [data-theme="dark"] .sheet-event-item { border-bottom-color: rgba(255,255,255,0.05); }
     .sheet-event-item .time {
-      font-weight: 500; color: #f97316; margin-right: 0.6rem; font-size: 0.8rem; flex-shrink: 0;
+      font-weight: 500; color: #e11d48; margin-right: 0.6rem; font-size: 0.8rem; flex-shrink: 0;
     }
     .sheet-event-item .title { flex: 1; font-weight: 500; font-size: 0.9rem; }
     .sheet-event-item .badge-tag {
       font-size: 0.5rem; padding: 0.05rem 0.4rem; border-radius: 40px;
-      background: rgba(99,102,241,0.1); color: #6366f1; margin-right: 0.3rem; flex-shrink: 0;
+      background: rgba(124,58,237,0.1); color: #7c3aed; margin-right: 0.3rem; flex-shrink: 0;
     }
     .sheet-event-item .item-actions { display: flex; gap: 0.3rem; flex-shrink: 0; }
     .sheet-event-item .item-actions button {
       background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0 0.15rem;
       transition: 0.2s; touch-action: manipulation;
     }
-    .sheet-event-item .item-actions .edit-btn { color: #6366f1; }
-    .sheet-event-item .item-actions .edit-btn:hover { color: #4f46e5; }
-    .sheet-event-item .item-actions .delete-btn { color: #ef4444; }
-    .sheet-event-item .item-actions .delete-btn:hover { color: #dc2626; }
+    .sheet-event-item .item-actions .edit-btn { color: #7c3aed; }
+    .sheet-event-item .item-actions .edit-btn:hover { color: #5b21b6; }
+    .sheet-event-item .item-actions .delete-btn { color: #e11d48; }
+    .sheet-event-item .item-actions .delete-btn:hover { color: #be123c; }
 
     .task-item {
       display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0;
       border-bottom: 1px solid rgba(0,0,0,0.03);
     }
-    .dark .task-item { border-bottom-color: rgba(255,255,255,0.03); }
-    .task-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #f97316; cursor: pointer; flex-shrink: 0; }
+    [data-theme="dark"] .task-item { border-bottom-color: rgba(255,255,255,0.03); }
+    .task-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #e11d48; cursor: pointer; flex-shrink: 0; }
     .task-item .task-title { flex: 1; font-size: 0.85rem; }
     .task-item .task-title.done { text-decoration: line-through; color: #6b7280; }
     .task-item .task-delete {
-      background: none; border: none; color: #ef4444; cursor: pointer; font-size: 0.9rem; padding: 0 0.2rem;
+      background: none; border: none; color: #e11d48; cursor: pointer; font-size: 0.9rem; padding: 0 0.2rem;
       touch-action: manipulation;
     }
 
     /* ===== ADD FORM ===== */
     .add-form { margin-top: 0.3rem; padding-top: 0.3rem; border-top: 1px solid rgba(0,0,0,0.05); }
-    .dark .add-form { border-top-color: rgba(255,255,255,0.05); }
-    .add-form label { display: block; font-weight: 600; font-size: 0.7rem; margin-bottom: 0.05rem; margin-top: 0.3rem; }
+    [data-theme="dark"] .add-form { border-top-color: rgba(255,255,255,0.05); }
+    .add-form label { display: block; font-weight: 600; font-size: 0.7rem; margin-bottom: 0.05rem; margin-top: 0.3rem; color: #475569; }
+    [data-theme="dark"] .add-form label { color: #94a3b8; }
     .add-form input, .add-form select, .add-form textarea {
       width: 100%; padding: 0.5rem 0.8rem; border-radius: 60px;
-      border: 1px solid #d1d5db; background: rgba(255,255,255,0.6);
+      border: 1px solid #fecdd3; background: rgba(255,255,255,0.6);
       font-size: 0.85rem; outline: none; transition: 0.2s; color: inherit;
     }
-    .dark .add-form input, .dark .add-form select, .dark .add-form textarea {
-      background: rgba(15,23,42,0.5); border-color: #374151; color: #f1f5f9;
+    [data-theme="dark"] .add-form input, [data-theme="dark"] .add-form select, [data-theme="dark"] .add-form textarea {
+      background: rgba(30,11,11,0.5); border-color: #4a1a1a; color: #fef2f2;
     }
-    .add-form input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.15); }
+    .add-form input:focus { border-color: #e11d48; box-shadow: 0 0 0 3px rgba(225,29,72,0.15); }
     .add-form textarea { border-radius: 1rem; resize: vertical; min-height: 35px; }
     .add-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
     @media (max-width: 420px) { .add-form .row { grid-template-columns: 1fr; } }
@@ -357,15 +524,15 @@
     }
     .add-form .alert-row select, .add-form .alert-row input { flex: 1; min-width: 70px; margin: 0; }
     .add-form .alert-row .remove-alert {
-      background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1rem; padding: 0 0.2rem;
+      background: none; border: none; color: #e11d48; cursor: pointer; font-size: 1rem; padding: 0 0.2rem;
       touch-action: manipulation;
     }
     .add-form .add-alert-btn {
-      background: none; border: 1px dashed #d1d5db; border-radius: 60px; padding: 0.2rem 0.8rem;
+      background: none; border: 1px dashed #fecdd3; border-radius: 60px; padding: 0.2rem 0.8rem;
       font-size: 0.7rem; cursor: pointer; color: #6b7280; transition: 0.2s; touch-action: manipulation;
     }
-    .dark .add-form .add-alert-btn { border-color: #475569; color: #94a3b8; }
-    .add-form .add-alert-btn:hover { border-color: #f97316; color: #f97316; }
+    [data-theme="dark"] .add-form .add-alert-btn { border-color: #4a1a1a; color: #94a3b8; }
+    .add-form .add-alert-btn:hover { border-color: #e11d48; color: #e11d48; }
 
     .add-form .participant-input { display: flex; gap: 0.3rem; align-items: center; }
     .add-form .participant-input input { flex: 1; }
@@ -373,64 +540,102 @@
 
     .add-form .participant-tags { display: flex; flex-wrap: wrap; gap: 0.2rem; margin-top: 0.2rem; }
     .add-form .participant-tags .tag {
-      background: rgba(249,115,22,0.1); padding: 0.1rem 0.5rem; border-radius: 40px; font-size: 0.7rem;
-      display: flex; align-items: center; gap: 0.2rem; border: 1px solid rgba(249,115,22,0.2);
+      background: rgba(225,29,72,0.1); padding: 0.1rem 0.5rem; border-radius: 40px; font-size: 0.7rem;
+      display: flex; align-items: center; gap: 0.2rem; border: 1px solid rgba(225,29,72,0.15);
+      color: #1a0b0b;
     }
-    .add-form .participant-tags .tag .remove { cursor: pointer; font-weight: 700; color: #ef4444; touch-action: manipulation; }
+    [data-theme="dark"] .add-form .participant-tags .tag { color: #fef2f2; }
+    .add-form .participant-tags .tag .remove { cursor: pointer; font-weight: 700; color: #e11d48; touch-action: manipulation; }
 
     .add-form .form-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
     .add-form .btn {
       padding: 0.5rem 1rem; border-radius: 60px; font-weight: 600; font-size: 0.8rem;
       border: none; cursor: pointer; transition: 0.2s; touch-action: manipulation;
     }
-    .add-form .btn-primary { background: linear-gradient(135deg, #f97316, #ec4899); color: white; flex: 1; }
+    .add-form .btn-primary {
+      background: linear-gradient(135deg, #e11d48, #7c3aed);
+      color: white; flex: 1;
+      box-shadow: 0 4px 15px -6px rgba(225,29,72,0.3);
+    }
     .add-form .btn-primary:hover { transform: scale(1.02); }
-    .add-form .btn-outline { background: transparent; border: 1px solid #d1d5db; color: #0b1120; }
-    .dark .add-form .btn-outline { border-color: #475569; color: #f1f5f9; }
-    .add-form .btn-outline:hover { background: rgba(0,0,0,0.02); }
+    .add-form .btn-outline {
+      background: transparent; border: 1px solid #fecdd3; color: #1a0b0b;
+    }
+    [data-theme="dark"] .add-form .btn-outline { border-color: #4a1a1a; color: #fef2f2; }
+    .add-form .btn-outline:hover { background: rgba(225,29,72,0.04); }
 
     .empty-state { text-align: center; padding: 1rem 0; color: #6b7280; font-size: 0.85rem; }
     .search-results { margin-top: 0.3rem; }
     .search-results .result-item {
       padding: 0.4rem 0; border-bottom: 1px solid rgba(0,0,0,0.03); font-size: 0.85rem;
     }
-    .dark .search-results .result-item { border-bottom-color: rgba(255,255,255,0.03); }
+    [data-theme="dark"] .search-results .result-item { border-bottom-color: rgba(255,255,255,0.03); }
   </style>
 </head>
 <body>
 
-<div class="app-container">
+<div class="mesh-bg" aria-hidden="true">
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+</div>
 
-  <div class="app-header">
-    <h1>⚡ Pulse</h1>
+<div class="app-container" id="app">
+
+  <!-- Header -->
+  <header class="app-header">
+    <h1>✨ DateWizza</h1>
     <div class="header-right">
       <button id="searchToggle" title="Search">🔍</button>
       <button id="themeToggle" class="theme-icon">🌙</button>
     </div>
-  </div>
+  </header>
 
+  <!-- Search -->
   <div class="search-bar" id="searchBar">
     <input type="text" id="searchInput" placeholder="Search events, tasks, people...">
     <span class="search-icon">🔍</span>
   </div>
 
-  <div class="month-nav">
+  <!-- Month Navigation -->
+  <div class="month-nav" id="monthNav">
     <button id="prevMonth">‹</button>
     <span class="month-label" id="monthLabel">January 2025</span>
     <button id="nextMonth">›</button>
   </div>
 
-  <div class="calendar-wrapper">
+  <!-- LANDING HERO -->
+  <div class="hero" id="hero">
+    <span class="badge">✨ Plan Magical Dates</span>
+    <h2>
+      Make<br>
+      <span class="highlight">Moments</span><br>
+      more.
+    </h2>
+    <div class="tagline">Discover · Plan · Save</div>
+    <p class="sub">The first calendar that texts your friends, polls for RSVPs, and spreads organically.</p>
+    <button class="btn-primary" id="planDateBtn">🚀 Plan a Date</button>
+    <div class="pillars">
+      <span class="pillar"><span class="icon">📅</span>Discover</span>
+      <span class="pillar"><span class="icon">✨</span>Plan</span>
+      <span class="pillar"><span class="icon">💾</span>Save</span>
+      <span class="pillar"><span class="icon">❤️</span>Make Moments</span>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="calendar-wrapper" id="calendarWrapper">
     <div class="calendar-scroll" id="calendarScroll">
       <!-- Injected by JS -->
     </div>
   </div>
 
+  <!-- Search results -->
   <div id="searchResultsContainer" style="display:none; padding: 1rem 0;"></div>
 
 </div>
 
-<!-- BOTTOM SHEET -->
+<!-- ===== BOTTOM SHEET ===== -->
 <div class="bottom-sheet-overlay" id="sheetOverlay"></div>
 <div class="bottom-sheet" id="bottomSheet">
   <div class="handle"></div>
@@ -453,8 +658,9 @@
     <div class="sheet-tab-content" id="tabTasks">
       <div id="taskList"><div class="empty-state">No tasks for this day</div></div>
       <div style="margin-top:0.3rem; display:flex; gap:0.3rem;">
-        <input type="text" id="newTaskInput" placeholder="Add task..." style="flex:1; padding:0.4rem 0.8rem; border-radius:60px; border:1px solid #d1d5db; background:rgba(255,255,255,0.6); font-size:0.8rem; outline:none; color:inherit;">
-        <button id="addTaskBtn" style="padding:0.4rem 1rem; font-size:0.75rem; background:linear-gradient(135deg,#f97316,#ec4899); color:white; border:none; border-radius:60px; cursor:pointer;">+</button>
+        <input type="text" id="newTaskInput" placeholder="Add task..." style="flex:1; padding:0.4rem 0.8rem; border-radius:60px; border:1px solid #fecdd3; background:rgba(255,255,255,0.6); font-size:0.8rem; outline:none; color:inherit;">
+        [data-theme="dark"] .task-item input { background: rgba(30,11,11,0.5); border-color: #4a1a1a; }
+        <button id="addTaskBtn" style="padding:0.4rem 1rem; font-size:0.75rem; background:linear-gradient(135deg,#e11d48,#7c3aed); color:white; border:none; border-radius:60px; cursor:pointer;">+</button>
       </div>
       <div style="margin-top:0.2rem; font-size:0.65rem; color:#6b7280;">Press Enter to add</div>
     </div>
@@ -462,8 +668,9 @@
     <div class="sheet-tab-content" id="tabAdd">
       <div class="add-form" style="border-top:none; padding-top:0;">
         <input type="hidden" id="editEventId" value="">
-        <label for="addTitle">Event Title</label>
-        <input type="text" id="addTitle" placeholder="What's happening?" value="Team Sync">
+        <label for="addTitle">What are you planning?</label>
+        <input type="text" id="addTitle" placeholder='e.g. "Dinner with Mum tomorrow 7pm"' value="">
+
         <div class="row">
           <div><label for="addDate">Date</label><input type="date" id="addDate"></div>
           <div><label for="addTime">Time</label><input type="time" id="addTime" value="09:00"></div>
@@ -473,28 +680,35 @@
           <div><label for="addTag">Tag</label>
             <select id="addTag">
               <option value="">None</option>
-              <option value="Deep Work">⚡ Deep Work</option>
-              <option value="Meeting">🤝 Meeting</option>
-              <option value="Creative">💡 Creative</option>
-              <option value="Admin">📧 Admin</option>
+              <option value="Date Night">❤️ Date Night</option>
+              <option value="Family">👨‍👩‍👧‍👦 Family</option>
+              <option value="Friends">👯 Friends</option>
+              <option value="Work">💼 Work</option>
             </select>
           </div>
         </div>
-        <label>Alerts (1-3)</label>
+
+        <label>Reminders (1-3)</label>
         <div id="alertsContainer"></div>
-        <button class="add-alert-btn" id="addAlertBtn">+ Add Alert</button>
+        <button class="add-alert-btn" id="addAlertBtn">+ Add Reminder</button>
+
         <label for="addNote">Notes (optional)</label>
         <textarea id="addNote" placeholder="Details, link, agenda..."></textarea>
-        <label>Share with (email)</label>
+
+        <label>Invite friends</label>
         <div class="participant-input">
           <input type="email" id="emailInput" placeholder="friend@example.com">
           <button class="btn btn-outline" id="addEmailBtn" style="padding:0.3rem 0.8rem; font-size:0.7rem;">+</button>
         </div>
         <div class="participant-tags" id="participantTags"></div>
-        <div style="font-size:0.65rem; color:#6b7280; margin-top:0.2rem;">🔔 Emails sent: 1 day before, 1 hour before, and at event time</div>
+
+        <div style="font-size:0.65rem; color:#6b7280; margin-top:0.2rem;">
+          🔔 Reminders sent: 1 week, 1 day, 1 hour before
+        </div>
+
         <div class="form-actions">
           <button class="btn btn-outline" id="cancelAddBtn">Cancel</button>
-          <button class="btn btn-primary" id="saveEventBtn">📅 Schedule Event</button>
+          <button class="btn btn-primary" id="saveEventBtn">📅 Schedule</button>
         </div>
       </div>
     </div>
@@ -502,11 +716,40 @@
 </div>
 
 <script>
-  // ===== SAME JS AS BEFORE (no changes needed) =====
   document.addEventListener('DOMContentLoaded', function() {
     "use strict";
 
-    const STORAGE_KEY = 'pulse_data_v3';
+    // ===== THEME =====
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('datewizza_theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) { html.setAttribute('data-theme', 'dark'); themeToggle.textContent = '☀️'; } else { html.setAttribute('data-theme', 'light'); themeToggle.textContent = '🌙'; }
+    themeToggle.addEventListener('click', function() {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      localStorage.setItem('datewizza_theme', isDark ? 'light' : 'dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    // ===== LANDING → CALENDAR =====
+    const hero = document.getElementById('hero');
+    const planDateBtn = document.getElementById('planDateBtn');
+    const calendarWrapper = document.getElementById('calendarWrapper');
+    const monthNav = document.getElementById('monthNav');
+
+    planDateBtn.addEventListener('click', function() {
+      hero.classList.add('hidden');
+      calendarWrapper.style.display = 'flex';
+      monthNav.style.display = 'flex';
+      if (!calendarWrapper.dataset.initialized) {
+        renderCalendar();
+        calendarWrapper.dataset.initialized = 'true';
+      }
+    });
+
+    // ===== DATA LAYER =====
+    const STORAGE_KEY = 'datewizza_data_v1';
     let data = { events: [], tasks: [] };
     let currentDate = new Date();
     let selectedDay = null;
@@ -527,20 +770,18 @@
       const today = new Date(); const y = today.getFullYear(), m = today.getMonth();
       data = {
         events: [
-          { id: 'e1', title: 'Q4 Planning', date: new Date(y, m, 12, 9, 0).getTime(), duration: 60, note: 'Boardroom', tag: 'Meeting',
-            alerts: [{ offset: -10080, message: 'Prepare slides' }, { offset: -1440, message: 'Review agenda' }, { offset: -60, message: 'Join now' }],
-            participants: [{ email: 'alice@example.com', name: 'Alice', ready: false }, { email: 'bob@example.com', name: 'Bob', ready: null }],
+          { id: 'e1', title: 'Date Night ❤️', date: new Date(y, m, 12, 19, 0).getTime(), duration: 120, note: 'Reserve table at Il Forno', tag: 'Date Night',
+            alerts: [{ offset: -10080, message: 'Plan outfit' }, { offset: -1440, message: 'Confirm booking' }, { offset: -60, message: 'Head out!' }],
+            participants: [{ email: 'alex@example.com', name: 'Alex', ready: false }],
             status: 'scheduled', rating: null, completed_at: null, created_at: Date.now() },
-          { id: 'e2', title: 'Design Review', date: new Date(y, m, 5, 14, 0).getTime(), duration: 30, note: '', tag: 'Creative',
-            alerts: [{ offset: -1440, message: '' }, { offset: -60, message: '' }], participants: [], status: 'scheduled', rating: null, completed_at: null, created_at: Date.now() },
-          { id: 'e3', title: 'Pulse Launch', date: new Date(y, m, 18, 10, 0).getTime(), duration: 45, note: 'Virtual', tag: 'Deep Work',
-            alerts: [{ offset: -10080, message: 'Final prep' }, { offset: -1440, message: 'Test link' }, { offset: -60, message: 'Go live!' }],
-            participants: [{ email: 'team@pulse.com', name: 'Pulse Team', ready: null }], status: 'scheduled', rating: null, completed_at: null, created_at: Date.now() }
+          { id: 'e2', title: 'Family Dinner 🍽️', date: new Date(y, m, 5, 18, 30).getTime(), duration: 90, note: 'Mum\'s cooking', tag: 'Family',
+            alerts: [{ offset: -1440, message: 'Call mum' }, { offset: -60, message: 'Leave now' }],
+            participants: [{ email: 'mum@example.com', name: 'Mum', ready: null }],
+            status: 'scheduled', rating: null, completed_at: null, created_at: Date.now() }
         ],
         tasks: [
-          { id: 't1', date: new Date(y, m, 12, 0, 0).getTime(), title: 'Review budget', done: false },
-          { id: 't2', date: new Date(y, m, 12, 0, 0).getTime(), title: 'Send meeting notes', done: true },
-          { id: 't3', date: new Date(y, m, 5, 0, 0).getTime(), title: 'Prepare presentation', done: false }
+          { id: 't1', date: new Date(y, m, 12, 0, 0).getTime(), title: 'Buy flowers 💐', done: false },
+          { id: 't2', date: new Date(y, m, 12, 0, 0).getTime(), title: 'Choose wine 🍷', done: true }
         ]
       };
       saveData();
@@ -548,6 +789,7 @@
 
     function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
 
+    // ===== CRUD =====
     function createEvent(title, date, duration, note, tag, alerts, participants) {
       const event = { id: 'e_' + Date.now(), title, date: date.getTime ? date.getTime() : date, duration: duration || 30, note: note || '', tag: tag || '', alerts: alerts || [{ offset: -1440, message: '' }], participants: participants || [], status: 'scheduled', rating: null, completed_at: null, created_at: Date.now() };
       data.events.push(event); saveData(); return event;
@@ -561,6 +803,7 @@
     function getTasksForDate(year, month, day) { return data.tasks.filter(t => { const d = new Date(t.date); return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day; }); }
     function formatTime(date) { return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
 
+    // ===== CALENDAR RENDER =====
     const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const daysShort = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
@@ -624,6 +867,7 @@
       return html;
     }
 
+    // ===== SEARCH =====
     function searchEvents(query) {
       if (!query.trim()) { isSearching = false; renderCalendar(); return; }
       isSearching = true;
@@ -653,6 +897,7 @@
       container.innerHTML = html;
     }
 
+    // ===== BOTTOM SHEET =====
     function openSheetForDay(year, month, day) {
       selectedDay = { year, month, day };
       const sheet = document.getElementById('bottomSheet'), overlay = document.getElementById('sheetOverlay');
@@ -664,7 +909,7 @@
       document.getElementById('addTime').value = new Date().toTimeString().slice(0, 5);
       document.getElementById('editEventId').value = '';
       editingEventId = null;
-      document.getElementById('saveEventBtn').textContent = '📅 Schedule Event';
+      document.getElementById('saveEventBtn').textContent = '✨ Schedule';
       sheet.classList.add('visible'); overlay.classList.add('visible');
       document.body.style.overflow = 'hidden';
       switchTab('events');
@@ -673,7 +918,7 @@
     function renderSheetEvents(year, month, day) {
       const listEl = document.getElementById('sheetEventList');
       const dayEvents = getEventsForDate(year, month, day);
-      if (dayEvents.length === 0) { listEl.innerHTML = `<div class="empty-state">No events — add one in the "+ Add" tab</div>`; return; }
+      if (dayEvents.length === 0) { listEl.innerHTML = `<div class="empty-state">No magical moments yet — add one ✨</div>`; return; }
       listEl.innerHTML = dayEvents.map(e => {
         const d = new Date(e.date); const timeStr = formatTime(d); const dur = e.duration ? ` (${e.duration}m)` : '';
         const tagHtml = e.tag ? `<span class="badge-tag">${e.tag}</span>` : '';
@@ -716,7 +961,7 @@
       document.getElementById('addTag').value = event.tag || '';
       document.getElementById('addNote').value = event.note || '';
       document.getElementById('editEventId').value = id;
-      document.getElementById('saveEventBtn').textContent = '💾 Update Event';
+      document.getElementById('saveEventBtn').textContent = '💾 Update';
       const container = document.getElementById('alertsContainer');
       container.innerHTML = '';
       (event.alerts || [{ offset: -1440, message: '' }]).forEach((alert, index) => addAlertRow(alert.offset, alert.message, index));
@@ -731,7 +976,7 @@
       document.body.style.overflow = '';
       selectedDay = null; editingEventId = null;
       document.getElementById('editEventId').value = '';
-      document.getElementById('saveEventBtn').textContent = '📅 Schedule Event';
+      document.getElementById('saveEventBtn').textContent = '✨ Schedule';
     }
 
     function switchTab(tabId) {
@@ -741,6 +986,7 @@
       document.getElementById(`tab${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`)?.classList.add('active');
     }
 
+    // ===== ALERTS =====
     function addAlertRow(offset, message, index) {
       const container = document.getElementById('alertsContainer');
       const currentCount = container.querySelectorAll('.alert-row').length;
@@ -767,15 +1013,17 @@
       row.querySelector('.remove-alert').addEventListener('click', function() { if (container.querySelectorAll('.alert-row').length <= 1) return; row.remove(); });
     }
 
+    // ===== PARTICIPANTS =====
     function addParticipantTag(email) { if (!email || participants.includes(email)) return; participants.push(email); renderParticipantTags(); }
     function removeParticipantTag(email) { participants = participants.filter(p => p !== email); renderParticipantTags(); }
     function renderParticipantTags() {
       const container = document.getElementById('participantTags');
-      if (participants.length === 0) { container.innerHTML = `<span style="font-size:0.65rem; color:#6b7280;">No participants added</span>`; return; }
+      if (participants.length === 0) { container.innerHTML = `<span style="font-size:0.65rem; color:#6b7280;">No one invited yet</span>`; return; }
       container.innerHTML = participants.map(email => `<span class="tag">${email} <span class="remove" data-email="${email}">×</span></span>`).join('');
       container.querySelectorAll('.remove').forEach(el => { el.addEventListener('click', function() { removeParticipantTag(this.dataset.email); }); });
     }
 
+    // ===== SAVE EVENT =====
     function saveEvent() {
       const title = document.getElementById('addTitle').value.trim();
       const dateStr = document.getElementById('addDate').value;
@@ -783,7 +1031,7 @@
       const duration = parseInt(document.getElementById('addDuration').value) || 30;
       const note = document.getElementById('addNote').value.trim();
       const tag = document.getElementById('addTag').value;
-      if (!title) { alert('Please enter a title.'); return; }
+      if (!title) { alert('Please enter a title for your magical moment ✨'); return; }
       if (!dateStr) { alert('Please select a date.'); return; }
       const dateObj = new Date(dateStr + 'T' + (timeStr || '09:00'));
       if (isNaN(dateObj.getTime())) { alert('Invalid date/time.'); return; }
@@ -807,7 +1055,9 @@
         createEvent(title, dateObj, duration, note, tag, alerts, participantsList);
         if (participantsList.length > 0) {
           const emails = participantsList.map(p => p.email).join(', ');
-          alert(`📧 Email reminders sent to:\n${emails}\n\nAbout: "${title}" on ${dateObj.toLocaleDateString()} at ${formatTime(dateObj)}`);
+          alert(`📧 Reminders sent to:\n${emails}\n\n✨ "${title}" on ${dateObj.toLocaleDateString()} at ${formatTime(dateObj)}`);
+        } else {
+          alert(`✅ "${title}" scheduled for ${dateObj.toLocaleDateString()} at ${formatTime(dateObj)} ✨`);
         }
         closeSheet(); renderAll(); const d = new Date(dateObj); openSheetForDay(d.getFullYear(), d.getMonth(), d.getDate());
       }
@@ -815,7 +1065,7 @@
       document.getElementById('addNote').value = '';
       document.getElementById('addDuration').value = '30';
       document.getElementById('editEventId').value = '';
-      document.getElementById('saveEventBtn').textContent = '📅 Schedule Event';
+      document.getElementById('saveEventBtn').textContent = '✨ Schedule';
       document.getElementById('alertsContainer').innerHTML = '';
       addAlertRow(-1440, '', 0);
       participants = []; renderParticipantTags();
@@ -823,24 +1073,43 @@
       switchTab('events');
     }
 
-    // Theme
-    const html = document.documentElement;
-    const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('pulse_theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) { html.classList.add('dark'); themeToggle.textContent = '☀️'; } else { themeToggle.textContent = '🌙'; }
-    themeToggle.addEventListener('click', function() {
-      html.classList.toggle('dark');
-      localStorage.setItem('pulse_theme', html.classList.contains('dark') ? 'dark' : 'light');
-      this.textContent = html.classList.contains('dark') ? '☀️' : '🌙';
+    // ===== NATURAL LANGUAGE PARSER =====
+    const titleInput = document.getElementById('addTitle');
+    titleInput.addEventListener('focus', function() {
+      const original = this.value;
+      if (original && !this.dataset.parsed) {
+        const text = original.toLowerCase();
+        let matched = false;
+        if (text.includes('tomorrow')) {
+          const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+          document.getElementById('addDate').value = tomorrow.toISOString().split('T')[0];
+          matched = true;
+        }
+        if (text.match(/\b(\d{1,2}(?::\d{2})?\s*(?:am|pm))\b/)) {
+          const timeMatch = text.match(/\b(\d{1,2}(?::\d{2})?\s*(?:am|pm))\b/);
+          if (timeMatch) {
+            let t = timeMatch[1];
+            const parts = t.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
+            if (parts) {
+              let h = parseInt(parts[1]);
+              const m = parts[2] ? parseInt(parts[2]) : 0;
+              const ampm = parts[3] ? parts[3].toLowerCase() : null;
+              if (ampm === 'pm' && h < 12) h += 12;
+              if (ampm === 'am' && h === 12) h = 0;
+              document.getElementById('addTime').value = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+              matched = true;
+            }
+          }
+        }
+        if (matched) {
+          this.dataset.parsed = 'true';
+          this.style.borderColor = '#f59e0b';
+          setTimeout(() => { this.style.borderColor = ''; }, 2000);
+        }
+      }
     });
 
-    document.getElementById('searchToggle').addEventListener('click', function() {
-      const bar = document.getElementById('searchBar');
-      bar.classList.toggle('open');
-      if (bar.classList.contains('open')) { document.getElementById('searchInput').focus(); } else { document.getElementById('searchInput').value = ''; searchEvents(''); }
-    });
-
+    // ===== NAVIGATION =====
     function navigateMonth(delta) {
       currentDate.setMonth(currentDate.getMonth() + delta);
       isSearching = false;
@@ -852,17 +1121,27 @@
     document.getElementById('nextMonth').addEventListener('click', () => navigateMonth(1));
     document.getElementById('monthLabel').addEventListener('dblclick', function() { currentDate = new Date(); renderCalendar(); });
 
+    // ===== SEARCH TOGGLE =====
+    document.getElementById('searchToggle').addEventListener('click', function() {
+      const bar = document.getElementById('searchBar');
+      bar.classList.toggle('open');
+      if (bar.classList.contains('open')) { document.getElementById('searchInput').focus(); } else { document.getElementById('searchInput').value = ''; searchEvents(''); }
+    });
     document.getElementById('searchInput').addEventListener('input', function() { searchEvents(this.value); });
+
+    // ===== SHEET CONTROLS =====
     document.getElementById('closeSheet').addEventListener('click', closeSheet);
     document.getElementById('sheetOverlay').addEventListener('click', closeSheet);
     document.querySelectorAll('.sheet-tabs button').forEach(btn => { btn.addEventListener('click', function() { switchTab(this.dataset.tab); }); });
 
+    // ===== ALERTS BUTTON =====
     document.getElementById('addAlertBtn').addEventListener('click', function() {
       const container = document.getElementById('alertsContainer');
       const count = container.querySelectorAll('.alert-row').length;
-      if (count < 3) { addAlertRow(-1440, '', count); } else { alert('Maximum 3 alerts per event.'); }
+      if (count < 3) { addAlertRow(-1440, '', count); } else { alert('Maximum 3 reminders per event.'); }
     });
 
+    // ===== PARTICIPANTS =====
     document.getElementById('addEmailBtn').addEventListener('click', function() {
       const input = document.getElementById('emailInput');
       const email = input.value.trim();
@@ -870,6 +1149,7 @@
     });
     document.getElementById('emailInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('addEmailBtn').click(); } });
 
+    // ===== TASKS =====
     document.getElementById('addTaskBtn').addEventListener('click', addTaskFromInput);
     document.getElementById('newTaskInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); addTaskFromInput(); } });
     function addTaskFromInput() {
@@ -884,13 +1164,14 @@
       if (selectedDay) { openSheetForDay(selectedDay.year, selectedDay.month, selectedDay.day); renderSheetTasks(selectedDay.year, selectedDay.month, selectedDay.day); }
     }
 
+    // ===== SAVE & CANCEL =====
     document.getElementById('saveEventBtn').addEventListener('click', saveEvent);
     document.getElementById('cancelAddBtn').addEventListener('click', function() {
       document.getElementById('addTitle').value = '';
       document.getElementById('addNote').value = '';
       document.getElementById('addDuration').value = '30';
       document.getElementById('editEventId').value = '';
-      document.getElementById('saveEventBtn').textContent = '📅 Schedule Event';
+      document.getElementById('saveEventBtn').textContent = '✨ Schedule';
       document.getElementById('alertsContainer').innerHTML = '';
       addAlertRow(-1440, '', 0);
       participants = [];
@@ -901,12 +1182,12 @@
 
     function renderAll() { renderCalendar(); }
 
-    // Init
+    // ===== INIT =====
     loadData();
     document.getElementById('alertsContainer').innerHTML = '';
     addAlertRow(-1440, '', 0);
-    renderAll();
 
+    // Keyboard shortcuts
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') { closeSheet(); }
       if (e.key === 'n' && !e.ctrlKey && !e.metaKey && !document.getElementById('searchInput').matches(':focus')) {
@@ -924,10 +1205,12 @@
     let resizeTimeout;
     window.addEventListener('resize', function() {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => { if (!isSearching) renderCalendar(); }, 200);
+      resizeTimeout = setTimeout(() => { if (!isSearching && calendarWrapper.dataset.initialized) renderCalendar(); }, 200);
     });
 
+    window.renderAll = renderAll;
   });
 </script>
+
 </body>
 </html>
