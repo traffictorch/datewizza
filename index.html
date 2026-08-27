@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Pulse · Calendar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f5;
+      color: #0b1120;
+      transition: background 0.4s, color 0.4s;
+    }
+    body.dark { background: #0b1120; color: #f1f5f9; }
+
+    /* ===== APP CONTAINER ===== */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0 1rem 0.5rem;
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .app-container { max-width: 100%; padding: 0 2rem 1rem; }
+    }
+
+    /* ===== HEADER ===== */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0 0.1rem;
+      flex-shrink: 0;
+    }
+    .app-header h1 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #f97316, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-right { display: flex; align-items: center; gap: 0.3rem; }
+    .header-right button {
+      background: none; border: none; font-size: 1.3rem; cursor: pointer;
+      padding: 0.2rem 0.3rem; border-radius: 40px; transition: 0.2s; color: #4b5563;
+    }
+    .dark .header-right button { color: #94a3b8; }
+    .header-right button:hover { background: rgba(0,0,0,0.05); color: #f97316; }
+    .dark .header-right button:hover { background: rgba(255,255,255,0.05); color: #fb923c; }
+
+    /* ===== SEARCH ===== */
+    .search-bar {
+      flex-shrink: 0;
+      margin: 0.2rem 0 0.3rem;
+      position: relative;
+      display: none;
+    }
+    .search-bar.open { display: block; }
+    .search-bar input {
+      width: 100%; padding: 0.5rem 1rem; border-radius: 60px;
+      border: 1px solid #d1d5db; background: rgba(255,255,255,0.8);
+      font-size: 0.9rem; outline: none; transition: 0.2s; color: inherit;
+      backdrop-filter: blur(8px);
+    }
+    .dark .search-bar input {
+      background: rgba(15,23,42,0.6); border-color: #334155; color: #f1f5f9;
+    }
+    .search-bar input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.15); }
+    .search-bar .search-icon {
+      position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+      color: #94a3b8; font-size: 1rem; pointer-events: none;
+    }
+
+    /* ===== MONTH NAV ===== */
+    .month-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.05rem 0 0.2rem; flex-shrink: 0;
+    }
+    .month-nav .month-label { font-size: 1.1rem; font-weight: 700; text-align: center; flex: 1; }
+    .month-nav button {
+      background: none; border: none; font-size: 1.8rem; cursor: pointer;
+      color: #4b5563; padding: 0 0.3rem; transition: 0.2s; line-height: 1;
+      touch-action: manipulation;
+    }
+    .dark .month-nav button { color: #94a3b8; }
+    .month-nav button:hover { color: #f97316; }
+
+    /* ===== CALENDAR ===== */
+    .calendar-wrapper {
+      flex: 1 1 0;
+      min-height: 0;
+      position: relative;
+    }
+
+    .calendar-scroll {
+      height: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      position: relative;
+    }
+    .calendar-scroll::-webkit-scrollbar { width: 0; height: 0; background: transparent; }
+
+    .calendar-page {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      padding-bottom: 0.5rem;
+    }
+
+    .weekday-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 2px;
+      flex-shrink: 0;
+    }
+    .weekday-label {
+      padding: 0.2rem 0;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #6b7280;
+      background: rgba(255,255,255,0.3);
+    }
+    .dark .weekday-label {
+      background: rgba(255,255,255,0.02);
+      color: #9ca3af;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(6, minmax(80px, 1fr));
+      gap: 2px;
+      background: transparent;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      width: 100%;
+      flex: 1 1 0;
+      min-height: 0;
+    }
+
+    .day-cell {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(4px);
+      padding: 0.15rem 0.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      display: flex;
+      flex-direction: column;
+      touch-action: manipulation;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .day-cell:active { transform: scale(0.96); }
+    .dark .day-cell { background: rgba(255,255,255,0.04); }
+    .day-cell.other-month { opacity: 0.2; pointer-events: none; }
+    .day-cell.today {
+      background: rgba(249,115,22,0.15);
+      border: 2px solid rgba(249,115,22,0.4);
+    }
+    .dark .day-cell.today {
+      background: rgba(249,115,22,0.2);
+      border-color: rgba(249,115,22,0.5);
+    }
+    .day-cell.today .day-number {
+      background: #f97316; color: white; padding: 0.05rem 0.4rem;
+      border-radius: 40px; display: inline-block; width: fit-content;
+    }
+    .day-number { font-weight: 700; font-size: 1.1rem; line-height: 1.2; margin-bottom: 0.05rem; }
+    .day-cell .event-dots { display: flex; flex-wrap: wrap; gap: 2px; margin-top: auto; min-height: 6px; }
+    .event-dot { width: 6px; height: 6px; border-radius: 10px; background: #f97316; flex-shrink: 0; }
+    .event-dot.shared { background: #6366f1; }
+    .event-dot.task { background: #22c55e; }
+    .day-cell .badge-count { font-size: 0.5rem; font-weight: 600; color: #6b7280; margin-left: 1px; }
+    .dark .day-cell .badge-count { color: #94a3b8; }
+    .day-cell .event-label {
+      font-size: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      padding: 0.05rem 0.15rem; border-radius: 3px;
+      background: rgba(249,115,22,0.08); color: #0b1120;
+      margin-top: 1px; max-width: 100%; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .dark .day-cell .event-label { color: #f1f5f9; background: rgba(249,115,22,0.1); }
+
+    @media (min-width: 768px) {
+      .calendar-grid { gap: 4px; grid-template-rows: repeat(6, minmax(90px, 1fr)); }
+      .day-cell { padding: 0.3rem; }
+      .day-cell:hover { background: rgba(249,115,22,0.08); }
+      .day-number { font-size: 1.2rem; }
+      .day-cell .event-label { font-size: 0.6rem; }
+    }
+    @media (max-width: 480px) {
+      .app-container { padding: 0 0.4rem 0.2rem; }
+      .day-cell { padding: 0.1rem 0.05rem; }
+      .day-number { font-size: 0.9rem; }
+      .day-cell .event-label { font-size: 0.4rem; }
+      .event-dot { width: 4px; height: 4px; }
+      .app-header h1 { font-size: 1.1rem; }
+      .month-nav .month-label { font-size: 0.95rem; }
+      .calendar-grid { grid-template-rows: repeat(6, minmax(65px, 1fr)); }
+    }
+
+    /* ===== BOTTOM SHEET (FIXED POSITION) ===== */
+    .bottom-sheet-overlay {
+      position: fixed;
+      inset: 0;
+      height: 100dvh;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    .bottom-sheet-overlay.visible { opacity: 1; visibility: visible; }
+
+    .bottom-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 85dvh;
+      max-height: 85dvh;
+      bottom: -85dvh;               /* hidden initially */
+      transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      background: #ffffff;
+      backdrop-filter: blur(20px);
+      border-radius: 2rem 2rem 0 0;
+      padding: 1.5rem 1.5rem 2rem;
+      z-index: 1001;
+      box-shadow: 0 -20px 60px -20px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+    }
+    .dark .bottom-sheet { background: #1e293b; }
+    .bottom-sheet.visible { bottom: 0; }
+
+    .bottom-sheet .handle {
+      width: 40px; height: 4px; background: #d1d5db; border-radius: 4px;
+      margin: 0 auto 0.8rem; flex-shrink: 0;
+    }
+    .dark .bottom-sheet .handle { background: #475569; }
+
+    .bottom-sheet .sheet-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.6rem; flex-shrink: 0;
+    }
+    .bottom-sheet .sheet-header h2 { font-size: 1rem; font-weight: 700; }
+    .bottom-sheet .sheet-header .close-sheet {
+      background: none; border: none; font-size: 1.8rem; cursor: pointer;
+      color: #6b7280; padding: 0 0.2rem; touch-action: manipulation;
+    }
+    .bottom-sheet .sheet-header .close-sheet:hover { color: #f97316; }
+
+    .sheet-tabs {
+      display: flex; gap: 0.3rem; margin-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 0.4rem;
+      flex-shrink: 0;
+    }
+    .dark .sheet-tabs { border-bottom-color: rgba(255,255,255,0.05); }
+    .sheet-tabs button {
+      background: none; border: none; padding: 0.3rem 0.8rem; border-radius: 40px;
+      font-size: 0.75rem; font-weight: 600; cursor: pointer; color: #6b7280;
+      transition: 0.2s; touch-action: manipulation;
+    }
+    .sheet-tabs button.active { background: rgba(249,115,22,0.1); color: #f97316; }
+    .sheet-tabs button:hover { color: #f97316; }
+    .dark .sheet-tabs button { color: #94a3b8; }
+    .dark .sheet-tabs button.active { background: rgba(249,115,22,0.15); color: #fb923c; }
+
+    .sheet-content {
+      flex: 1 1 0;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      padding-bottom: 0.5rem;
+    }
+
+    .sheet-tab-content { display: none; }
+    .sheet-tab-content.active { display: block; }
+
+    /* ===== EVENT / TASK ITEMS ===== */
+    .sheet-event-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .dark .sheet-event-item { border-bottom-color: rgba(255,255,255,0.05); }
+    .sheet-event-item .time {
+      font-weight: 500; color: #f97316; margin-right: 0.6rem; font-size: 0.8rem; flex-shrink: 0;
+    }
+    .sheet-event-item .title { flex: 1; font-weight: 500; font-size: 0.9rem; }
+    .sheet-event-item .badge-tag {
+      font-size: 0.5rem; padding: 0.05rem 0.4rem; border-radius: 40px;
+      background: rgba(99,102,241,0.1); color: #6366f1; margin-right: 0.3rem; flex-shrink: 0;
+    }
+    .sheet-event-item .item-actions { display: flex; gap: 0.3rem; flex-shrink: 0; }
+    .sheet-event-item .item-actions button {
+      background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0 0.15rem;
+      transition: 0.2s; touch-action: manipulation;
+    }
+    .sheet-event-item .item-actions .edit-btn { color: #6366f1; }
+    .sheet-event-item .item-actions .edit-btn:hover { color: #4f46e5; }
+    .sheet-event-item .item-actions .delete-btn { color: #ef4444; }
+    .sheet-event-item .item-actions .delete-btn:hover { color: #dc2626; }
+
+    .task-item {
+      display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+    }
+    .dark .task-item { border-bottom-color: rgba(255,255,255,0.03); }
+    .task-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #f97316; cursor: pointer; flex-shrink: 0; }
+    .task-item .task-title { flex: 1; font-size: 0.85rem; }
+    .task-item .task-title.done { text-decoration: line-through; color: #6b7280; }
+    .task-item .task-delete {
+      background: none; border: none; color: #ef4444; cursor: pointer; font-size: 0.9rem; padding: 0 0.2rem;
+      touch-action: manipulation;
+    }
+
+    /* ===== ADD FORM ===== */
+    .add-form { margin-top: 0.3rem; padding-top: 0.3rem; border-top: 1px solid rgba(0,0,0,0.05); }
+    .dark .add-form { border-top-color: rgba(255,255,255,0.05); }
+    .add-form label { display: block; font-weight: 600; font-size: 0.7rem; margin-bottom: 0.05rem; margin-top: 0.3rem; }
+    .add-form input, .add-form select, .add-form textarea {
+      width: 100%; padding: 0.5rem 0.8rem; border-radius: 60px;
+      border: 1px solid #d1d5db; background: rgba(255,255,255,0.6);
+      font-size: 0.85rem; outline: none; transition: 0.2s; color: inherit;
+    }
+    .dark .add-form input, .dark .add-form select, .dark .add-form textarea {
+      background: rgba(15,23,42,0.5); border-color: #374151; color: #f1f5f9;
+    }
+    .add-form input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.15); }
+    .add-form textarea { border-radius: 1rem; resize: vertical; min-height: 35px; }
+    .add-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    @media (max-width: 420px) { .add-form .row { grid-template-columns: 1fr; } }
+
+    .add-form .alert-row {
+      display: flex; gap: 0.3rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.3rem;
+    }
+    .add-form .alert-row select, .add-form .alert-row input { flex: 1; min-width: 70px; margin: 0; }
+    .add-form .alert-row .remove-alert {
+      background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1rem; padding: 0 0.2rem;
+      touch-action: manipulation;
+    }
+    .add-form .add-alert-btn {
+      background: none; border: 1px dashed #d1d5db; border-radius: 60px; padding: 0.2rem 0.8rem;
+      font-size: 0.7rem; cursor: pointer; color: #6b7280; transition: 0.2s; touch-action: manipulation;
+    }
+    .dark .add-form .add-alert-btn { border-color: #475569; color: #94a3b8; }
+    .add-form .add-alert-btn:hover { border-color: #f97316; color: #f97316; }
+
+    .add-form .participant-input { display: flex; gap: 0.3rem; align-items: center; }
+    .add-form .participant-input input { flex: 1; }
+    .add-form .participant-input .btn { padding: 0.3rem 0.8rem; font-size: 0.75rem; }
+
+    .add-form .participant-tags { display: flex; flex-wrap: wrap; gap: 0.2rem; margin-top: 0.2rem; }
+    .add-form .participant-tags .tag {
+      background: rgba(249,115,22,0.1); padding: 0.1rem 0.5rem; border-radius: 40px; font-size: 0.7rem;
+      display: flex; align-items: center; gap: 0.2rem; border: 1px solid rgba(249,115,22,0.2);
+    }
+    .add-form .participant-tags .tag .remove { cursor: pointer; font-weight: 700; color: #ef4444; touch-action: manipulation; }
+
+    .add-form .form-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .add-form .btn {
+      padding: 0.5rem 1rem; border-radius: 60px; font-weight: 600; font-size: 0.8rem;
+      border: none; cursor: pointer; transition: 0.2s; touch-action: manipulation;
+    }
+    .add-form .btn-primary { background: linear-gradient(135deg, #f97316, #ec4899); color: white; flex: 1; }
+    .add-form .btn-primary:hover { transform: scale(1.02); }
+    .add-form .btn-outline { background: transparent; border: 1px solid #d1d5db; color: #0b1120; }
+    .dark .add-form .btn-outline { border-color: #475569; color: #f1f5f9; }
+    .add-form .btn-outline:hover { background: rgba(0,0,0,0.02); }
+
+    .empty-state { text-align: center; padding: 1rem 0; color: #6b7280; font-size: 0.85rem; }
+    .search-results { margin-top: 0.3rem; }
+    .search-results .result-item {
+      padding: 0.4rem 0; border-bottom: 1px solid rgba(0,0,0,0.03); font-size: 0.85rem;
+    }
+    .dark .search-results .result-item { border-bottom-color: rgba(255,255,255,0.03); }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+
+  <div class="app-header">
+    <h1>⚡ Pulse</h1>
+    <div class="header-right">
+      <button id="searchToggle" title="Search">🔍</button>
+      <button id="themeToggle" class="theme-icon">🌙</button>
+    </div>
+  </div>
+
+  <div class="search-bar" id="searchBar">
+    <input type="text" id="searchInput" placeholder="Search events, tasks, people...">
+    <span class="search-icon">🔍</span>
+  </div>
+
+  <div class="month-nav">
+    <button id="prevMonth">‹</button>
+    <span class="month-label" id="monthLabel">January 2025</span>
+    <button id="nextMonth">›</button>
+  </div>
+
+  <div class="calendar-wrapper">
+    <div class="calendar-scroll" id="calendarScroll">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <div id="searchResultsContainer" style="display:none; padding: 1rem 0;"></div>
+
+</div>
+
+<!-- BOTTOM SHEET -->
+<div class="bottom-sheet-overlay" id="sheetOverlay"></div>
+<div class="bottom-sheet" id="bottomSheet">
+  <div class="handle"></div>
+  <div class="sheet-header">
+    <h2 id="sheetDateTitle">📅 Day View</h2>
+    <button class="close-sheet" id="closeSheet">✕</button>
+  </div>
+
+  <div class="sheet-tabs">
+    <button class="active" data-tab="events">📋 Events</button>
+    <button data-tab="tasks">✅ Tasks</button>
+    <button data-tab="add">➕ Add</button>
+  </div>
+
+  <div class="sheet-content">
+    <div class="sheet-tab-content active" id="tabEvents">
+      <div id="sheetEventList"><div class="empty-state">No events on this day</div></div>
+    </div>
+
+    <div class="sheet-tab-content" id="tabTasks">
+      <div id="taskList"><div class="empty-state">No tasks for this day</div></div>
+      <div style="margin-top:0.3rem; display:flex; gap:0.3rem;">
+        <input type="text" id="newTaskInput" placeholder="Add task..." style="flex:1; padding:0.4rem 0.8rem; border-radius:60px; border:1px solid #d1d5db; background:rgba(255,255,255,0.6); font-size:0.8rem; outline:none; color:inherit;">
+        <button id="addTaskBtn" style="padding:0.4rem 1rem; font-size:0.75rem; background:linear-gradient(135deg,#f97316,#ec4899); color:white; border:none; border-radius:60px; cursor:pointer;">+</button>
+      </div>
+      <div style="margin-top:0.2rem; font-size:0.65rem; color:#6b7280;">Press Enter to add</div>
+    </div>
+
+    <div class="sheet-tab-content" id="tabAdd">
+      <div class="add-form" style="border-top:none; padding-top:0;">
+        <input type="hidden" id="editEventId" value="">
+        <label for="addTitle">Event Title</label>
+        <input type="text" id="addTitle" placeholder="What's happening?" value="Team Sync">
+        <div class="row">
+          <div><label for="addDate">Date</label><input type="date" id="addDate"></div>
+          <div><label for="addTime">Time</label><input type="time" id="addTime" value="09:00"></div>
+        </div>
+        <div class="row">
+          <div><label for="addDuration">Duration (min)</label><input type="number" id="addDuration" value="30" min="5" step="5"></div>
+          <div><label for="addTag">Tag</label>
+            <select id="addTag">
+              <option value="">None</option>
+              <option value="Deep Work">⚡ Deep Work</option>
+              <option value="Meeting">🤝 Meeting</option>
+              <option value="Creative">💡 Creative</option>
+              <option value="Admin">📧 Admin</option>
+            </select>
+          </div>
+        </div>
+        <label>Alerts (1-3)</label>
+        <div id="alertsContainer"></div>
+        <button class="add-alert-btn" id="addAlertBtn">+ Add Alert</button>
+        <label for="addNote">Notes (optional)</label>
+        <textarea id="addNote" placeholder="Details, link, agenda..."></textarea>
+        <label>Share with (email)</label>
+        <div class="participant-input">
+          <input type="email" id="emailInput" placeholder="friend@example.com">
+          <button class="btn btn-outline" id="addEmailBtn" style="padding:0.3rem 0.8rem; font-size:0.7rem;">+</button>
+        </div>
+        <div class="participant-tags" id="participantTags"></div>
+        <div style="font-size:0.65rem; color:#6b7280; margin-top:0.2rem;">🔔 Emails sent: 1 day before, 1 hour before, and at event time</div>
+        <div class="form-actions">
+          <button class="btn btn-outline" id="cancelAddBtn">Cancel</button>
+          <button class="btn btn-primary" id="saveEventBtn">📅 Schedule Event</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== SAME JS AS BEFORE (no changes needed) =====
+  document.addEventListener('DOMContentLoaded', function() {
+    "use strict";
+
+    const STORAGE_KEY = 'pulse_data_v3';
+    let data = { events: [], tasks: [] };
+    let currentDate = new Date();
+    let selectedDay = null;
+    let editingEventId = null;
+    let isSearching = false;
+    let participants = [];
+
+    function loadData() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try { data = JSON.parse(stored); } catch(e) { resetDemoData(); }
+      } else { resetDemoData(); }
+      data.events = (data.events || []).map(e => ({ ...e, alerts: e.alerts || [{ offset: -1440, message: '' }], participants: e.participants || [] }));
+      data.tasks = data.tasks || [];
+    }
+
+    function resetDemoData() {
+      const today = new Date(); const y = today.getFullYear(), m = today.getMonth();
+      data = {
+        events: [
+          { id: 'e1', title: 'Q4 Planning', date: new Date(y, m, 12, 9, 0).getTime(), duration: 60, note: 'Boardroom', tag: 'Meeting',
+            alerts: [{ offset: -10080, message: 'Prepare slides' }, { offset: -1440, message: 'Review agenda' }, { offset: -60, message: 'Join now' }],
+            participants: [{ email: 'alice@example.com', name: 'Alice', ready: false }, { email: 'bob@example.com', name: 'Bob', ready: null }],
+            status: 'scheduled', rating: null, completed_at: null, created_at: Date.now() },
+          { id: 'e2', title: 'Design Review', date: new Date(y, m, 5, 14, 0).getTime(), duration: 30, note: '', tag: 'Creative',
+            alerts: [{ offset: -1440, message: '' }, { offset: -60, message: '' }], participants: [], status: 'scheduled', rating: null, completed_at: null, created_at: Date.now() },
+          { id: 'e3', title: 'Pulse Launch', date: new Date(y, m, 18, 10, 0).getTime(), duration: 45, note: 'Virtual', tag: 'Deep Work',
+            alerts: [{ offset: -10080, message: 'Final prep' }, { offset: -1440, message: 'Test link' }, { offset: -60, message: 'Go live!' }],
+            participants: [{ email: 'team@pulse.com', name: 'Pulse Team', ready: null }], status: 'scheduled', rating: null, completed_at: null, created_at: Date.now() }
+        ],
+        tasks: [
+          { id: 't1', date: new Date(y, m, 12, 0, 0).getTime(), title: 'Review budget', done: false },
+          { id: 't2', date: new Date(y, m, 12, 0, 0).getTime(), title: 'Send meeting notes', done: true },
+          { id: 't3', date: new Date(y, m, 5, 0, 0).getTime(), title: 'Prepare presentation', done: false }
+        ]
+      };
+      saveData();
+    }
+
+    function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+
+    function createEvent(title, date, duration, note, tag, alerts, participants) {
+      const event = { id: 'e_' + Date.now(), title, date: date.getTime ? date.getTime() : date, duration: duration || 30, note: note || '', tag: tag || '', alerts: alerts || [{ offset: -1440, message: '' }], participants: participants || [], status: 'scheduled', rating: null, completed_at: null, created_at: Date.now() };
+      data.events.push(event); saveData(); return event;
+    }
+    function updateEvent(id, updates) { const idx = data.events.findIndex(e => e.id === id); if (idx === -1) return null; data.events[idx] = { ...data.events[idx], ...updates }; saveData(); return data.events[idx]; }
+    function deleteEvent(id) { data.events = data.events.filter(e => e.id !== id); saveData(); }
+    function addTask(date, title) { data.tasks.push({ id: 't_' + Date.now(), date: date.getTime ? date.getTime() : date, title, done: false }); saveData(); }
+    function toggleTask(id) { const task = data.tasks.find(t => t.id === id); if (task) { task.done = !task.done; saveData(); } }
+    function deleteTask(id) { data.tasks = data.tasks.filter(t => t.id !== id); saveData(); }
+    function getEventsForDate(year, month, day) { return data.events.filter(e => { const d = new Date(e.date); return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day; }); }
+    function getTasksForDate(year, month, day) { return data.tasks.filter(t => { const d = new Date(t.date); return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day; }); }
+    function formatTime(date) { return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const daysShort = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    function renderCalendar() {
+      if (isSearching) return;
+      const year = currentDate.getFullYear(), month = currentDate.getMonth();
+      const daysInMonth = new Date(year, month+1, 0).getDate();
+      const today = new Date();
+      document.getElementById('monthLabel').textContent = `${monthNames[month]} ${year}`;
+      const scrollContainer = document.getElementById('calendarScroll');
+      let html = `<div class="calendar-page">`;
+      html += buildCalendarGrid(year, month, 1, daysInMonth, today);
+      html += `</div>`;
+      scrollContainer.innerHTML = html;
+      scrollContainer.querySelectorAll('.day-cell:not(.other-month)').forEach(cell => {
+        cell.addEventListener('click', function() {
+          const year = parseInt(this.dataset.year), month = parseInt(this.dataset.month), day = parseInt(this.dataset.day);
+          openSheetForDay(year, month, day);
+        });
+      });
+    }
+
+    function buildCalendarGrid(year, month, startDay, endDay, today) {
+      const startDate = new Date(year, month, startDay);
+      const startWeekday = startDate.getDay();
+      const daysInMonth = new Date(year, month+1, 0).getDate();
+
+      let html = `<div class="weekday-row">`;
+      for (let i = 0; i < 7; i++) html += `<div class="weekday-label">${daysShort[i]}</div>`;
+      html += `</div>`;
+
+      html += `<div class="calendar-grid">`;
+      for (let i = 0; i < 42; i++) {
+        const dayOffset = i - startWeekday;
+        const cellDay = startDay + dayOffset;
+        if (cellDay >= startDay && cellDay <= endDay && cellDay >= 1 && cellDay <= daysInMonth) {
+          const dateObj = new Date(year, month, cellDay);
+          const isToday = dateObj.toDateString() === today.toDateString();
+          const dayEvents = getEventsForDate(year, month, cellDay);
+          const dayTasks = getTasksForDate(year, month, cellDay);
+          const allItems = [...dayEvents, ...dayTasks];
+
+          html += `<div class="day-cell${isToday ? ' today' : ''}" data-year="${year}" data-month="${month}" data-day="${cellDay}" data-other="false">`;
+          html += `<span class="day-number">${cellDay}</span>`;
+          if (allItems.length > 0) {
+            const dots = allItems.slice(0, 3).map(item => { const cls = item.note !== undefined ? 'event-dot shared' : 'event-dot task'; return `<span class="${cls}"></span>`; }).join('');
+            html += `<div class="event-dots">${dots}`;
+            if (allItems.length > 3) html += `<span class="badge-count">+${allItems.length-3}</span>`;
+            html += `</div>`;
+            const first = allItems[0];
+            let label = first.title; if (label.length > 6) label = label.slice(0, 5) + '…';
+            const prefix = first.note !== undefined ? '📅' : '✅';
+            html += `<div class="event-label">${prefix} ${label}</div>`;
+          }
+          html += `</div>`;
+        } else {
+          html += `<div class="day-cell other-month" style="pointer-events:none; opacity:0.2;"></div>`;
+        }
+      }
+      html += `</div>`;
+      return html;
+    }
+
+    function searchEvents(query) {
+      if (!query.trim()) { isSearching = false; renderCalendar(); return; }
+      isSearching = true;
+      const q = query.toLowerCase().trim();
+      const eventResults = data.events.filter(e => {
+        const d = new Date(e.date);
+        const participantEmails = e.participants.map(p => p.email).join(' ');
+        return e.title.toLowerCase().includes(q) || d.toLocaleDateString().includes(q) || (e.note && e.note.toLowerCase().includes(q)) || (e.tag && e.tag.toLowerCase().includes(q)) || participantEmails.toLowerCase().includes(q);
+      });
+      const taskResults = data.tasks.filter(t => t.title.toLowerCase().includes(q));
+      const scroll = document.getElementById('calendarScroll');
+      const container = document.getElementById('searchResultsContainer');
+      scroll.style.display = 'none';
+      container.style.display = 'block';
+      let html = '';
+      if (eventResults.length === 0 && taskResults.length === 0) { html = `<div class="empty-state">No results found</div>`; }
+      else {
+        if (eventResults.length > 0) {
+          html += `<h4 style="font-weight:600; margin:0.3rem 0 0.1rem; font-size:0.85rem;">Events</h4>`;
+          html += eventResults.map(e => { const d = new Date(e.date); return `<div class="result-item">📅 <strong>${e.title}</strong> · ${d.toLocaleDateString()} ${formatTime(d)} ${e.tag ? '· ' + e.tag : ''}</div>`; }).join('');
+        }
+        if (taskResults.length > 0) {
+          html += `<h4 style="font-weight:600; margin:0.3rem 0 0.1rem; font-size:0.85rem;">Tasks</h4>`;
+          html += taskResults.map(t => { const d = new Date(t.date); return `<div class="result-item">✅ ${t.title} · ${d.toLocaleDateString()} ${t.done ? '✓ Done' : ''}</div>`; }).join('');
+        }
+      }
+      container.innerHTML = html;
+    }
+
+    function openSheetForDay(year, month, day) {
+      selectedDay = { year, month, day };
+      const sheet = document.getElementById('bottomSheet'), overlay = document.getElementById('sheetOverlay');
+      const dateObj = new Date(year, month, day);
+      document.getElementById('sheetDateTitle').textContent = `📅 ${dateObj.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}`;
+      renderSheetEvents(year, month, day);
+      renderSheetTasks(year, month, day);
+      document.getElementById('addDate').value = dateObj.toISOString().split('T')[0];
+      document.getElementById('addTime').value = new Date().toTimeString().slice(0, 5);
+      document.getElementById('editEventId').value = '';
+      editingEventId = null;
+      document.getElementById('saveEventBtn').textContent = '📅 Schedule Event';
+      sheet.classList.add('visible'); overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+      switchTab('events');
+    }
+
+    function renderSheetEvents(year, month, day) {
+      const listEl = document.getElementById('sheetEventList');
+      const dayEvents = getEventsForDate(year, month, day);
+      if (dayEvents.length === 0) { listEl.innerHTML = `<div class="empty-state">No events — add one in the "+ Add" tab</div>`; return; }
+      listEl.innerHTML = dayEvents.map(e => {
+        const d = new Date(e.date); const timeStr = formatTime(d); const dur = e.duration ? ` (${e.duration}m)` : '';
+        const tagHtml = e.tag ? `<span class="badge-tag">${e.tag}</span>` : '';
+        const alertCount = e.alerts ? e.alerts.length : 0; const alertIcon = alertCount > 0 ? `🔔${alertCount}` : '';
+        return `<div class="sheet-event-item">
+          <span class="time">${timeStr}${dur}</span>
+          <span class="title">${e.title} ${tagHtml} ${alertIcon} ${e.note ? '📎' : ''}</span>
+          <div class="item-actions">
+            <button class="edit-btn" data-id="${e.id}">✏️</button>
+            <button class="delete-btn" data-id="${e.id}">✕</button>
+          </div>
+        </div>`;
+      }).join('');
+      listEl.querySelectorAll('.delete-btn').forEach(btn => { btn.addEventListener('click', function(e) { e.stopPropagation(); const id = this.dataset.id; if (confirm('Delete this event?')) { deleteEvent(id); renderAll(); openSheetForDay(year, month, day); } }); });
+      listEl.querySelectorAll('.edit-btn').forEach(btn => { btn.addEventListener('click', function(e) { e.stopPropagation(); const id = this.dataset.id; loadEventForEditing(id); }); });
+    }
+
+    function renderSheetTasks(year, month, day) {
+      const listEl = document.getElementById('taskList');
+      const dayTasks = getTasksForDate(year, month, day);
+      if (dayTasks.length === 0) { listEl.innerHTML = `<div class="empty-state">No tasks — add one below</div>`; return; }
+      listEl.innerHTML = dayTasks.map(t => {
+        return `<div class="task-item">
+          <input type="checkbox" ${t.done ? 'checked' : ''} data-id="${t.id}">
+          <span class="task-title${t.done ? ' done' : ''}">${t.title}</span>
+          <button class="task-delete" data-id="${t.id}">✕</button>
+        </div>`;
+      }).join('');
+      listEl.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.addEventListener('change', function() { toggleTask(this.dataset.id); renderAll(); if (selectedDay) renderSheetTasks(selectedDay.year, selectedDay.month, selectedDay.day); }); });
+      listEl.querySelectorAll('.task-delete').forEach(btn => { btn.addEventListener('click', function() { const id = this.dataset.id; if (confirm('Delete this task?')) { deleteTask(id); renderAll(); if (selectedDay) renderSheetTasks(selectedDay.year, selectedDay.month, selectedDay.day); } }); });
+    }
+
+    function loadEventForEditing(id) {
+      const event = data.events.find(e => e.id === id); if (!event) return;
+      editingEventId = id; const d = new Date(event.date);
+      document.getElementById('addTitle').value = event.title;
+      document.getElementById('addDate').value = d.toISOString().split('T')[0];
+      document.getElementById('addTime').value = d.toTimeString().slice(0, 5);
+      document.getElementById('addDuration').value = event.duration || 30;
+      document.getElementById('addTag').value = event.tag || '';
+      document.getElementById('addNote').value = event.note || '';
+      document.getElementById('editEventId').value = id;
+      document.getElementById('saveEventBtn').textContent = '💾 Update Event';
+      const container = document.getElementById('alertsContainer');
+      container.innerHTML = '';
+      (event.alerts || [{ offset: -1440, message: '' }]).forEach((alert, index) => addAlertRow(alert.offset, alert.message, index));
+      participants = (event.participants || []).map(p => p.email);
+      renderParticipantTags();
+      switchTab('add');
+    }
+
+    function closeSheet() {
+      document.getElementById('bottomSheet').classList.remove('visible');
+      document.getElementById('sheetOverlay').classList.remove('visible');
+      document.body.style.overflow = '';
+      selectedDay = null; editingEventId = null;
+      document.getElementById('editEventId').value = '';
+      document.getElementById('saveEventBtn').textContent = '📅 Schedule Event';
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.sheet-tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.sheet-tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelector(`.sheet-tabs button[data-tab="${tabId}"]`)?.classList.add('active');
+      document.getElementById(`tab${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`)?.classList.add('active');
+    }
+
+    function addAlertRow(offset, message, index) {
+      const container = document.getElementById('alertsContainer');
+      const currentCount = container.querySelectorAll('.alert-row').length;
+      if (currentCount >= 3) return;
+      const row = document.createElement('div');
+      row.className = 'alert-row';
+      row.innerHTML = `
+        <select class="alert-offset">
+          <option value="-10080" ${offset === -10080 ? 'selected' : ''}>1 week</option>
+          <option value="-4320" ${offset === -4320 ? 'selected' : ''}>3 days</option>
+          <option value="-1440" ${offset === -1440 ? 'selected' : ''}>1 day</option>
+          <option value="-60" ${offset === -60 ? 'selected' : ''}>1 hour</option>
+          <option value="0" ${offset === 0 ? 'selected' : ''}>At time</option>
+          <option value="custom" ${![ -10080, -4320, -1440, -60, 0 ].includes(offset) ? 'selected' : ''}>Custom</option>
+        </select>
+        <input type="number" class="alert-custom" placeholder="min" value="${![ -10080, -4320, -1440, -60, 0 ].includes(offset) ? Math.abs(offset) : ''}" style="display:${![ -10080, -4320, -1440, -60, 0 ].includes(offset) ? 'inline-block' : 'none'}; width:70px;">
+        <input type="text" class="alert-message" placeholder="Msg" value="${message || ''}" style="flex:1; min-width:60px;">
+        <button class="remove-alert" ${currentCount === 1 ? 'disabled style="opacity:0.3;"' : ''}>✕</button>
+      `;
+      container.appendChild(row);
+      const select = row.querySelector('.alert-offset');
+      const customInput = row.querySelector('.alert-custom');
+      select.addEventListener('change', function() { customInput.style.display = this.value === 'custom' ? 'inline-block' : 'none'; if (this.value === 'custom') customInput.focus(); });
+      row.querySelector('.remove-alert').addEventListener('click', function() { if (container.querySelectorAll('.alert-row').length <= 1) return; row.remove(); });
+    }
+
+    function addParticipantTag(email) { if (!email || participants.includes(email)) return; participants.push(email); renderParticipantTags(); }
+    function removeParticipantTag(email) { participants = participants.filter(p => p !== email); renderParticipantTags(); }
+    function renderParticipantTags() {
+      const container = document.getElementById('participantTags');
+      if (participants.length === 0) { container.innerHTML = `<span style="font-size:0.65rem; color:#6b7280;">No participants added</span>`; return; }
+      container.innerHTML = participants.map(email => `<span class="tag">${email} <span class="remove" data-email="${email}">×</span></span>`).join('');
+      container.querySelectorAll('.remove').forEach(el => { el.addEventListener('click', function() { removeParticipantTag(this.dataset.email); }); });
+    }
+
+    function saveEvent() {
+      const title = document.getElementById('addTitle').value.trim();
+      const dateStr = document.getElementById('addDate').value;
+      const timeStr = document.getElementById('addTime').value;
+      const duration = parseInt(document.getElementById('addDuration').value) || 30;
+      const note = document.getElementById('addNote').value.trim();
+      const tag = document.getElementById('addTag').value;
+      if (!title) { alert('Please enter a title.'); return; }
+      if (!dateStr) { alert('Please select a date.'); return; }
+      const dateObj = new Date(dateStr + 'T' + (timeStr || '09:00'));
+      if (isNaN(dateObj.getTime())) { alert('Invalid date/time.'); return; }
+      const alertRows = document.querySelectorAll('.alert-row');
+      const alerts = [];
+      alertRows.forEach(row => {
+        const select = row.querySelector('.alert-offset');
+        const custom = row.querySelector('.alert-custom');
+        const msg = row.querySelector('.alert-message').value.trim();
+        let offset = parseInt(select.value);
+        if (select.value === 'custom') { const val = parseInt(custom.value); if (!isNaN(val) && val > 0) offset = -val; else offset = -1440; }
+        if (offset > 0) offset = -offset;
+        alerts.push({ offset, message: msg });
+      });
+      const participantsList = participants.map(email => ({ email, name: email.split('@')[0] || '', ready: null }));
+      const editId = document.getElementById('editEventId').value;
+      if (editId) {
+        updateEvent(editId, { title, date: dateObj.getTime(), duration, note, tag, alerts, participants: participantsList });
+        closeSheet(); renderAll(); const d = new Date(dateObj); openSheetForDay(d.getFullYear(), d.getMonth(), d.getDate());
+      } else {
+        createEvent(title, dateObj, duration, note, tag, alerts, participantsList);
+        if (participantsList.length > 0) {
+          const emails = participantsList.map(p => p.email).join(', ');
+          alert(`📧 Email reminders sent to:\n${emails}\n\nAbout: "${title}" on ${dateObj.toLocaleDateString()} at ${formatTime(dateObj)}`);
+        }
+        closeSheet(); renderAll(); const d = new Date(dateObj); openSheetForDay(d.getFullYear(), d.getMonth(), d.getDate());
+      }
+      document.getElementById('addTitle').value = '';
+      document.getElementById('addNote').value = '';
+      document.getElementById('addDuration').value = '30';
+      document.getElementById('editEventId').value = '';
+      document.getElementById('saveEventBtn').textContent = '📅 Schedule Event';
+      document.getElementById('alertsContainer').innerHTML = '';
+      addAlertRow(-1440, '', 0);
+      participants = []; renderParticipantTags();
+      editingEventId = null;
+      switchTab('events');
+    }
+
+    // Theme
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('pulse_theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) { html.classList.add('dark'); themeToggle.textContent = '☀️'; } else { themeToggle.textContent = '🌙'; }
+    themeToggle.addEventListener('click', function() {
+      html.classList.toggle('dark');
+      localStorage.setItem('pulse_theme', html.classList.contains('dark') ? 'dark' : 'light');
+      this.textContent = html.classList.contains('dark') ? '☀️' : '🌙';
+    });
+
+    document.getElementById('searchToggle').addEventListener('click', function() {
+      const bar = document.getElementById('searchBar');
+      bar.classList.toggle('open');
+      if (bar.classList.contains('open')) { document.getElementById('searchInput').focus(); } else { document.getElementById('searchInput').value = ''; searchEvents(''); }
+    });
+
+    function navigateMonth(delta) {
+      currentDate.setMonth(currentDate.getMonth() + delta);
+      isSearching = false;
+      document.getElementById('searchInput').value = '';
+      document.getElementById('searchBar').classList.remove('open');
+      renderCalendar();
+    }
+    document.getElementById('prevMonth').addEventListener('click', () => navigateMonth(-1));
+    document.getElementById('nextMonth').addEventListener('click', () => navigateMonth(1));
+    document.getElementById('monthLabel').addEventListener('dblclick', function() { currentDate = new Date(); renderCalendar(); });
+
+    document.getElementById('searchInput').addEventListener('input', function() { searchEvents(this.value); });
+    document.getElementById('closeSheet').addEventListener('click', closeSheet);
+    document.getElementById('sheetOverlay').addEventListener('click', closeSheet);
+    document.querySelectorAll('.sheet-tabs button').forEach(btn => { btn.addEventListener('click', function() { switchTab(this.dataset.tab); }); });
+
+    document.getElementById('addAlertBtn').addEventListener('click', function() {
+      const container = document.getElementById('alertsContainer');
+      const count = container.querySelectorAll('.alert-row').length;
+      if (count < 3) { addAlertRow(-1440, '', count); } else { alert('Maximum 3 alerts per event.'); }
+    });
+
+    document.getElementById('addEmailBtn').addEventListener('click', function() {
+      const input = document.getElementById('emailInput');
+      const email = input.value.trim();
+      if (email && email.includes('@') && !participants.includes(email)) { addParticipantTag(email); input.value = ''; }
+    });
+    document.getElementById('emailInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('addEmailBtn').click(); } });
+
+    document.getElementById('addTaskBtn').addEventListener('click', addTaskFromInput);
+    document.getElementById('newTaskInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); addTaskFromInput(); } });
+    function addTaskFromInput() {
+      const input = document.getElementById('newTaskInput');
+      const title = input.value.trim();
+      if (!title || !selectedDay) return;
+      const { year, month, day } = selectedDay;
+      const dateObj = new Date(year, month, day);
+      addTask(dateObj, title);
+      input.value = '';
+      renderAll();
+      if (selectedDay) { openSheetForDay(selectedDay.year, selectedDay.month, selectedDay.day); renderSheetTasks(selectedDay.year, selectedDay.month, selectedDay.day); }
+    }
+
+    document.getElementById('saveEventBtn').addEventListener('click', saveEvent);
+    document.getElementById('cancelAddBtn').addEventListener('click', function() {
+      document.getElementById('addTitle').value = '';
+      document.getElementById('addNote').value = '';
+      document.getElementById('addDuration').value = '30';
+      document.getElementById('editEventId').value = '';
+      document.getElementById('saveEventBtn').textContent = '📅 Schedule Event';
+      document.getElementById('alertsContainer').innerHTML = '';
+      addAlertRow(-1440, '', 0);
+      participants = [];
+      renderParticipantTags();
+      editingEventId = null;
+      switchTab('events');
+    });
+
+    function renderAll() { renderCalendar(); }
+
+    // Init
+    loadData();
+    document.getElementById('alertsContainer').innerHTML = '';
+    addAlertRow(-1440, '', 0);
+    renderAll();
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { closeSheet(); }
+      if (e.key === 'n' && !e.ctrlKey && !e.metaKey && !document.getElementById('searchInput').matches(':focus')) {
+        e.preventDefault();
+        if (selectedDay) { openSheetForDay(selectedDay.year, selectedDay.month, selectedDay.day); switchTab('add'); }
+      }
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        const bar = document.getElementById('searchBar');
+        bar.classList.toggle('open');
+        if (bar.classList.contains('open')) { document.getElementById('searchInput').focus(); } else { document.getElementById('searchInput').value = ''; searchEvents(''); }
+      }
+    });
+
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => { if (!isSearching) renderCalendar(); }, 200);
+    });
+
+  });
+</script>
+</body>
+</html>
