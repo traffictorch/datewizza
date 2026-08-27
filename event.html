@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DateWizza · Shared Event</title>
+  <meta name="description" content="Event details and RSVP for a magical date.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #fef2f2;
+      color: #1a0b0b;
+      transition: background 0.4s, color 0.4s;
+      padding: 1rem;
+    }
+    [data-theme="dark"] body {
+      background: #1a0b0b;
+      color: #fef2f2;
+    }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 2rem;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 20px 40px -16px rgba(0,0,0,0.08);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    [data-theme="dark"] .glass-card {
+      background: rgba(30,11,11,0.6);
+      border-color: rgba(255,255,255,0.06);
+      box-shadow: 0 20px 40px -16px rgba(0,0,0,0.6);
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: #e11d48;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .event-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+    .event-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin: 0.5rem 0 1.2rem;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+    [data-theme="dark"] .event-meta { color: #94a3b8; }
+    .event-meta span { display: flex; align-items: center; gap: 0.3rem; }
+    .tag-badge {
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: rgba(124,58,237,0.12);
+      color: #7c3aed;
+      border: 1px solid rgba(124,58,237,0.15);
+    }
+    [data-theme="dark"] .tag-badge {
+      background: rgba(124,58,237,0.2);
+      color: #a78bfa;
+      border-color: rgba(124,58,237,0.2);
+    }
+    .alerts-list {
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+    [data-theme="dark"] .alerts-list { color: #94a3b8; }
+    .alerts-list li { list-style: none; padding: 0.2rem 0; display: flex; gap: 0.5rem; align-items: center; }
+    .alerts-list li::before { content: "🔔"; }
+
+    .note-box {
+      margin: 1rem 0;
+      padding: 0.8rem 1.2rem;
+      background: rgba(225,29,72,0.04);
+      border-radius: 1rem;
+      border-left: 3px solid #e11d48;
+      font-style: italic;
+      color: #1a0b0b;
+    }
+    [data-theme="dark"] .note-box {
+      background: rgba(225,29,72,0.06);
+      color: #fef2f2;
+    }
+
+    .participants {
+      margin: 1.5rem 0;
+    }
+    .participants h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .participant-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    [data-theme="dark"] .participant-item { border-bottom-color: rgba(255,255,255,0.04); }
+    .participant-item .name { font-weight: 500; }
+    .participant-item .status {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      background: rgba(225,29,72,0.08);
+      color: #e11d48;
+    }
+    .participant-item .status.ready {
+      background: rgba(16,185,129,0.12);
+      color: #059669;
+    }
+    .participant-item .status.unknown {
+      background: rgba(107,114,128,0.08);
+      color: #6b7280;
+    }
+    .btn-ready {
+      display: inline-block;
+      padding: 0.5rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+      background: linear-gradient(135deg, #e11d48, #7c3aed);
+      color: white;
+      box-shadow: 0 4px 15px -6px rgba(225,29,72,0.3);
+      margin-top: 0.5rem;
+    }
+    .btn-ready:hover { transform: scale(1.02); }
+    .btn-ready:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #fecdd3;
+      color: #1a0b0b;
+      padding: 0.4rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    [data-theme="dark"] .btn-outline { border-color: #4a1a1a; color: #fef2f2; }
+    .btn-outline:hover { background: rgba(225,29,72,0.04); }
+
+    .share-section {
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(0,0,0,0.04);
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    [data-theme="dark"] .share-section { border-top-color: rgba(255,255,255,0.04); }
+
+    .status-message {
+      margin-top: 1rem;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      background: rgba(16,185,129,0.08);
+      color: #059669;
+      display: none;
+    }
+    .status-message.error {
+      background: rgba(225,29,72,0.08);
+      color: #e11d48;
+    }
+    .status-message.show { display: block; }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 40px;
+      padding: 0.3rem 0.7rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #1a0b0b;
+      z-index: 100;
+      transition: 0.2s;
+    }
+    [data-theme="dark"] .theme-toggle {
+      border-color: rgba(255,255,255,0.08);
+      color: #fef2f2;
+    }
+    .theme-toggle:hover { background: rgba(225,29,72,0.06); }
+    @media (max-width: 480px) {
+      .glass-card { padding: 1.2rem; }
+      .event-title { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+
+  <div class="container">
+
+    <a href="index.html" class="back-link">← Back to Calendar</a>
+
+    <div class="glass-card" id="eventCard">
+      <div id="eventContent">
+        <!-- Injected by JS -->
+        <p style="color: #64748b; text-align: center; padding: 2rem 0;">Loading event…</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      "use strict";
+
+      // ---- THEME ----
+      const html = document.documentElement;
+      const toggle = document.getElementById('themeToggle');
+      const savedTheme = localStorage.getItem('datewizza_theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) { html.setAttribute('data-theme', 'dark'); toggle.textContent = '☀️'; } else { html.setAttribute('data-theme', 'light'); toggle.textContent = '🌙'; }
+      toggle.addEventListener('click', function() {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('datewizza_theme', isDark ? 'light' : 'dark');
+        this.textContent = isDark ? '☀️' : '🌙';
+      });
+
+      // ---- GET EVENT ID ----
+      const params = new URLSearchParams(window.location.search);
+      const eventId = params.get('id');
+      if (!eventId) {
+        document.getElementById('eventContent').innerHTML = `<p style="color:#e11d48;">❌ No event ID provided.</p>`;
+        return;
+      }
+
+      // ---- LOAD DATA ----
+      const STORAGE_KEY = 'datewizza_data_v1';
+      let data = { events: [], tasks: [] };
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) data = JSON.parse(stored);
+        data.events = data.events || [];
+      } catch(e) { data = { events: [], tasks: [] }; }
+
+      const event = data.events.find(e => e.id === eventId);
+      if (!event) {
+        document.getElementById('eventContent').innerHTML = `<p style="color:#e11d48;">❌ Event not found.</p>`;
+        return;
+      }
+
+      // ---- RENDER ----
+      const container = document.getElementById('eventContent');
+      const dateObj = new Date(event.date);
+      const formattedDate = dateObj.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+      const formattedTime = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const duration = event.duration ? `${event.duration} min` : '—';
+
+      // Build alerts list
+      let alertsHtml = '';
+      if (event.alerts && event.alerts.length > 0) {
+        alertsHtml = `<ul class="alerts-list">`;
+        event.alerts.forEach(a => {
+          const offsetLabel = a.offset === -10080 ? '1 week before' :
+                              a.offset === -4320  ? '3 days before' :
+                              a.offset === -1440  ? '1 day before' :
+                              a.offset === -60    ? '1 hour before' :
+                              a.offset === 0      ? 'At event time' :
+                              `${Math.abs(a.offset)} min before`;
+          const msg = a.message ? `: ${a.message}` : '';
+          alertsHtml += `<li>${offsetLabel}${msg}</li>`;
+        });
+        alertsHtml += `</ul>`;
+      } else {
+        alertsHtml = `<p class="alerts-list" style="color: #6b7280;">No reminders set.</p>`;
+      }
+
+      // Participants
+      const participants = event.participants || [];
+      let participantsHtml = '';
+      if (participants.length > 0) {
+        participantsHtml = `<div class="participants"><h3>👥 Participants</h3>`;
+        participants.forEach(p => {
+          const statusClass = p.ready === true ? 'ready' : (p.ready === false ? '' : 'unknown');
+          const statusText = p.ready === true ? '✅ Ready' : (p.ready === false ? '❌ Not ready' : '❓ Pending');
+          participantsHtml += `
+            <div class="participant-item">
+              <span class="name">${p.name || p.email}</span>
+              <span class="status ${statusClass}">${statusText}</span>
+            </div>
+          `;
+        });
+        participantsHtml += `</div>`;
+      } else {
+        participantsHtml = `<p style="color: #6b7280; margin: 0.5rem 0;">No one invited yet.</p>`;
+      }
+
+      // Note
+      const noteHtml = event.note ? `<div class="note-box">📝 ${event.note}</div>` : '';
+
+      // Tag
+      const tagHtml = event.tag ? `<span class="tag-badge">${event.tag}</span>` : '';
+
+      // Build the full card
+      container.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem;">
+          <h1 class="event-title">${event.title}</h1>
+          ${tagHtml}
+        </div>
+        <div class="event-meta">
+          <span>📅 ${formattedDate}</span>
+          <span>⏰ ${formattedTime}</span>
+          <span>⏱️ ${duration}</span>
+        </div>
+        ${noteHtml}
+        <div>
+          <strong style="font-size: 0.9rem; color: #475569;">🔔 Reminders</strong>
+          ${alertsHtml}
+        </div>
+        ${participantsHtml}
+        <div style="margin-top: 1.5rem;">
+          <button class="btn-ready" id="readyBtn">✅ I'm Ready</button>
+          <div class="status-message" id="statusMsg"></div>
+        </div>
+        <div class="share-section">
+          <button class="btn-outline" id="copyLinkBtn">📋 Copy Link</button>
+          <button class="btn-outline" id="shareNativeBtn" style="display: none;">📤 Share</button>
+        </div>
+      `;
+
+      // ---- READY BUTTON ----
+      const readyBtn = document.getElementById('readyBtn');
+      const statusMsg = document.getElementById('statusMsg');
+
+      // Check if current user already marked ready (using a simple prompt to identify)
+      let userEmail = localStorage.getItem('datewizza_user_email') || '';
+      if (!userEmail) {
+        // If no email stored, prompt once
+        const suggested = prompt('Enter your email to confirm your RSVP:', 'you@example.com');
+        if (suggested && suggested.includes('@')) {
+          userEmail = suggested.trim();
+          localStorage.setItem('datewizza_user_email', userEmail);
+        } else {
+          userEmail = '';
+        }
+      }
+
+      // Find if user is a participant
+      const userParticipant = userEmail ? participants.find(p => p.email.toLowerCase() === userEmail.toLowerCase()) : null;
+      const isReady = userParticipant ? userParticipant.ready : false;
+
+      if (userParticipant) {
+        readyBtn.textContent = isReady ? '✅ You\'re Ready!' : '✅ Mark Me Ready';
+        readyBtn.disabled = isReady;
+      } else {
+        readyBtn.textContent = '❓ Not invited? Click to RSVP anyway';
+      }
+
+      readyBtn.addEventListener('click', function() {
+        if (!userEmail) {
+          const email = prompt('Please enter your email to RSVP:', 'you@example.com');
+          if (!email || !email.includes('@')) {
+            statusMsg.textContent = 'Please enter a valid email.';
+            statusMsg.className = 'status-message show error';
+            return;
+          }
+          userEmail = email.trim();
+          localStorage.setItem('datewizza_user_email', userEmail);
+        }
+
+        // Find or add participant
+        let participant = participants.find(p => p.email.toLowerCase() === userEmail.toLowerCase());
+        if (!participant) {
+          // Add them
+          participant = { email: userEmail, name: userEmail.split('@')[0], ready: true };
+          participants.push(participant);
+        } else {
+          participant.ready = true;
+        }
+
+        // Update event in data
+        const idx = data.events.findIndex(e => e.id === eventId);
+        if (idx !== -1) {
+          data.events[idx].participants = participants;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        // Update UI
+        statusMsg.textContent = `✅ You're marked as ready for "${event.title}"!`;
+        statusMsg.className = 'status-message show';
+        readyBtn.disabled = true;
+        readyBtn.textContent = '✅ You\'re Ready!';
+
+        // Re-render participant list (simple: reload page)
+        setTimeout(() => location.reload(), 1200);
+      });
+
+      // ---- SHARE / COPY LINK ----
+      const currentUrl = window.location.href;
+      document.getElementById('copyLinkBtn').addEventListener('click', function() {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(currentUrl).then(() => {
+            statusMsg.textContent = '✅ Link copied to clipboard!';
+            statusMsg.className = 'status-message show';
+            setTimeout(() => statusMsg.className = 'status-message', 3000);
+          }).catch(() => {
+            prompt('Copy this link manually:', currentUrl);
+          });
+        } else {
+          prompt('Copy this link manually:', currentUrl);
+        }
+      });
+
+      // Native share (if available)
+      const shareBtn = document.getElementById('shareNativeBtn');
+      if (navigator.share) {
+        shareBtn.style.display = 'inline-block';
+        shareBtn.addEventListener('click', function() {
+          navigator.share({
+            title: `DateWizza: ${event.title}`,
+            text: `Check out this event: ${event.title} on ${formattedDate} at ${formattedTime}`,
+            url: currentUrl
+          }).catch(() => {});
+        });
+      }
+
+      // Also update page title
+      document.title = `${event.title} · DateWizza`;
+
+    })();
+  </script>
+
+</body>
+</html>
