@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -146,7 +146,99 @@
 
   /* Nav blur on scroll */
   #nav.scrolled { background: rgba(5,8,15,.72); backdrop-filter: blur(20px) saturate(150%); border-bottom-color: rgba(255,255,255,.08); }
+
+  /* ===================== LIGHT MODE ===================== */
+  [data-theme="light"] { background: #f8fafc; }
+  [data-theme="light"] body { background: #f8fafc; color: #0f172a; }
+
+  [data-theme="light"] .mesh .orb { opacity: .18; }
+  [data-theme="light"] .mesh .orb:nth-child(1) { opacity: .22; }
+  [data-theme="light"] .grid-bg { opacity: .35; filter: invert(1); }
+
+  [data-theme="light"] .glass {
+    background: rgba(255,255,255,.65);
+    border-color: rgba(15,23,42,.06);
+  }
+  [data-theme="light"] .glass-strong {
+    background: rgba(255,255,255,.82);
+    border-color: rgba(15,23,42,.1);
+  }
+  [data-theme="light"] #nav.scrolled {
+    background: rgba(248,250,252,.85);
+    border-bottom-color: rgba(15,23,42,.06);
+  }
+
+  /* Text tokens */
+  [data-theme="light"] .text-white { color: #0f172a; }
+  [data-theme="light"] .btn-primary,
+  [data-theme="light"] .btn-primary * { color: #fff !important; }
+  [data-theme="light"] .btn-ghost {
+    color: #0f172a;
+    background: rgba(15,23,42,.04);
+    border-color: rgba(15,23,42,.1);
+  }
+  [data-theme="light"] .btn-ghost:hover {
+    background: rgba(15,23,42,.08);
+    border-color: rgba(15,23,42,.2);
+  }
+
+  [data-theme="light"] .text-slate-200 { color: #1e293b; }
+  [data-theme="light"] .text-slate-300 { color: #334155; }
+  [data-theme="light"] .text-slate-400 { color: #475569; }
+  [data-theme="light"] .text-slate-500 { color: #64748b; }
+  [data-theme="light"] .text-slate-600 { color: #94a3b8; }
+
+  [data-theme="light"] .text-emerald-300,
+  [data-theme="light"] .text-emerald-400 { color: #047857; }
+  [data-theme="light"] .text-violet-400 { color: #6d28d9; }
+  [data-theme="light"] .text-cyan-400 { color: #0e7490; }
+  [data-theme="light"] .text-rose-400 { color: #be123c; }
+
+  /* Dark solid backgrounds inside pricing / CTA cards */
+  [data-theme="light"] .bg-ink-950\/80,
+  [data-theme="light"] .bg-ink-950\/85 { background: rgba(255,255,255,.92) !important; }
+
+  /* Subtle bg tokens */
+  [data-theme="light"] .bg-white\/\[\.03\] { background: rgba(15,23,42,.03); }
+  [data-theme="light"] .bg-white\/\[\.04\] { background: rgba(15,23,42,.04); }
+  [data-theme="light"] .bg-white\/5       { background: rgba(15,23,42,.05); }
+  [data-theme="light"] .bg-white\/10      { background: rgba(15,23,42,.08); }
+
+  /* Rings + dividers + hovers */
+  [data-theme="light"] .ring-white\/5  { --tw-ring-color: rgba(15,23,42,.06); }
+  [data-theme="light"] .ring-white\/10 { --tw-ring-color: rgba(15,23,42,.1); }
+  [data-theme="light"] .divide-white\/5 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(15,23,42,.06); }
+  [data-theme="light"] .hover\:border-white\/20:hover { border-color: rgba(15,23,42,.15); }
+
+  /* Footer + mobile menu */
+  [data-theme="light"] footer { border-top-color: rgba(15,23,42,.06); }
+  [data-theme="light"] #mobileMenu { background: rgba(248,250,252,.95); }
+  [data-theme="light"] #mobileMenu a { color: #334155; }
+  [data-theme="light"] #mobileMenu a:hover { color: #0f172a; }
+
+  /* FAQ */
+  [data-theme="light"] details.glass { border-color: rgba(15,23,42,.08); }
+  [data-theme="light"] details.glass[open] { border-color: rgba(16,185,129,.4); }
+
+  /* Mini calendar */
+  [data-theme="light"] #miniCal .bg-white\/10 { background: rgba(16,185,129,.15); color: #047857; }
+  [data-theme="light"] #miniCal .text-slate-500 { color: #64748b; }
+  [data-theme="light"] #miniCal .text-slate-600 { color: #94a3b8; }
+
+  /* Toggle button icon colour */
+  [data-theme="light"] #themeToggle { color: #0f172a; }
+
 </style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q747FK7MRC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q747FK7MRC');
+</script>
+
 </head>
 
 <body class="min-h-screen text-slate-200 antialiased selection:bg-emerald-400/30 selection:text-white">
@@ -176,8 +268,9 @@
     </div>
 
     <div class="flex items-center gap-2.5">
-      <a href="app.html" class="hidden rounded-full px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white sm:inline-block">Log in</a>
-      <a href="app.html" class="btn-primary inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-bold text-white">
+      <button id="themeToggle" aria-label="Toggle theme" title="Auto → Dark → Light" class="grid h-10 w-10 place-items-center rounded-xl btn-ghost text-base transition">🌙</button>
+      <a href="/dashboard/" class="hidden rounded-full px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white sm:inline-block">Log in</a>
+      <a href="/dashboard/" class="btn-primary inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-bold text-white">
         Start free
         <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
       </a>
@@ -193,7 +286,7 @@
       <a href="#features" class="hover:text-white">Features</a>
       <a href="#pricing" class="hover:text-white">Pricing</a>
       <a href="#faq" class="hover:text-white">FAQ</a>
-      <a href="app.html" class="mt-2 rounded-full bg-white/5 px-4 py-2.5 text-center font-semibold text-white">Log in</a>
+      <a href="/dashboard/" class="mt-2 rounded-full bg-white/5 px-4 py-2.5 text-center font-semibold text-white">Log in</a>
     </div>
   </div>
 </header>
@@ -213,17 +306,17 @@
       </a>
 
       <h1 class="mt-6 font-display text-5xl font-black leading-[1.03] tracking-tight text-white sm:text-6xl lg:text-7xl">
-        Save time,<br />
-        <span class="text-gradient">money &amp; CO₂</span><br />
-        by merging your trips.
+        Your life,<br />
+        <span class="text-gradient">perfectly organized.</span><br />
+        Save time, money & CO₂.
       </h1>
 
       <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-400">
-        DateWizza is the calendar that plans your dates <em class="text-slate-200 not-italic font-semibold">and</em> merges your journeys — so every week you bank real cash, real hours, and real carbon. No spreadsheets. No guilt.
+        The smart social calendar for events, tasks, and invites. Let <strong class="text-white font-semibold">AI write your messages</strong>, manage RSVPs effortlessly, and optimize your routes to save time and carbon. Plan your life, perfectly.
       </p>
 
       <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a href="app.html" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-bold text-white">
+        <a href="/dashboard/" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-bold text-white">
           Start free — no card
           <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
         </a>
@@ -323,22 +416,22 @@
 
     <div class="mt-16 grid gap-6 md:grid-cols-3">
       <div class="reveal glass group rounded-3xl p-7 transition duration-300 hover:-translate-y-1 hover:border-emerald-400/30">
-        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-emerald-400/10 text-2xl ring-1 ring-emerald-400/20">🗓️</div>
+        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-emerald-400/10 text-2xl ring-1 ring-emerald-400/20">✨</div>
         <div class="mt-5 text-[11px] font-bold uppercase tracking-widest text-emerald-400">Step 1</div>
-        <h3 class="mt-1 text-xl font-bold text-white">Plan your dates &amp; tasks</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-400">Add events, tasks and reminders as usual — by text, voice or natural language like "dinner with Mum tomorrow 7pm".</p>
+        <h3 class="mt-1 text-xl font-bold text-white">Create with AI Magic</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-400">Type a simple prompt like "Sarah's wedding on 12 Dec at Bondi Beach" and watch AI auto-fill the title, location, and draft the invite.</p>
       </div>
       <div class="reveal glass group rounded-3xl p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30" style="transition-delay:.08s">
-        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-cyan-400/10 text-2xl ring-1 ring-cyan-400/20">🔀</div>
+        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-cyan-400/10 text-2xl ring-1 ring-cyan-400/20">✉️</div>
         <div class="mt-5 text-[11px] font-bold uppercase tracking-widest text-cyan-400">Step 2</div>
-        <h3 class="mt-1 text-xl font-bold text-white">Merge the journeys</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-400">One tap merges nearby trips across your day. Choose car, transit, walk or bike — we compute the cleanest route.</p>
+        <h3 class="mt-1 text-xl font-bold text-white">Invite &amp; RSVP</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-400">Send invites via Email or SMS. Toggle events to Public (indexable pages) or Private (secure invite links) and track RSVPs live.</p>
       </div>
       <div class="reveal glass group rounded-3xl p-7 transition duration-300 hover:-translate-y-1 hover:border-violet-400/30" style="transition-delay:.16s">
-        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-violet-400/10 text-2xl ring-1 ring-violet-400/20">🌍</div>
+        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-violet-400/10 text-2xl ring-1 ring-violet-400/20">🌱</div>
         <div class="mt-5 text-[11px] font-bold uppercase tracking-widest text-violet-400">Step 3</div>
-        <h3 class="mt-1 text-xl font-bold text-white">Watch savings land</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-400">Your dashboard instantly shows kg CO₂, dollars and hours saved — and we fund carbon removal with 1% of revenue.</p>
+        <h3 class="mt-1 text-xl font-bold text-white">Optimize &amp; Save</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-400">Use Smart Trip Merge to group your journeys, reclaiming hours and saving money. We show your exact CO₂ impact on the dashboard.</p>
       </div>
     </div>
   </div>
@@ -409,7 +502,7 @@
               <div id="hoursOut" class="mt-1.5 font-display text-3xl font-black text-white">—</div>
             </div>
           </div>
-          <a href="app.html" class="btn-primary mt-1 inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-base font-bold text-white">
+          <a href="/dashboard/" class="btn-primary mt-1 inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-base font-bold text-white">
             Lock in my savings — free
             <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
           </a>
@@ -430,34 +523,63 @@
 
     <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20">
-        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-emerald-400/10 text-xl">📅</div>
-        <h3 class="text-lg font-bold text-white">7×6 smart calendar</h3>
-        <p class="mt-2 text-sm text-slate-400">A beautiful month view that shows events, tasks and merged trips in one glance. Swipeable on mobile.</p>
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-violet-400/10 text-xl">🤖</div>
+        <h3 class="text-lg font-bold text-white">AI Event Assistant</h3>
+        <p class="mt-2 text-sm text-slate-400">Type a natural language prompt and let Llama 3 auto-fill the event details and draft the perfect invite message.</p>
       </div>
       <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20" style="transition-delay:.05s">
-        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-cyan-400/10 text-xl">💡</div>
-        <h3 class="text-lg font-bold text-white">Smart Insights</h3>
-        <p class="mt-2 text-sm text-slate-400">Automatic CO₂ and cost tracking per travel mode — car, transit, EV, walk. See your impact grow.</p>
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-emerald-400/10 text-xl">📅</div>
+        <h3 class="text-lg font-bold text-white">Smart Social Calendar</h3>
+        <p class="mt-2 text-sm text-slate-400">A beautiful month view that shows events and tasks. Swipeable on mobile and built for speed.</p>
       </div>
       <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20" style="transition-delay:.1s">
-        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-violet-400/10 text-xl">🔔</div>
-        <h3 class="text-lg font-bold text-white">Text &amp; email reminders</h3>
-        <p class="mt-2 text-sm text-slate-400">No app required for your guests. Poll for RSVPs, confirm bookings, and nudge the group chat.</p>
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-cyan-400/10 text-xl">🌐</div>
+        <h3 class="text-lg font-bold text-white">Public &amp; Private Pages</h3>
+        <p class="mt-2 text-sm text-slate-400">Create indexable public event pages for the community, or secure private links for your inner circle.</p>
       </div>
       <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20">
-        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-amber-400/10 text-xl">📚</div>
-        <h3 class="text-lg font-bold text-white">Resource booking</h3>
-        <p class="mt-2 text-sm text-slate-400">Book rooms, cars and equipment with built-in conflict detection (409-safe). Perfect for teams.</p>
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-amber-400/10 text-xl">✉️</div>
+        <h3 class="text-lg font-bold text-white">Email, SMS &amp; RSVPs</h3>
+        <p class="mt-2 text-sm text-slate-400">Send invites to anyone (no app needed). Track RSVPs and send reminders automatically based on your tier.</p>
       </div>
       <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20" style="transition-delay:.05s">
-        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-rose-400/10 text-xl">🌐</div>
-        <h3 class="text-lg font-bold text-white">Public events</h3>
-        <p class="mt-2 text-sm text-slate-400">Discover community happenings or publish your own. Grow organically, not through ads.</p>
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-emerald-400/10 text-xl">💡</div>
+        <h3 class="text-lg font-bold text-white">Efficiency Insights</h3>
+        <p class="mt-2 text-sm text-slate-400">Smart Trip Merge groups your journeys. See your exact CO₂, cash, and time savings on the dashboard.</p>
       </div>
       <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20" style="transition-delay:.1s">
-        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-emerald-400/10 text-xl">📲</div>
-        <h3 class="text-lg font-bold text-white">Installable PWA</h3>
-        <p class="mt-2 text-sm text-slate-400">Works offline, installs in one tap, and feels native on iOS and Android. No app store needed.</p>
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-rose-400/10 text-xl">📚</div>
+        <h3 class="text-lg font-bold text-white">Resource Booking</h3>
+        <p class="mt-2 text-sm text-slate-400">Book shared assets like the family car, a meeting room, or kitchen time with built-in conflict detection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== USE CASES ===================== -->
+<section id="use-cases" class="relative px-5 py-24 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <span class="text-xs font-bold uppercase tracking-[.2em] text-amber-400">Built for real life</span>
+      <h2 class="mt-3 font-display text-4xl font-black text-white sm:text-5xl">One calendar, endless use cases.</h2>
+    </div>
+
+    <div class="mt-14 grid gap-6 md:grid-cols-3">
+      <div class="reveal glass rounded-3xl p-8 border-t-4 border-amber-400/50">
+        <div class="text-4xl mb-4">👵</div>
+        <h3 class="text-xl font-bold text-white mb-2">The Family Organizer</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">Grandma wants a reminder for her nephew's birthday. She types "Nephew's birthday next Tuesday" and AI writes a lovely message. DateWizza texts the whole family automatically.</p>
+      </div>
+      <div class="reveal glass rounded-3xl p-8 border-t-4 border-violet-400/50" style="transition-delay:.08s">
+        <div class="text-4xl mb-4">💼</div>
+        <h3 class="text-xl font-bold text-white mb-2">The Team Leader</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">Boss needs to invite the team to a project kickoff. Creates a Private Event, adds 5 employee emails, and tracks RSVPs. Later, updates the time and alerts everyone instantly.</p>
+      </div>
+      <div class="reveal glass rounded-3xl p-8 border-t-4 border-emerald-400/50" style="transition-delay:.16s">
+        <div class="text-4xl mb-4">🎉</div>
+        <h3 class="text-xl font-bold text-white mb-2">The Social Butterfly</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">Planning a weekend trip to Bondi Beach. Toggles the event to Public, shares the link on Instagram, and watches RSVPs roll in from the Community feed.</p>
       </div>
     </div>
   </div>
@@ -493,7 +615,7 @@
           <li class="flex gap-2"><span class="text-emerald-400">✓</span>Email reminders</li>
           <li class="flex gap-2"><span class="text-emerald-400">✓</span>Community events (read)</li>
         </ul>
-        <a href="app.html" class="btn-ghost mt-7 rounded-xl px-5 py-3 text-center text-sm font-bold text-white">Start free</a>
+        <a href="/dashboard/" class="btn-ghost mt-7 rounded-xl px-5 py-3 text-center text-sm font-bold text-white">Start free</a>
       </div>
 
       <!-- Pro -->
@@ -505,7 +627,7 @@
           </div>
           <p class="mt-1 text-sm text-slate-400">For the everyday optimizer.</p>
           <div class="mt-6 flex items-end gap-1">
-            <span id="proPrice" class="font-display text-5xl font-black text-white">$7</span>
+            <span id="proPrice" class="font-display text-5xl font-black text-white">$4</span>
             <span id="proPer" class="pb-1.5 text-sm text-slate-500">/ month</span>
           </div>
           <ul class="mt-6 flex-1 space-y-3 text-sm text-slate-200">
@@ -517,7 +639,7 @@
             <li class="flex gap-2"><span class="text-emerald-400">✓</span>Create public events</li>
             <li class="flex gap-2"><span class="text-emerald-400">✓</span>Up to 5 members</li>
           </ul>
-          <a href="app.html?plan=pro" class="btn-primary mt-7 rounded-xl px-5 py-3 text-center text-sm font-bold text-white">Get Pro</a>
+          <a href="/dashboard/?plan=pro" class="btn-primary mt-7 rounded-xl px-5 py-3 text-center text-sm font-bold text-white">Get Pro</a>
         </div>
       </div>
 
@@ -529,7 +651,7 @@
         </div>
         <p class="mt-1 text-sm text-slate-400">For teams that report on impact.</p>
         <div class="mt-6 flex items-end gap-1">
-          <span id="expertPrice" class="font-display text-5xl font-black text-white">$19</span>
+          <span id="expertPrice" class="font-display text-5xl font-black text-white">$12</span>
           <span id="expertPer" class="pb-1.5 text-sm text-slate-500">/ month</span>
         </div>
         <ul class="mt-6 flex-1 space-y-3 text-sm text-slate-300">
@@ -540,7 +662,7 @@
           <li class="flex gap-2"><span class="text-violet-400">✓</span>SSO &amp; audit logs</li>
           <li class="flex gap-2"><span class="text-violet-400">✓</span>Priority support</li>
         </ul>
-        <a href="app.html?plan=expert" class="btn-ghost mt-7 rounded-xl px-5 py-3 text-center text-sm font-bold text-white">Talk to us</a>
+        <a href="/dashboard/?plan=expert" class="btn-ghost mt-7 rounded-xl px-5 py-3 text-center text-sm font-bold text-white">Talk to us</a>
       </div>
     </div>
   </div>
@@ -604,7 +726,7 @@
       <h2 class="font-display text-4xl font-black text-white sm:text-5xl">Your next date could<br class="hidden sm:block" /> save the planet a little.</h2>
       <p class="mx-auto mt-4 max-w-xl text-slate-400">Join the calendar that turns everyday plans into measurable savings — for your wallet and the world.</p>
       <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <a href="app.html" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-bold text-white">
+        <a href="/dashboard/" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-bold text-white">
           Start free — no card
           <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
         </a>
@@ -615,38 +737,67 @@
 </section>
 
 <!-- ===================== FOOTER ===================== -->
-<footer class="border-t border-white/5 px-5 py-14 lg:px-8">
+
+<footer class="border-t border-white/5 px-5 py-10 lg:px-8 relative z-10 glass">
   <div class="mx-auto max-w-7xl">
+    <!-- Command Centre Status Beacon -->
+    <div class="mb-12 p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-violet-500/10 border border-white/10 backdrop-blur-xl">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="h-3 w-3 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#10b981]"></div>
+          <div>
+            <h3 class="text-white font-bold tracking-wide">The Wizza Hub</h3>
+            <p id="hubStatusText" class="text-xs text-slate-400">Checking system status...</p>
+          </div>
+        </div>
+        <div class="flex gap-6 text-sm">
+          <div class="text-center">
+            <span class="block text-emerald-400 font-bold text-lg">100%</span>
+            <span class="text-slate-500 text-xs uppercase tracking-wider">API Uptime</span>
+          </div>
+          <div class="text-center">
+            <span class="block text-cyan-400 font-bold text-lg">Online</span>
+            <span class="text-slate-500 text-xs uppercase tracking-wider">AI Engine</span>
+          </div>
+          <div class="text-center">
+            <span class="block text-violet-400 font-bold text-lg">Active</span>
+            <span class="text-slate-500 text-xs uppercase tracking-wider">Stripe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid gap-10 md:grid-cols-4">
       <div class="md:col-span-2">
         <a href="/" class="flex items-center gap-2.5">
           <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-emerald-400 via-cyan-400 to-violet-500 text-base">📅</span>
           <span class="font-display text-xl font-black text-white">DateWizza</span>
         </a>
-        <p class="mt-4 max-w-sm text-sm text-slate-400">The calendar that merges your trips, plans your dates, and proves your savings. 1% of revenue funds carbon removal.</p>
-        <p class="mt-6 text-xs text-slate-600">© <span id="year"></span> DateWizza. Built for people who'd rather save than spend.</p>
+        <p class="mt-4 max-w-sm text-sm text-slate-400">The ultimate productivity and social calendar. Plan events, merge trips, and save the planet one date at a time.</p>
+        <p class="mt-6 text-xs text-slate-600">© <span id="year"></span> DateWizza. Built for organizers.</p>
       </div>
       <div>
-        <h4 class="text-sm font-bold text-white">Product</h4>
-        <ul class="mt-3 space-y-2 text-sm text-slate-400">
-          <li><a href="#how" class="hover:text-white">How it works</a></li>
-          <li><a href="#savings" class="hover:text-white">Savings calculator</a></li>
-          <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
-          <li><a href="app.html" class="hover:text-white">Open app</a></li>
+        <h4 class="text-sm font-bold text-white mb-4">Command Centre</h4>
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li><a href="/dashboard/" class="hover:text-emerald-400 transition">📅 Calendar Dashboard</a></li>
+          <li><a href="/dashboard/#community" class="hover:text-emerald-400 transition">🌐 Community Events</a></li>
+          <li><a href="/profile.html" class="hover:text-emerald-400 transition">👤 Profile Settings</a></li>
+          <li><a href="/login/" class="hover:text-emerald-400 transition">🔑 Login / Register</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="text-sm font-bold text-white">Company</h4>
-        <ul class="mt-3 space-y-2 text-sm text-slate-400">
-          <li><a href="#sustainability" class="hover:text-white">Sustainability</a></li>
-          <li><a href="#faq" class="hover:text-white">FAQ</a></li>
-          <li><a href="mailto:hello@datewizza.com" class="hover:text-white">Contact</a></li>
-          <li><a href="/privacy" class="hover:text-white">Privacy</a></li>
+        <h4 class="text-sm font-bold text-white mb-4">Resources</h4>
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li><a href="#sustainability" class="hover:text-emerald-400 transition">🌍 Sustainability</a></li>
+          <li><a href="#pricing" class="hover:text-emerald-400 transition">💳 Pricing & Plans</a></li>
+          <li><a href="mailto:hello@datewizza.com" class="hover:text-emerald-400 transition">✉️ Contact Support</a></li>
+          <li><a href="/privacy/" class="hover:text-emerald-400 transition">🔒 Privacy Policy</a></li>
         </ul>
       </div>
     </div>
   </div>
 </footer>
+
 
 <script>
 (function () {
@@ -695,9 +846,9 @@
   const btnM = document.getElementById('billMonthly');
   const btnY = document.getElementById('billYearly');
   const setBill = (yearly) => {
-    proPrice.textContent = yearly ? '$67' : '$7';
+    proPrice.textContent = yearly ? '$40' : '$4';
     proPer.textContent = yearly ? '/ year' : '/ month';
-    expertPrice.textContent = yearly ? '$190' : '$19';
+    expertPrice.textContent = yearly ? '$120' : '$12';
     expertPer.textContent = yearly ? '/ year' : '/ month';
     btnM.className = 'rounded-full px-5 py-2 text-sm font-bold transition ' + (yearly ? 'text-slate-400' : 'bg-white/10 text-white');
     btnY.className = 'rounded-full px-5 py-2 text-sm font-bold transition ' + (yearly ? 'bg-white/10 text-white' : 'text-slate-400');
@@ -759,5 +910,87 @@
   calc();
 })();
 </script>
+
+<script>
+/* ===== THEME — auto-detect, toggle, persist (shared with dashboard) ===== */
+(function () {
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const KEY = 'datewizza_theme';
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function apply(mode) {
+    const resolved = mode === 'auto' ? (mq.matches ? 'dark' : 'light') : mode;
+    root.setAttribute('data-theme', resolved);
+    root.classList.toggle('dark', resolved === 'dark');
+    if (btn) btn.textContent = resolved === 'dark' ? '🌙' : '☀️';
+  }
+
+  const saved = localStorage.getItem(KEY);
+  apply(saved === 'light' || saved === 'dark' ? saved : 'auto');
+
+  if (btn) {
+    btn.addEventListener('click', function () {
+      const cur = root.getAttribute('data-theme') || 'dark';
+      const next = cur === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(KEY, next);
+      apply(next);
+    });
+  }
+
+  mq.addEventListener('change', (e) => {
+    if (!localStorage.getItem(KEY)) apply('auto');
+  });
+})();
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('authToken');
+  const isLoggedIn = !!token;
+  
+  // Update Hub Status
+  const hubStatus = document.getElementById('hubStatusText');
+  if (hubStatus) {
+    hubStatus.innerHTML = isLoggedIn 
+      ? '<span class="text-emerald-400">User Authenticated</span> — Welcome back to your Command Centre.'
+      : '<span class="text-amber-400">Guest Mode</span> — Log in to access your calendar and AI tools.';
+  }
+
+  if (isLoggedIn) {
+    // Change Nav Login to Dashboard
+    const navLoginBtn = document.getElementById('navLoginBtn');
+    if (navLoginBtn) {
+      navLoginBtn.textContent = 'Dashboard';
+      navLoginBtn.href = '/dashboard/';
+      navLoginBtn.classList.add('text-emerald-400'); // Highlight it
+    }
+    
+    // Change Nav Start Button
+    const navStartBtn = document.getElementById('navStartBtn');
+    if (navStartBtn) {
+      navStartBtn.innerHTML = 'Go to App <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>';
+    }
+    
+    // Change Hero Start Button
+    const heroStartText = document.getElementById('heroStartText');
+    if (heroStartText) {
+      heroStartText.textContent = 'Go to your Dashboard';
+    }
+  }
+});
+</script>
+
 </body>
-</html>
+</html><style>
+  /* Upgrade button text: dark green in light mode */
+  [data-theme="light"] #upgradeBtn {
+    color: #065f46 !important;
+    border-color: #065f46 !important;
+  }
+  [data-theme="light"] #upgradeBtn:hover {
+    background: #065f46 !important;
+    color: #fff !important;
+  }
+</style>

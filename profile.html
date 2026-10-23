@@ -120,6 +120,62 @@
   <link rel="dns-prefetch" href="https://js.stripe.com">
   <script defer src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+
+<!-- Premium Profile Polish -->
+<style>
+  body {
+    background: #05080f !important;
+    color: #f8fafc !important;
+    font-family: 'Inter', sans-serif !important;
+  }
+  .mesh-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+  .mesh-bg .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: .25; }
+  .orb-a { width: 500px; height: 500px; background: #10b981; top: -10%; left: -5%; }
+  .orb-b { width: 600px; height: 600px; background: #8b5cf6; bottom: -15%; right: -10%; }
+  
+  /* Glass Cards */
+  .card, .profile-card, .settings-section, section, .bg-white, .bg-gray-100 {
+    background: rgba(255,255,255,.03) !important;
+    border: 1px solid rgba(255,255,255,.08) !important;
+    backdrop-filter: blur(16px) !important;
+    border-radius: 1.5rem !important;
+    color: #f8fafc !important;
+  }
+
+  /* Inputs */
+  input, textarea, select {
+    background: rgba(255,255,255,.05) !important;
+    border: 1px solid rgba(255,255,255,.1) !important;
+    color: white !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+  }
+
+  /* Buttons */
+  button, .btn {
+    border-radius: 0.75rem !important;
+    font-weight: 600 !important;
+    transition: 0.2s !important;
+  }
+  button.primary, .btn-primary, button[type="submit"] {
+    background: linear-gradient(110deg,#10b981 0%,#059669 45%,#7c3aed 100%) !important;
+    color: white !important;
+    border: none !important;
+  }
+  button.primary:hover, .btn-primary:hover, button[type="submit"]:hover {
+    transform: scale(1.02) !important;
+  }
+
+  /* Typography */
+  h1, h2, h3 { color: white !important; font-family: 'Playfair Display', serif !important; }
+  p, span, label { color: #94a3b8 !important; }
+</style>
+
 </head>
 <body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
 

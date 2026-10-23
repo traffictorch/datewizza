@@ -1,3 +1,16 @@
+
+// ===== AUTH GUARD =====
+(function() {
+  const token = localStorage.getItem('authToken');
+  const isLoginPage = window.location.pathname.includes('login') || window.location.pathname.includes('signup');
+  
+  if (!token && !isLoginPage) {
+    // Redirect to login, preserving ?plan= params
+    const search = window.location.search;
+    window.location.replace('/login/' + search);
+  }
+})();
+
 const API_BASE = 'https://datewizza-auth.traffictorch.workers.dev';
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -184,33 +197,107 @@ function closeSheet(){
 }
 
 async function addEvent(){
-  if(!selectedDay) return;
+  const btn = document.getElementById('addEventBtn');
+  if (btn) { btn.innerHTML = '⏳ Saving...'; btn.disabled = true; }
+
   const title = document.getElementById('newEventTitle').value.trim();
-  if(!title) return;
-  const time = document.getElementById('newEventTime').value || '09:00';
-  const dur = parseInt(document.getElementById('newEventDuration').value) || 60;
-  const [h,min] = time.split(':').map(Number);
-  const dateObj = new Date(selectedDay.y, selectedDay.m, selectedDay.d, h, min);
-  
-  const reminderOffset = parseInt(document.getElementById('newEventReminder').value) || -60;
-  
-  await apiFetch('/api/calendar/events', {
-    method: 'POST',
-    body: JSON.stringify({
-      travel_mode: document.getElementById('addTravelMode')?.value || 'car',
-      distance_km: parseFloat(document.getElementById('addDistance')?.value) || 0,
-      is_public: document.getElementById('newEventPublic')?.checked || false, 
-      title, 
-      start_at: dateObj.getTime(), 
-      duration_min: dur, 
-      color: '#10b981', 
-      calendar_id: state.activeCalendarId,
-      reminders: [{ offset: reminderOffset, channel: 'email' }]
-    })
-  });
-  await loadData(); renderSheetEvents(selectedDay.y, selectedDay.m, selectedDay.d); renderGrid();
-  document.getElementById('newEventTitle').value = '';
+  if (!title) { alert('Please enter an event title.'); if(btn){btn.innerHTML='✨ Save Event'; btn.disabled=false;} return; }
+
+  // Collect Invitees
+  const invitees = Array.from(document.querySelectorAll('.invitee-chip')).map(chip => chip.dataset.email);
+
+  const payload = {
+    title: title,
+    date: new Date(current.getFullYear(), current.getMonth(), selectedDay).getTime(),
+    time: document.getElementById('newEventTime').value || '12:00',
+    duration: parseInt(document.getElementById('newEventDuration').value) || 60,
+    location: document.getElementById('addLocation').value.trim(),
+    notes: document.getElementById('addDescription').value.trim(),
+    is_public: document.getElementById('newEventPublic').checked ? 1 : 0,
+    travel_mode: document.getElementById('addTravelMode').value,
+    distance_km: parseFloat(document.getElementById('addDistance').value) || 0,
+    reminder: document.getElementById('newEventReminder').value,
+    invitees: invitees
+  };
+
+  try {
+    // NOTE: Assuming your backend calendar.js expects these fields
+    const res = await apiFetch('/api/calendar/events?calendar_id=' + state.activeCalendarId, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+
+    if (res.error) throw new Error(res.error);
+
+    // Reset form
+    document.getElementById('newEventTitle').value = '';
+    document.getElementById('addLocation').value = '';
+    document.getElementById('addDescription').value = '';
+    document.getElementById('addDistance').value = '';
+    document.getElementById('newEventPublic').checked = false;
+    document.getElementById('inviteeChips').innerHTML = '';
+    
+    // Close sheet & refresh
+    closeSheet();
+    await loadData();
+    renderGrid();
+    loadSavingsWidget(); // Refresh efficiency widget
+
+  } catch (err) {
+    alert('Failed to create event: ' + err.message);
+  } finally {
+    if (btn) { btn.innerHTML = '✨ Save Event'; btn.disabled = false; }
+  }
 }
+
+// ===== INVITEES CHIP LOGIC =====
+document.getElementById('addInviteeBtn')?.addEventListener('click', () => {
+  const input = document.getElementById('addInviteesInput');
+  const val = input.value.trim();
+  if (!val) return;
+  
+  // Simple validation for email or phone
+  const isEmail = val.includes('@');
+  const isPhone = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/.test(val);
+  
+  if (!isEmail && !isPhone) {
+    alert('Please enter a valid email or phone number.');
+    return;
+  }
+
+  const chips = document.getElementById('inviteeChips');
+  const chip = document.createElement('div');
+  chip.className = 'invitee-chip flex items-center gap-1 bg-violet-500/20 text-violet-600 dark:text-violet-300 px-2 py-1 rounded-md text-xs font-bold';
+  chip.dataset.email = val;
+  chip.innerHTML = `${val} <button class="hover:text-red-500 font-black ml-1">&times;</button>`;
+  
+  chip.querySelector('button').onclick = () => chip.remove();
+  
+  chips.appendChild(chip);
+  input.value = '';
+});
+
+// ===== AI DRAFT LOGIC =====
+document.getElementById('aiDraftBtn')?.addEventListener('click', async () => {
+  const title = document.getElementById('newEventTitle').value.trim();
+  const textarea = document.getElementById('addDescription');
+  if (!title) { alert('Please enter an event title first so the AI knows what to write about.'); return; }
+  
+  const originalText = document.getElementById('aiDraftBtn').innerHTML;
+  document.getElementById('aiDraftBtn').innerHTML = '⏳ Thinking...';
+  
+  try {
+    // Placeholder for backend AI endpoint. If you have /api/ai/generate, swap the URL.
+    setTimeout(() => {
+      textarea.value = `Hey everyone! 👋\n\nJust a quick reminder about ${title}. We'd love to see you there!\n\nLet me know if you can make it.`;
+      document.getElementById('aiDraftBtn').innerHTML = originalText;
+    }, 800);
+  } catch (e) {
+    alert('AI Draft failed.');
+    document.getElementById('aiDraftBtn').innerHTML = originalText;
+  }
+});
+
 
 async function addTask(){
   if(!selectedDay) return;
@@ -450,45 +537,249 @@ async function loadPublicEvents() {
 
 function handleHash(){
   // Inject Stripe Upgrade Button
-  setTimeout(() => {
-    if (!document.getElementById('upgradeBtn')) {
-      const sidebar = document.querySelector('aside') || document.querySelector('.sidebar') || document.body;
-      const btn = document.createElement('button');
-      btn.id = 'upgradeBtn';
-      btn.innerHTML = '✨ Upgrade to Pro';
-      btn.className = 'mt-4 w-full bg-gradient-to-r from-amber-400 to-orange-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:scale-105 transition-transform';
-      btn.onclick = async () => {
-        try {
-          btn.innerHTML = 'Loading...';
-          const token = getToken();
-          const res = await fetch('https://api.datewizza.com/api/upgrade', {
-            method: 'POST',
-            headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ plan: 'pro_yearly' })
-          });
-          const data = await res.json();
-          if (data.clientSecret) {
-            // If you have Stripe.js loaded, it would mount here. 
-            // For now, alert the secret to prove the backend works.
-            alert('Stripe Session Created! Client Secret: ' + data.clientSecret.substring(0, 20) + '...');
-          } else {
-            alert('Error: ' + (data.error || 'Unknown'));
-          }
-        } catch(e) { alert('Fetch failed'); }
+  if (!document.getElementById('upgradeBtn')) {
+    
+  // Load Stripe.js if not already present
+  if (!window.Stripe) {
+    const script = document.createElement('script');
+    script.src = 'https://js.stripe.com/v3/';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
+
+    const btn = document.createElement('button');
+    btn.id = 'upgradeBtn';
+    // FIX: text-slate-900 for dark text in light mode, text-white for dark mode
+    btn.className = 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 dark:text-white font-bold py-1 px-3 rounded-full text-xs ml-2 shadow-lg hover:scale-105 transition';
+    btn.innerHTML = '✨ Upgrade to Pro';
+    document.querySelector('header .header-right, header > div:last-child')?.appendChild(btn) || document.querySelector('header')?.appendChild(btn);
+
+    btn.onclick = () => {
+      // 1. Show Plan Selector
+      const planModal = document.createElement('div');
+      planModal.id = 'planSelectorModal';
+      planModal.style.cssText = `
+        position: fixed; inset: 0; z-index: 9998;
+        background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+        display: flex; align-items: center; justify-content: center;
+        padding: 1rem;
+      `;
+      planModal.innerHTML = `
+        <div style="background: #fff; border-radius: 1rem; max-width: 420px; width: 100%; padding: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; text-align: center; color: #0f172a;">Choose your plan</h2>
+          <p style="font-size: 0.875rem; color: #64748b; text-align: center; margin-bottom: 1.5rem;">Upgrade to save more time, money, and CO₂.</p>
+          
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <button class="plan-opt" data-plan="pro_6month" style="padding: 1rem; border: 2px solid #e2e8f0; border-radius: 0.75rem; background: #f8fafc; cursor: pointer; text-align: left; transition: 0.2s;">
+              <div style="font-weight: 700; color: #0f172a;">Pro (6-Month)</div>
+              <div style="font-size: 0.875rem; color: #64748b;">$24 billed every 6 months</div>
+            </button>
+            <button class="plan-opt" data-plan="pro_yearly" style="padding: 1rem; border: 2px solid #e2e8f0; border-radius: 0.75rem; background: #f8fafc; cursor: pointer; text-align: left; transition: 0.2s;">
+              <div style="font-weight: 700; color: #0f172a;">Pro (Yearly) <span style="background: #10b981; color: white; font-size: 0.65rem; padding: 0.1rem 0.4rem; border-radius: 9999px; margin-left: 0.5rem;">Save 30%</span></div>
+              <div style="font-size: 0.875rem; color: #64748b;">$40 billed yearly</div>
+            </button>
+            <button class="plan-opt" data-plan="pro_lifetime" style="padding: 1rem; border: 2px solid #e2e8f0; border-radius: 0.75rem; background: #f8fafc; cursor: pointer; text-align: left; transition: 0.2s;">
+              <div style="font-weight: 700; color: #0f172a;">Pro (Lifetime)</div>
+              <div style="font-size: 0.875rem; color: #64748b;">$120 one-time payment</div>
+            </button>
+            <button class="plan-opt" data-plan="enterprise_monthly" style="padding: 1rem; border: 2px solid #e2e8f0; border-radius: 0.75rem; background: #f8fafc; cursor: pointer; text-align: left; transition: 0.2s;">
+              <div style="font-weight: 700; color: #0f172a;">Expert (Monthly)</div>
+              <div style="font-size: 0.875rem; color: #64748b;">$12 billed monthly</div>
+            </button>
+            <button class="plan-opt" data-plan="enterprise_yearly" style="padding: 1rem; border: 2px solid #e2e8f0; border-radius: 0.75rem; background: #f8fafc; cursor: pointer; text-align: left; transition: 0.2s;">
+              <div style="font-weight: 700; color: #0f172a;">Expert (Yearly)</div>
+              <div style="font-size: 0.875rem; color: #64748b;">$120 billed yearly</div>
+            </button>
+          </div>
+          
+          <button id="closePlanModal" style="margin-top: 1.5rem; width: 100%; padding: 0.75rem; background: transparent; border: none; color: #64748b; font-weight: 600; cursor: pointer;">Cancel</button>
+        </div>
+      `;
+      document.body.appendChild(planModal);
+
+      document.getElementById('closePlanModal').onclick = () => planModal.remove();
+
+      // 2. Handle Plan Selection
+      document.querySelectorAll('.plan-opt').forEach(opt => {
+        opt.onmouseenter = () => { opt.style.borderColor = '#10b981'; opt.style.background = '#ecfdf5'; };
+        opt.onmouseleave = () => { opt.style.borderColor = '#e2e8f0'; opt.style.background = '#f8fafc'; };
+        
+        opt.onclick = async () => {
+          planModal.remove();
+          const plan = opt.dataset.plan;
+          await startCheckout(plan, btn);
+        };
+      });
+    };
+    
+    // 3. The Checkout Function
+    async function startCheckout(plan, btn) {
+      btn.innerHTML = '⏳ Loading...';
+      btn.disabled = true;
+      
+      try {
+        const res = await fetch('https://api.datewizza.com/api/upgrade', {
+          method: 'POST',
+          headers: { 
+            'Authorization': 'Bearer ' + getToken(),
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ plan: plan })
+        });
+        const data = await res.json();
+        
+        if (data.error) {
+          alert('Upgrade failed: ' + data.error);
+          btn.innerHTML = '✨ Upgrade to Pro';
+          btn.disabled = false;
+          return;
+        }
+
+        if (data.clientSecret) {
+          // Mount Stripe Embedded Checkout in a modal
+          const modal = document.createElement('div');
+          modal.id = 'stripeCheckoutModal';
+          modal.style.cssText = `
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem;
+          `;
+          modal.innerHTML = `
+            <div style="position: relative; background: #fff; border-radius: 1rem; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+              <button id="closeCheckoutModal" style="position: absolute; top: 0.75rem; right: 0.75rem; z-index: 10; background: rgba(0,0,0,0.1); border: none; border-radius: 9999px; width: 2rem; height: 2rem; cursor: pointer; font-size: 1.25rem; display: flex; align-items: center; justify-content: center;">✕</button>
+              <div id="checkout-container" style="padding: 1rem;"></div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+
+          document.getElementById('closeCheckoutModal').onclick = () => {
+            modal.remove();
+            btn.innerHTML = '✨ Upgrade to Pro';
+            btn.disabled = false;
+          };
+
+          // Initialize Stripe Embedded Checkout
+          const initStripe = async () => {
+            if (window.Stripe) {
+              const stripe = Stripe('pk_live_51UTT391v9AW4q34J8raxszcqwSZGvOehAzGwQUmrJ7MNTy8kNZqQb52h2lLx4GR2zFGcFCrz1aWJLvCbv6QlFCNF00fmqR45kD');
+              const checkout = await stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret });
+              checkout.mount('#checkout-container');
+            } else {
+              setTimeout(initStripe, 100);
+            }
+          };
+          initStripe();
+
+        } else {
+          alert('Upgrade failed: no client secret returned.');
+          btn.innerHTML = '✨ Upgrade to Pro';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
         btn.innerHTML = '✨ Upgrade to Pro';
-      };
-      sidebar.appendChild(btn);
+        btn.disabled = false;
+      }
     }
-  }, 500);
+  }
 
   const h = (location.hash || '#calendar').replace('#','');
   activateTab(h);
 }
 
+
+
+// ===== EMPTY STATE LOGIC =====
+function checkEmptyState() {
+  const grid = document.querySelector('.calendar-grid');
+  if (!grid) return;
+  
+  // Check if there are any events rendered in the grid
+  const hasEvents = document.querySelector('.event-pill') !== null;
+  const existingEmptyState = document.getElementById('globalEmptyState');
+  
+  if (!hasEvents && !existingEmptyState) {
+    // Inject Empty State Overlay
+    const overlay = document.createElement('div');
+    overlay.id = 'globalEmptyState';
+    overlay.className = 'absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-2xl transition-opacity duration-500';
+    overlay.innerHTML = `
+      <div class="text-6xl mb-4 animate-bounce">📅</div>
+      <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-2 font-display">Your calendar is empty</h2>
+      <p class="text-sm text-slate-500 mb-6 max-w-xs text-center">Plan your first date, task, or trip merge to start saving time, money, and CO₂.</p>
+      <button onclick="document.querySelector('.day-cell.today')?.click()" class="btn-primary px-8 py-3 rounded-full font-bold text-white shadow-glow flex items-center gap-2">
+        ✨ Create your first date
+      </button>
+    `;
+    
+    // Make sure the calendar wrapper is relative
+    const wrapper = document.querySelector('.calendar-wrapper') || grid.parentElement;
+    wrapper.style.position = 'relative';
+    wrapper.appendChild(overlay);
+    
+  } else if (hasEvents && existingEmptyState) {
+    // Remove empty state if events exist
+    existingEmptyState.remove();
+  }
+}
+
+// ===== TRIP MERGE SAVINGS WIDGET =====
+function injectSavingsWidget() {
+  if (document.getElementById('savingsWidget')) return;
+  const container = document.querySelector('main') || document.body;
+  
+  const widget = document.createElement('div');
+  widget.id = 'savingsWidget';
+  widget.className = 'flex mx-4 mt-2 mb-1 p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-violet-500/10 border border-emerald-500/20 backdrop-blur-md flex justify-between items-center shadow-lg transition-all duration-300';
+  widget.innerHTML = `
+    <div class="flex items-center gap-3">
+      <div class="text-3xl drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">⚡</div>
+      <div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-emerald-500">Monthly Efficiency</div>
+        <div class="text-xl font-black text-slate-900 dark:text-white" id="widgetCo2">0 kg CO₂</div>
+        <div class="text-[10px] font-medium text-slate-500">carbon footprint avoided</div>
+      </div>
+    </div>
+    <div class="text-right">
+      <div class="text-sm font-bold text-slate-900 dark:text-white" id="widgetEur">€0.00 saved</div>
+      <div class="text-sm font-bold text-emerald-600 dark:text-emerald-400" id="widgetKm">0 km optimized</div>
+    </div>
+  `;
+  // Insert at top of main content
+  const main = document.querySelector('main');
+  if (main) {
+    main.insertBefore(widget, main.firstChild);
+  }
+}
+
+async function loadSavingsWidget() {
+  if (!getToken() || !state.activeCalendarId) return;
+  try {
+    const data = await apiFetch('/api/calendar/insights?calendar_id=' + state.activeCalendarId);
+    const sv = data.savings || { co2Kg: 0, eur: 0, km: 0 };
+    const w = document.getElementById('savingsWidget');
+    
+    if (w) {
+      // Always show the widget on the dashboard, even if 0
+      w.classList.remove('hidden');
+      document.getElementById('widgetCo2').textContent = (sv.co2Kg || 0).toFixed(1) + ' kg CO₂';
+      document.getElementById('widgetEur').textContent = '€' + (sv.eur || 0).toFixed(2);
+      document.getElementById('widgetKm').textContent = (sv.km || 0).toFixed(1) + ' km';
+    }
+  } catch (e) {
+    console.error("Savings widget error:", e);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+  injectSavingsWidget();
   await loadData();
   renderWeekdayRow();
   renderGrid();
+  loadSavingsWidget();
+  setTimeout(checkEmptyState, 100);
   document.getElementById('prevMonth').addEventListener('click', () => { current.setMonth(current.getMonth()-1); renderGrid(); });
   document.getElementById('nextMonth').addEventListener('click', () => { current.setMonth(current.getMonth()+1); renderGrid(); });
   document.getElementById('closeSheet').addEventListener('click', closeSheet);
@@ -550,26 +841,10 @@ window.scheduleMemo = (title) => {
   document.getElementById('newEventTime').focus();
 };
 
-// Override activateTab to load memos when clicked
-const originalActivateTab = activateTab;
-window.activateTab = async (name) => {
-  await originalActivateTab(name);
-  if (name === 'memos') loadMemos();
-};
+
 
 // Theme & Menu logic (Replacing main.js)
-document.getElementById('themeToggle').addEventListener('click', () => {
-  const isDark = document.documentElement.classList.contains('dark');
-  if (isDark) {
-    document.documentElement.classList.remove('dark');
-    localStorage.setItem('theme', 'light');
-    document.getElementById('themeToggle').textContent = '🌙';
-  } else {
-    document.documentElement.classList.add('dark');
-    localStorage.setItem('theme', 'dark');
-    document.getElementById('themeToggle').textContent = '☀️';
-  }
-});
+
 
 // Ensure hash routing works with the new static sidebar links
 window.addEventListener('hashchange', () => {
@@ -712,3 +987,125 @@ window.activateTab = async (name) => {
   await originalActivateTabResources(name);
   if (name === 'resources') loadResources();
 };
+
+
+// ===== FUNNEL: Handle ?plan= params =====
+setTimeout(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const plan = urlParams.get('plan');
+  if (plan) {
+    const token = getToken();
+    if (!token) {
+      // Not logged in? Send to login, preserving the intent
+      window.location.href = '/login/?plan=' + plan;
+      return;
+    }
+    // Logged in? Trigger upgrade automatically
+    const btn = document.getElementById('upgradeBtn');
+    if (btn) {
+      if (plan === 'expert') {
+        startCheckout('enterprise_monthly', btn);
+      } else if (plan === 'pro') {
+        // Show the plan selector modal by default
+        btn.click();
+      } else if (['pro_6month', 'pro_yearly', 'pro_lifetime', 'enterprise_monthly', 'enterprise_yearly'].includes(plan)) {
+        startCheckout(plan, btn);
+      } else {
+        btn.click();
+      }
+    }
+  }
+}, 600);
+
+
+// ===== MAGIC AUTO-FILL & AI DRAFT LOGIC =====
+
+// 1. Magic Auto-fill
+document.getElementById('magicPromptBtn')?.addEventListener('click', () => {
+  const prompt = document.getElementById('magicPromptInput').value.trim();
+  if (!prompt) return;
+
+  const btn = document.getElementById('magicPromptBtn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '⏳ Parsing...';
+
+  // Simulate AI parsing delay
+  setTimeout(() => {
+    // Extract Location (look for "at [location]" or "in [location]")
+    let location = '';
+    const locMatch = prompt.match(/\b(?:at|in)\s+([^.,]+)/i);
+    if (locMatch) location = locMatch[1].trim();
+
+    // Extract Title (look for "invite to [title]" or "for [title]")
+    let title = '';
+    const titleMatch = prompt.match(/(?:invite\s+(?:to|for)|write\s+(?:an\s+)?invite\s+to)\s+([^.,]+?)(?:\s+on|\s+at|$)/i);
+    if (titleMatch) {
+      title = titleMatch[1].trim();
+      // Capitalize first letter
+      title = title.charAt(0).toUpperCase() + title.slice(1);
+    }
+
+    // Populate fields
+    if (title) document.getElementById('newEventTitle').value = title;
+    if (location) document.getElementById('addLocation').value = location;
+
+    // Generate Description
+    const desc = `Hey everyone! 👋\n\nYou're invited to ${title || 'our event'}!\n\n📍 Location: ${location || 'TBD'}\n\nLet me know if you can make it. Looking forward to seeing you there!`;
+    document.getElementById('addDescription').value = desc;
+
+    btn.innerHTML = '✅ Filled!';
+    setTimeout(() => btn.innerHTML = originalText, 2000);
+  }, 800);
+});
+
+// 2. AI Assistant Draft (Reads the form fields)
+document.getElementById('aiDraftBtn')?.addEventListener('click', () => {
+  const title = document.getElementById('newEventTitle').value.trim();
+  const location = document.getElementById('addLocation').value.trim();
+  const time = document.getElementById('newEventTime').value;
+  
+  if (!title) { alert('Please enter a title first.'); return; }
+
+  const btn = document.getElementById('aiDraftBtn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '⏳ Writing...';
+
+  setTimeout(() => {
+    // Check for themes to change the tone
+    let tone = "Hey everyone! 👋";
+    if (title.toLowerCase().includes('birthday')) tone = "🎉 You're invited to a birthday celebration!";
+    if (title.toLowerCase().includes('wedding')) tone = "💍 Join us for a beautiful wedding!";
+    if (title.toLowerCase().includes('meeting') || title.toLowerCase().includes('work')) tone = "Hi team,";
+
+    const desc = `${tone}\n\nJust a reminder about ${title}.\n\n📍 Where: ${location || 'TBD'}\n⏰ When: ${time || 'TBD'}\n\nPlease RSVP so we can plan accordingly.`;
+    
+    document.getElementById('addDescription').value = desc;
+    btn.innerHTML = originalText;
+  }, 1000);
+});
+
+
+// ===== MOBILE SWIPE =====
+let touchStartX = 0;
+let touchEndX = 0;
+document.addEventListener('DOMContentLoaded', () => {
+  const wrapper = document.querySelector('.calendar-grid') || document.querySelector('main');
+  if (wrapper) {
+    wrapper.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+    wrapper.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) { current.setMonth(current.getMonth() + 1); renderGrid(); } // Swipe left
+      if (touchEndX > touchStartX + 50) { current.setMonth(current.getMonth() - 1); renderGrid(); } // Swipe right
+    }, {passive: true});
+  }
+});
+
+
+// Listen for tab switches from main.js
+document.addEventListener('switchTab', (e) => {
+  const tab = e.detail.tab;
+  if (tab === 'memos' && typeof loadMemos === 'function') loadMemos();
+  if (tab === 'tasks' && typeof loadTasks === 'function') loadTasks();
+  if (tab === 'calendars' && typeof loadCalendars === 'function') loadCalendars();
+  if (tab === 'insights' && typeof loadInsights === 'function') loadInsights();
+});

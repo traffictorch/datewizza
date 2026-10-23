@@ -152,6 +152,45 @@ export async function handleCalendarRequest(request, env, url) {
       ).bind(meta.last_row_id, r.offset, r.channel || 'email').run();
     }
     
+    
+    // ===== MAILCHANNELS INVITE LOGIC =====
+    if (body.invitees && body.invitees.length > 0) {
+      const emailPromises = body.invitees.map(email => {
+        // Ignore phone numbers for now (needs Twilio), only send to valid emails
+        if (!email.includes('@')) return Promise.resolve(); 
+
+        const emailPayload = {
+          personalizations: [{ to: [{ email: email }] }],
+          from: { email: "hello@datewizza.com", name: "DateWizza" },
+          subject: `You're invited: ${body.title || 'New Event'}`,
+          content: [{
+            type: "text/html",
+            value: `
+              <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+                <h2 style="color: #10b981;">✨ You're invited!</h2>
+                <h3>${body.title}</h3>
+                <p><strong>When:</strong> ${new Date(body.date).toLocaleString()}</p>
+                ${body.location ? `<p><strong>Where:</strong> ${body.location}</p>` : ''}
+                ${body.notes ? `<p><strong>Details:</strong><br/>${body.notes}</p>` : ''}
+                <br/>
+                <a href="https://datewizza.com/e/${meta.last_row_id}" style="background: #10b981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">View Event Page</a>
+              </div>
+            `
+          }]
+        };
+
+        return fetch('https://api.mailchannels.net/tx/v1/send', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(emailPayload)
+        });
+      });
+
+      // Fire and forget (don't block the response)
+      Promise.all(emailPromises).catch(err => console.error('Mailer error:', err));
+    }
+    // ===== END MAILCHANNELS =====
+
     return json({ id: meta.last_row_id, ...body }, 201);
   }
 

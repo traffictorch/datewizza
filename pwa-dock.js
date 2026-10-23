@@ -11,15 +11,12 @@
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
 
-  const TOOLS = [
-    { em: '🗼', nm: 'Lighthouse+', ds: '10-module audit', url: '/lighthouse-plus-tool/' },
-    { em: '🚀', nm: 'AEO Perf',    ds: 'AI crawler view', url: '/aeo-performance-tool/' },
-    { em: '⚜️', nm: 'Topical',     ds: 'Authority map',   url: '/topical-authority-audit-tool/' },
-    { em: '🧬', nm: 'Entity',      ds: 'Semantic extract',url: '/seo-entity-extractor-tool/' },
-    { em: '🎯', nm: 'Intent',      ds: 'Search intent',   url: '/seo-intent-tool/' },
-    { em: '🔍', nm: 'AEO Audit',   ds: 'AI search opt',   url: '/ai-search-optimization-tool/' },
-    { em: '🎙️', nm: 'Voice',       ds: 'Voice SEO',       url: '/ai-voice-search-tool/' },
-    { em: '📋', nm: 'Guides',      ds: 'Help library',    url: '/ai-ux-seo-help-guides/' },
+    const TOOLS = [
+    { em: '📅', nm: 'Calendar',   ds: 'Schedule',   url: '/dashboard/#calendar' },
+    { em: '✅', nm: 'Tasks',      ds: 'To-do',      url: '/dashboard/#tasks' },
+    { em: '🌐', nm: 'Community',  ds: 'Events',     url: '/dashboard/#community' },
+    { em: '🔑', nm: 'Resources',  ds: 'Bookings',   url: '/dashboard/#resources' },
+    { em: '👤', nm: 'Profile',    ds: 'Settings',   url: '/profile.html' },
   ];
 
   const LS_RECENT = 'tt-recent-tools';

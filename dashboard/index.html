@@ -2,157 +2,152 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Calendar · DateWizza</title>
-  <link rel="icon" href="/favicon.ico">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="preload" as="style" href="/tailwind-local.css" onload="this.onload=null;this.rel='stylesheet';document.documentElement.style.visibility='visible';document.documentElement.style.opacity='1'">
-  <link rel="preload" as="style" href="/style.css" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <style>html{visibility:visible;opacity:1}</style>
-    <link rel="stylesheet" href="/tailwind-local.css">
-    <link rel="stylesheet" href="/style.css">
-  </noscript>
-  <style>
-    html{visibility:hidden;opacity:0;transition:opacity 0.4s ease}
-    :root{--dw-emerald:#10b981;--dw-emerald-2:#34d399;--dw-blue:#3b82f6;--dw-blue-2:#60a5fa}
-    
-    body { height: 100vh; height: 100dvh; overflow: hidden; margin: 0; }
-    #app-layout { height: 100%; display: flex; }
-    main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    
-    #weekdayRow, #calendarGrid {
-      display: grid !important;
-      grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
-      width: 100% !important;
-    }
-    #calendarGrid {
-      flex: 1;
-      grid-template-rows: repeat(6, minmax(80px, 1fr));
-      gap: 4px;
-      padding-bottom: 1rem;
-      overflow-y: auto;
-    }
-    .dw-day-cell {
-      min-height: 80px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      border-radius: 0.5rem;
-    }
-    .dw-day-cell.dw-today { border-color: var(--dw-emerald); background: rgba(16,185,129,0.1); }
-    .dw-day-cell.dw-other { opacity: 0.3; pointer-events: none; }
-    
-    .dw-event-pill{font-size:0.66rem;line-height:1.2;padding:0.15rem 0.35rem;border-radius:5px;background:rgba(16,185,129,0.14);border-left:2px solid var(--dw-emerald);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:1px}
-    .dw-task-pill{background:rgba(59,130,246,0.14);border-left-color:var(--dw-blue)}
-    .dw-task-pill.done{text-decoration:line-through;opacity:0.55}
-    .dw-btn-primary{background:linear-gradient(135deg,var(--dw-emerald),var(--dw-blue));color:white;font-weight:700;border-radius:0.75rem;padding:0.6rem 1.2rem;transition:transform .15s, box-shadow .15s;box-shadow:0 4px 12px -4px rgba(16,185,129,0.4)}
-    .dw-btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 20px -6px rgba(16,185,129,0.6)}
-    
-    .dw-sheet{position:fixed;top:0;left:0;right:0;bottom:0;max-width:640px;margin:0 auto;background:white;border-radius:2rem 2rem 0 0;transform:translateY(100%);transition:transform .35s cubic-bezier(0.16,1,0.3,1);z-index:1001;display:flex;flex-direction:column;max-height:92vh;overflow:hidden}
-    .dark .dw-sheet{background:#0a0f14}
-    .dw-sheet.open{transform:translateY(0)}
-    .dw-sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:1000;opacity:0;visibility:hidden;transition:opacity .3s, visibility .3s}
-    .dw-sheet-overlay.open{opacity:1;visibility:visible}
-    .dw-tab-panel{display:none}
-    .dw-tab-panel.active{display:flex; flex-direction:column; flex: 1; overflow: hidden;}
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Dashboard · DateWizza</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    (function(){var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&d))document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();
+    tailwind.config = { darkMode: 'class' }
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
   </script>
-    <meta property="og:image" content="https://datewizza.com/images/date-wizza-1200w.webp" />
-    <meta name="twitter:image" content="https://datewizza.com/images/date-wizza-1200w.webp" />
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/logo-192.png">
+  <style>
+    /* Premium Glassmorphism */
+    aside, header {
+      background-color: rgba(255, 255, 255, 0.75) !important;
+      backdrop-filter: blur(24px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+      border-right: 1px solid rgba(0, 0, 0, 0.05) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    }
+    .dark aside, .dark header {
+      background-color: rgba(15, 23, 42, 0.75) !important;
+      border-color: rgba(255, 255, 255, 0.05) !important;
+    }
+    .day-cell { background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.05); transition: all 0.2s; }
+    .dark .day-cell { background: rgba(30,41,59,0.5); border: 1px solid rgba(255,255,255,0.05); }
+    .day-cell:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.5); }
+    
+    /* Bottom Sheet */
+    #daySheet {
+      position: fixed; bottom: 0; left: 0; right: 0; max-width: 600px; margin: 0 auto; height: 90vh;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(30px);
+      border-radius: 24px 24px 0 0; border-top: 1px solid rgba(255,255,255,0.5);
+      transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
+      z-index: 2000; display: flex; flex-direction: column;
+    }
+    .dark #daySheet { background: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(255,255,255,0.1); }
+    #daySheet.open { transform: translateY(0); }
+    #daySheetOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1999; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    #daySheetOverlay.open { opacity: 1; pointer-events: auto; }
+  </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100" data-sidebar-start="collapsed">
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col overflow-hidden">
 
-  <div id="app-layout">
-    <!-- Static Sidebar (No main.js needed) -->
-    <aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 overflow-y-auto h-screen flex-col flex-shrink-0">
-      <header class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+  <div class="flex flex-1 min-h-screen">
+    
+    <!-- Sidebar -->
+    <aside id="desktopSidebar" class="hidden md:flex w-64 transition-all duration-300 overflow-y-auto sticky top-0 h-screen flex-col self-start z-50">
+      <div class="flex items-center justify-center p-6 border-b border-black/5 dark:border-white/5">
         <a href="/" class="flex items-center gap-4">
-          <img src="/logo-160w.webp" alt="DateWizza" class="w-10 rounded-xl" width="40" height="40">
-          <span class="text-[1.25rem] font-black bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">DateWizza</span>
+          <img src="/logo-192.webp" alt="DateWizza" class="w-10 rounded-xl flex-shrink-0">
+          <span class="text-[1.25rem] font-black bg-gradient-to-r from-emerald-400 to-cyan-500 bg-clip-text text-transparent hidden md:block">DateWizza</span>
         </a>
-      </header>
-      <nav class="p-2 space-y-1 flex-1 overflow-y-auto">
-        <a href="#calendar" class="flex items-center gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition"><span class="text-xl">📅</span> Calendar</a>
-        <a href="#tasks" class="flex items-center gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition"><span class="text-xl">✅</span> Tasks</a>
-        <a href="#memos" class="flex items-center gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition"><span class="text-xl">📝</span> Memos</a>
-        <a href="#calendars" class="flex items-center gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition"><span class="text-xl">📚</span> Calendars</a>
-        <a href="#insights" class="flex items-center gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition"><span class="text-xl">📊</span> Insights</a>
-        <a href="#community" class="flex items-center gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition"><span class="text-xl">🌐</span> Community</a>
-        <a href="#resources" class="flex items-center gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition"><span class="text-xl">🔑</span> Resources</a>
-
-      </nav>
+      </div>
+      <div id="desktop-menu-placeholder" class="flex-1 p-4"></div>
     </aside>
 
-    <div class="flex-1 flex flex-col min-w-0">
-      <header class="bg-white/70 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5 flex-shrink-0">
-        <div class="px-4 py-3 flex justify-between items-center">
-          <a href="/" class="flex items-center gap-3 md:hidden">
-            <img src="/logo-100w.webp" alt="DateWizza" class="w-9 rounded-xl" width="36" height="36">
-            <p class="text-lg font-black bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">DateWizza</p>
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-h-screen">
+      
+      <!-- Header -->
+      <header class="sticky top-0 z-40 w-full">
+        <div class="px-6 py-4 flex justify-between items-center">
+          <a href="/" class="flex items-center gap-4 md:hidden">
+            <img src="/logo-192.webp" alt="DateWizza" class="w-8 rounded-lg">
+            <span class="text-[1rem] font-black bg-gradient-to-r from-emerald-400 to-cyan-500 bg-clip-text text-transparent">DateWizza</span>
           </a>
-          <button id="menuToggle" class="md:hidden text-3xl text-gray-500">☰</button>
-          <button id="themeToggle" class="ml-auto py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl">🌙</button>
+          
+          <div class="flex items-center gap-3 ml-auto">
+            <button id="upgradeBtn" class="bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 dark:text-white font-bold py-1.5 px-3 rounded-full text-xs shadow-lg hover:scale-105 transition">✨ Upgrade</button>
+            <button id="themeToggle" class="py-1 px-2 bg-black/5 dark:bg-white/10 rounded-full hover:bg-black/10 dark:hover:bg-white/20 transition text-xl">🌙</button>
+            <button id="menuToggle" class="md:hidden text-3xl text-gray-500">☰</button>
+          </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-black/5 dark:border-white/10 absolute w-full">
+          <div id="mobile-menu-placeholder"></div>
         </div>
       </header>
 
-      <main id="main-content" class="flex-1 overflow-hidden p-3 flex flex-col">
+      <!-- App Views (Tabs) -->
+      <main class="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col relative">
         
-        <section id="tab-calendar" class="dw-tab-panel active">
-          <div class="flex items-center justify-between mb-2 flex-shrink-0">
-            <button id="prevMonth" class="text-3xl px-3 py-1 text-gray-500 hover:text-emerald-500 rounded-lg">‹</button>
-            <h1 id="monthLabel" class="text-xl md:text-2xl font-black text-gray-800 dark:text-gray-100">Month</h1>
-            <div class="flex items-center gap-4">
-              <button onclick="window.openFindTime()" class="dw-btn-primary text-sm hidden md:block">🔍 Find a Time</button>
-              <button id="nextMonth" class="text-3xl px-3 py-1 text-gray-500 hover:text-emerald-500 rounded-lg">›</button>
+        <!-- CALENDAR TAB -->
+        <section id="tab-calendar" class="dw-tab-panel w-full flex-1 flex flex-col">
+          <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-black">Calendar</h1>
+            <button onclick="document.getElementById('findTimeModal').classList.replace('hidden','flex')" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-lg transition">Find a Time</button>
+          </div>
+          <div id="savingsWidget" class="mb-4 p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-violet-500/10 border border-emerald-500/20 flex justify-between items-center backdrop-blur-md">
+            <div class="flex items-center gap-3">
+              <div class="text-3xl">⚡</div>
+              <div>
+                <div class="text-[10px] font-bold uppercase tracking-widest text-emerald-500">Monthly Efficiency</div>
+                <div class="text-xl font-black" id="widgetCo2">0.0 kg CO₂</div>
+                <div class="text-[10px] font-medium text-slate-500">carbon footprint avoided</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-sm font-bold" id="widgetEur">€0.00 saved</div>
+              <div class="text-sm font-bold text-emerald-600" id="widgetKm">0 km optimized</div>
             </div>
           </div>
-          <div id="weekdayRow" class="mb-1 flex-shrink-0"></div>
-          <div id="calendarGrid"></div>
+          <div class="flex items-center justify-between mb-4">
+            <button id="prevMonth" class="text-3xl text-gray-400 hover:text-emerald-500 px-2">‹</button>
+            <h2 id="monthLabel" class="text-xl font-bold">October 2026</h2>
+            <button id="nextMonth" class="text-3xl text-gray-400 hover:text-emerald-500 px-2">›</button>
+          </div>
+          <div id="weekdayRow" class="grid grid-cols-7 gap-1 mb-2 text-center text-xs font-bold text-gray-500 uppercase tracking-wider"></div>
+          <div id="calendarGrid" class="grid grid-cols-7 gap-1 md:gap-2 flex-1 min-h-[500px]"></div>
         </section>
 
-        <section id="tab-tasks" class="dw-tab-panel overflow-y-auto w-full">
-          <h1 class="text-2xl font-black mb-4 flex-shrink-0">Tasks</h1>
-          <div id="allTasksList" class="space-y-2 pb-4"></div>
+        <!-- TASKS TAB -->
+        <section id="tab-tasks" class="dw-tab-panel hidden w-full flex-col">
+          <h1 class="text-2xl font-black mb-4">Tasks</h1>
+          <div id="tasksList" class="space-y-2"></div>
         </section>
 
-        <section id="tab-memos" class="dw-tab-panel overflow-y-auto w-full">
-          <div class="flex justify-between items-center mb-6 flex-shrink-0">
-            <h1 class="text-2xl font-black">Memos & Ideas</h1>
+        <!-- MEMOS TAB -->
+        <section id="tab-memos" class="dw-tab-panel hidden w-full flex-col">
+          <h1 class="text-2xl font-black mb-4">Memos</h1>
+          <div class="flex gap-2 mb-4">
+            <input id="newMemoInput" type="text" placeholder="Jot down an idea..." class="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
+            <button onclick="window.addMemo()" class="bg-emerald-500 text-white px-4 py-2 rounded-lg font-bold">+</button>
           </div>
-          <div class="flex gap-2 mb-6 max-w-2xl flex-shrink-0">
-            <input id="newMemoInput" type="text" placeholder="Jot down an idea, link, or unscheduled task..." class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800" />
-            <button onclick="window.addMemo()" class="dw-btn-primary">+ Save Memo</button>
-          </div>
-          <div id="memosList" class="max-w-2xl space-y-2 pb-4"></div>
+          <div id="memosList" class="space-y-2"></div>
         </section>
 
-        <section id="tab-calendars" class="dw-tab-panel overflow-y-auto w-full">
-          <div class="flex justify-between items-center mb-6 flex-shrink-0">
-            <h1 class="text-2xl font-black">Your Calendars</h1>
-            <button onclick="window.createCalendar()" class="dw-btn-primary">+ New Calendar</button>
+        <!-- CALENDARS TAB -->
+        <section id="tab-calendars" class="dw-tab-panel hidden w-full flex-col">
+          <h1 class="text-2xl font-black mb-4">Calendars</h1>
+          <div id="calendarsList" class="space-y-2 mb-6"></div>
+          <h2 class="text-lg font-bold mb-2">Import iCal</h2>
+          <div class="flex gap-2">
+            <input id="icalUrlInput" type="text" placeholder="https://example.com/feed.ics" class="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg font-bold">Import</button>
           </div>
-          <div class="mb-8 max-w-2xl bg-white/5 border border-gray-200 dark:border-gray-800 p-5 rounded-2xl flex-shrink-0">
-            <h3 class="font-bold text-lg mb-2">Sync External Calendars (iCal)</h3>
-            <p class="text-sm text-gray-500 mb-3">Paste a Google Calendar, Apple iCloud, or Outlook public iCal link.</p>
-            <div class="flex gap-2">
-              <input id="icalUrlInput" type="url" placeholder="https://calendar.google.com/calendar/ical/.../basic.ics" class="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
-              <button onclick="window.syncIcal()" class="dw-btn-primary whitespace-nowrap">Sync Feed</button>
-            </div>
-            <div id="feedsList" class="mt-4 space-y-2"></div>
-          </div>
-          <div id="calendarsList" class="max-w-2xl pb-4"></div>
         </section>
 
-        <section id="tab-insights" class="dw-tab-panel overflow-y-auto w-full">
-          <h1 class="text-2xl font-black mb-4 flex-shrink-0">Smart Insights</h1>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 flex-shrink-0">
-            <div class="rounded-2xl p-5 bg-white/60 dark:bg-white/5 border border-emerald-500/20">
-              <p class="text-xs uppercase tracking-wider text-gray-500 mb-1">Schedule Load Score</p>
-              <p id="insightLoad" class="text-3xl font-black text-emerald-500">0</p>
+        <!-- INSIGHTS TAB -->
+        <section id="tab-insights" class="dw-tab-panel hidden w-full flex-col gap-6">
+          <h1 class="text-2xl font-black mb-4">Smart Insights</h1>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="rounded-2xl p-5 bg-white/60 dark:bg-white/5 border border-purple-500/20">
+              <p class="text-xs uppercase tracking-wider text-gray-500 mb-1">Schedule Load</p>
+              <p id="insightLoad" class="text-3xl font-black text-purple-500">0</p>
             </div>
             <div class="rounded-2xl p-5 bg-white/60 dark:bg-white/5 border border-blue-500/20">
               <p class="text-xs uppercase tracking-wider text-gray-500 mb-1">Estimated Cost</p>
@@ -163,117 +158,141 @@
               <p id="insightCo2" class="text-3xl font-black text-emerald-500">0 kg</p>
             </div>
           </div>
-          <h2 class="text-xl font-bold mb-4 flex-shrink-0">Trip Merge Optimizations</h2>
-          <div id="insightSuggestions" class="pb-4"></div>
+          <h2 class="text-xl font-bold mt-4 mb-2">Trip Merge Optimizations</h2>
+          <div id="insightSuggestions"></div>
         </section>
 
-        <section id="tab-community" class="dw-tab-panel overflow-y-auto w-full">
-          <div class="flex justify-between items-center mb-6 flex-shrink-0">
-            <h1 class="text-2xl font-black">Public Events</h1>
-            <p class="text-sm text-gray-500">Discover what's happening around you.</p>
-          </div>
-          <div id="publicEventsList" class="max-w-3xl space-y-3 pb-4"></div>
-        </section>
-                <section id="tab-resources" class="dw-tab-panel overflow-y-auto w-full">
-          <div class="flex justify-between items-center mb-6 flex-shrink-0">
-            <h1 class="text-2xl font-black">Shared Resources</h1>
-            <button onclick="window.addResource()" class="dw-btn-primary">+ Add Resource</button>
-          </div>
-          <p class="text-sm text-gray-500 mb-4 max-w-2xl">Book shared assets like the family car, a meeting room, or kitchen time.</p>
-          <div id="resourcesList" class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 max-w-4xl"></div>
+        <!-- COMMUNITY TAB -->
+        <section id="tab-community" class="dw-tab-panel hidden w-full flex-col">
+          <h1 class="text-2xl font-black mb-4">Community & Feeds</h1>
+          <div id="communityContent" class="mb-4"></div>
+          <div id="feedsList" class="space-y-3"></div>
+          <div id="publicEventsList" class="space-y-3 mt-4"></div>
         </section>
 
-        <section id="tab-settings" class="dw-tab-panel w-full"><h1 class="text-2xl font-black">Settings</h1></section>
+        <!-- RESOURCES TAB -->
+        <section id="tab-resources" class="dw-tab-panel hidden w-full flex-col">
+          <h1 class="text-2xl font-black mb-4">Shared Resources</h1>
+          <div id="resourcesList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </section>
 
       </main>
+
+      <!-- Footer Placeholder -->
+      <div id="footer-placeholder" class="w-full shrink-0"></div>
+
     </div>
   </div>
 
-  <div id="daySheetOverlay" class="dw-sheet-overlay"></div>
-  <div id="daySheet" class="dw-sheet">
-    <div class="p-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center flex-shrink-0">
-      <h2 id="sheetTitle" class="font-black text-lg">Day</h2>
-      <button id="closeSheet" class="text-2xl text-gray-500 hover:text-emerald-500">×</button>
+  <!-- BOTTOM SHEET (EVENT FORM) -->
+  <div id="daySheetOverlay"></div>
+  <div id="daySheet" class="p-4">
+    <div class="w-10 h-1 bg-gray-300 dark:bg-gray-700 rounded-full mx-auto mb-4"></div>
+    <div class="flex justify-between items-center mb-4">
+      <h2 id="sheetTitle" class="font-black text-xl">Day View</h2>
+      <button id="closeSheet" class="text-2xl text-gray-500 hover:text-red-500">×</button>
     </div>
-    <div class="p-4 overflow-y-auto flex-1">
-      <div id="sheetEventsList" class="mb-4"></div>
-      <div class="border-t border-gray-200 dark:border-gray-800 pt-3">
-        <h3 class="font-bold mb-2 text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wider">Add event</h3>
-        <input id="newEventTitle" type="text" placeholder="What are you planning?" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 mb-2" />
-        <div class="flex gap-2 mb-2">
-          <select id="addTravelMode" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm">
+    <div class="overflow-y-auto flex-1 pr-2">
+      
+      <div id="sheetEventsList" class="mb-6"></div>
+
+      <div class="border-t border-gray-200 dark:border-gray-800 pt-4">
+        <h3 class="font-bold mb-4 text-sm text-emerald-500 uppercase tracking-wider">✨ Create Event</h3>
+        
+        <input type="hidden" id="addTitle" /> <!-- Alias for JS -->
+
+        <div class="mb-4 p-3 rounded-xl bg-gradient-to-br from-emerald-500/10 to-violet-500/10 border border-emerald-500/20">
+          <label class="text-xs font-bold text-emerald-500 mb-1 block">✨ Magic Auto-fill</label>
+          <textarea id="magicPromptInput" placeholder="e.g. Write an invite to Sarah's wedding on 12 Dec at Bondi Beach..." rows="2" class="w-full px-3 py-2 rounded-lg border border-emerald-500/30 bg-white/50 dark:bg-gray-900/50 text-sm resize-none outline-none mb-2"></textarea>
+          <button id="magicPromptBtn" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-2 rounded-lg transition">🪄 Auto-fill Form</button>
+        </div>
+
+        <input id="newEventTitle" type="text" placeholder="Event Title" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 mb-3 font-semibold" />
+        
+        <div class="flex items-center justify-between p-3 mb-3 rounded-lg bg-gray-100 dark:bg-gray-800/50">
+          <div class="font-bold text-sm">Public Event</div>
+          <input type="checkbox" id="newEventPublic" class="w-5 h-5 accent-emerald-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <input id="newEventTime" type="time" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
+          <input id="newEventDuration" type="number" min="5" step="5" value="60" placeholder="Duration (min)" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
+        </div>
+
+        <input id="addLocation" type="text" placeholder="Location" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 mb-3" />
+
+        <div class="mb-3">
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-gray-500">Description</label>
+            <button id="aiDraftBtn" class="text-xs font-bold text-violet-500 hover:text-violet-400">✨ AI Draft</button>
+          </div>
+          <textarea id="addDescription" placeholder="Details..." rows="2" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 resize-none"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <select id="addTravelMode" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900">
             <option value="car">🚗 Car</option>
             <option value="walk">🚶 Walk</option>
             <option value="bike">🚴 Bike</option>
             <option value="transit">🚌 Transit</option>
-            <option value="rideshare">🚕 Rideshare</option>
-            <option value="flight">✈️ Flight</option>
           </select>
-          <input type="number" id="addDistance" placeholder="Distance (km)" step="0.1" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm" />
+          <input type="number" id="addDistance" placeholder="Distance (km)" step="0.1" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
         </div>
 
-        <div class="grid grid-cols-2 gap-2 mb-2">
-          <input id="newEventTime" type="time" class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
-          <input id="newEventDuration" type="number" min="5" step="5" value="60" placeholder="min" class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
+        <div class="flex gap-2 mb-3">
+          <input id="addInviteesInput" type="text" placeholder="Invite email/phone" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
+          <button id="addInviteeBtn" class="bg-gray-200 dark:bg-gray-700 px-3 rounded-lg font-bold">+</button>
         </div>
-        <label class="flex items-center gap-2 mb-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
-          <input type="checkbox" id="newEventPublic" class="w-4 h-4 accent-emerald-500"> 🌐 Make this event public (visible in Community)
-        </label>
-        <select id="newEventReminder" class="w-full px-3 py-2 mb-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm">
-          <option value="-15">🔔 15 minutes before</option>
+        <div id="inviteeChips" class="flex flex-wrap gap-1 mb-4"></div>
+
+        <select id="newEventReminder" class="w-full px-3 py-2 mb-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900">
+          <option value="-15">🔔 15 min before</option>
           <option value="-60" selected>🔔 1 hour before</option>
           <option value="-1440">🔔 1 day before</option>
-          <option value="0">🔔 At time of event</option>
         </select>
-        <button id="addEventBtn" class="dw-btn-primary w-full">+ Add event</button>
+
+        <button id="addEventBtn" class="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-emerald-500 to-violet-600 shadow-lg">✨ Save Event</button>
       </div>
-      <div class="border-t border-gray-200 dark:border-gray-800 pt-3 mt-4">
-        <h3 class="font-bold mb-2 text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wider">Tasks</h3>
-        <div id="sheetTasksList" class="space-y-1 mb-2"></div>
+
+      <div class="border-t border-gray-200 dark:border-gray-800 pt-4 mt-6">
+        <h3 class="font-bold mb-2 text-sm text-gray-500 uppercase tracking-wider">Tasks</h3>
+        <div id="sheetTasksList" class="space-y-2 mb-2"></div>
         <div class="flex gap-2">
           <input id="newTaskTitle" type="text" placeholder="Add task..." class="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
-          <button id="addTaskBtn" class="dw-btn-primary px-4">+</button>
+          <button id="addTaskBtn" class="bg-emerald-500 text-white px-4 rounded-lg font-bold">+</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Find a Time Modal -->
   <div id="findTimeModal" class="fixed inset-0 z-[2000] bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white dark:bg-gray-900 w-full max-w-md rounded-3xl p-6 shadow-2xl">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold">Find a Time</h3>
-        <button onclick="document.getElementById('findTimeModal').classList.replace('flex','hidden')" class="text-2xl text-gray-500 hover:text-red-500">×</button>
+    <div class="bg-white dark:bg-gray-900 w-full max-w-md rounded-3xl p-6 shadow-2xl relative">
+      <button onclick="document.getElementById('findTimeModal').classList.replace('flex','hidden')" class="absolute top-4 right-4 text-2xl text-gray-500 hover:text-red-500">×</button>
+      <h3 class="text-xl font-bold mb-4">Find a Time</h3>
+      <div class="space-y-3 mb-4">
+        <input id="findTimeDate" type="date" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
+        <input id="findTimeDuration" type="number" placeholder="Duration (min)" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
       </div>
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-bold mb-1 text-gray-600 dark:text-gray-400">Date</label>
-          <input type="date" id="findTimeDate" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-        </div>
-        <div>
-          <label class="block text-sm font-bold mb-1 text-gray-600 dark:text-gray-400">Duration (min)</label>
-          <input type="number" id="findTimeDuration" value="60" min="15" step="15" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-        </div>
-        <button onclick="window.searchFreeTime()" class="dw-btn-primary w-full py-3">Search Free Slots</button>
-      </div>
-      <div id="findTimeResults" class="mt-4 space-y-2"></div>
+      <div id="findTimeResults" class="space-y-2"></div>
     </div>
   </div>
 
+  <!-- Chat Modal -->
   <div id="chatModal" class="fixed inset-0 z-[2000] bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white dark:bg-gray-900 w-full max-w-lg h-[80vh] rounded-3xl flex flex-col overflow-hidden shadow-2xl">
-      <div class="p-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center flex-shrink-0">
-        <h3 id="chatTitle" class="font-bold text-lg">Chat</h3>
-        <button onclick="document.getElementById('chatModal').classList.replace('flex','hidden')" class="text-2xl text-gray-500 hover:text-red-500">×</button>
-      </div>
-      <div id="chatMessages" class="flex-1 overflow-y-auto p-4"></div>
-      <div class="p-4 border-t border-gray-200 dark:border-gray-800 flex gap-2 flex-shrink-0">
-        <input type="hidden" id="chatEventId">
-        <input type="text" id="chatInput" placeholder="Type a message..." class="flex-1 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800" onkeydown="if(event.key==='Enter') window.sendChat()">
-        <button onclick="window.sendChat()" class="dw-btn-primary">Send</button>
+    <div class="bg-white dark:bg-gray-900 w-full max-w-md rounded-3xl p-6 shadow-2xl relative flex flex-col max-h-[80vh]">
+      <button onclick="document.getElementById('chatModal').classList.replace('flex','hidden')" class="absolute top-4 right-4 text-2xl text-gray-500 hover:text-red-500">×</button>
+      <h3 id="chatTitle" class="text-xl font-bold mb-4">Event Chat</h3>
+      <input type="hidden" id="chatEventId" />
+      <div id="chatMessages" class="flex-1 overflow-y-auto space-y-2 mb-4"></div>
+      <div class="flex gap-2">
+        <input id="chatInput" type="text" placeholder="Type a message..." class="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" />
+        <button class="bg-emerald-500 text-white px-4 py-2 rounded-lg font-bold">Send</button>
       </div>
     </div>
   </div>
 
-  <script type="module" src="/dashboard/calendar-app.js"></script>
+  <script src="/dashboard/calendar-app.js?v=5" defer></script>
+  <script src="/main.js" type="module"></script>
 </body>
 </html>

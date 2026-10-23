@@ -3541,7 +3541,7 @@ export default {
             html: `<p>Click <a href="${link}">here</a> to log in (expires in 15 min).</p>`
           })
         });
-        if (!resendRes.ok) { console.error(await resendRes.text()); return corsResponse(JSON.stringify({ error: 'Failed to send email' }), 500); }
+        if (!resendRes.ok) { const errText = await resendRes.text(); console.error(errText); return corsResponse(JSON.stringify({ error: 'Failed to send email', details: errText }), 500); }
         return corsResponse(JSON.stringify({ message: 'Magic link sent!' }));
       }
 
@@ -3593,7 +3593,7 @@ export default {
             html: `<p>Click <a href="${resetLink}">here</a> to reset your password (expires in 1 hour).</p>`
           })
         });
-        if (!resendRes.ok) { console.error(await resendRes.text()); return corsResponse(JSON.stringify({ error: 'Failed to send email' }), 500); }
+        if (!resendRes.ok) { const errText = await resendRes.text(); console.error(errText); return corsResponse(JSON.stringify({ error: 'Failed to send email', details: errText }), 500); }
         return corsResponse(JSON.stringify({ message: 'If an account exists, a reset link was sent.' }), 200);
       }
 

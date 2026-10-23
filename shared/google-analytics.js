@@ -1,7 +1,7 @@
 // DateWizza Shared: Google Analytics 4 – Deferred + Reliable
 export default function initGA() {
   const enableGA = true; // Set to false for local testing
-  const MEASUREMENT_ID = 'G-45WQ90HYVL';
+  const MEASUREMENT_ID = 'G-Q747FK7MRC';
 
   function loadGA() {
     if (window.gtag) return;

@@ -217,8 +217,27 @@
       .event-title { font-size: 1.6rem; }
     }
   </style>
+
+    <!-- Premium Public Event View -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body { background: #05080f !important; color: #f8fafc !important; font-family: 'Inter', sans-serif !important; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1rem; }
+      .mesh { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+      .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: .25; }
+      .orb-a { width: 500px; height: 500px; background: #10b981; top: -10%; left: -5%; }
+      .orb-b { width: 600px; height: 600px; background: #8b5cf6; bottom: -15%; right: -10%; }
+      .glass-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); backdrop-filter: blur(20px); border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6); max-width: 600px; width: 100%; position: relative; z-index: 10; }
+      h1 { font-family: 'Playfair Display', serif; font-weight: 900; color: white; margin-bottom: 0.5rem; font-size: 2.5rem; line-height: 1.1; }
+      .badge { background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: bold; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(16, 185, 129, 0.3); }
+      .info-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; color: #94a3b8; font-size: 1rem; }
+      .btn-rsvp { width: 100%; padding: 1rem; border-radius: 0.75rem; font-weight: bold; color: white; background: linear-gradient(110deg,#10b981 0%,#059669 45%,#7c3aed 100%); border: none; cursor: pointer; transition: transform 0.2s; margin-top: 1.5rem; font-size: 1.1rem; }
+      .btn-rsvp:hover { transform: scale(1.02); }
+    </style>
+    
 </head>
 <body>
+<div class="mesh"><div class="orb orb-a"></div><div class="orb orb-b"></div></div>
+
 
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
 

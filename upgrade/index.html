@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Welcome to Pro · DateWizza</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class' }</script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; background: #05080f; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; text-align: center; }
+    .glass { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); }
+    .btn { background: linear-gradient(110deg,#10b981 0%,#059669 45%,#7c3aed 100%); transition: transform 0.2s; }
+    .btn:hover { transform: scale(1.05); }
+    .spinner { border: 3px solid rgba(255,255,255,0.1); border-top-color: #10b981; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body class="p-4">
+  <div class="glass max-w-md w-full p-8 rounded-3xl">
+    <div id="loading" class="space-y-4">
+      <div class="spinner"></div>
+      <h2 class="text-xl font-bold">Verifying your payment...</h2>
+      <p class="text-sm text-slate-400">Please wait while we upgrade your account.</p>
+    </div>
+
+    <div id="success" class="hidden space-y-6">
+      <div class="text-6xl">🎉</div>
+      <h1 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">You're Pro!</h1>
+      <p class="text-slate-300">Your account has been successfully upgraded. You now have unlimited Trip Merges, full CO₂ Insights, and priority support.</p>
+      <a href="/dashboard/" class="btn inline-block w-full py-3 rounded-xl font-bold text-white mt-4">Go to Dashboard →</a>
+    </div>
+
+    <div id="error" class="hidden space-y-6">
+      <div class="text-6xl">⚠️</div>
+      <h2 class="text-2xl font-bold text-rose-400">Something went wrong</h2>
+      <p id="error-msg" class="text-slate-400 text-sm">We couldn't verify your session.</p>
+      <a href="/dashboard/" class="btn inline-block w-full py-3 rounded-xl font-bold text-white mt-4">Return to Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+      
+      if (!sessionId) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('error').classList.remove('hidden');
+        document.getElementById('error-msg').textContent = 'No checkout session found.';
+        return;
+      }
+
+      fetch(`https://api.datewizza.com/api/session-status?session_id=${sessionId}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('loading').classList.add('hidden');
+          if (data.status === 'complete' || data.payment_status === 'paid') {
+            document.getElementById('success').classList.remove('hidden');
+            // Refresh token to get the new Pro tier permissions
+            localStorage.setItem('datewizza_pro', 'true');
+          } else {
+            document.getElementById('error').classList.remove('hidden');
+            document.getElementById('error-msg').textContent = 'Payment not completed yet. Status: ' + (data.status || 'unknown');
+          }
+        })
+        .catch(err => {
+          document.getElementById('loading').classList.add('hidden');
+          document.getElementById('error').classList.remove('hidden');
+          document.getElementById('error-msg').textContent = err.message;
+        });
+    })();
+  </script>
+</body>
+</html>
