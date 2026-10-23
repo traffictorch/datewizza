@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Governance Simulator — Round Table — Traffic Torch</title>
+  <meta name="description" content="See how decentralized governance works in 30 seconds. Five scenarios, no account needed.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://traffictorch.net/community/round-table/simulator/">
+  <link rel="alternate" hreflang="en" href="https://traffictorch.net/community/round-table/simulator/">
+  <link rel="alternate" hreflang="x-default" href="https://traffictorch.net/community/round-table/simulator/">
+
+  <meta property="og:title" content="Governance Simulator — Round Table — Traffic Torch">
+  <meta property="og:description" content="See decentralised governance in 30 seconds. Six scenarios, tamper-evident audit ticker, sandbox — no account needed.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://traffictorch.net/community/round-table/simulator/">
+  <meta property="og:image" content="https://traffictorch.net/blog/images/governance/decentralised-government-1200w.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Decentralised governance help guide — Round Table, votes, Objector's Bench, audit chain, and simulator">
+  <meta property="og:site_name" content="Traffic Torch">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Governance Simulator — Round Table — Traffic Torch">
+  <meta name="twitter:description" content="See decentralised governance in 30 seconds. Six scenarios, tamper-evident audit ticker, sandbox — no account needed.">
+  <meta name="twitter:image" content="https://traffictorch.net/blog/images/governance/decentralised-government-1200w.webp">
+  <meta name="twitter:site" content="@Guitaralize">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo-180.webp">
+  <meta name="apple-mobile-web-app-title" content="Torch">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/style.css?v=1.0"></noscript>
+  <style>html{visibility:hidden;opacity:0;transition:opacity 0.4s ease}</style>
+  <link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet';document.documentElement.style.visibility='visible';document.documentElement.style.opacity='1'">
+  <noscript><style>html{visibility:visible;opacity:1}</style><link rel="stylesheet" href="/tailwind-local.css?v=1.0"></noscript>
+  <link rel="preload" as="style" href="/shared/governance-simulator.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/shared/governance-simulator.css"></noscript>
+
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+    })();
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+  <style>[x-cloak]{display:none !important}</style>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+
+<div x-data="{}" class="flex flex-1 min-h-screen">
+  <div class="flex flex-1 min-h-screen">
+
+    <aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 transition-all duration-300 ease-in-out overflow-y-auto sticky top-0 h-screen flex-col self-start" aria-label="Primary navigation">
+      <header class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+        <a href="/" class="flex items-center gap-4">
+          <img src="/logo-160w.webp" srcset="/logo-160w.webp 160w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+          <span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent hidden">Traffic Torch</span>
+        </a>
+      </header>
+      <nav id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in" aria-label="Main menu"></nav>
+      <div class="p-4 border-t border-white/10 dark:border-white/5">
+        <button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition" aria-label="Collapse sidebar">←</button>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col">
+      <header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <a href="/" class="flex items-center gap-4 md:hidden">
+            <img src="/logo-100w.webp" srcset="/logo-100w.webp 100w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+            <p class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">Traffic Torch</p>
+          </a>
+          <div class="w-10 md:hidden"></div>
+          <button id="menuToggle" class="md:hidden text-3xl text-gray-500 relative left-0 -top-1" aria-label="Open mobile menu">☰</button>
+          <button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 hover:text-orange-400 transition mr-4" aria-label="Toggle sidebar">☰</button>
+          <button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl" aria-label="Toggle theme">🌙</button>
+        </div>
+        <nav id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10" aria-label="Mobile menu">
+          <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl focus:outline-none" aria-label="Close menu">×</button>
+          <div id="mobile-menu-placeholder"></div>
+        </nav>
+      </header>
+
+      <main class="container mx-auto px-4 py-10 max-w-4xl">
+        <section class="text-center mb-8">
+          <div class="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-orange-500 dark:text-orange-400">
+            <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>Community Governance
+          </div>
+          <h1 class="text-3xl md:text-5xl font-black mb-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Governance Simulator
+          </h1>
+          <p class="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
+            See how decentralized governance works — in 30 seconds. Pick a scenario below. No account, no vote, no commitment.
+          </p>
+        </section>
+
+        <div id="sim-demo"></div>
+
+        <section class="mt-12 p-6 bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-2xl">
+          <h2 class="text-xl font-bold mb-3">What you just watched</h2>
+          <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">Every scenario follows the same four phases: <strong>Propose → Discuss → Vote → Execute</strong>. The rules that govern each phase are published on the Round Table page. Two behaviors are worth noting:</p>
+          <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300 list-disc pl-6">
+            <li><strong>Block beats pass.</strong> If 25% or more of voters say NO, the proposal fails — even at 66% YES. The block threshold protects minority positions from majority steamrolling.</li>
+            <li><strong>Votes record intent; humans ship code.</strong> A passed code proposal doesn't auto-merge — it creates a linked PR that a human reviews. The merge SHA is recorded on the audit chain.</li>
+          </ul>
+        </section>
+
+        <div class="mt-8 flex gap-3 flex-wrap">
+          <a href="/community/round-table/" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold rounded-xl hover:opacity-90 transition">← Back to the Round Table</a>
+          <a href="/community/round-table/founding/" class="inline-flex items-center gap-2 px-5 py-3 bg-white/10 border border-orange-500/30 text-orange-500 dark:text-orange-400 font-bold rounded-xl hover:bg-orange-500/10 transition">Founding Document</a>
+          <a href="/community/round-table/constitution/" class="inline-flex items-center gap-2 px-5 py-3 bg-white/10 border border-orange-500/30 text-orange-500 dark:text-orange-400 font-bold rounded-xl hover:bg-orange-500/10 transition">Constitution</a>
+          <a href="/analytics/" class="inline-flex items-center gap-2 px-5 py-3 bg-white/10 border border-orange-500/30 text-orange-500 dark:text-orange-400 font-bold rounded-xl hover:bg-orange-500/10 transition">📊 Public Analytics</a>
+          <a href="https://github.com/traffictorch/decentralised-governance" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 bg-purple-500/10 border border-purple-500/30 text-purple-500 dark:text-purple-400 font-bold rounded-xl hover:bg-purple-500/20 transition">⭐ Source</a>
+        </div>
+
+        <noscript>
+          <div class="mt-8 p-6 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl">
+            <p class="text-sm text-gray-700 dark:text-gray-300">The interactive simulator needs JavaScript. You can still read the <a href="/community/round-table/" class="text-orange-500 hover:underline">Round Table page</a> and the <a href="/community/round-table/founding/" class="text-orange-500 hover:underline">founding document</a> without it.</p>
+          </div>
+        </noscript>
+              <!-- Productivity Bond Model iframe -->
+        <section id="productivity-bond" class="max-w-5xl mx-auto my-16 px-4" aria-labelledby="pbm-heading">
+          <h2 id="pbm-heading" class="text-2xl md:text-3xl font-extrabold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-500">
+            📘 The Productivity Bond Model
+          </h2>
+          <p class="text-center text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
+            186 pages of analysis, simulation results, and implementation roadmaps. Live interactive model, MIT-licensed.
+          </p>
+          <div class="rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl shadow-indigo-500/10">
+            <iframe
+              src="https://traffictorch.github.io/productivity-bond-model/"
+              title="Productivity Bond Model — interactive demo"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="w-full block bg-white"
+              style="height:800px;border:0;">
+            </iframe>
+          </div>
+          <p class="text-center text-sm mt-4 text-gray-500 dark:text-gray-400">
+            <a href="https://traffictorch.github.io/productivity-bond-model/" target="_blank" rel="noopener" class="text-orange-500 hover:underline font-semibold">
+              Open full model in new tab →
+            </a>
+            <span class="mx-2 opacity-50">·</span>
+            <a href="https://github.com/traffictorch/productivity-bond-model" target="_blank" rel="noopener" class="text-orange-500 hover:underline font-semibold">
+              View source on GitHub →
+            </a>
+          </p>
+        </section>
+
+        <!-- Page comments -->
+        <section class="max-w-2xl mx-auto my-8 px-2">
+          <div id="page-comments"></div>
+        </section>
+        <script type="module">
+          import { mountPageComments } from '/shared/social/page-comments.js';
+          mountPageComments('#page-comments', '/community/round-table/simulator/');
+        </script>
+      </main>
+
+      <div id="footer-placeholder"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/main.js?v=1.2" type="module"></script>
+<script src="/shared/governance-rules.js"></script>
+<script src="/shared/governance-scenarios.js"></script>
+<script src="/shared/governance-simulator.js"></script>
+<script>
+  (function () {
+    function boot() {
+      var el = document.getElementById('sim-demo');
+      if (!el || !window.GovernanceSimulator) return;
+      window.GovernanceSimulator.init(el, {
+        mode: 'full',
+        brand: 'Governance Simulator — Traffic Torch',
+        brandColor: '#ff8a3d',
+        autoplay: true
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      boot();
+    }
+  })();
+</script>
+
+</body>
+</html>

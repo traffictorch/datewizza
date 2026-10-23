@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile · DateWizza</title>
+  <meta name="description" content="DateWizza community profile — shared audits, network, and tools.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://datewizza.com/torcher/">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)">
+
+  <link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/style.css?v=1.0"></noscript>
+  <style>html{visibility:hidden;opacity:0;transition:opacity 0.4s ease}
+    .md-body iframe, .md-embed iframe { max-width:100%; aspect-ratio:16/9; height:auto; border:0; border-radius:.6em; }
+    .md-embed { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; margin:.8em 0; border-radius:.6em; background:#0f172a; }
+    .md-embed iframe { position:absolute; inset:0; width:100%; height:100%; }
+  </style>
+  <link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet';document.documentElement.style.visibility='visible';document.documentElement.style.opacity='1'">
+  <noscript><style>html{visibility:visible;opacity:1}</style><link rel="stylesheet" href="/tailwind-local.css?v=1.0"></noscript>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    .dark .glass { background: rgba(0,0,0,0.3); }
+    .spinner { border: 4px solid rgba(0,0,0,0.1); border-left-color: #f97316; border-radius: 50%; width: 36px; height: 36px; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .link-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1.1rem; border-radius: 9999px; font-size: 0.9rem; font-weight: 600; transition: all 0.18s ease; border: 1px solid rgba(249,115,22,0.35); background: rgba(249,115,22,0.1); color: #ea580c; text-decoration: none; }
+    .link-btn:hover { background: rgba(249,115,22,0.2); transform: translateY(-1px); }
+    .dark .link-btn { color: #fb923c; border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.12); }
+    .dark .link-btn:hover { background: rgba(251,146,60,0.22); }
+
+    .meta-item { display: inline-flex; align-items: center; margin: 0 0.75rem; line-height: 1.4; }
+    .emoji { display: inline-block; flex-shrink: 0; margin-right: 0.5rem; line-height: 1; font-style: normal; }
+    .link-btn .emoji { margin-right: 0; }
+
+    .mod-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.78rem; }
+    .mod-label { flex-shrink: 0; font-weight: 700; color: #4b5563; white-space: nowrap; min-width: 130px; }
+    .dark .mod-label { color: #9ca3af; }
+    .mod-track { flex: 1; height: 8px; background: #e5e7eb; border-radius: 9999px; overflow: hidden; }
+    .dark .mod-track { background: #374151; }
+    .mod-fill { display: block; height: 100%; border-radius: 9999px; transition: width 0.3s ease; }
+    .mod-fill.good { background: #22c55e; }
+    .mod-fill.mid  { background: #eab308; }
+    .mod-fill.bad  { background: #ef4444; }
+    .mod-score { flex-shrink: 0; min-width: 28px; text-align: right; font-weight: 700; color: #374151; }
+    .dark .mod-score { color: #d1d5db; }
+
+    .tab-btn { padding: 0.6rem 1.2rem; border-radius: 0.75rem; font-size: 0.9rem; font-weight: 600; transition: all 0.15s; color: #6b7280; background: transparent; border: none; cursor: pointer; }
+    .dark .tab-btn { color: #9ca3af; }
+    .tab-btn:hover { color: #f97316; }
+    .tab-btn.active { background: linear-gradient(135deg, #f97316, #ec4899); color: #fff; }
+
+    /* ── Mobile tweaks: role pill + profile meta row ── */
+    @media (max-width: 639px) {
+      .role-pill {
+        padding: 0.25rem 0.6rem !important;
+        font-size: 0.62rem !important;
+        letter-spacing: 0.04em !important;
+        line-height: 1.1 !important;
+        white-space: nowrap !important; /* Force text to stay on one line */
+      }
+      .profile-info > p {
+        row-gap: 0.35rem !important;
+        line-height: 1.5 !important;
+      }
+      .profile-info .meta-item {
+        margin: 0 0.5rem !important;
+        line-height: 1.8 !important;
+        padding: 0.15rem 0 !important;
+      }
+      .profile-info .meta-item .emoji {
+        margin-right: 0.35rem !important;
+      }
+    }
+
+    /* ── Desktop tweaks: role pill ── */
+    @media (min-width: 640px) {
+      .role-pill {
+        white-space: nowrap !important; /* Prevents text stacking */
+        flex-shrink: 0 !important;      /* Prevents squeezing */
+      }
+    }
+  </style>
+<link rel="alternate" type="application/rss+xml" title="DateWizza — all torches" href="/torches/feed.xml">
+  <!-- PWA + Icons + Colour scheme -->
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/webp" sizes="192x192" href="/logo-192.webp">
+  <link rel="icon" type="image/webp" sizes="512x512" href="/logo-512.webp">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo-180.webp">
+  <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.webp">
+  <link rel="apple-touch-icon" sizes="512x512" href="/logo-512.webp">
+  <meta name="apple-mobile-web-app-title" content="Torch">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Perf: preconnect critical origins -->
+  <link rel="preconnect" href="https://datewizza-auth.traffictorch.workers.dev" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://static.cloudflareinsights.com">
+  <link rel="dns-prefetch" href="https://js.stripe.com">
+  <script defer src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+
+<div x-data="profilePage()" x-init="init()" class="flex flex-1 min-h-screen">
+  <template x-teleport="body">
+    <div id="tt-profile-image-lightbox" x-show="imageLightbox" x-cloak @keydown.escape.window="imageLightbox = null" @click="imageLightbox = null" style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:2147483647;background:rgba(0,0,0,0.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;"><img :src="imageLightbox" @click.stop style="display:block;max-width:min(95vw,1400px);max-height:90vh;width:auto;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 25px 60px -12px rgba(0,0,0,0.8);background:#fff;"><button type="button" @click.stop="imageLightbox = null" aria-label="Close" style="position:absolute;top:20px;right:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.15);color:#fff;border:none;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:system-ui,-apple-system,sans-serif;">×</button></div>
+  </template>
+
+
+  <!-- ── Avatar lightbox (bulletproof, 2-element) ── -->
+  <template x-teleport="body">
+    <div x-show="avatarLightbox" x-cloak @keydown.escape.window="avatarLightbox = false"
+         style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:2147483647;">
+      <div @click="avatarLightbox = false"
+           style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;cursor:zoom-out;overflow:hidden;">
+        <img :src="avatarSrc(profile)" :alt="profile.display_name" @click.stop
+             style="display:block;width:min(80vmin,340px);height:min(80vmin,340px);max-width:min(80vmin,340px);max-height:min(80vmin,340px);object-fit:cover;border-radius:50%;box-shadow:0 25px 60px -12px rgba(0,0,0,0.7);background:#fff;">
+        <button type="button" @click="avatarLightbox = false" aria-label="Close"
+                style="position:absolute;top:20px;right:20px;width:44px;height:44px;border-radius:9999px;background:rgba(255,255,255,0.15);color:#fff;border:none;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:system-ui,-apple-system,sans-serif;">×</button>
+      </div>
+    </div>
+  </template>
+
+  <!-- Sidebar -->
+  <aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 transition-all duration-300 overflow-y-auto sticky top-0 h-screen flex-col self-start">
+  <script>if(/^\/(torcher|torch)\//.test(location.pathname))document.getElementById("desktopSidebar").classList.add("collapsed");</script>
+    <div class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+      <a href="/" class="flex items-center gap-4">
+        <img src="/logo-160w.webp" srcset="/logo-160w.webp 160w, /logo-320w.webp 320w" sizes="70px" alt="DateWizza" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+        <span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent hidden md:block">DateWizza</span>
+      </a>
+    </div>
+    <div id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in"></div>
+    <div class="p-4 border-t border-white/10 dark:border-white/5">
+      <button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition">←</button>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+      <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="/" class="flex items-center gap-4 md:hidden">
+          <img src="/logo-100w.webp" srcset="/logo-100w.webp 100w, /logo-320w.webp 320w" sizes="70px" alt="DateWizza" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+          <span class="text-[1rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">DateWizza</span>
+        </a>
+        <div class="w-10 md:hidden"></div>
+        <button id="menuToggle" class="md:hidden text-3xl text-gray-500">☰</button>
+        <button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 hover:text-orange-400 transition mr-4">☰</button>
+        <button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl">🌙</button>
+      </div>
+      <div id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10">
+        <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl focus:outline-none" aria-label="Close menu">×</button>
+        <div id="mobile-menu-placeholder"></div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-1 max-w-5xl">
+
+      <!-- Loading -->
+      <div x-show="loading" class="text-center py-20">
+        <div class="spinner mx-auto"></div>
+        <p class="mt-4 text-gray-500">Loading profile…</p>
+      </div>
+
+      <!-- Not found -->
+      <div x-show="!loading && notFound" x-cloak class="glass rounded-3xl p-12 text-center max-w-md mx-auto">
+        <p class="text-6xl mb-4">🔍</p>
+        <h1 class="text-2xl font-bold mb-2">Profile not found</h1>
+        <p class="text-gray-500 mb-6">This username doesn't exist or the profile is private.</p>
+        <a href="/" class="inline-block px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition">
+          Go home
+        </a>
+      </div>
+
+      <!-- Profile -->
+      <div x-show="!loading && !notFound" x-cloak>
+
+        <!-- Header card (4-card grid) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+  <!-- Card 1: Avatar -->
+  <div class="glass rounded-3xl p-6 flex items-center justify-center min-h-[220px]">
+    <template x-if="profile.id">
+      <div class="avatar-ring cursor-pointer relative group"
+           :class="'tier-' + (profile.tier || 'free') + ' role-' + (profile.role || 'owner')"
+           :title="(profile.tier || 'free').charAt(0).toUpperCase() + (profile.tier || 'free').slice(1) + ' member — click to enlarge'"
+           @click="avatarLightbox = true">
+        <img :src="avatarSrc(profile)"
+             :alt="profile.display_name"
+             class="w-40 h-40 md:w-48 md:h-48 rounded-2xl object-cover shadow-lg transition-transform group-hover:scale-[1.02]"
+             onerror="this.onerror=null;this.src='/images/avatars/owner.svg';">
+        <template x-if="(profile.tier || 'free') !== 'free'">
+          <span class="tier-ribbon" x-text="(profile.tier || 'free') === 'pro' ? 'PRO' : 'EXPERT'"></span>
+        </template>
+        <span class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-white text-[10px] font-bold px-2 py-0.5 rounded-full pointer-events-none">Click to enlarge</span>
+      </div>
+    </template>
+  </div>
+
+  <!-- Card 2: Identity -->
+  <div class="glass rounded-3xl p-6 flex flex-col justify-center items-center text-center min-h-[220px]">
+    <h1 class="text-3xl font-black flex items-center justify-center gap-3 flex-wrap min-w-0">
+      <span class="truncate" x-text="profile.display_name || profile.username"></span>
+      <template x-if="profile.verified_at">
+        <svg viewBox="0 0 24 24" aria-label="Verified website owner" xmlns="http://www.w3.org/2000/svg" style="width:26px;height:26px;flex-shrink:0;display:inline-block;vertical-align:middle;"><circle cx="12" cy="12" r="11" fill="#22c55e"/><path d="M6.8 12.4l3.4 3.4 6.9-6.9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </template>
+      <span x-show="profile.total_points > 0" class="points-badge points-badge-lg" x-text="'🏅 ' + profile.total_points"></span>
+    </h1>
+    <p class="mt-2 text-gray-500 text-lg flex items-center gap-2 flex-wrap">
+      <span>@<span x-text="profile.username"></span></span>
+      <span class="role-pill inline-flex items-center gap-1.5 px-2.5 py-1 text-[0.7rem] font-bold uppercase tracking-wide rounded-full border border-orange-500/40 bg-orange-500/10 text-orange-500">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+        <span x-text="roleLabel(profile.role)"></span>
+      </span>
+    </p>
+    <div class="mt-3 flex flex-wrap items-center justify-center gap-y-1 text-sm text-gray-500">
+      <span x-show="profile.location" class="meta-item"><span class="emoji">📍</span><span x-text="profile.location"></span></span>
+      <span x-show="profile.created_at" class="meta-item"><span class="emoji">📅</span><span>Member since <span x-text="formatDate(profile.created_at)"></span></span></span>
+    </div>
+    <div class="mt-4 flex flex-wrap gap-2 justify-center">
+      <button x-show="!isOwnProfile"
+              @click="toggleNetwork()"
+              class="px-4 py-2 rounded-xl font-bold text-sm transition border-2 whitespace-nowrap"
+              :class="inNetwork ? 'border-green-500 text-green-500 bg-green-500/10 hover:bg-green-500/20' : 'border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white'"
+              x-text="inNetwork ? 'In Your Network ✓' : '+ Add to Network'"></button>
+    </div>
+  </div>
+
+  <!-- Card 3: Bio + Skills + Job/Company/Links -->
+  <div class="glass rounded-3xl p-6 flex flex-col items-center text-center">
+    <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">📝 About</h2>
+    <p x-show="profile.bio" class="text-gray-700 dark:text-gray-300 leading-relaxed" x-text="profile.bio"></p>
+    <p x-show="!profile.bio" class="text-gray-400 italic text-sm">No bio yet.</p>
+
+    <div x-show="(profile.skills || []).length > 0" x-cloak class="mt-4 flex flex-wrap gap-2 justify-center">
+      <template x-for="(s, i) in (profile.skills || [])" :key="'pskill-' + i">
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-orange-500/15 text-orange-600 dark:text-orange-400 text-xs font-bold" x-text="s"></span>
+      </template>
+    </div>
+
+    <div x-show="profile.job_title || profile.company" class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 space-y-1 text-sm w-full">
+      <p x-show="profile.job_title"><span class="text-gray-500">Job:</span> <span class="ml-1 font-medium" x-text="profile.job_title"></span></p>
+      <p x-show="profile.company"><span class="text-gray-500">Company:</span> <span class="ml-1 font-medium" x-text="profile.company"></span></p>
+    </div>
+
+    <div x-show="profile.website_url || profile.social1_url || profile.social2_url" x-cloak class="mt-4 flex flex-wrap gap-2 justify-center">
+      <a x-show="profile.website_url && profile.website_approved" :href="profile.website_url" target="_blank" rel="ugc nofollow noopener" class="link-btn text-xs">
+        <span class="emoji">🔗</span><span x-text="domainLabel(profile.website_url)"></span><template x-if="profile.verified_at"><span class="text-green-500 font-bold ml-1" title="Verified owner">✓</span></template>
+      </a>
+      <a x-show="profile.social1_url" :href="profile.social1_url" target="_blank" rel="ugc nofollow noopener" class="link-btn text-xs"><span class="emoji">🔗</span><span x-text="domainLabel(profile.social1_url)"></span></a>
+      <a x-show="profile.social2_url" :href="profile.social2_url" target="_blank" rel="ugc nofollow noopener" class="link-btn text-xs"><span class="emoji">🔗</span><span x-text="domainLabel(profile.social2_url)"></span></a>
+    </div>
+  </div>
+
+  <!-- Card 4: Advanced (contacts + hire) -->
+  <div class="glass rounded-3xl p-6 flex flex-col items-center text-center">
+    <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">🌟 Advanced</h2>
+
+    <div x-show="(profile.contacts || []).length > 0" x-cloak class="mt-0 w-full">
+      <p class="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2 text-center">📬 Contact</p>
+      <div class="flex flex-wrap gap-2 justify-center">
+        <template x-for="(c, i) in (profile.contacts || [])" :key="'pc-' + i">
+          <div class="flex flex-col items-center">
+            <template x-if="contactsRevealed[i]">
+              <div class="flex items-center gap-2">
+                <a x-show="contactHref(c) !== '#'" :href="contactHref(c)" target="_blank" rel="noopener nofollow ugc" class="link-btn text-xs" x-text="contactIcon(c.type) + ' ' + (c.label || contactsTypeLabel(c.type))"></a>
+                <span x-show="contactHref(c) === '#'" class="link-btn text-xs cursor-default">
+                  <span x-text="contactIcon(c.type) + ' ' + (c.label || contactsTypeLabel(c.type)) + ': '"></span>
+                  <span class="font-mono ml-1" x-text="(c.partA || '') + (c.partB || '')"></span>
+                  <button type="button" @click="navigator.clipboard.writeText((c.partA || '') + (c.partB || ''))" class="ml-2 text-orange-500 hover:underline">copy</button>
+                </span>
+              </div>
+            </template>
+            <template x-if="!contactsRevealed[i]">
+              <button type="button" @click="contactsRevealed[i] = true" class="link-btn text-xs" x-text="'🔒 ' + (c.label || contactsTypeLabel(c.type))"></button>
+            </template>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <div x-show="profile.available_for_hire == 1 && (profile.hire_headline || (profile.hire_services || []).length || profile.contact_email)" x-cloak class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 w-full">
+      <p class="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2 text-center">💼 Available for hire</p>
+      <p x-show="profile.hire_headline" class="font-bold text-base" x-text="profile.hire_headline"></p>
+      <div x-show="(profile.hire_services || []).length > 0" class="mt-2 flex flex-wrap gap-2 justify-center">
+        <template x-for="(s, i) in (profile.hire_services || [])" :key="'phs-' + i">
+          <span class="inline-flex items-center px-3 py-1 rounded-full bg-purple-500/15 text-purple-600 dark:text-purple-400 text-xs font-bold" x-text="s"></span>
+        </template>
+      </div>
+      <a x-show="profile.contact_email" :href="'mailto:' + profile.contact_email" class="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500 to-pink-600 text-white text-sm font-bold hover:opacity-90">✉️ Get in touch</a>
+    </div>
+
+    <p x-show="(profile.contacts || []).length === 0 && profile.available_for_hire != 1"
+       class="text-gray-400 italic text-sm text-center">No advanced info yet.</p>
+  </div>
+
+</div>
+
+<!-- Tabs -->
+        <div class="flex gap-2 mb-6 flex-wrap justify-center">
+          <button @click="activeTab = 'audits'" class="tab-btn" :class="activeTab === 'audits' ? 'active' : ''">
+            Posts
+          </button>
+          <button @click="activeTab = 'workflows'" class="tab-btn" :class="activeTab === 'workflows' ? 'active' : ''">
+            ⚙️ Workflows <span x-text="posts.filter(p => p.post_type === 'workflow').length ? '(' + posts.filter(p => p.post_type === 'workflow').length + ')' : ''"></span>
+          </button>
+          <button @click="activeTab = 'network'" class="tab-btn" :class="activeTab === 'network' ? 'active' : ''">
+            Network <span x-text="network_count ? '(' + network_count + ')' : ''"></span>
+          </button>
+          <button @click="activeTab = 'activity'; loadActivity(true)" class="tab-btn" :class="activeTab === 'activity' ? 'active' : ''">
+            Activity
+          </button>
+          <button @click="activeTab = 'about'" class="tab-btn" :class="activeTab === 'about' ? 'active' : ''">
+            About
+          </button>
+        </div>
+
+        <!-- Audits (feed-style cards) -->
+        <div x-show="activeTab === 'audits'" x-cloak>
+          <div x-show="posts.length === 0" class="glass rounded-2xl p-10 text-center">
+            <p class="text-4xl mb-3">📭</p>
+            <p class="text-gray-500">No posts yet.</p>
+          </div>
+
+          <div class="space-y-4">
+            <template x-for="post in posts" :key="post.id">
+              <div class="space-y-4">
+              <article x-show="post.tool && post.tool.trim()" class="glass rounded-2xl overflow-hidden border-l-4"
+                       :class="post.score >= 80 ? 'border-green-500' : post.score >= 60 ? 'border-yellow-500' : 'border-red-500'">
+                <div class="p-4 pb-3">
+                  <div class="flex items-start gap-4">
+                    <div class="text-center flex-shrink-0" style="min-width:64px;">
+                      <p class="text-3xl font-black leading-none"
+                         :class="post.score >= 80 ? 'text-green-500' : post.score >= 60 ? 'text-yellow-500' : 'text-red-500'"
+                         x-text="post.score ?? '—'"></p>
+                      <p class="text-[11px] font-bold text-gray-400 mt-1">/100</p>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="font-bold text-base leading-snug mb-1.5">
+  <a :href="'/torch/' + post.id + '/'"
+     class="hover:text-orange-500 underline decoration-1 underline-offset-2"
+     x-text="(post.page_title && post.page_title.trim()) || post.title || toolDisplayName(post.tool)"></a>
+</h3>
+                      <p class="text-xs text-gray-500">
+                        <span x-text="post.domain_mode === 'hidden' ? (post.domain_label || 'Hidden') : (post.url ? new URL(post.url).hostname.replace('www.','') : '')"></span>
+                        · <span x-text="new Date(post.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })"></span>
+                      </p>
+                      <p x-show="post.note && post.note !== post.page_title" class="text-sm leading-relaxed whitespace-pre-wrap mt-2 text-gray-700 dark:text-gray-300" x-text="post.note"></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-dashed border-gray-200 dark:border-gray-700"></div>
+
+                <div class="px-4 py-3 flex items-center gap-2 flex-wrap">
+                  <button @click="post._showDetails = !post._showDetails"
+                          class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-gray-300 dark:border-gray-600 hover:border-orange-500 hover:text-orange-500 transition">
+                    <span x-text="post._showDetails ? 'Hide details ▲' : 'More details ▼'"></span>
+                  </button>
+                  <button type="button"
+                          @click="endorsePost(post.id)"
+                          x-show="post.user_id !== (profile && profile.id)"
+                          :disabled="post._endorsing || post.viewer_endorsed || (post.score || 0) < 80"
+                          class="px-3 py-1.5 text-xs font-semibold rounded-lg border transition whitespace-nowrap"
+                          :class="post.viewer_endorsed ? 'border-pink-500 text-pink-500 bg-pink-500/10' : ((post.score || 0) < 80 ? 'border-gray-300 dark:border-gray-600 text-gray-400 cursor-not-allowed' : 'border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white')"
+                          :title="(post.score || 0) < 80 ? 'Only torches scoring 80+ can be endorsed' : (post.viewer_endorsed ? 'You already endorsed this torch' : 'Endorse — author gets +36 points')">
+                    <span x-text="post._endorsing ? '…' : (post.viewer_endorsed ? '⭐ ' + (post.endorse_count || 1) : '⭐ Endorse' + (post.endorse_count ? ' ' + post.endorse_count : ''))"></span>
+                  </button>
+
+                  <template x-if="post.url && post.tool">
+                    <a :href="toolRunUrl(post.tool, post.url)" target="_blank" rel="noopener"
+                       class="px-4 py-1.5 text-xs font-bold rounded-lg bg-gradient-to-r from-orange-500 to-pink-600 text-white hover:opacity-90 transition">Run audit →</a>
+                  </template>
+                  <template x-if="post.url && post.domain_mode === 'full'">
+                    <a :href="post.url" target="_blank" rel="ugc nofollow noopener"
+                       class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-gray-300 dark:border-gray-600 hover:border-orange-500 hover:text-orange-500 transition">Visit page →</a>
+                  </template>
+                  <a :href="torchLink(post)" class="ml-auto px-3 py-1.5 text-xs font-semibold rounded-lg border border-orange-500/50 text-orange-500 hover:bg-orange-500 hover:text-white transition whitespace-nowrap" x-text="commentLinkLabel(post)"></a>
+                </div>
+
+                <div x-show="post._showDetails" x-cloak>
+                  <div class="border-t border-dashed border-gray-200 dark:border-gray-700"></div>
+                  <template x-if="parseModuleScores(post.module_scores).length > 0">
+                    <div class="px-4 py-3 space-y-2">
+                      <template x-for="mod in parseModuleScores(post.module_scores)" :key="mod.name">
+                        <div class="mod-row">
+                          <span class="mod-label" x-text="mod.name"></span>
+                          <span class="mod-track">
+                            <span class="mod-fill"
+                                  :class="mod.score >= 80 ? 'good' : mod.score >= 60 ? 'mid' : 'bad'"
+                                  :style="`width:${Math.max(0, Math.min(100, mod.score))}%`"></span>
+                          </span>
+                          <span class="mod-score" x-text="Math.round(mod.score)"></span>
+                        </div>
+                      </template>
+                    </div>
+                  </template>
+                  <template x-if="parseModuleScores(post.module_scores).length === 0">
+                    <p class="px-4 py-3 text-xs text-gray-400 italic">No module breakdown stored.</p>
+                  </template>
+                  <div class="px-4 pb-3 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500">
+                    <span>Audited: <span x-text="new Date(post.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })"></span></span>
+                    <a x-show="post.url" :href="post.url" target="_blank" rel="ugc nofollow noopener"
+                       class="text-blue-600 dark:text-blue-400 hover:underline break-all" x-text="post.url"></a>
+                  </div>
+                </div>
+              </article>
+
+              <article x-show="!post.tool || !post.tool.trim()" x-cloak class="glass rounded-2xl overflow-hidden">
+                <div class="p-5 pb-3">
+                  <div class="flex items-start gap-4">
+                    <img :src="avatarSrc(post)" :alt="post.display_name" width="44" height="44" style="width:44px;height:44px;" class="rounded-full flex-shrink-0 object-cover" onerror="this.onerror=null;this.src='/images/avatars/owner.svg';">
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-2 flex-wrap">
+                        <h3 class="font-bold text-base leading-snug">
+                          <a :href="'/torch/' + post.id + '/'" class="hover:text-orange-500 underline decoration-1 underline-offset-2" x-text="post.page_title || post.title || 'Untitled'"></a>
+                        </h3>
+                        <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-purple-500/15 text-purple-500" x-text="post.category"></span>
+                      </div>
+                      <p class="text-xs text-gray-500 mt-1">
+                        <span x-text="new Date(post.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })"></span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="mt-3 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                    <div x-show="!post._expandedNote" class="md-body" x-html="renderMarkdown(excerpt(post.body_md || post.note || '', 800))"></div>
+                    <div x-show="post._expandedNote" x-cloak class="md-body" x-html="renderMarkdown(post.body_md || post.note || '')"></div>
+                    <button x-show="shouldCollapse(post.body_md || post.note || '', 800)" @click="post._expandedNote = !post._expandedNote" type="button" class="text-xs font-semibold text-orange-500 hover:underline mt-1" x-text="post._expandedNote ? 'Show less ▲' : 'Read more ▼'"></button>
+                    <template x-if="post.images && parseImages(post.images).length > 0">
+                      <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        <template x-for="(img, idx) in parseImages(post.images)" :key="'pdi-' + post.id + '-' + idx">
+                          <a @click.prevent="openImageLightbox(img.url)" class="cursor-zoom-in">
+                            <img :src="img.url" loading="lazy" class="w-full rounded-lg object-cover border border-gray-200 dark:border-gray-700 hover:opacity-90 transition" style="aspect-ratio:16/9;">
+                          </a>
+                        </template>
+                      </div>
+                    </template>
+                  </div>
+                  <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <a :href="torchLink(post)" class="inline-flex items-center text-xs font-semibold text-orange-500 hover:underline" x-text="commentLinkLabel(post)"></a>
+                  </div>
+                </div>
+              </article>
+
+              <article x-show="false" x-cloak class="glass rounded-2xl overflow-hidden border-l-4 border-l-purple-500">
+                <div class="p-5 pb-3">
+                  <div class="flex items-start gap-4">
+                    <img :src="avatarSrc(post)" :alt="post.display_name" width="44" height="44" style="width:44px;height:44px;" class="rounded-full flex-shrink-0 object-cover" onerror="this.onerror=null;this.src='/images/avatars/owner.svg';">
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-2 flex-wrap">
+                        <div class="flex-1 min-w-0">
+                          <p class="text-[10px] font-black uppercase tracking-wider text-purple-500 mb-1">⚙️ Workflow</p>
+                          <h3 class="font-bold text-base leading-snug">
+                            <a :href="'/torch/' + post.id + '/'" class="hover:text-purple-500 underline decoration-1 underline-offset-2" x-text="post.title || 'Workflow'"></a>
+                            <template x-if="parseWorkflowMeta(post.workflow_meta) && parseWorkflowMeta(post.workflow_meta).version">
+                              <span class="ml-2 px-2 py-0.5 text-[10px] font-black rounded-full bg-purple-500 text-white" x-text="parseWorkflowMeta(post.workflow_meta).version"></span>
+                            </template>
+                          </h3>
+                        </div>
+                        <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-purple-500/15 text-purple-500" x-text="post.category"></span>
+                      </div>
+                      <p class="text-xs text-gray-500 mt-1">
+                        <span x-text="new Date(post.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })"></span>
+                      </p>
+                    </div>
+                  </div>
+                  <template x-if="parseWorkflowMeta(post.workflow_meta) && parseWorkflowMeta(post.workflow_meta).summary">
+                    <p class="mt-3 text-sm leading-relaxed text-gray-700 dark:text-gray-300" x-text="parseWorkflowMeta(post.workflow_meta).summary"></p>
+                  </template>
+                  <template x-if="wfTopChips(parseWorkflowMeta(post.workflow_meta)).length > 0">
+                    <div class="mt-3 flex flex-wrap gap-1.5">
+                      <template x-for="(chip, i) in wfTopChips(parseWorkflowMeta(post.workflow_meta))" :key="'pwfc-' + post.id + '-' + i">
+                        <span class="inline-flex px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-300 text-[11px] font-bold border border-purple-500/20" x-text="chip"></span>
+                      </template>
+                    </div>
+                  </template>
+                  <div class="mt-3 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                    <div x-show="!post._expandedNote" class="md-body" x-html="renderMarkdown(excerpt(post.body_md || post.note || '', 800))"></div>
+                    <div x-show="post._expandedNote" x-cloak class="md-body" x-html="renderMarkdown(post.body_md || post.note || '')"></div>
+                    <button x-show="shouldCollapse(post.body_md || post.note || '', 800)" @click="post._expandedNote = !post._expandedNote" type="button" class="text-xs font-semibold text-purple-500 hover:underline mt-1" x-text="post._expandedNote ? 'Show less ▲' : 'Read more ▼'"></button>
+                    <template x-if="post.images && parseImages(post.images).length > 0">
+                      <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        <template x-for="(img, idx) in parseImages(post.images)" :key="'pwfi-' + post.id + '-' + idx">
+                          <a @click.prevent="openImageLightbox(img.url)" class="cursor-zoom-in">
+                            <img :src="img.url" loading="lazy" class="w-full rounded-lg object-cover border border-gray-200 dark:border-gray-700 hover:opacity-90 transition" style="aspect-ratio:16/9;">
+                          </a>
+                        </template>
+                      </div>
+                    </template>
+                  </div>
+                  <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <a :href="torchLink(post)" class="inline-flex items-center text-xs font-semibold text-purple-500 hover:underline" x-text="commentLinkLabel(post)"></a>
+                  </div>
+                </div>
+              </article>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Workflows -->
+        <div x-show="activeTab === 'workflows'" x-cloak>
+          <div x-show="posts.filter(p => p.post_type === 'workflow').length === 0" class="glass rounded-2xl p-10 text-center">
+            <p class="text-4xl mb-3">⚙️</p>
+            <p class="text-gray-500">No workflows yet.</p>
+          </div>
+          <div class="space-y-4">
+            <template x-for="post in posts.filter(p => p.post_type === 'workflow')" :key="'wf-' + post.id">
+              <article class="glass rounded-2xl overflow-hidden border-l-4 border-l-purple-500">
+                <div class="p-5 pb-3">
+                  <div class="flex items-start gap-4">
+                    <img :src="avatarSrc(post)" :alt="post.display_name" width="44" height="44" style="width:44px;height:44px;" class="rounded-full flex-shrink-0 object-cover" onerror="this.onerror=null;this.src='/images/avatars/owner.svg';">
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-2 flex-wrap">
+                        <div class="flex-1 min-w-0">
+                          <p class="text-[10px] font-black uppercase tracking-wider text-purple-500 mb-1">⚙️ Workflow</p>
+                          <h3 class="font-bold text-base leading-snug">
+                            <a :href="'/torch/' + post.id + '/'" class="hover:text-purple-500 underline decoration-1 underline-offset-2" x-text="post.title || post.page_title || 'Workflow'"></a>
+                            <template x-if="parseWorkflowMeta(post.workflow_meta) && parseWorkflowMeta(post.workflow_meta).version">
+                              <span class="ml-2 px-2 py-0.5 text-[10px] font-black rounded-full bg-purple-500 text-white" x-text="parseWorkflowMeta(post.workflow_meta).version"></span>
+                            </template>
+                          </h3>
+                        </div>
+                        <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-purple-500/15 text-purple-500" x-text="post.category"></span>
+                      </div>
+                      <p class="text-xs text-gray-500 mt-1">
+                        <span x-text="new Date(post.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })"></span>
+                      </p>
+                    </div>
+                  </div>
+                  <template x-if="parseWorkflowMeta(post.workflow_meta) && parseWorkflowMeta(post.workflow_meta).summary">
+                    <p class="mt-3 text-sm leading-relaxed text-gray-700 dark:text-gray-300" x-text="parseWorkflowMeta(post.workflow_meta).summary"></p>
+                  </template>
+                  <template x-if="wfTopChips(parseWorkflowMeta(post.workflow_meta)).length > 0">
+                    <div class="mt-3 flex flex-wrap gap-1.5">
+                      <template x-for="(chip, i) in wfTopChips(parseWorkflowMeta(post.workflow_meta))" :key="'wfchip-' + post.id + '-' + i">
+                        <span class="inline-flex px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-300 text-[11px] font-bold border border-purple-500/20" x-text="chip"></span>
+                      </template>
+                    </div>
+                  </template>
+                  <div class="mt-3 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                    <div x-show="!post._expandedNote" class="md-body" x-html="renderMarkdown(excerpt(post.body_md || post.note || '', 800))"></div>
+                    <div x-show="post._expandedNote" x-cloak class="md-body" x-html="renderMarkdown(post.body_md || post.note || '')"></div>
+                    <button x-show="shouldCollapse(post.body_md || post.note || '', 800)" @click="post._expandedNote = !post._expandedNote" type="button" class="text-xs font-semibold text-purple-500 hover:underline mt-1" x-text="post._expandedNote ? 'Show less ▲' : 'Read more ▼'"></button>
+                  </div>
+                  <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <a :href="torchLink(post)" class="inline-flex items-center text-xs font-semibold text-purple-500 hover:underline" x-text="commentLinkLabel(post)"></a>
+                  </div>
+                </div>
+              </article>
+            </template>
+          </div>
+        </div>
+
+        <!-- Network -->
+        <div x-show="activeTab === 'network'" x-cloak>
+          <div x-show="network.length === 0" class="glass rounded-2xl p-10 text-center">
+            <p class="text-4xl mb-3">👥</p>
+            <p class="text-gray-500">Network is private or empty.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <template x-for="u in network" :key="u.id">
+              <a :href="'/torcher/' + u.username + '/'" class="glass rounded-2xl p-4 flex items-center gap-3 hover:bg-white/10 transition">
+                <img src="/images/avatars/owner.svg"
+                     :src="avatarSrc(u)"
+                     width="48" height="48" style="width:48px;height:48px;"
+                     class="rounded-full flex-shrink-0 object-cover" alt=""
+                     onerror="this.onerror=null;this.src='/images/avatars/owner.svg';">
+                <div class="flex-1 min-w-0">
+                  <p class="font-bold text-sm truncate" x-text="u.display_name || u.username"></p>
+                  <p class="text-xs text-gray-500 capitalize" x-text="roleLabel(u.role)"></p>
+                </div>
+              </a>
+            </template>
+          </div>
+
+          <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between gap-3 flex-wrap mb-4">
+              <div>
+                <h3 class="text-lg font-bold">🌟 Discover more people</h3>
+                <p class="text-xs text-gray-500 mt-0.5">Random people you're not connected to yet — reshuffles daily</p>
+              </div>
+              <button @click="randomizeDiscover()" :disabled="discover.loading"
+                      class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition disabled:opacity-50">
+                🎲 Randomize
+              </button>
+            </div>
+            <div x-show="discover.loading" class="text-center py-8"><div class="spinner mx-auto"></div></div>
+            <div x-show="!discover.loading && discover.users.length === 0" class="glass rounded-2xl p-6 text-center">
+              <p class="text-3xl mb-2">🌱</p>
+              <p class="text-sm text-gray-500">No new people to discover right now.</p>
+            </div>
+            <div x-show="!discover.loading && discover.users.length > 0" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <template x-for="u in discover.users" :key="'disc-' + u.id">
+                <div class="glass rounded-2xl p-3 flex flex-col items-center text-center hover:bg-white/10 transition">
+                  <img src="/images/avatars/owner.svg" :src="avatarSrc(u)" width="56" height="56" style="width:56px;height:56px;" class="rounded-full object-cover mb-2" alt="" loading="lazy" onerror="this.onerror=null;this.src='/images/avatars/owner.svg';">
+                  <a :href="'/torcher/' + u.username + '/'" class="font-bold text-sm hover:text-orange-500 truncate w-full" x-text="u.display_name || u.username"></a>
+                  <p class="text-xs text-gray-500 truncate w-full">@<span x-text="u.username"></span></p>
+                  <span class="inline-block mt-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide rounded-full bg-orange-500/20 text-orange-500" x-text="roleLabel(u.role)"></span>
+                  <div class="flex items-center gap-2 mt-1.5 text-[10px] text-gray-500">
+                    <span x-show="u.total_points > 0">🏅 <span x-text="u.total_points"></span></span>
+                    <span x-show="u.torch_count > 0">🔥 <span x-text="u.torch_count"></span></span>
+                  </div>
+                  <button @click="addDiscoverUser(u)" :disabled="discover.addLoading[u.id]"
+                          class="mt-2 w-full py-1.5 text-xs font-bold rounded-lg border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition disabled:opacity-50">
+                    <span x-show="!discover.addLoading[u.id]">+ Add</span>
+                    <span x-show="discover.addLoading[u.id]">…</span>
+                  </button>
+                </div>
+              </template>
+            </div>
+            <p x-show="discover.error" class="text-red-500 text-xs text-center mt-3" x-text="discover.error"></p>
+          </div>
+        </div> 
+
+        <!-- Activity -->
+        <div x-show="activeTab === 'activity'" x-cloak>
+          <div class="glass rounded-2xl p-3 mb-4">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-wider px-2">Type</span>
+              <template x-for="t in [['all','All'],['torch','🔥 Torches'],['comment','💬 Comments'],['network','🤝 Network'],['contribution','🛠️ Contributions']]" :key="'pt2-'+t[0]">
+                <button @click="resetActivity('type', t[0])"
+                        class="px-3 py-1 text-xs font-semibold rounded-full border transition"
+                        :class="activity.type === t[0] ? 'bg-orange-500 text-white border-orange-500' : 'border-gray-300 dark:border-gray-600 text-gray-500 hover:border-orange-500 hover:text-orange-500'"
+                        x-text="t[1]"></button>
+              </template>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-wider px-2">Category</span>
+              <template x-for="c in [['all','All'],['ux','UX'],['seo','SEO'],['aeo','AEO']]" :key="'pc2-'+c[0]">
+                <button @click="resetActivity('category', c[0])"
+                        class="px-3 py-1 text-xs font-semibold rounded-full border transition"
+                        :class="activity.category === c[0] ? 'bg-orange-500 text-white border-orange-500' : 'border-gray-300 dark:border-gray-600 text-gray-500 hover:border-orange-500 hover:text-orange-500'"
+                        x-text="c[1]"></button>
+              </template>
+            </div>
+          </div>
+
+          <div x-show="activity.loading && activity.items.length === 0" class="text-center py-10"><div class="spinner mx-auto"></div></div>
+
+          <div x-show="activity.private" class="glass rounded-2xl p-10 text-center">
+            <p class="text-4xl mb-3">🔒</p>
+            <p class="text-gray-500">This user keeps their activity private.</p>
+          </div>
+
+          <div x-show="!activity.private && !activity.loading && activity.items.length === 0" class="glass rounded-2xl p-10 text-center">
+            <p class="text-4xl mb-3">📭</p>
+            <p class="text-gray-500">No activity yet.</p>
+          </div>
+
+            <div x-show="activity.items.length > 0" class="space-y-3">
+              <template x-for="group in groupActivityByDay(activity.items)" :key="'pg-'+group.label">
+                <div class="space-y-2">
+                  <div class="text-xs font-bold uppercase tracking-wider text-gray-500 px-1 pt-2" x-text="group.label"></div>
+                  <template x-for="item in group.items" :key="'pa-'+item.id">
+                <div class="glass rounded-2xl p-4 flex gap-3 hover:bg-white/5 transition">
+                  <div class="relative flex-shrink-0">
+                    <img src="/images/avatars/owner.svg"
+                         :src="avatarSrc(item)"
+                         width="44" height="44" style="width:44px;height:44px;"
+                         class="rounded-full object-cover" alt=""
+                         onerror="this.onerror=null;this.src='/images/avatars/owner.svg';">
+                    <span class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center text-sm border border-gray-200 dark:border-gray-700"
+                          x-text="activityIcon(item.event_type)"></span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm leading-snug">
+                      <a :href="'/torcher/' + item.username + '/'" class="font-bold hover:text-orange-500" x-text="item.display_name || item.username"></a>
+                      <span class="text-gray-600 dark:text-gray-400" x-text="activityVerb(item)"></span>
+                    </p>
+                    <template x-if="item.event_type === 'comment' && item.target_label">
+                      <blockquote class="mt-2 pl-3 border-l-2 border-orange-500/40 text-sm italic text-gray-600 dark:text-gray-400 break-words" x-text="'“' + item.target_label + (item.target_label.length >= 60 ? '…' : '') + '”'"></blockquote>
+                    </template>
+                    <template x-if="item.event_type === 'torch' && item.target_label">
+                      <div class="mt-2 flex flex-wrap items-center gap-2">
+                        <span class="text-sm font-medium break-words" x-text="item.target_label"></span>
+                        <template x-if="item.category">
+                          <span class="px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-orange-500/15 text-orange-500" x-text="item.category"></span>
+                        </template>
+                        <template x-if="item.tool">
+                          <span class="px-2 py-0.5 text-[10px] font-medium rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" x-text="item.tool"></span>
+                        </template>
+                      </div>
+                    </template>
+                    <template x-if="item.event_type === 'network' && item.target_label">
+                      <p class="mt-1.5 text-sm text-gray-600 dark:text-gray-400">→ <span class="font-medium" x-text="item.target_label"></span></p>
+                    </template>
+                    <template x-if="item.event_type === 'contribution' && item.target_label">
+                      <p class="mt-1.5 text-sm text-gray-600 dark:text-gray-400 break-words" x-text="item.target_label"></p>
+                    </template>
+                    <div class="flex items-center justify-between gap-2 mt-2.5">
+                      <span class="text-[11px] text-gray-500" x-text="formatRelativeTime(item.created_at)"></span>
+                      <template x-if="item.link">
+                        <a :href="item.link" class="text-xs font-semibold text-orange-500 hover:underline" x-text="activityLinkText(item)"></a>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+                  </template>
+                </div>
+              </template>
+            </div>
+
+          <div x-show="activity.hasMore" class="text-center mt-4">
+            <button @click="loadActivity()" :disabled="activity.loading"
+                    class="px-6 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 text-sm transition disabled:opacity-50">
+              Load more
+            </button>
+          </div>
+
+          <p x-show="activity.error" class="text-red-500 text-xs text-center mt-3" x-text="activity.error"></p>
+        </div>
+
+        <!-- About -->
+        <div x-show="activeTab === 'about'" x-cloak class="glass rounded-2xl p-6">
+          <h2 class="text-lg font-bold mb-4">About @<span x-text="profile.username"></span></h2>
+
+          <div class="space-y-3 text-sm">
+            <p x-show="profile.bio" class="text-gray-700 dark:text-gray-300 leading-relaxed" x-text="profile.bio"></p>
+            <p x-show="!profile.bio" class="text-gray-500 italic">No bio yet.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <div x-show="profile.role">
+                <span class="text-gray-500">Role:</span>
+                <span class="ml-2 font-medium" x-text="roleLabel(profile.role)"></span>
+              </div>
+              <div x-show="profile.job_title">
+                <span class="text-gray-500">Job title:</span>
+                <span class="ml-2 font-medium" x-text="profile.job_title"></span>
+              </div>
+              <div x-show="profile.company">
+                <span class="text-gray-500">Company:</span>
+                <span class="ml-2 font-medium" x-text="profile.company"></span>
+              </div>
+              <div x-show="profile.location">
+                <span class="text-gray-500">Location:</span>
+                <span class="ml-2 font-medium" x-text="profile.location"></span>
+              </div>
+              <div x-show="profile.created_at">
+                <span class="text-gray-500">Member since:</span>
+                <span class="ml-2 font-medium" x-text="formatDate(profile.created_at)"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+  </div>
+</div>
+
+<script src="/shared/avatar.js?v=1.0"></script>
+<script src="/main.js?v=1.2" type="module"></script>
+<script defer src="/profile-message.js?v=1"></script>
+<script type="module" src="/shared/google-analytics.js?v=1.0"></script>
+
+<script>
+const API_BASE = 'https://datewizza-auth.traffictorch.workers.dev';
+
+function profilePage() {
+  return {
+
+    commentLinkLabel(post) {
+      const n = post.comment_count || 0;
+      if (n === 0) return '💬 Start a discussion →';
+      return '💬 ' + n + ' Comment' + (n === 1 ? '' : 's') + ' →';
+    },
+    torchLink(post) { return '/torch/' + post.id + '/'; },
+
+    // ── Utility methods (shared with dashboard) ──
+    renderMarkdown(text) {
+      if (!text) return '';
+      const raw = String(text);
+      if (!window.markdownit) {
+        return '<p style="white-space:pre-wrap;margin:0;">' + raw
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/"/g,'&quot;').replace(/'/g,'&#39;') + '</p>';
+      }
+      if (!window._ttMd) {
+        window._ttMd = window.markdownit({ html:false, linkify:true, breaks:true });
+        const d = window._ttMd.renderer.rules.link_open || function(t,i,o,e,self){return self.renderToken(t,i,o);};
+        window._ttMd.renderer.rules.link_open = function(t,i,o,e,self){t[i].attrSet('target','_blank');t[i].attrSet('rel','nofollow ugc noopener');return d(t,i,o,e,self);};
+      }
+      let html = window._ttMd.render(raw);
+      try { html = this.embedifyHtml(html); } catch(e){}
+      return html;
+    },
+    excerpt(text, max = 600) {
+      if (!text) return '';
+      const str = String(text);
+      return str.length <= max ? str : str.slice(0, max).replace(/\s+\S*$/, '') + '…';
+    },
+    shouldCollapse(text, max = 600) { return !!text && String(text).length > max; },
+    parseImages(raw) {
+      if (!raw) return [];
+      try { const a = typeof raw === 'string' ? JSON.parse(raw) : raw; return Array.isArray(a) ? a : []; } catch { return []; }
+    },
+    parseWorkflowMeta(raw) {
+      if (!raw) return null;
+      try { const m = typeof raw === 'string' ? JSON.parse(raw) : raw; return m && typeof m === 'object' ? m : null; } catch { return null; }
+    },
+    wfTopChips(meta) {
+      if (!meta) return [];
+      const order = ['ai_models','ai_tools','cloud','ide','hardware','databases','devops','terminal','os','other_tools'];
+      const out = [];
+      for (const k of order) { const arr = meta[k]; if (Array.isArray(arr)) for (const v of arr) { if (out.length < 6) out.push(v); } }
+      return out;
+    },
+    youtubeEmbedSrc(url) {
+      try {
+        const u = new URL(url); const h = u.hostname.replace(/^www\./,'');
+        if (h === 'youtu.be') { const id = u.pathname.slice(1).split('/')[0]; return id ? 'https://www.youtube-nocookie.com/embed/'+id : null; }
+        if (h === 'youtube.com' || h === 'm.youtube.com') {
+          if (u.pathname === '/watch') { const v = u.searchParams.get('v'); return v ? 'https://www.youtube-nocookie.com/embed/'+v : null; }
+          const m = u.pathname.match(/^\/(?:embed|shorts|v)\/([^/?]+)/);
+          if (m) return 'https://www.youtube-nocookie.com/embed/'+m[1];
+        }
+      } catch {}
+      return null;
+    },
+    vimeoEmbedSrc(url) {
+      try {
+        const u = new URL(url); const h = u.hostname.replace(/^www\./,'');
+        if (h === 'vimeo.com' || h === 'player.vimeo.com') {
+          const m = u.pathname.match(/^\/(?:video\/)?(\d+)/);
+          if (m) return 'https://player.vimeo.com/video/'+m[1];
+        }
+      } catch {}
+      return null;
+    },
+    embedFrame(src, title) {
+      return '<div class="md-embed"><iframe src="'+src+'" title="'+title+'" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>';
+    },
+    embedifyHtml(html) {
+      try {
+        return html.replace(/<a href="([^"]+)"[^>]*>[^<]*<\/a>/g, (m, url) => {
+          const yt = this.youtubeEmbedSrc(url); if (yt) return this.embedFrame(yt,'YouTube video');
+          const vm = this.vimeoEmbedSrc(url);  if (vm) return this.embedFrame(vm,'Vimeo video');
+          return m;
+        });
+      } catch { return html; }
+    },
+    openImageLightbox(url) { if (url) this.imageLightbox = url; },
+    formatRelativeTime(ts) {
+      const d = Date.now() - ts, m = Math.floor(d/60000);
+      if (m < 1) return 'Just now'; if (m < 60) return m+'m ago';
+      const h = Math.floor(m/60); if (h < 24) return h+'h ago';
+      const dd = Math.floor(h/24); if (dd < 7) return dd+'d ago';
+      return new Date(ts).toLocaleDateString();
+    },
+    contactHref(c) {
+      const v = (c.value || '').trim(); if (!v) return '#';
+      switch (c.type) {
+        case 'email': return 'mailto:'+v;
+        case 'whatsapp': return 'https://wa.me/'+v.replace(/\D/g,'');
+        case 'telegram': return 'https://t.me/'+v.replace(/^@/,'');
+        case 'phone': return 'tel:'+v;
+        case 'linkedin': return v.startsWith('http') ? v : 'https://linkedin.com/in/'+v;
+        case 'x': return v.startsWith('http') ? v : 'https://x.com/'+v.replace(/^@/,'');
+        case 'other-url': return v.startsWith('http') ? v : 'https://'+v;
+        default: return '#';
+      }
+    },
+    contactIcon(type) {
+      return ({email:'📧',whatsapp:'💬',telegram:'✈️',wechat:'💬',signal:'🔒',phone:'📞',linkedin:'💼',x:'𝕏','other-url':'🔗'})[type] || '📬';
+    },
+    contactsTypeLabel(type) {
+      return ({email:'Email',whatsapp:'WhatsApp',telegram:'Telegram',wechat:'WeChat',signal:'Signal',phone:'Phone',linkedin:'LinkedIn',x:'X / Twitter','other-url':'Link'})[type] || 'Contact';
+    },
+    loading: true,
+
+    avatarSrc(o) {
+      if (typeof window.ttAvatarSrc === 'function') return window.ttAvatarSrc(o);
+      return '/images/avatars/' + ((o && o.avatar_preset) || 'owner') + '.svg';
+    },
+
+    notFound: false,
+    username: '',
+    profile: { skills: [], contacts: [], hire_services: [] },
+    posts: [],
+    imageLightbox: null,
+    network: [],
+    network_count: 0,
+    inNetwork: false,
+    endorsement_count: 0,
+    contactsRevealed: {},
+    avatarLightbox: false,
+    activeTab: 'audits',
+    isOwnProfile: false,
+    discover: { loading: false, users: [], hasMore: false, error: null, addLoading: {} },
+    activity: { loading: false, items: [], cursor: null, hasMore: false, error: null, private: false, type: 'all', category: 'all', filterUser: null, filterUsername: null },
+
+    async init() {
+      const parts = window.location.pathname.split('/').filter(Boolean);
+      const username = parts[1] || '';
+      this.username = username;
+
+      if (!username || username === 'torcher') { this.notFound = true; this.loading = false; return; }
+
+      document.title = `@${username} · DateWizza`;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/torcher/${encodeURIComponent(username)}`);
+        if (!res.ok) {
+          this.notFound = true;
+          this.loading = false;
+          return;
+        }
+        const data = await res.json();
+        this.profile = data.profile || {};
+        this.endorsement_count = data.profile?.endorsement_count || 0;
+        this.posts = (data.posts || []).map(p => ({
+          ...p,
+          _showDetails: false
+        }));
+        this.network = data.network || [];
+        this.network_count = data.network_count || 0;
+        this.endorsement_count = (data.profile && data.profile.endorsement_count) || 0;
+
+        if (this.profile.display_name) {
+          document.title = `${this.profile.display_name} (@${username}) · DateWizza`;
+          const metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc) {
+            metaDesc.content = this.profile.bio || `${this.profile.display_name} on DateWizza — shared audits and SEO/UX/AEO contributions.`;
+          }
+        }
+
+        await this.checkOwnership();
+        this.loadDiscover();
+      } catch (e) {
+        console.error('Profile load error:', e);
+        this.notFound = true;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async checkOwnership() {
+      const token = localStorage.getItem('authToken');
+      if (!token) return;
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+        const myId = payload.id || payload.userId || payload.sub;
+        if (myId && this.profile.id && String(myId) === String(this.profile.id)) {
+          this.isOwnProfile = true;
+          return;
+        }
+        const res = await fetch(`${API_BASE}/api/network/list`, {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          this.inNetwork = (data.network || []).some(u => u.id === this.profile.id);
+        }
+      } catch {}
+    },
+
+    async toggleNetwork() {
+      const token = localStorage.getItem('authToken');
+      if (!token) { window.location.href = '/login/'; return; }
+      const endpoint = this.inNetwork ? 'remove' : 'add';
+      try {
+        const res = await fetch(`${API_BASE}/api/network/${endpoint}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ user_id: this.profile.id })
+        });
+        if (res.ok) {
+          this.inNetwork = !this.inNetwork;
+          this.network_count += this.inNetwork ? 1 : -1;
+        } else {
+          const data = await res.json().catch(() => ({}));
+          alert(data.error || 'Failed');
+        }
+      } catch (e) {
+        alert('Network error: ' + e.message);
+      }
+    },
+
+async endorsePost(postId) {
+      const token = localStorage.getItem('authToken');
+      if (!token) { if (this.showUpgradeModal) this.showUpgradeModal(); else window.location.href = '/login/'; return; }
+      const arr = this.feed ? this.feed.posts : (this.posts || []);
+      const post = arr.find(p => p.id === postId);
+      if (!post) return;
+      if (post.viewer_endorsed || post._endorsing) return;
+      post._endorsing = true;
+      try {
+        const res = await fetch(API_BASE + '/api/posts/' + postId + '/endorse', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        const data = await res.json();
+        if (data.success) {
+          post.viewer_endorsed = true;
+          post.endorse_count = data.endorse_count || ((post.endorse_count || 0) + 1);
+          if (this.profile) this.profile.endorsement_count = (this.profile.endorsement_count || 0) + 1;
+        } else {
+          alert(data.error || 'Could not endorse');
+        }
+      } catch (e) {
+        alert('Network error: ' + e.message);
+      } finally {
+        post._endorsing = false;
+      }
+    },
+    roleLabel(role) {
+      const map = {
+        'ai-lens': 'AI Lenzer',
+        owner: 'Website Owner',
+        designer: 'Web Designer',
+        seo: 'SEO Professional',
+        'ai-director': 'AI Director', creator: 'Content Creator',
+        developer: 'Developer',
+        'ai-conductor': 'AI Conductor',
+        'context-engineer': 'Context Engineer',
+        other: 'Member'
+      };
+      return map[role] || 'Member';
+    },
+
+    domainLabel(url) {
+      try {
+        const host = new URL(url).hostname.replace(/^www\./, '');
+        return host
+          .split('.')
+          .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+          .join('.');
+      } catch {
+        return 'Link';
+      }
+    },
+
+    toolDisplayName(key) {
+      if (!key) return 'Audit';
+      const map = {
+        'keyword-tool': 'Keyword Placement Tool',
+        'nusa-tool': 'NUSA Tool',
+        'ofux-tool': 'OFUX Tool',
+        'lighthouse-plus-tool': 'Lighthouse Plus',
+        'topical-authority-audit-tool': 'Topical Authority Audit Tool',
+        'seo-entity-extractor-tool': 'Entity Extractor',
+        'seo-ux-tool': 'SEO + UX Tool',
+        'local-seo-tool': 'Local SEO Tool',
+        'seo-intent-tool': 'SEO Intent Tool',
+        'product-seo-tool': 'Product SEO Tool',
+        'aeo-performance-tool': 'AEO Performance Tool',
+        'ai-search-optimization-tool': 'AEO / AI Search Tool',
+        'ai-voice-search-tool': 'AI Voice Search Tool',
+        'ai-audit-tool': 'AI Content Audit Tool',
+        'quit-risk-tool': 'Quit Risk Tool'
+      };
+      return map[key] || key.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    },
+
+    toolPath(key) {
+      const map = {
+        'keyword-tool': '/keyword-tool/',
+        'nusa-tool': '/',
+        'ofux-tool': '/ofux-tool/',
+        'lighthouse-plus-tool': '/lighthouse-plus-tool/',
+        'topical-authority-audit-tool': '/topical-authority-audit-tool/',
+        'seo-entity-extractor-tool': '/seo-entity-extractor-tool/',
+        'seo-ux-tool': '/seo-ux-tool/',
+        'local-seo-tool': '/local-seo-tool/',
+        'seo-intent-tool': '/seo-intent-tool/',
+        'product-seo-tool': '/product-seo-tool/',
+        'aeo-performance-tool': '/aeo-performance-tool/',
+        'ai-search-optimization-tool': '/ai-search-optimization-tool/',
+        'ai-voice-search-tool': '/ai-voice-search-tool/',
+        'ai-audit-tool': '/ai-audit-tool/',
+        'quit-risk-tool': '/quit-risk-tool/'
+      };
+      return map[key] || '/';
+    },
+
+    toolRunUrl(key, testedUrl) {
+      if (!key || !testedUrl) return '#';
+      return this.toolPath(key) + '?url=' + encodeURIComponent(testedUrl);
+    },
+
+    parseModuleScores(raw) {
+      if (!raw) return [];
+      try {
+        const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
+        if (Array.isArray(parsed)) return parsed;
+        if (parsed && typeof parsed === 'object') {
+          return Object.keys(parsed).map(k => ({ name: k, score: parsed[k] }));
+        }
+        return [];
+      } catch { return []; }
+    },
+
+    formatDate(ts) {
+      try {
+        const d = new Date(ts);
+        return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+      } catch { return '—'; }
+    },
+
+    async loadDiscover(fresh = false) {
+      const token = localStorage.getItem('authToken');
+      if (!token) return;
+      this.discover.loading = true;
+      this.discover.error = null;
+      try {
+        const res = await fetch(`${API_BASE}/api/users/discover?seed=${fresh ? 'fresh' : 'today'}&limit=24&offset=0`,
+          { headers: { 'Authorization': 'Bearer ' + token } });
+        if (!res.ok) throw new Error('Failed to load Discover');
+        const data = await res.json();
+        this.discover.users = data.users || [];
+        this.discover.hasMore = !!data.has_more;
+      } catch (e) { this.discover.error = e.message; }
+      finally { this.discover.loading = false; }
+    },
+
+    async randomizeDiscover() { return this.loadDiscover(true); },
+
+    async addDiscoverUser(u) {
+      if (this.discover.addLoading[u.id]) return;
+      this.discover.addLoading[u.id] = true;
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) { window.location.href = '/login/'; return; }
+        const res = await fetch(`${API_BASE}/api/network/add`, {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: u.id })
+        });
+        if (res.ok) this.discover.users = this.discover.users.filter(x => x.id !== u.id);
+        else { const d = await res.json().catch(() => ({})); alert(d.error || 'Failed to add'); }
+      } catch (e) { alert('Network error: ' + e.message); }
+      finally { this.discover.addLoading[u.id] = false; }
+    },
+
+    async loadActivity(fresh = false) {
+      if (fresh) { this.activity.items = []; this.activity.cursor = null; }
+      this.activity.loading = true;
+      this.activity.error = null;
+      try {
+        const params = new URLSearchParams({ type: this.activity.type, category: this.activity.category, limit: '20' });
+        if (this.activity.cursor) params.set('cursor', this.activity.cursor);
+        const token = localStorage.getItem('authToken');
+        const headers = token ? { 'Authorization': 'Bearer ' + token } : {};
+        const res = await fetch(`${API_BASE}/api/activity/user/${encodeURIComponent(this.username)}?${params}`, { headers });
+        if (!res.ok) throw new Error('Failed to load activity');
+        const data = await res.json();
+        if (data.private) {
+          this.activity.private = true;
+          this.activity.items = [];
+          this.activity.hasMore = false;
+          this.activity.cursor = null;
+        } else {
+          this.activity.private = false;
+          this.activity.items = this.activity.cursor
+            ? [...this.activity.items, ...(data.items || [])]
+            : (data.items || []);
+          this.activity.cursor = data.cursor || null;
+          this.activity.hasMore = !!data.has_more;
+        }
+        this._markNewItems('public:' + (this.username || ''));
+      } catch (e) { this.activity.error = e.message; }
+      finally { this.activity.loading = false; }
+    },
+
+    resetActivity(field, value) {
+      this.activity[field] = value;
+      this.activity.cursor = null;
+      this.activity.items = [];
+      this.loadActivity();
+    },
+
+    activityIcon(t) {
+      return ({ torch: '🔥', comment: '💬', leaderboard: '🏆', network: '🤝', contribution: '🛠️', profile: '✏️',
+                points_milestone: '🏅', rank_change: '📈', score_up: '⬆️', endorse: '⭐' })[t] || '•';
+    },
+
+    activityVerb(item) {
+      return ({
+        torch: ' shared a torch', comment: ' commented on a torch',
+        leaderboard: ' joined the leaderboard', network: ' added someone to their network',
+        contribution: ' made a contribution', profile: ' updated their profile',
+        points_milestone: ' reached a milestone', rank_change: ' moved up the leaderboard',
+        score_up: ' improved a score', endorse: ' endorsed a torch'
+      })[item.event_type] || ' did something';
+    },
+
+    activityLinkText(item) {
+      return ({
+        torch: 'View torch →', comment: 'Read thread →', network: 'View profile →',
+        contribution: 'View contribution →', leaderboard: 'View leaderboard →', profile: 'View profile →',
+        points_milestone: 'View leaderboard →', rank_change: 'View leaderboard →', score_up: 'Re-run audit →',
+        endorse: 'View torch →'
+      })[item.event_type] || 'Open →';
+    },
+
+    collapseBursts(items) {
+      if (!Array.isArray(items) || !items.length) return [];
+      const out = [];
+      for (const item of items) {
+        const last = out[out.length - 1];
+        if (last
+            && last.user_id === item.user_id
+            && last.event_type === item.event_type
+            && last.target_id === item.target_id
+            && Number.isFinite(last.target_id)
+            && (last.created_at - item.created_at) < 10 * 60 * 1000) {
+          last.burst_count = (last.burst_count || 1) + 1;
+        } else {
+          out.push({ ...item, burst_count: 1 });
+        }
+      }
+      return out;
+    },
+
+    activityFiltered() {
+      return this.activity.filterUser
+        ? this.activity.items.filter(i => i.user_id === this.activity.filterUser)
+        : this.activity.items;
+    },
+
+    filterActivityByUser(item) {
+      this.activity.filterUser = item.user_id;
+      this.activity.filterUsername = item.username;
+    },
+
+    clearUserFilter() {
+      this.activity.filterUser = null;
+      this.activity.filterUsername = null;
+    },
+
+    _markNewItems(mode) {
+      const key = 'activity_' + mode;
+      const lastSeen = parseInt(localStorage.getItem('tt_activity_last_seen_' + key) || '0', 10);
+      let lastNewIdx = -1;
+      this.activity.items.forEach((item, i) => {
+        item._is_new = lastSeen > 0 && item.created_at > lastSeen;
+        delete item._show_after_divider;
+        if (item._is_new) lastNewIdx = i;
+      });
+      if (lastNewIdx >= 0 && lastNewIdx < this.activity.items.length - 1) {
+        this.activity.items[lastNewIdx]._show_after_divider = true;
+      }
+      setTimeout(() => {
+        localStorage.setItem('tt_activity_last_seen_' + key, String(Date.now()));
+      }, 3000);
+    },
+
+    groupActivityByDay(items) {
+      if (!Array.isArray(items) || !items.length) return [];
+      const now = new Date();
+      const todayMs = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      const yesterdayMs = todayMs - 86400000;
+      const currentYear = now.getFullYear();
+      const groups = [];
+      let lastLabel = null;
+      for (const item of items) {
+        const d = new Date(item.created_at);
+        const dayMs = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+        let label;
+        if (dayMs === todayMs) label = 'Today';
+        else if (dayMs === yesterdayMs) label = 'Yesterday';
+        else label = d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: d.getFullYear() !== currentYear ? 'numeric' : undefined });
+        if (label !== lastLabel) { groups.push({ label, items: [] }); lastLabel = label; }
+        groups[groups.length - 1].items.push(item);
+      }
+      return groups;
+    },
+  }
+}
+
+window.profilePage = profilePage;
+</script>
+
+
+</body>
+</html>

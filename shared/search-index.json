@@ -1,0 +1,584 @@
+[
+  {
+    "url": "/",
+    "title": "NUSA — Combined UX SEO AEO Audit",
+    "desc": "Instant 360° audit of UX, SEO and AI search readiness",
+    "category": "Tools",
+    "emoji": "🎯",
+    "featured": true
+  },
+  {
+    "url": "/ofux-tool/",
+    "title": "OFUX — Optimal UX Tool",
+    "desc": "UX friction, tap targets, readability, accessibility audit",
+    "category": "Tools",
+    "emoji": "📊",
+    "featured": true
+  },
+  {
+    "url": "/lighthouse-plus-tool/",
+    "title": "Lighthouse Plus",
+    "desc": "Core Web Vitals and performance audit with fixes",
+    "category": "Tools",
+    "emoji": "🗼"
+  },
+  {
+    "url": "/aeo-performance-tool/",
+    "title": "AEO Performance",
+    "desc": "Measure AI search and answer-engine optimisation",
+    "category": "Tools",
+    "emoji": "🚀"
+  },
+  {
+    "url": "/seo-intent-tool/",
+    "title": "SEO Intent",
+    "desc": "Match content to search intent + E-E-A-T audit",
+    "category": "Tools",
+    "emoji": "🎯"
+  },
+  {
+    "url": "/seo-ux-tool/",
+    "title": "SEO + UX",
+    "desc": "Unified health score across both dimensions",
+    "category": "Tools",
+    "emoji": "⚖️"
+  },
+  {
+    "url": "/local-seo-tool/",
+    "title": "Local SEO",
+    "desc": "NAP, schema, map signals + fixes",
+    "category": "Tools",
+    "emoji": "📍"
+  },
+  {
+    "url": "/product-seo-tool/",
+    "title": "Product SEO",
+    "desc": "Product page audit + eCommerce signals",
+    "category": "Tools",
+    "emoji": "🛒"
+  },
+  {
+    "url": "/seo-entity-extractor-tool/",
+    "title": "Entity Extractor",
+    "desc": "Semantic entity extractor + audit",
+    "category": "Tools",
+    "emoji": "🧬"
+  },
+  {
+    "url": "/topical-authority-audit-tool/",
+    "title": "Topical Authority",
+    "desc": "Topic coverage and authority gaps",
+    "category": "Tools",
+    "emoji": "⚜️"
+  },
+  {
+    "url": "/schema-generator/",
+    "title": "Schema Generator",
+    "desc": "18 schema markups in JSON-LD",
+    "category": "Tools",
+    "emoji": "⚙️",
+    "featured": true
+  },
+  {
+    "url": "/ai-search-optimization-tool/",
+    "title": "AI Search Optimisation",
+    "desc": "Perplexity, ChatGPT, Gemini, Grok discoverability",
+    "category": "Tools",
+    "emoji": "🔍",
+    "featured": true
+  },
+  {
+    "url": "/ai-voice-search-tool/",
+    "title": "AI Voice Search",
+    "desc": "Voice-query optimised content audit",
+    "category": "Tools",
+    "emoji": "🎙️"
+  },
+  {
+    "url": "/ai-audit-tool/",
+    "title": "AI Content Audit",
+    "desc": "Detect AI patterns + humanise content",
+    "category": "Tools",
+    "emoji": "🤖"
+  },
+  {
+    "url": "/quit-risk-tool/",
+    "title": "Quit Risk",
+    "desc": "UX friction + bounce prediction",
+    "category": "Tools",
+    "emoji": "⚠️"
+  },
+  {
+    "url": "/uxid-tool/",
+    "title": "UXID — UX Incentive Design",
+    "desc": "CTA specificity, trust, reciprocity, ethical urgency, AEO signals",
+    "category": "Tools",
+    "emoji": "🎯"
+  },
+  {
+    "url": "/blog/posts/uxid-help-guide/",
+    "title": "UXID Help Guide",
+    "desc": "The 15 UX incentive design signals explained - how Both/SEO/AEO weight them.",
+    "category": "Learn",
+    "emoji": "🥇"
+  },
+  {
+    "url": "/keyword-research-tool/",
+    "title": "Keyword Research",
+    "desc": "Keyword discovery and clustering",
+    "category": "Tools",
+    "emoji": "🔑"
+  },
+  {
+    "url": "/keyword-tool/",
+    "title": "Keyword Placement",
+    "desc": "On-page placement + density scoring",
+    "category": "Tools",
+    "emoji": "🗝️"
+  },
+  {
+    "url": "/keyword-vs-tool/",
+    "title": "Keyword VS",
+    "desc": "Competitive keyword gap analysis",
+    "category": "Tools",
+    "emoji": "🆚"
+  },
+  {
+    "url": "/aeo-log-analyzer/",
+    "title": "AEO Log Analyser",
+    "desc": "Parse server logs for AI crawler signals",
+    "category": "Tools",
+    "emoji": "📜"
+  },
+  {
+    "url": "/community/",
+    "title": "Community Feed",
+    "desc": "Discussions, workflows, audits — the live feed",
+    "category": "Community",
+    "emoji": "👥",
+    "featured": true
+  },
+  {
+    "url": "/community/round-table/",
+    "title": "Round Table — Governance",
+    "desc": "Decentralised governance, proposals, voting",
+    "category": "Community",
+    "emoji": "🗳️"
+  },
+  {
+    "url": "/community/round-table/simulator/",
+    "title": "Governance Simulator",
+    "desc": "Simulate proposals, see effect in 30 seconds",
+    "category": "Community",
+    "emoji": "⚡"
+  },
+  {
+    "url": "/leader-board/",
+    "title": "Leaderboard",
+    "desc": "Top NUSA scores and site audits",
+    "category": "Community",
+    "emoji": "🏆"
+  },
+  {
+    "url": "/contributors/",
+    "title": "Contributors",
+    "desc": "Community members who shipped features",
+    "category": "Community",
+    "emoji": "🛠️"
+  },
+  {
+    "url": "/discover/",
+    "title": "Discover People",
+    "desc": "Find and follow experts in your niche",
+    "category": "Community",
+    "emoji": "🔍"
+  },
+  {
+    "url": "/activity/",
+    "title": "Activity Feed",
+    "desc": "Real-time actions across the community",
+    "category": "Community",
+    "emoji": "⚡"
+  },
+  {
+    "url": "/ai-ux-seo-help-guides/",
+    "title": "Help Guides",
+    "desc": "Deep-dive diagnostics and fixes",
+    "category": "Learn",
+    "emoji": "📋",
+    "featured": true
+  },
+  {
+    "url": "/blog/",
+    "title": "Blog",
+    "desc": "Articles, updates, deep dives",
+    "category": "Learn",
+    "emoji": "📝"
+  },
+  {
+    "url": "/ai-seo-ux-tools/",
+    "title": "All Tools",
+    "desc": "Complete suite of 17+ audit tools",
+    "category": "Learn",
+    "emoji": "🧰"
+  },
+  {
+    "url": "/research/traffic-torch-whitepaper/",
+    "title": "DateWizza Whitepaper",
+    "desc": "Research, methodology, correlation data",
+    "category": "Learn",
+    "emoji": "📄"
+  },
+  {
+    "url": "/integrations/",
+    "title": "Integrations",
+    "desc": "Plugins, extensions, dev tools",
+    "category": "Learn",
+    "emoji": "🔌"
+  },
+  {
+    "url": "/integrations/browser-extensions/",
+    "title": "Browser Extensions",
+    "desc": "Chrome, Firefox, Edge",
+    "category": "Learn",
+    "emoji": "🧩"
+  },
+  {
+    "url": "/integrations/developer-tools/",
+    "title": "Developer Tools",
+    "desc": "VS Code, GitHub Actions, npm",
+    "category": "Learn",
+    "emoji": "💻"
+  },
+  {
+    "url": "/integrations/plugins/",
+    "title": "CMS Plugins",
+    "desc": "WordPress, Framer, Figma",
+    "category": "Learn",
+    "emoji": "📦"
+  },
+  {
+    "url": "/dashboard/",
+    "title": "Dashboard",
+    "desc": "Profile, feed, audits, analytics, settings",
+    "category": "Account",
+    "emoji": "📊"
+  },
+  {
+    "url": "/pro/",
+    "title": "Pro Plans",
+    "desc": "Full pricing and feature comparison",
+    "category": "Account",
+    "emoji": "⭐"
+  },
+  {
+    "url": "/upgrade/",
+    "title": "Upgrade",
+    "desc": "Pro and Enterprise plans",
+    "category": "Account",
+    "emoji": "🚀"
+  },
+  {
+    "url": "/login/",
+    "title": "Sign In / Register",
+    "desc": "Log in or create account",
+    "category": "Account",
+    "emoji": "🔑"
+  },
+  {
+    "url": "/about/",
+    "title": "About DateWizza",
+    "desc": "Mission, method, team",
+    "category": "Company",
+    "emoji": "ℹ️"
+  },
+  {
+    "url": "/contact/",
+    "title": "Contact",
+    "desc": "Get in touch",
+    "category": "Company",
+    "emoji": "✉️"
+  },
+  {
+    "url": "/analytics/",
+    "title": "Public Analytics",
+    "desc": "Real Cloudflare edge data",
+    "category": "Company",
+    "emoji": "📊"
+  },
+  {
+    "url": "/privacy/",
+    "title": "Privacy",
+    "desc": "Privacy-first architecture",
+    "category": "Company",
+    "emoji": "🔒"
+  },
+  {
+    "url": "/terms/",
+    "title": "Terms of Service",
+    "desc": "Legal terms",
+    "category": "Company",
+    "emoji": "📜"
+  },
+  {
+    "url": "/blog/posts/aeo-performance-help-guide/",
+    "title": "AEO Performance Help Guide 2026",
+    "desc": "Complete 2026 guide to AEO and GEO performance: the 9 modules that decide whether AI crawlers and answer engines can crawl, render, parse, and extract your content.",
+    "body": "AEO Performance Help Guide 2026 – DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × AEO Performance Help Guide 2026 The 9 technical modules that decide whether AI crawlers and answer engines can crawl, render, parse, and extract your content — and how DateWizza scores each one. AEO performance is the technical foundation of AI search visibility. SEO still matters. But SEO alone does not guarantee that an AI crawler can reach your content, render it in a headless browser, parse your structured data, or extract clean text. If any of those steps fail, your page never enters the ranking or citation stage. DateWizza's AEO Performance Tool audits 9 modules using a real Puppeteer headless render combined with static HTML analysis. This guide explains every module — what it measures, ex",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/ai-content-detection-guide/",
+    "title": "How to Detect AI Content: Free AI Audit Tool Help Guide",
+    "desc": "Complete guide to detect AI-written content. Perplexity, Burstiness, Repetition, Sentence Length & Vocabulary explained for SEO & UX.",
+    "body": "How to Detect AI Content: Free AI Audit Tool Help Guide DateWizza ← DateWizza ☰ ☰ 🌙 × How to Detect AI-Generated Content with 5 Metrics Google’s Helpful Content system and the major AI search engines (Perplexity, Grok, Gemini, ChatGPT Search) now heavily reward people-first, human-like writing. Pure AI-generated text is easy to spot and often ranks lower because it lacks the natural rhythm, surprise and depth that readers (and algorithms) love. Table of Contents Module What is it? How it's tested? Why it matters? Perplexity What How Why Burstiness What How Why Repetition What How Why Sentence Length What How Why Vocabulary What How Why Conclusion & Next Steps • Frequently Asked Questions Discover your webpages human vs AI generated content score. Run the AI Content Audit → Share? ",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/ai-search-optimization-help-guide/",
+    "title": "Ultimate AI Search Optimization Help Guide",
+    "desc": "Learn how to optimize content for AI with DateWizza's 8-key metrics: Answerability, EEAT, Structured Data, Scannability, Conversational Tone and more.",
+    "body": "Ultimate AI Search Optimization Help Guide | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Ultimate AI Search Optimization Help Guide AI search optimization is the key to getting your content featured in AI-generated overviews. In this guide, you'll learn how DateWizza analyzes your pages across 8 critical metrics to improve visibility in tools like Google's Search Generative Experience (SGE). Start by entering your URL in our free tool for an instant score. Table of Contents Module What is it? How it's tested? Why it matters? Answerability What How Why Structured Data What How Why EEAT Signals What How Why Scannability What How Why Conversational Tone What How Why Readability What How Why Unique Insights What How Why Anti-AI Safety What How Why Introduction • Conclusion • FAQ D",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/ai-voice-search-help-guide/",
+    "title": "AI Voice Search GEO Audit Help Guide 2026",
+    "desc": "Complete 2026 guide to optimizing for voice search: conversational keywords, featured snippets, schema markup, and AI Answer ranking strategies.",
+    "body": "AI Voice Search GEO Audit Help Guide 2026 – DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × AI Voice Search Help Guide 2026 How to win voice assistant answers in 2026. The 5 critical modules DateWizza uses to evaluate voice search readiness, and the highest-ROI optimizations you can implement right now. In 2026, voice search is no longer a nice-to-have. It drives over 50% of mobile queries and powers most AI assistant responses. Google, Perplexity, Grok, Gemini, and ChatGPT Search all prioritize conversational relevance, structured data, snippet-readiness, natural language quality, and traditional keyword foundations, but they weigh them differently. DateWizza’s AI Voice Search module audits five core pillars to give you an instant 360° health score for voice visibility: AI Vi",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/decentralised-government-help-guide/",
+    "title": "Decentralised Governance Help Guide – Round Table, Votes, Objector's Bench, Audit Chain &amp; Simulator",
+    "desc": "How the DateWizza Round Table works: proposals, phases, votes, quorum, block thresholds, the Objector's Bench, reconsider windows, the audit chain, and the simulator. Complete guide.",
+    "body": "Decentralised Governance Help Guide – Round Table, Votes, Objector's Bench, Audit Chain &amp; Simulator | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Decentralised Governance Help Guide – Round Table, Votes, Objector's Bench, Audit Chain &amp; Simulator How the DateWizza Round Table turns every decision into a public, verifiable, reversible process — and how you can watch it happen in 30 seconds. The DateWizza Round Table is a live governance system running on the same site you're reading now. Every eligible user has equal voting authority. No admin table exists — by design. Every action is hash-chained and publically verifiable. Every decision is reversible. And every rule can be changed, but only by clearing the highest threshold on the site. This guide walks through the",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/developing-traffic-torch-tools/",
+    "title": "Behind the Scenes: Developing DateWizza's AI SEO and UX Tools",
+    "desc": "Explore the development journey of DateWizza's AI-powered SEO and UX tools, including instant health scores and competitive analysis.",
+    "body": "Behind the Scenes: Developing DateWizza's AI SEO and UX Tools DateWizza ← DateWizza ☰ ☰ 🌙 × Behind the Scenes: Developing DateWizza's AI SEO and UX Tools Dive into the ongoing enhancements at DateWizza, where we educate users on AI-powered SEO tools, UX health analysis, competitive gap identification, and optimization strategies. Introduction to Recent Developments At DateWizza, we're dedicated to delivering instant 360° SEO and UX health score analysis, complete with priority insights, competitive gap evaluations, and actionable fixes to empower website owners in optimizing their online presence. Built on modern web standards and hosted on GitHub Pages for reliability, these updates ensure full mobile-friendliness, PWA-readiness (without offline caching), and adhe",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/lighthouse-plus-aeo-performance-beta-discounts/",
+    "title": "Two New Tools & Full Dashboard Upgrade – Lighthouse Plus + AEO Performance (Beta Discounts Inside)",
+    "desc": "DateWizza just launched two new audit tools: Lighthouse Plus and AEO Performance. Plus a full dashboard upgrade and generous beta discount codes for Pro Lifetime and Enterprise.",
+    "body": "Two New Tools & Full Dashboard Upgrade – Lighthouse Plus + AEO Performance (Beta Discounts Inside) | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Two New Tools & Full Dashboard Upgrade – Lighthouse Plus + AEO Performance (Beta Discounts Inside) 2026-09-15 Two New Tools, One Big Dashboard UpgradeWe’ve been busy. DateWizza now has two brand-new audit tools, a fully upgraded dashboard, and beta pricing that’s almost too generous to believe.The new tools are Lighthouse Plus and AEO Performance. Both are live now and ready to audit your pages from the dashboard or as standalone tools.🔦 Lighthouse Plus ToolLighthouse Plus goes beyond a standard Lighthouse run. It scores ten weighted modules, including Core Web Vitals, Performance Score, Accessibility, Best Practices, SEO On-Page, PW",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/lighthouse-plus-help-guide/",
+    "title": "Lighthouse Plus Help Guide 2026",
+    "desc": "Complete 2026 guide to Lighthouse Plus: the 10 modules that decide whether a page performs for humans and is ready for AI agents. Core Web Vitals, Accessibility, PWA, Agentic Browsing and more.",
+    "body": "Lighthouse Plus Help Guide 2026 – DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Lighthouse Plus Help Guide 2026 The 10 modules that decide whether your page performs for humans and is ready for AI agents — and how DateWizza scores each one. Lighthouse Plus is the human-facing half of modern web performance. Where the AEO Performance Tool measures how well AI crawlers can read your page, Lighthouse Plus measures how well real people can use it — and how ready it is for the next wave of AI agents that browse on a user's behalf. DateWizza runs 10 modules against a real headless Chrome session at a mobile viewport, then explains the What, How and Why of every score. It also generates CMS-aware fix instructions so you know exactly what to change and where. Core Web Vitals — LCP, ",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/local-seo-help-guide/",
+    "title": "The Ultimate Guide to Local SEO: NAP, Keywords, Schema & More",
+    "desc": "Complete local SEO help guide. Learn NAP consistency, local keywords, maps, structured data, reviews & site structure - why each factor matters for ranking.",
+    "body": "The Ultimate Guide to Local SEO: NAP, Keywords, Schema & More DateWizza ← DateWizza ☰ ☰ 🌙 × The Ultimate Guide to Local SEO How DateWizza instantly audits your local SEO health. NAP consistency, keywords, structured data, maps, reviews & more. Learn exactly how each module is tested, why it matters for Google rankings and UX in 2026, and the highest-impact fixes to boost your visibility and traffic. Introduction If you're a local business owner, marketer or SEO professional, getting found in Google’s Local Pack and Maps is no longer optional. It’s essential for foot traffic, calls and revenue in 2026. The good news? Most of the highest-impact improvements are on-page factors you can control right now. Things like consistent NAP, local keyword usage, structured data, embedded m",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/new-ai-ux-signals-2026/",
+    "title": "New AI UX Signals That Google & Perplexity Are Tracking",
+    "desc": "We break down the latest user‑interaction metrics that AI search engines are using to rank pages – and how to optimise for them.",
+    "body": "New AI UX Signals That Google & Perplexity Are Tracking | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × New AI UX Signals That Google & Perplexity Are Tracking 2026-10-08 Full content goes here…Section 1More detailed text… Related Help Guides Social Help GuideCommunity, leaderboard & networking. Pro Dashboard & Ask AI GuidePro dashboard & AI assistant walkthrough. Roach Startup Help GuideThe story behind building DateWizza. User Experience Help GuideLower quit risk, keep visitors longer. NUSA Tool Help GuideQuit Risk, Lighthouse Plus & AEO in one click. SEO UX Audit Help GuideFull 360° audit framework walkthrough.",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/nusa-tool-help-guide/",
+    "title": "NUSA Tool Help Guide – Quit Risk, Lighthouse Plus &amp; AEO Performance",
+    "desc": "How the NUSA tool works: run Quit Risk, Lighthouse Plus and AEO Performance audits on any page. Understand your three scores, the metrics behind them, and how to fix what matters first.",
+    "body": "NUSA Tool Help Guide – Quit Risk, Lighthouse Plus &amp; AEO Performance | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × NUSA Tool Help Guide – Quit Risk, Lighthouse Plus &amp; AEO Performance How the NUSA tool works, what each of its three scores actually measures, and how to turn your results into a prioritized fix list. NUSA is a free, browser‑based audit tool. Enter one URL and it runs three separate audits on that page at the same time: Quit Risk, Lighthouse Plus, and AEO Performance. You get three 0–100 scores, a breakdown of the metrics behind each one, and plain‑English fixes. This guide is about the tool itself: what each pillar measures, how to read the results, and how to move the numbers that matter. It's not a dashboard tutorial – it's a field manual for getting real val",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/ofux-dashboard-announcement/",
+    "title": "Announcing OFUX – Our Brand New 3‑in‑1 Audit Dashboard",
+    "desc": "We’ve rebuilt the DateWizza homepage from the ground up. Meet OFUX: a unified dashboard that scores UX Health, SEO Intent, and AI Search in one click – with zero fluff and total privacy.",
+    "body": "Announcing OFUX – Our Brand New 3‑in‑1 Audit Dashboard | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Announcing OFUX – Our Brand New 3‑in‑1 Audit Dashboard 2026-08-30 O FUX – The OFUX Dashboard Is LiveWe’re excited to unveil the biggest upgrade to the DateWizza homepage since we launched: the OFUX Dashboard.OFUX stands for Online Findability &amp; User Experience. It combines three independent audits – UX Health, SEO Intent, and AI Search – into a single, clean dashboard. And yes, we’ve given it the tagline “Zero FUX” because we’ve stripped away all the kerfuffles you usually find in SEO tools.What’s new?Previously, we had a basic SEO tool that did a decent job but only scratched the surface. We knew we could do better. So we rebuilt everything from the ground up. Now, when yo",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/pro-dashboard-ofux-ask-ai-help-guide/",
+    "title": "Pro Dashboard, OFUX & Ask AI Help Guide",
+    "desc": "Complete guide to DateWizza's new dashboard, OFUX all-in-one audit, and Ask DateWizza AI. Learn how to use analytics, connect GA4/GSC, and get AI-driven fixes.",
+    "body": "Pro Dashboard, OFUX & Ask AI Help Guide – DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Pro Dashboard, OFUX &amp; Ask AI Help Guide Everything you need to know about DateWizza's new dashboard, the all‑in‑one OFUX audit, and the intelligent Ask AI assistant – including how to connect GA4/GSC, interpret your scores, and get actionable fixes. DateWizza has evolved. The new dashboard gives you a single hub for all your SEO, UX, and AI‑search data. The OFUX (Online Findability &amp; User Experience) tool delivers three instant audits in one view. And the Ask DateWizza AI feature puts a smart assistant at your fingertips to interpret results and suggest fixes. This guide walks you through every feature, from connecting your Google Analytics and Search Console accounts to runni",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/product-seo-help-guide/",
+    "title": "Product SEO Help Guide: Optimize Ecommerce Pages",
+    "desc": "Complete product page SEO guide: on-page, technical, content & media, ecommerce signals. Learn modern testing logic and fast fixes to boost rankings and conversions.",
+    "body": "Product SEO Help Guide: Optimize Ecommerce Pages – DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Product SEO Help Guide The complete, up-to-date guide to mastering ecommerce product page SEO – explained using the exact logic inside DateWizza’s free 360° analysis tool Want higher Google rankings, more organic clicks, and better conversions on your product pages? This 2026 guide walks you through every single metric that DateWizza measures - from title tag optimization to Product OR ProductGroup schema validation, image alt quality, and modern review-widget detection. You’ll learn: What each module actually evaluates (and its history in modern SEO). How DateWizza tests it - pulled directly from the live JavaScript logic. Why it drives rankings, UX, dwell time, CTR and reve",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/roach-startup-help-guide/",
+    "title": "How to Build a Roach Startup for Near Zero",
+    "desc": "Aussie story of building DateWizza - a modern SEO toolkit for basically the cost of a domain name. Roach startup philosophy + Acquisition help guide.",
+    "body": "How to Build a Roach Startup for Near Zero | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × How to Build a Roach Startup for Near Zero Acquisition Loop Help Guide MENU ↓ Contents Unicorns The Beginning Month One Month Two Month Three Month Four Month Five Acquisition Loop Depression Dip The Fun Part Why Roaches Final Thoughts Most startup articles read like they were written by a management consultant trapped in a lift with a PowerPoint presentation. So I strapped in my daily decaf, fired up the laptop, and figured I’d write this while the kettle was still making noises that sound suspiciously like a dying possum. If you’re sick of hearing about billion-dollar startups that raise enough money to buy a small country, hire 400 staff, rent an office with a slide between floors, and then",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/schema-markup-help-guide/",
+    "title": "Schema Markup SEO & GEO Help Guide – 18 Types",
+    "desc": "Complete schema markup help guide: LocalBusiness, FAQPage, HowTo, Review, JobPosting & more. Learn when to use and how they boost rich results, CTR & traffic.",
+    "body": "Schema Markup SEO & GEO Help Guide – 18 Types | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Schema Markup Help Guide What each schema type is, when to use it, and why it matters for rich results, higher CTR, and better traffic in 2026. From core types like Organization & Article to advanced ones like JobPosting, Course, FactCheck & more. Implementing the right schema can boost click-through rates by 20–30% and unlock eye-catching rich snippets = start mastering it today. Schema Markup Table of Contents Schema Type What is it? When to use? Why it matters? Core & Foundational Schemas Organization What When Why Article / BlogPosting What When Why LocalBusiness What When Why Person What When Why BreadcrumbList What When Why Content & Engagement Schemas FAQPage What When Why HowTo What",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/semantic-entity-help-guide/",
+    "title": "Semantic Entity Help Guide Entity Extractor Explained",
+    "desc": "Semantic entity optimization. Learn how DateWizza audits Coverage, Salience, Relationships, Practices & Readiness for better AI visibility & SEO rankings.",
+    "body": "Semantic Entity Help Guide – DateWizza Entity Extractor Explained DateWizza ← DateWizza ☰ ☰ 🌙 × Semantic Entity Optimization Help Guide How to boost modern SEO, local/geo visibility, and answer engine results. Discover how DateWizza’s Entity Extractor audits your page across six key semantic layers and the highest-ROI optimizations you can apply today. Modern search is entity-first. Google and answer engines rely heavily on named entities, topical coverage, entity salience, semantic relationships, on-page practices, and overall semantic readiness to understand content, match queries, and generate answers. DateWizza’s Entity Extractor audits six core semantic layers to deliver an instant 360° health score for SEO, local/geo signals, and answer engine optimization: SEO E",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/seo-intent-help-guide/",
+    "title": "Mastering SEO Intent: E-E-A-T, Readability & Schema Help Guide",
+    "desc": "Learn how E-E-A-T, content depth, readability, schema; boost rankings; and top fixes for traffic gains. Discover how DateWizza measures search intent alignment.",
+    "body": "Mastering SEO Intent: E-E-A-T, Readability & Schema Help Guide DateWizza ← DateWizza ☰ ☰ 🌙 × Mastering SEO Intent: E-E-A-T, Depth, Readability & Schema Search intent is now a top ranking factor in Google’s eyes, and it has been since the 2015–2023 Helpful Content & core algorithm updates. Matching what users actually want (not just what keywords they type) determines whether your page ranks in position 1–3 or gets buried on page 2+. In 2026, Google rewards content that demonstrates strong E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness), delivers real content depth, maintains excellent readability, and uses structured schema to communicate intent clearly to both users and search engines. This complete how-to guide explains exactly what these four pillars mean to",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/seo-keyword-competition-help-guide/",
+    "title": "Keyword VS Tool: Ultimate Guide to Beating Competitors in On-Page SEO",
+    "desc": "Learn how to outrank competitors with a hybrid on-page audit: deterministic checks plus AI semantic comparison of intent, entities, and E-E-A-T.",
+    "body": "Keyword VS Tool: Ultimate Guide to Beating Competitors in On-Page SEO DateWizza ← DateWizza ☰ ☰ 🌙 × Keyword VS Tool: Ultimate Guide to Beating Competitors in On-Page SEO Want to know exactly why your page ranks below your competitors and how to fix it fast? DateWizza's free Keyword VS Tool runs a hybrid comparison: 70 deterministic points across 7 on-page modules (meta, headings, content depth, image alts, anchors, URL/schema, technical SEO) plus 30 AI semantic points from a Cloudflare Workers AI audit of search intent, entity coverage, AEO answerability, and E-E-A-T — scored independently for each page. In under 90 seconds you get side-by-side visual scores, priority fixes, competitive gaps, and realistic traffic uplift projections. The deterministic layer runs entirely clien",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/seo-keyword-help-guide/",
+    "title": "SEO Keyword Help Guide: Optimize Your Page for Better Rankings",
+    "desc": "Complete guide to modern on-page keyword optimization. Three-layer hybrid audit: deterministic checks, AI semantic analysis, and per-placement semantic coverage.",
+    "body": "SEO Keyword Help Guide: Optimize Your Page for Better Rankings DateWizza ← DateWizza ☰ ☰ 🌙 × SEO Keyword Help Guide: Optimize Your Page for Better Rankings Struggling to rank higher in search results? Modern keyword optimization is not about density, it is about intent alignment and semantic coverage. This guide explains the nine core on-page factors DateWizza audits: what each is, how it is tested, and why it matters for SEO and UX. You will learn how to combine classic on-page placement with two AI semantic layers — page-level analysis of intent match, entity coverage, AEO answerability, and E-E-A-T, plus per-placement Semantic Coverage grading that decides whether each on-page element expresses the keyword as exact, variant, partial or absent. Introduction to Keyword Optimi",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/seo-ux-audit-help-guide/",
+    "title": "The Ultimate SEO & UX Help Guide: What Matters for Rankings & UX",
+    "desc": "Complete guide to modern SEO and UX. Learn exactly what top tools measure (on-page SEO, Performance, mobile readiness, accessibility, content quality & more).",
+    "body": "The Ultimate SEO & UX Help Guide: What Matters for Rankings & UX DateWizza ← DateWizza ☰ ☰ 🌙 × DateWizza SEO & UX Audit Guide What really measures up in 2026 and beyond. How each factor is tested, why it still moves the needle for Google rankings and user experience, and the highest-impact fixes you can apply today. Google still rewards sites that deliver fast, accessible, relevant, and secure experiences, but the bar keeps rising. Modern SEO and UX audits go far beyond fast loading or mobile first websites. DateWizza SEO UX tool evaluates eight core pillars: on-page SEO signals, mobile & PWA readiness, performance, accessibility, content quality & structure, intuitive UX design, full HTTPS security and proper indexability. This guide explains exactly what DateWizza me",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/social-help-guide/",
+    "title": "DateWizza Community Help Guide – Torches, Discussions, Workflows, Beams, Profiles &amp; Network",
+    "desc": "How the DateWizza community works: post audit torches, publish discussions with rich markdown, share versioned AI dev workflows, endorse the best audits, send private Beams, discover new SEOs, and climb the leaderboard.",
+    "body": "DateWizza Community Help Guide – Torches, Discussions, Workflows, Beams, Profiles &amp; Network | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × DateWizza Community Help Guide – Torches, Beams, Profiles, Leaderboard &amp; Network How to share torches, endorse the best ones, verify your website, send private Beams, discover new SEOs, follow live activity, build a public profile, earn points, and get your site noticed. DateWizza isn't just a suite of audit tools – it's a community of SEOs, designers, and site owners who share what they find. Every time you run an audit, you can post it as a torch: a public result with its own page, share image, and permanent link. You can also send private Beams to other users, endorse the best audits, discover new people in the Discover gr",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/state-of-seo-geo-2026/",
+    "title": "State of SEO & GEO in 2026: In-Depth Data from Latest Reports",
+    "desc": "2026 SEO - GEO landscape with stats from Search Engine Journal, Semrush, Backlinko, & more: AI impact, zero-click trends, CTR drops and proven strategies.",
+    "body": "State of SEO & GEO in 2026: In-Depth Data from Latest Reports DateWizza ← DateWizza ☰ ☰ 🌙 × State of SEO & GEO in 2026: In-Depth Data from Latest Reports It’s March 2026 and if you’re still measuring SEO success purely by blue-link position and monthly organic clicks, you’re already playing yesterday’s game. I’ve been watching this shift happen in real time, watching position-one traffic evaporate 58–61% the moment an AI Overview appears, watching teams quietly pivot budgets toward citation tracking instead of keyword rankings, and watching the most forward-thinking SEOs start treating ChatGPT, Gemini and Perplexity as primary search surfaces rather than side experiments. This isn’t speculation. It’s what 371 working SEO professionals across 52 countries told Search Engine Journal",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/topical-authority-help-guide/",
+    "title": "SEO Topical Authority Help Guide – Improve Coverage",
+    "desc": "Topical authority help guide: How search engines & AI apps test it, why subtopic depth beats keywords, how DateWizza audits to help you build stronger authority.",
+    "body": "SEO Topical Authority Help Guide – Improve Coverage | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Topical Authority Help Guide 2026 How to Build Stronger Topical Depth and Close Coverage Gaps Topical authority is the #1 factor deciding whether your content ranks, appears in AI Overviews, gets cited in generative answers, or disappears in long-tail results. This complete help guide explains what topical authority really means today, how search engines and AI apps test it, why shallow content loses, and exactly how to use DateWizza to audit your pages, spot gaps, and build deeper, more authoritative topical ecosystems. Table of Contents What Is Topical Authority? How Topical Authority Is Tested? Why Topical Authority Matters? Conclusion Frequently Asked Questions Find your topic",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/traffic-torch-seo-ux-analysis-tool-build/",
+    "title": "DateWizza SEO UX Analysis Tool Build: Behind the Scenes",
+    "desc": "Deep dive into building DateWizza: a privacy-first, instant AI SEO and UX analysis tool with 360° audits, priority fixes – all freemium and educational.",
+    "body": "DateWizza SEO UX Analysis Tool Build: Behind the Scenes DateWizza ← DateWizza ☰ ☰ 🌙 × Share? 📤 Share Copy link 🔗 DateWizza SEO UX Analysis Tool Build: Behind the Scenes in Development Published on December 23 At DateWizza, we set out to revolutionize free SEO and UX auditing by creating a tool that's truly instant, completely private, and deeply educational. No sign-ups, no servers touching your data, no compromises on speed or quality. The centerpiece of our site is the instant SEO & UX analyzer: a comprehensive 360° health report featuring eight advanced modules, AI-prioritized fixes, predictive ranking forecasts, and an interactive mobile preview — all executed in your browser with secure proxy fetching. The Vision: Building an Instant, Privacy-First, Educational ",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/ubi-is-coming/",
+    "title": "Universal Basic Income (UBI) is Coming",
+    "desc": "UBI funded by AI productivity? The Productivity Dividend pays citizens, stabilises government, and rewards investors. Here's how the future actually works.",
+    "body": "Universal Basic Income (UBI) is Coming – DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × $ UBI PRODUCTIVITY DIVIDEND Universal Basic Income (UBI) is Coming And it's not the dystopian handout you've been warned about. It's the natural, inevitable dividend of an AI-powered economy - and it's going to make life better for almost everyone. The Future Arrives Faster Than You Think For decades, Universal Basic Income was a fringe idea - a thought experiment for philosophers and sci-fi writers. But something has changed. Artificial Intelligence is about to make the economy so productive that we can no longer ignore the question: Who gets the gains? The old answer was: the people who own the machines. But that answer is breaking down. Because when machines do most of the work, human labour st",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/user-experience-help-guide/",
+    "title": "User Experience Help Guide: Reduce Quit Risk with DateWizza",
+    "desc": "Complete guide to lowering quit risk through better UX and SEO. Learn readability, navigation, accessibility, mobile readiness, and performance optimization.",
+    "body": "User Experience Help Guide: Reduce Quit Risk with DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × User Experience Help Guide: How to Fix Quit Risk & Keep Visitors Longer Discover the exact UX and SEO factors that make users bounce in seconds and learn step-by-step fixes using DateWizza’s free Quit Risk Tool. In this complete help guide you’ll learn what each module really measures, how the tool calculates scores, why it matters for modern SEO + UX, and the fastest fixes that deliver the biggest wins. Ready to turn leavers into loyal readers and buyers? Table of Contents Module What is it? How it's tested? Why it matters? Readability What How Why Navigation What How Why Accessibility What How Why Mobile & PWA Readiness What How Why Performance What How Why Conclusion & Next Steps •",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/uxid-help-guide/",
+    "title": "UXID Help Guide – UX Incentive Design Signals Explained",
+    "desc": "How the UXID tool works: the 15 incentive-design signals it measures, how the score is weighted across Both / SEO / AEO modes, and how to fix what matters most for action, trust, commitment, and AI citation-worthiness.",
+    "body": "UXID Help Guide – UX Incentive Design Signals Explained | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × UXID Help Guide – UX Incentive Design Signals Explained The 15 signals behind the UXID score, how Both / SEO / AEO modes weight them, and how to fix what matters most. UXID is DateWizza's UX incentive design audit. It measures the concrete signals that give a visitor a reason to act — and a reason to trust you. Every signal is extracted deterministically from the page HTML with pure DOM and regex rules. There is no AI in the score itself; the optional AI panel only suggests fixes. This guide is the reference for what each signal means, what scores well, and how to fix the ones that don't. Every section in this guide is a direct anchor target from a metric card in the tool — cl",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  },
+  {
+    "url": "/blog/posts/zero-click-forecast-q3-2026/",
+    "title": "Zero‑Click Search Forecast: Q3 2026 Trends",
+    "desc": "New data shows zero‑click rates rising in commercial niches. Here’s how to capture visibility without the click.",
+    "body": "Zero‑Click Search Forecast: Q3 2026 Trends | DateWizza DateWizza ← DateWizza ☰ ☰ 🌙 × Zero‑Click Search Forecast: Q3 2026 Trends 2026-10-08 Full content goes here… Related Help Guides Social Help GuideCommunity, leaderboard & networking. Pro Dashboard & Ask AI GuidePro dashboard & AI assistant walkthrough. Roach Startup Help GuideThe story behind building DateWizza. User Experience Help GuideLower quit risk, keep visitors longer. NUSA Tool Help GuideQuit Risk, Lighthouse Plus & AEO in one click. SEO UX Audit Help GuideFull 360° audit framework walkthrough.",
+    "category": "Blog",
+    "emoji": "📝",
+    "featured": false
+  }
+]

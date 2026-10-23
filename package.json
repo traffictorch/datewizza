@@ -1,0 +1,51 @@
+{
+  "name": "traffic-torch-live",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "cp messages/messages.js ./messages.js && cp messages/profile-message.js ./profile-message.js && node generate-posts.cjs && node generate-search-index.cjs && vite build && rm -rf dist && mkdir -p dist && find . -maxdepth 1 -not -name 'dist' -not -name '.' -not -name 'node_modules' -not -name 'workers' -not -name 'messages' -not -name 'traffic-torch-auth' -not -name 'cors-proxy-worker' -not -name 'api-worker' -not -name 'auth-worker' -not -name 'torches' -not -name '_backups' -not -name '.cache' -not -name '.config' -not -name '.devcontainer' -not -name '.vscode' -not -name '.wrangler' -not -name '.npm-cache' -not -name 'dist' -exec cp -r {} dist/ \\; && rm -rf dist/node_modules dist/.git dist/.gitignore dist/package*.json dist/vite.config.js dist/wrangler.jsonc dist/wrangler.toml dist/.vite dist/.cache dist/.config dist/.devcontainer dist/.vscode dist/.wrangler dist/workers && find dist -name '*.bak*' -delete",
+    "preview": "vite preview",
+    "deploy": "npm run build && gh-pages -d dist",
+    "snap": "./bin/ttsnap",
+    "snap:torch": "./bin/ttsnap /torch/16/",
+    "snap:dashboard": "./bin/ttsnap /dashboard/",
+    "snap:diff": "./bin/ttsnap-diff"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.22",
+    "gh-pages": "^6.3.0",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.1.17",
+    "vite": "^8.0.12",
+    "wrangler": "^4.151.3"
+  },
+  "dependencies": {
+    "@cloudflare/puppeteer": "^0.0.11",
+    "apexcharts": "^5.3.6",
+    "basic-ftp": "^6.0.1",
+    "bcryptjs": "^3.0.3",
+    "flowbite": "^4.0.1"
+  },
+  "overrides": {
+    "rollup": "4.59.0",
+    "undici": "^7.24.0"
+  },
+  "description": "**Instant 360° SEO + UX Health Scanner**   Fast, fully client-side tool that analyzes any website for SEO health, Performance, UX frustration signals, AI-content probability, E-E-A-T signals, intent alignment, topical authority gaps, predictive rank health, and more — with educational metric explanations, plugin solutions and shareable results.",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datewizza/traffic-torch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/datewizza/traffic-torch/issues"
+  },
+  "homepage": "https://github.com/datewizza/traffic-torch#readme",
+  "directories": {
+    "doc": "docs"
+  }
+}

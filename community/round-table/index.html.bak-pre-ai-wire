@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Round Table — Community Governance for Traffic Torch</title>
+  <meta name="description" content="Decentralized governance where every entity has equal voice. No admins. No override. Every decision on the record, tamper-evident, and reversible. Shape the future of Traffic Torch.">
+
+  <link rel="canonical" href="https://traffictorch.net/community/round-table/">
+  <link rel="alternate" hreflang="en" href="https://traffictorch.net/community/round-table/">
+  <link rel="alternate" hreflang="x-default" href="https://traffictorch.net/community/round-table/">
+
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="dark light">
+
+  <meta property="og:title" content="Round Table — Community Governance for Traffic Torch">
+  <meta property="og:description" content="Equal voice. No admins. Every decision on the record. Shape the future of Traffic Torch.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://traffictorch.net/community/round-table/">
+  <meta property="og:image" content="https://traffictorch.net/blog/images/governance/decentralised-government-1200w.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Decentralised governance help guide — Round Table, votes, Objector's Bench, audit chain, and simulator">
+  <meta property="og:site_name" content="Traffic Torch">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Round Table — Community Governance for Traffic Torch">
+  <meta name="twitter:description" content="Equal voice. No admins. Every decision on the record.">
+  <meta name="twitter:image" content="https://traffictorch.net/blog/images/governance/decentralised-government-1200w.webp">
+  <meta name="twitter:image:alt" content="Round Table — Community governance for Traffic Torch">
+  <meta name="twitter:site" content="@Guitaralize">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo-180.webp">
+  <meta name="apple-mobile-web-app-title" content="Torch">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="/manifest.json">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://traffictorch.net/community/round-table/#webpage",
+    "url": "https://traffictorch.net/community/round-table/",
+    "name": "Round Table — Community Governance for Traffic Torch",
+    "description": "Decentralized governance for Traffic Torch. Equal authority, no admins, tamper-evident audit chain.",
+    "isPartOf": { "@id": "https://traffictorch.net/#website" },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://traffictorch.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Community", "item": "https://traffictorch.net/community/" },
+        { "@type": "ListItem", "position": 3, "name": "Round Table", "item": "https://traffictorch.net/community/round-table/" }
+      ]
+    },
+    "inLanguage": "en",
+    "datePublished": "2026-10-17T10:00:00+11:00",
+    "dateModified": "2026-10-17T10:00:00+11:00",
+    "author": { "@type": "Organization", "name": "Traffic Torch", "url": "https://traffictorch.net/" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Who can vote on proposals?", "acceptedAnswer": { "@type": "Answer", "text": "Any entity whose account is at least 7 days old and who has either a verified profile or prior community activity. New accounts become eligible automatically after aging up." } },
+      { "@type": "Question", "name": "What is the Objector's Bench?", "acceptedAnswer": { "@type": "Answer", "text": "Five entities randomly selected for 30-day terms. Any one of them can pause a vote for 72 hours to force reflection. They can never pass or block a proposal — only slow it down." } },
+      { "@type": "Question", "name": "Can a decision be reversed?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. 10% of eligible entities can sign a reconsider request within 30 days of a resolution passing. A new vote opens on the same question. Reversals are logged, not hidden." } },
+      { "@type": "Question", "name": "How do code changes actually ship?", "acceptedAnswer": { "@type": "Answer", "text": "A vote records intent — it never writes code. A code proposal requires a linked PR. When it passes, a signed resolution records the outcome. A human reviews and merges. The merge SHA is recorded on the audit chain." } },
+      { "@type": "Question", "name": "What stops a hostile takeover?", "acceptedAnswer": { "@type": "Answer", "text": "Equal authority (no admin to hijack), a 25% block threshold that protects minority positions, eligibility snapshots that prevent last-minute floods, and an audit chain that makes any tampering visible to everyone." } }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://traffic-torch-auth.traffictorch.workers.dev">
+
+  <link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/style.css?v=1.0"></noscript>
+
+  <style>html{visibility:hidden;opacity:0;transition:opacity 0.4s ease}</style>
+  <link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet';document.documentElement.style.visibility='visible';document.documentElement.style.opacity='1'">
+  <noscript><style>html{visibility:visible;opacity:1}</style><link rel="stylesheet" href="/tailwind-local.css?v=1.0"></noscript>
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+    })();
+  </script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+  <style>[x-cloak]{display:none !important}</style>
+  <script src="/shared/avatar.js?v=1.0"></script>
+  <link rel="preload" as="style" href="/shared/governance-simulator.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/shared/governance-simulator.css"></noscript>
+</head>
+
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+
+<div x-data="roundTable()" x-init="init()" class="flex flex-1 min-h-screen">
+  <div class="flex flex-1 min-h-screen">
+
+    <aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 transition-all duration-300 ease-in-out overflow-y-auto sticky top-0 h-screen flex-col self-start">
+      <div class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+        <a href="/" class="flex items-center gap-4">
+          <img src="/logo-160w.webp" srcset="/logo-160w.webp 160w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+          <span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent hidden">Traffic Torch</span>
+        </a>
+      </div>
+      <div id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in"></div>
+      <div class="p-4 border-t border-white/10 dark:border-white/5">
+        <button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition">←</button>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col">
+      <header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <a href="/" class="flex items-center gap-4 md:hidden">
+            <img src="/logo-100w.webp" srcset="/logo-100w.webp 100w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+            <p class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">Traffic Torch</p>
+          </a>
+          <div class="w-10 md:hidden"></div>
+          <button id="menuToggle" class="md:hidden text-3xl text-gray-500 relative left-0 -top-1">☰</button>
+          <button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 hover:text-orange-400 transition mr-4">☰</button>
+          <button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl">🌙</button>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10">
+          <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl focus:outline-none" aria-label="Close menu">×</button>
+          <div id="mobile-menu-placeholder"></div>
+        </div>
+      </header>
+
+      <main class="container mx-auto px-4 py-6 max-w-7xl">
+
+        <!-- ==================== HERO ==================== -->
+        <section class="text-center mb-10">
+          <div class="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-orange-500 dark:text-orange-400">
+            <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+            Community Governance
+          </div>
+          <h1 class="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent leading-tight">
+            The Round Table
+          </h1>
+          <p class="text-lg md:text-xl max-w-3xl mx-auto mb-5 text-gray-700 dark:text-gray-300 leading-relaxed">
+            Every entity equal. No admins inside the system. Every decision on the record, tamper-evident, and reversible.
+          </p>
+          <div class="flex items-center justify-center gap-3 flex-wrap text-sm mb-5">
+            <span x-show="me.loaded && me.authenticated && me.eligible" x-cloak class="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full font-semibold text-emerald-600 dark:text-emerald-400">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> You're eligible to vote
+            </span>
+            <span x-show="me.loaded && me.authenticated && !me.eligible" x-cloak class="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/30 rounded-full font-semibold text-yellow-600 dark:text-yellow-400">
+              <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+              <span x-text="me.reason === 'account_too_new' ? 'Voting opens in ' + (me.days_until_eligible || 0) + ' days' : 'Complete your profile to vote'"></span>
+            </span>
+            <a x-show="me.loaded && !me.authenticated" x-cloak href="/login/" class="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-500/10 border border-gray-500/30 rounded-full font-semibold text-gray-600 dark:text-gray-400 hover:border-orange-400 transition">
+              <span class="w-2 h-2 rounded-full bg-gray-500"></span> Log in to participate
+            </a>
+          </div>
+          <div class="flex items-center justify-center gap-4 flex-wrap text-xs text-gray-500 dark:text-gray-400 mb-6">
+            <span>📜 <strong class="text-gray-900 dark:text-gray-100" x-text="proposals.length || '—'"></strong> proposals</span>
+            <span aria-hidden="true">·</span>
+            <span>⚡ <strong class="text-gray-900 dark:text-gray-100" x-text="decidedProposals().length || '—'"></strong> decisions</span>
+            <span aria-hidden="true">·</span>
+            <span>🔐 Every action hash-chained</span>
+          </div>
+          <div class="flex items-center justify-center gap-3 flex-wrap">
+            <a href="#proposals-anchor" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:scale-[1.02] transition-all duration-200 min-h-[48px]">
+              View open proposals <span aria-hidden="true">↓</span>
+            </a>
+            <button @click="switchTab('new')" x-show="me.authenticated && me.eligible" x-cloak class="inline-flex items-center gap-2 px-6 py-3 bg-white/10 border border-orange-500/30 text-orange-500 dark:text-orange-400 font-bold rounded-xl hover:bg-orange-500/10 transition min-h-[48px]">
+              Draft a proposal
+            </button>
+          </div>
+          <div class="mt-4">
+            <a href="#simulator-anchor" class="inline-flex items-center gap-1.5 text-sm text-orange-500 dark:text-orange-400 hover:underline font-semibold">
+              New to governance? Watch the 30-second simulator
+              <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ==================== HOW IT WORKS ==================== -->
+        <section class="max-w-6xl mx-auto mb-12">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold mb-1">How the Round Table works</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Four phases. Equal authority at every step. No admins anywhere.</p>
+          </div>
+          <div class="grid md:grid-cols-4 gap-4">
+            <div class="p-5 bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-2xl">
+              <div class="text-3xl mb-2">📝</div>
+              <h3 class="font-bold mb-1 text-sm">1. Propose</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Any eligible entity can draft. Comment periods filter noise before binding votes.</p>
+            </div>
+            <div class="p-5 bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-2xl">
+              <div class="text-3xl mb-2">💬</div>
+              <h3 class="font-bold mb-1 text-sm">2. Discuss</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Public threaded comments. Every word permanent. Say your piece.</p>
+            </div>
+            <div class="p-5 bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-2xl">
+              <div class="text-3xl mb-2">⚖️</div>
+              <h3 class="font-bold mb-1 text-sm">3. Vote</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Quorum 20%. <strong>Block beats pass:</strong> 25% NO stops a vote even at 66% YES. Meta changes need 75% YES.</p>
+            </div>
+            <div class="p-5 bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-2xl">
+              <div class="text-3xl mb-2">⚡</div>
+              <h3 class="font-bold mb-1 text-sm">4. Execute</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Config applies live. Code becomes a tracked PR. Nothing auto-merges.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== TABS ==================== -->
+        <nav class="flex flex-wrap justify-center gap-2 mb-6 sticky top-[76px] z-[45] py-3 px-3 rounded-xl bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl shadow-xl border border-gray-200 dark:border-white/10 scroll-mt-24" id="proposals-anchor">
+          <template x-for="tab in tabs" :key="tab.id">
+            <button @click="switchTab(tab.id)"
+                    class="px-4 py-2 rounded-lg text-sm font-medium transition"
+                    :class="view === tab.id ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30' : 'bg-white/60 dark:bg-black/40 text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-black/60 border border-gray-200 dark:border-white/10'">
+              <span x-text="tab.label"></span>
+            </button>
+          </template>
+        </nav>
+
+        <!-- ==================== PROPOSALS ==================== -->
+        <div x-show="view === 'proposals'" x-cloak>
+          <div x-show="loading" class="text-center py-16">
+            <div class="inline-block w-10 h-10 border-4 border-orange-500/30 border-t-orange-500 rounded-full animate-spin mb-4"></div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Loading proposals…</p>
+          </div>
+
+          <div x-show="loadError && !loading" class="mb-4 bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center justify-between gap-3">
+            <div>
+              <p class="font-semibold text-red-600 dark:text-red-400 text-sm">Could not load proposals</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1" x-text="loadError"></p>
+            </div>
+            <button @click="loadProposals()" class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs font-semibold whitespace-nowrap">Retry</button>
+          </div>
+
+          <div x-show="!loading" class="flex items-center justify-between mb-4 flex-wrap gap-3">
+            <div class="flex gap-2 flex-wrap">
+              <button @click="filterPhase = 'all'" :class="filterPhase === 'all' ? 'bg-orange-500 text-white' : 'bg-white/60 dark:bg-black/40 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10'" class="px-3 py-1.5 rounded-lg text-xs font-semibold">All</button>
+              <button @click="filterPhase = 'draft'" :class="filterPhase === 'draft' ? 'bg-orange-500 text-white' : 'bg-white/60 dark:bg-black/40 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10'" class="px-3 py-1.5 rounded-lg text-xs font-semibold">Draft</button>
+              <button @click="filterPhase = 'vote'" :class="filterPhase === 'vote' ? 'bg-orange-500 text-white' : 'bg-white/60 dark:bg-black/40 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10'" class="px-3 py-1.5 rounded-lg text-xs font-semibold">Voting</button>
+              <button @click="filterPhase = 'passed'" :class="filterPhase === 'passed' ? 'bg-orange-500 text-white' : 'bg-white/60 dark:bg-black/40 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10'" class="px-3 py-1.5 rounded-lg text-xs font-semibold">Passed</button>
+              <button @click="filterPhase = 'rejected'" :class="filterPhase === 'rejected' ? 'bg-orange-500 text-white' : 'bg-white/60 dark:bg-black/40 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10'" class="px-3 py-1.5 rounded-lg text-xs font-semibold">Rejected</button>
+            </div>
+            <button @click="switchTab('new')" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-semibold transition">+ New Proposal</button>
+          </div>
+
+          <div x-show="!loading && filteredProposals().length > 0" class="grid gap-3">
+            <template x-for="p in filteredProposals()" :key="p.id">
+              <article @click="openProposal(p)" class="cursor-pointer bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl p-5 hover:border-orange-400/60 transition">
+                <div class="flex items-start justify-between gap-4 flex-wrap">
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-2 flex-wrap">
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider cursor-help" :class="phaseClass(p.phase)" :title="phaseTooltip(p.phase)" x-text="p.phase"></span>
+                      <span class="text-xs text-gray-500 dark:text-gray-400 cursor-help border-b border-dotted border-gray-400/40" :title="kindTooltip(p.kind)" x-text="p.kind"></span>
+                      <span class="text-xs text-gray-400">·</span>
+                      <span class="text-xs text-gray-500 dark:text-gray-400" x-text="p.category"></span>
+                      <span class="text-xs text-gray-400">·</span>
+                      <span class="text-xs text-gray-500 dark:text-gray-400" x-text="'by ' + p.author"></span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-1" x-text="p.title"></h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2" x-text="p.summary"></p>
+                  </div>
+                  <div class="text-right text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                    <div x-show="p.phase === 'vote'" class="mb-1">
+                      <span class="font-semibold text-gray-900 dark:text-gray-100" x-text="(p.voteDaysLeft || 0) + 'd'"></span> left
+                    </div>
+                    <div>💬 <span x-text="(p.comments || []).length"></span> · 🗳️ <span x-text="p.voteCount || 0"></span>/<span x-text="p.eligible || 0"></span></div>
+                  </div>
+                </div>
+                <div x-show="p.phase === 'vote'" class="mt-4">
+                  <div class="flex h-2 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800">
+                    <div class="bg-emerald-500" :style="'width:' + pct(p.tallies?.yes || 0, p.voteCount || 0) + '%'"></div>
+                    <div class="bg-red-500" :style="'width:' + pct(p.tallies?.no || 0, p.voteCount || 0) + '%'"></div>
+                    <div class="bg-gray-400" :style="'width:' + pct(p.tallies?.abstain || 0, p.voteCount || 0) + '%'"></div>
+                  </div>
+                </div>
+              </article>
+            </template>
+          </div>
+
+          <div x-show="!loading && !loadError && filteredProposals().length === 0" class="text-center py-16">
+            <div class="text-5xl mb-4">🗳️</div>
+            <h3 class="text-lg font-bold mb-2 text-gray-900 dark:text-gray-100" x-text="emptyStateText().title"></h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 max-w-md mx-auto" x-text="emptyStateText().body"></p>
+            <div class="flex items-center justify-center gap-2 flex-wrap">
+              <button @click="switchTab('new')" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm transition">Draft a proposal →</button>
+              <button x-show="filterPhase !== 'all'" @click="clearFilter()" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 font-semibold text-sm transition hover:border-orange-400">Clear filter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== DETAIL ==================== -->
+        <div x-show="view === 'detail'" x-cloak class="max-w-4xl mx-auto">
+          <button @click="backToList()" class="text-sm text-gray-500 dark:text-gray-400 hover:text-orange-400 mb-4">← Back to proposals</button>
+
+          <article class="bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl p-6 mb-4">
+            <div class="flex items-center gap-2 mb-3 flex-wrap">
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider" :class="phaseClass(current?.phase)" x-text="current?.phase"></span>
+              <span class="text-xs text-gray-500 dark:text-gray-400" x-text="current?.kind"></span>
+              <span class="text-xs text-gray-400">·</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400" x-text="current?.category"></span>
+            </div>
+            <h1 class="text-2xl font-bold mb-2" x-text="current?.title"></h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              <span x-text="current?.author"></span> · <span x-text="current?.createdAt"></span>
+            </p>
+            <div class="prose prose-sm dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 whitespace-pre-wrap" x-text="current?.body"></div>
+          </article>
+
+          <div class="bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl p-6 mb-4">
+            <h2 class="text-lg font-bold mb-3">Tally</h2>
+            <div x-show="current?.phase === 'vote'">
+              <div class="flex h-3 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800 mb-3">
+                <div class="bg-emerald-500 transition-all" :style="'width:' + pct(current?.tallies?.yes ?? 0, current?.voteCount ?? 0) + '%'"></div>
+                <div class="bg-red-500 transition-all" :style="'width:' + pct(current?.tallies?.no ?? 0, current?.voteCount ?? 0) + '%'"></div>
+                <div class="bg-gray-400 transition-all" :style="'width:' + pct(current?.tallies?.abstain ?? 0, current?.voteCount ?? 0) + '%'"></div>
+              </div>
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 text-sm gap-2">
+                <div class="flex gap-4 flex-wrap">
+                  <span class="text-emerald-600 dark:text-emerald-400">✓ <strong x-text="current?.tallies?.yes ?? 0"></strong> Yes</span>
+                  <span class="text-red-600 dark:text-red-400">✗ <strong x-text="current?.tallies?.no ?? 0"></strong> No</span>
+                  <span class="text-gray-500 dark:text-gray-400">◯ <strong x-text="current?.tallies?.abstain ?? 0"></strong> Abstain</span>
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-400">
+                  <strong x-text="current?.voteCount ?? 0"></strong> of <strong x-text="current?.eligible ?? 0"></strong> eligible
+                  · <span class="cursor-help border-b border-dotted border-gray-400/40" title="Minimum turnout required for the vote to count">quorum <span x-text="Math.round((current?.quorum_pct ?? 0.2) * 100) + '%'"></span></span>
+                  · <span class="cursor-help border-b border-dotted border-gray-400/40" title="Minimum YES share to pass. Must also beat the block threshold.">pass <span x-text="Math.round((current?.threshold_pct ?? 0.66) * 100) + '%'"></span></span>
+                </div>
+              </div>
+              <p class="text-xs text-center text-red-500/90 dark:text-red-400/90 mb-3">⚠ Block wins: 25%+ NO fails the proposal even at 66%+ YES</p>
+              <div class="flex flex-wrap gap-2 mb-3">
+                <button @click="castVote('yes')" :class="current?.myVote === 'yes' ? 'ring-2 ring-emerald-500' : ''" class="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition min-w-[100px]">Vote Yes</button>
+                <button @click="castVote('no')" :class="current?.myVote === 'no' ? 'ring-2 ring-red-500' : ''" class="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition min-w-[100px]">Vote No</button>
+                <button @click="castVote('abstain')" :class="current?.myVote === 'abstain' ? 'ring-2 ring-gray-500' : ''" class="flex-1 px-4 py-2.5 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-lg transition min-w-[100px]">Abstain</button>
+              </div>
+              <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Your vote is changeable until the vote closes. <span x-show="current?.myVote" x-text="'Currently: ' + (current?.myVote || '')"></span></p>
+            </div>
+
+            <div x-show="current?.phase === 'passed' || current?.phase === 'rejected'" class="text-center py-4">
+              <div class="text-2xl font-bold mb-1" :class="current?.phase === 'passed' ? 'text-emerald-500' : 'text-red-500'" x-text="current?.phase === 'passed' ? '✓ Passed' : '✗ Rejected'"></div>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                Yes <span x-text="current?.tallies?.yes ?? 0"></span> · No <span x-text="current?.tallies?.no ?? 0"></span> · Abstain <span x-text="current?.tallies?.abstain ?? 0"></span>
+              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Reconsider window open for 30 days from decision.</p>
+              <div x-show="current?.phase === 'passed' && current?.resolution_id && me.authenticated" class="mt-4">
+                <button @click="signReconsider()" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold rounded-lg transition">
+                  Sign Reconsider Request
+                </button>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">10% of eligible entities are needed within 30 days to reopen this decision.</p>
+              </div>
+            </div>
+
+            <div x-show="current?.phase === 'draft'" class="text-center py-4 text-gray-500 dark:text-gray-400">
+              <p>In draft. Comment period ongoing.</p>
+              <button @click="openVote()" class="mt-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm rounded-lg font-semibold">Open Vote →</button>
+            </div>
+          </div>
+
+          <div class="bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl p-6">
+            <h2 class="text-lg font-bold mb-4">Discussion <span class="text-sm font-normal text-gray-500" x-text="'(' + (current?.comments?.length ?? 0) + ')'"></span></h2>
+            <div class="space-y-4 mb-6">
+              <template x-for="c in (current?.comments || [])" :key="c.id">
+                <div class="flex gap-3">
+                  <div class="w-9 h-9 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0" x-text="(c.author || '?').charAt(0).toUpperCase()"></div>
+                  <div class="flex-1">
+                    <div class="text-sm">
+                      <strong x-text="c.author"></strong>
+                      <span class="text-gray-500 dark:text-gray-400 text-xs ml-2" x-text="c.createdAt"></span>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-300 mt-1 whitespace-pre-wrap" x-text="c.body_md"></p>
+                  </div>
+                </div>
+              </template>
+              <div x-show="(current?.comments?.length ?? 0) === 0" class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No comments yet. Be the first.</div>
+            </div>
+            <div class="flex gap-2">
+              <input x-model="newComment" @keydown.enter="submitComment()" placeholder="Add your comment…" class="flex-1 px-4 py-2.5 bg-white/80 dark:bg-black/60 border border-gray-200 dark:border-white/10 rounded-lg text-sm focus:outline-none focus:border-orange-400">
+              <button @click="submitComment()" class="px-4 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg text-sm transition">Post</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== NEW PROPOSAL ==================== -->
+        <div x-show="view === 'new'" x-cloak class="max-w-3xl mx-auto">
+          <button @click="backToList()" class="text-sm text-gray-500 dark:text-gray-400 hover:text-orange-400 mb-4">← Back to proposals</button>
+          <div class="bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl p-6">
+            <h2 class="text-xl font-bold mb-4">Draft a New Proposal</h2>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-semibold mb-1.5">Title</label>
+                <input x-model="draft.title" placeholder="A clear, specific title (5-140 chars)" class="w-full px-4 py-2.5 bg-white/80 dark:bg-black/60 border border-gray-200 dark:border-white/10 rounded-lg text-sm focus:outline-none focus:border-orange-400">
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-sm font-semibold mb-1.5">Kind</label>
+                  <select x-model="draft.kind" class="w-full px-4 py-2.5 bg-white/80 dark:bg-black/60 border border-gray-200 dark:border-white/10 rounded-lg text-sm">
+                    <option value="advisory">Advisory (signal only)</option>
+                    <option value="config">Config (changes a setting)</option>
+                    <option value="meta">Meta (changes the rules)</option>
+                    <option value="code">Code (needs a PR)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-1.5">Category</label>
+                  <select x-model="draft.category" class="w-full px-4 py-2.5 bg-white/80 dark:bg-black/60 border border-gray-200 dark:border-white/10 rounded-lg text-sm">
+                    <option value="feature">Feature</option>
+                    <option value="policy">Policy</option>
+                    <option value="meta">Meta</option>
+                    <option value="security">Security</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1.5">Body <span class="text-xs text-gray-500 font-normal">(20-20,000 chars, markdown supported)</span></label>
+                <textarea x-model="draft.body" rows="10" placeholder="Explain the proposal, the reasoning, and the intended outcome…" class="w-full px-4 py-3 bg-white/80 dark:bg-black/60 border border-gray-200 dark:border-white/10 rounded-lg text-sm font-mono focus:outline-none focus:border-orange-400"></textarea>
+              </div>
+              <div class="p-3 bg-indigo-500/10 border border-indigo-500/30 rounded-lg text-xs text-indigo-700 dark:text-indigo-300">
+                <strong>Before you submit:</strong> Meta proposals get a 30-day comment period. Config 14 days. Advisory 7 days. One active proposal per entity at a time.
+              </div>
+              <div class="flex gap-2 justify-end">
+                <button @click="backToList()" class="px-4 py-2.5 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-lg text-sm">Cancel</button>
+                <button @click="submitProposal()" class="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg text-sm">Submit Draft</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== BENCH ==================== -->
+        <div x-show="view === 'bench'" x-cloak class="max-w-4xl mx-auto">
+          <div class="bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl p-6 mb-4">
+            <h2 class="text-xl font-bold mb-2">🛡️ The Objector's Bench</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Five entities, randomly selected by sortition, serve 30-day terms. Any one of them can pause a vote for 72 hours to force reflection. They can never pass or block a proposal — only slow it down.</p>
+
+            <div x-show="benchMembers.length === 0" class="text-center py-8">
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">No bench seated. Draw one to begin.</p>
+              <button @click="drawBench()" class="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg text-sm">Draw Bench</button>
+            </div>
+
+            <div x-show="benchMembers.length > 0" class="grid md:grid-cols-2 gap-3">
+              <template x-for="m in benchMembers" :key="m.id">
+                <div class="flex items-center gap-3 p-3 bg-white/40 dark:bg-black/30 border border-gray-200 dark:border-white/10 rounded-lg">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold" x-text="(m.name || '?').charAt(0).toUpperCase()"></div>
+                  <div class="flex-1">
+                    <div class="font-semibold text-sm" x-text="m.name"></div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">Term ends <span x-text="m.termEnds"></span></div>
+                  </div>
+                  <span class="text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-full font-semibold">Active</span>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== AUDIT ==================== -->
+        <div x-show="view === 'audit'" x-cloak class="max-w-4xl mx-auto">
+          <div x-show="!auditResult" class="text-center py-12">
+            <div class="inline-block w-10 h-10 border-4 border-orange-500/30 border-t-orange-500 rounded-full animate-spin mb-4"></div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Verifying chain…</p>
+          </div>
+
+          <div x-show="auditResult" class="rounded-2xl p-6 mb-4 border" :class="auditResult?.intact ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-red-500/10 border-red-500/30'">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-3xl" x-text="auditResult?.intact ? '✓' : '✗'"></span>
+              <h2 class="text-xl font-bold" :class="auditResult?.intact ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'" x-text="auditResult?.intact ? 'Audit Chain Intact' : 'Audit Chain Broken'"></h2>
+            </div>
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+              <strong x-text="auditResult?.chain_count ?? 0"></strong> chain entries verified.
+              <span x-show="(auditResult?.votes_tampered || []).length > 0" class="text-red-500 font-semibold" x-text="'⚠️ ' + (auditResult?.votes_tampered?.length || 0) + ' vote(s) tampered'"></span>
+            </p>
+            <p x-show="auditResult?.broken_at" class="text-xs text-red-500 mt-2" x-text="'Broken at: ' + (auditResult?.broken_at || '')"></p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Every vote, comment, and resolution is SHA-256 hashed with the previous entry. Anyone can verify independently at <code class="px-1.5 py-0.5 bg-black/20 rounded">/api/rt/audit/verify</code>.</p>
+          </div>
+        </div>
+
+        <!-- ==================== EXECUTIONS ==================== -->
+        <div x-show="view === 'executions'" x-cloak class="max-w-4xl mx-auto">
+          <div class="bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl p-6">
+            <h2 class="text-xl font-bold mb-2">⚡ Execution Log</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Every passed resolution that led to a real change.</p>
+
+            <div x-show="executions.length === 0" class="text-center py-12 text-gray-500 dark:text-gray-400">
+              <div class="text-5xl mb-3">⚡</div>
+              <p class="text-sm">No executions yet. Once a proposal passes, its effect shows up here.</p>
+            </div>
+
+            <div x-show="executions.length > 0" class="space-y-2">
+              <template x-for="ex in executions" :key="ex.id">
+                <div class="p-4 border border-gray-200 dark:border-white/10 rounded-lg">
+                  <div class="flex items-start justify-between gap-3 flex-wrap">
+                    <div>
+                      <p class="font-semibold text-sm" x-text="ex.title || ex.slug"></p>
+                      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1" x-text="ex.target + ' · ' + ex.status + ' · ' + new Date((ex.created_at || 0) * 1000).toLocaleDateString()"></p>
+                    </div>
+                    <a x-show="ex.external_ref" :href="ex.external_ref" target="_blank" rel="noopener" class="text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-full font-semibold hover:underline">View →</a>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== HISTORY ==================== -->
+        <div x-show="view === 'history'" x-cloak class="max-w-4xl mx-auto">
+          <div class="bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl p-6">
+            <h2 class="text-xl font-bold mb-2">📜 Decision History</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Every resolution the community has made, in reverse chronological order. Each can be reopened within its 30-day reconsider window.</p>
+
+            <div x-show="decidedProposals().length === 0" class="text-center py-12">
+              <div class="text-5xl mb-3">📜</div>
+              <h3 class="text-lg font-bold mb-2">No decisions yet</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Once a proposal passes or fails a vote, it appears here as a permanent record.</p>
+            </div>
+
+            <div x-show="decidedProposals().length > 0" class="relative border-l-2 border-orange-500/30 ml-2 space-y-6">
+              <template x-for="p in decidedProposals()" :key="p.id">
+                <div class="ml-6 relative">
+                  <div class="absolute -left-[33px] top-1 w-4 h-4 rounded-full border-4 border-gray-50 dark:border-gray-950"
+                       :class="p.phase === 'passed' ? 'bg-emerald-500' : 'bg-red-500'"></div>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mb-1" x-text="p.createdAt"></p>
+                  <a @click="openProposal(p)" class="cursor-pointer font-semibold text-sm hover:text-orange-500 transition inline-block" x-text="p.title"></a>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <span :class="p.phase === 'passed' ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-red-600 dark:text-red-400 font-semibold'" x-text="p.phase === 'passed' ? '✓ Passed' : '✗ Rejected'"></span>
+                    · <span x-text="(p.tallies?.yes ?? 0) + '/' + (p.voteCount || 0) + ' yes'"></span>
+                    · <span x-text="p.kind"></span>
+                  </p>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== FAQ ==================== -->
+        <section class="max-w-3xl mx-auto mt-16 pt-12 border-t border-gray-200 dark:border-white/10">
+          <h2 class="text-2xl font-bold text-center mb-2">Common questions</h2>
+          <p class="text-center text-sm text-gray-500 dark:text-gray-400 mb-8">Everything you might be wondering before your first vote.</p>
+          <div class="space-y-2">
+            <details class="group bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+              <summary class="flex justify-between items-center gap-3 cursor-pointer px-5 py-4 font-semibold text-sm hover:text-orange-500 transition list-none">
+                <span>Who can vote?</span>
+                <span class="text-orange-500 group-open:rotate-180 transition-transform text-lg">▼</span>
+              </summary>
+              <p class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400">An <strong>entity</strong> is a human-operated account that is: (1) at least 7 days old, (2) has prior community activity (a comment or a vote), and (3) has a verified profile or public profile. New accounts become eligible automatically after aging up. <strong>Bots and AI agents are not entities</strong> — if the community ever wants to authorize them, that requires a Meta proposal by vote.</p>
+            </details>
+            <details class="group bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+              <summary class="flex justify-between items-center gap-3 cursor-pointer px-5 py-4 font-semibold text-sm hover:text-orange-500 transition list-none">
+                <span>What's the Objector's Bench?</span>
+                <span class="text-orange-500 group-open:rotate-180 transition-transform text-lg">▼</span>
+              </summary>
+              <p class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400">Five entities randomly selected for 30-day terms. Any one of them can pause a vote for 72 hours to force reflection. They can never pass or block a proposal — only slow it down. It's a circuit breaker, not a veto.</p>
+            </details>
+            <details class="group bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+              <summary class="flex justify-between items-center gap-3 cursor-pointer px-5 py-4 font-semibold text-sm hover:text-orange-500 transition list-none">
+                <span>Can a decision be reversed?</span>
+                <span class="text-orange-500 group-open:rotate-180 transition-transform text-lg">▼</span>
+              </summary>
+              <p class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400">Yes. 10% of eligible entities can sign a reconsider request within 30 days of a resolution passing. A new vote opens on the same question. If it reverses, the original is marked reversed — nothing is deleted.</p>
+            </details>
+            <details class="group bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+              <summary class="flex justify-between items-center gap-3 cursor-pointer px-5 py-4 font-semibold text-sm hover:text-orange-500 transition list-none">
+                <span>How do code changes actually ship?</span>
+                <span class="text-orange-500 group-open:rotate-180 transition-transform text-lg">▼</span>
+              </summary>
+              <p class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400">A vote records intent — it never writes code. A code proposal requires a linked PR. When it passes, the resolution is signed and auditable. A human reviews and merges the PR. The merge SHA is recorded. The Round Table can require it, but never silently ship it.</p>
+            </details>
+            <details class="group bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+              <summary class="flex justify-between items-center gap-3 cursor-pointer px-5 py-4 font-semibold text-sm hover:text-orange-500 transition list-none">
+                <span>What stops a hostile takeover?</span>
+                <span class="text-orange-500 group-open:rotate-180 transition-transform text-lg">▼</span>
+              </summary>
+              <p class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400">Equal authority — there is no admin inside the system to hijack. The block threshold at 25% NO protects minority positions even when the majority is large. Eligibility is snapshotted at vote-open, so nobody can flood the electorate at the last minute. And the public audit chain makes any tampering visible to everyone.</p>
+              <p class="px-5 pb-4 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-white/5 pt-3 mt-2"><strong>Honest disclosure:</strong> there are no admins inside the Round Table, but the site maintainer holds infrastructure authority outside it — Cloudflare deployments, database access, and PR merges. That authority is disclosed, not hidden. See the <a href="/community/round-table/maintainer-powers/" class="text-orange-500 hover:underline">maintainer powers</a> page for the exact list of what the maintainer can and cannot do.</p>
+            </details>
+            <details class="group bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+              <summary class="flex justify-between items-center gap-3 cursor-pointer px-5 py-4 font-semibold text-sm hover:text-orange-500 transition list-none">
+                <span>Who made the founding proposals?</span>
+                <span class="text-orange-500 group-open:rotate-180 transition-transform text-lg">▼</span>
+              </summary>
+              <p class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400">The 7 founding proposals were seeded by the maintainer on 17 October 2026 as the bootstrap set. Details — including the exact proposal bodies and reasoning — are documented in the <a href="/community/round-table/founding/" class="text-orange-500 hover:underline">founding document</a>. Any entity can vote against them.</p>
+            </details>
+            <details class="group bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+              <summary class="flex justify-between items-center gap-3 cursor-pointer px-5 py-4 font-semibold text-sm hover:text-orange-500 transition list-none">
+                <span>What are the exact voting rules?</span>
+                <span class="text-orange-500 group-open:rotate-180 transition-transform text-lg">▼</span>
+              </summary>
+              <div class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                <p><strong>Quorum:</strong> at least 20% of eligible entities must vote, with a floor of 10 votes. Below that, no quorum — no result.</p>
+                <p><strong>Block beats pass:</strong> if 25% or more of voters say NO, the proposal fails — even at 66% YES. The effective pass bar is therefore 75% YES.</p>
+                <p><strong>Pass threshold:</strong> 66% YES for ordinary proposals, <strong>75% YES for Meta proposals</strong> (which change the rules).</p>
+                <p><strong>Meta apply delay:</strong> if a Meta proposal passes and includes a config directive (like changing thresholds), the change is queued and applied 72 hours later — giving the community time to trigger a reconsider before it lands.</p>
+              </div>
+            </details>
+            <details class="group bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+              <summary class="flex justify-between items-center gap-3 cursor-pointer px-5 py-4 font-semibold text-sm hover:text-orange-500 transition list-none">
+                <span>Are votes private?</span>
+                <span class="text-orange-500 group-open:rotate-180 transition-transform text-lg">▼</span>
+              </summary>
+              <p class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400">Votes are <strong>public</strong> — your yes, no, or abstain is visible to everyone on the proposal page, and the tally is live. There is no anonymous voting mode. This is a deliberate trade-off: public votes make the outcome auditable and honest, at the cost of potentially creating social pressure. Comments and reasoning are optional and encouraged.</p>
+            </details>
+            <details class="group bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden">
+              <summary class="flex justify-between items-center gap-3 cursor-pointer px-5 py-4 font-semibold text-sm hover:text-orange-500 transition list-none">
+                <span>What happens if I don't vote?</span>
+                <span class="text-orange-500 group-open:rotate-180 transition-transform text-lg">▼</span>
+              </summary>
+              <p class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400">Nothing. Abstaining by not voting is different from voting "abstain". Not voting reduces the total votes counted and can contribute to no-quorum. Voting "abstain" counts toward quorum but not toward the pass threshold. If you don't care about a proposal, you can safely abstain — either by clicking Abstain or by ignoring it entirely.</p>
+            </details>
+          </div>
+        </section>
+
+        <!-- ==================== SIMULATOR ==================== -->
+        <section id="simulator-anchor" class="max-w-5xl mx-auto mt-16 pt-12 border-t border-gray-200 dark:border-white/10 scroll-mt-24">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Watch governance in action
+            </h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Five real scenarios. Play, pause, or step through each phase — no account, no vote, no commitment.
+            </p>
+          </div>
+          <div id="rt-sim" style="min-height:420px"></div>
+        </section>
+
+              <!-- Page comments -->
+        <section class="max-w-2xl mx-auto my-8 px-2">
+          <div id="page-comments"></div>
+        </section>
+        <script type="module">
+          import { mountPageComments } from '/shared/social/page-comments.js';
+          mountPageComments('#page-comments', '/community/round-table/');
+        </script>
+      </main>
+
+      <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="p-4 rounded-2xl bg-white/40 dark:bg-black/20 border border-gray-200 dark:border-white/10 flex flex-wrap items-center justify-center gap-3 text-sm">
+          <span class="text-gray-500 dark:text-gray-400 font-semibold">📜 Governance Documents:</span>
+          <a href="/community/round-table/constitution/" class="px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/30 text-orange-500 dark:text-orange-400 font-semibold hover:bg-orange-500/20 transition">Constitution</a>
+          <a href="/community/round-table/founding/" class="px-3 py-1.5 rounded-lg bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 font-semibold hover:border-orange-400 transition">Founding Document</a>
+          <a href="/community/round-table/maintainer-powers/" class="px-3 py-1.5 rounded-lg bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 font-semibold hover:border-orange-400 transition">Maintainer Powers</a>
+          <a href="/community/round-table/simulator/" class="px-3 py-1.5 rounded-lg bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 font-semibold hover:border-orange-400 transition">Simulator</a>
+          <a href="/analytics/" class="px-3 py-1.5 rounded-lg bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 font-semibold hover:border-orange-400 transition">📊 Analytics</a>
+          <a href="https://github.com/traffictorch/decentralised-governance" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-500 dark:text-purple-400 font-semibold hover:bg-purple-500/20 transition">⭐ Source</a>
+        </div>
+      </div>
+
+      <div id="footer-placeholder"></div>
+    </div>
+  </div>
+
+  <div x-show="toastMsg" x-transition x-cloak class="fixed bottom-6 right-6 z-[200] bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-5 py-3 rounded-lg shadow-2xl text-sm font-semibold max-w-sm" x-text="toastMsg"></div>
+</div>
+
+<script src="/main.js?v=1.2" type="module"></script>
+<script type="module" src="/shared/google-analytics.js?v=1.0"></script>
+
+<script>
+const RT_API = 'https://traffic-torch-auth.traffictorch.workers.dev';
+
+function roundTable() {
+  return {
+    view: 'proposals',
+    filterPhase: 'all',
+    current: null,
+    loading: true,
+    loadError: null,
+    newComment: '',
+    toastMsg: '',
+    draft: { title: '', kind: 'advisory', category: 'feature', body: '' },
+    proposals: [],
+    benchMembers: [],
+    auditResult: null,
+    executions: [],
+    me: { loaded: false, authenticated: false, eligible: false, reason: null, days_until_eligible: 0 },
+    tabs: [
+      { id: 'proposals', label: '📋 Proposals' },
+      { id: 'bench', label: '🛡️ Bench' },
+      { id: 'audit', label: '🔐 Audit' },
+      { id: 'executions', label: '⚡ Executions' },
+      { id: 'history', label: '📜 History' },
+    ],
+
+    token() { return localStorage.getItem('authToken') || ''; },
+    authHeaders() {
+      const t = this.token();
+      const h = { 'Content-Type': 'application/json' };
+      if (t) h['Authorization'] = 'Bearer ' + t;
+      return h;
+    },
+    async fetchAPI(path, opts = {}) {
+      const res = await fetch(RT_API + path, {
+        ...opts,
+        headers: { ...this.authHeaders(), ...(opts.headers || {}) },
+      });
+      try { return await res.json(); } catch { return { error: 'HTTP ' + res.status }; }
+    },
+
+    async init() {
+      await Promise.all([this.loadMe(), this.loadProposals()]);
+      try {
+        const slug = new URLSearchParams(location.search).get('p');
+        if (slug) {
+          const match = this.proposals.find(x => x.slug === slug);
+          if (match) await this.openProposal(match);
+        }
+      } catch (e) {}
+    },
+
+    async loadMe() {
+      try {
+        const d = await this.fetchAPI('/api/rt/me?b=' + Date.now());
+        if (d) this.me = { ...d, loaded: true };
+        else this.me.loaded = true;
+      } catch (e) {
+        this.me.loaded = true;
+      }
+    },
+
+    async loadProposals(retries = 3) {
+      this.loading = true;
+      this.loadError = null;
+      for (let attempt = 0; attempt < retries; attempt++) {
+        try {
+          const data = await this.fetchAPI('/api/rt/proposals?b=' + Date.now());
+          this.proposals = (data.proposals || []).map(p => ({
+            ...p,
+            author: (p.author_entity_id && String(p.author_entity_id) !== 'system') ? ('u' + p.author_entity_id) : 'system',
+            createdAt: new Date((p.created_at || 0) * 1000).toLocaleDateString(),
+            summary: (p.body_md || '').slice(0, 160),
+            body: p.body_md || '',
+            voteCount: (p.tally_yes || 0) + (p.tally_no || 0) + (p.tally_abstain || 0),
+            tallies: { yes: p.tally_yes || 0, no: p.tally_no || 0, abstain: p.tally_abstain || 0 },
+            eligible: p.eligible_count || 0,
+            comments: [],
+            myVote: null,
+            voteDaysLeft: p.vote_ends_at ? Math.max(0, Math.ceil((p.vote_ends_at - Date.now() / 1000) / 86400)) : 0,
+            draftDaysLeft: 0,
+          }));
+          this.loading = false;
+          return;
+        } catch (e) {
+          if (attempt === retries - 1) {
+            this.loadError = e.message || 'Network error';
+            this.loading = false;
+            return;
+          }
+          await new Promise(r => setTimeout(r, 400 * (attempt + 1)));
+        }
+      }
+    },
+
+    switchTab(id) {
+      this.view = id;
+      if (id === 'bench') this.loadBench();
+      if (id === 'executions') this.loadExecutions();
+      if (id === 'audit') this.loadAudit();
+    },
+
+    kindTooltip(kind) {
+      const map = {
+        meta: 'Rule change — requires 75% YES and a 72h delay before applying.',
+        config: 'Setting change — applies immediately when it passes.',
+        advisory: 'Signal only — records opinion, no automatic change.',
+        code: 'Code proposal — requires a linked PR and human review before merge.'
+      };
+      return map[kind] || 'Proposal kind';
+    },
+
+    phaseTooltip(phase) {
+      const map = {
+        draft: 'Comment period ongoing — voting not open yet',
+        vote: 'Voting is live — cast or change your vote until close',
+        passed: 'Passed — the effect is on record',
+        rejected: 'Rejected by the community',
+        withdrawn: 'Withdrawn by the author'
+      };
+      return map[phase] || phase;
+    },
+
+    clearFilter() { this.filterPhase = 'all'; },
+
+    emptyStateText() {
+      const f = this.filterPhase;
+      if (f === 'all') return { title: 'The Round Table is waiting for its first proposal', body: 'Be the first to shape the direction. Draft an advisory, config, or meta proposal and start the discussion.' };
+      if (f === 'draft') return { title: 'No drafts in progress', body: 'Drafts are proposals still gathering comments before a vote opens.' };
+      if (f === 'vote') return { title: 'No live votes right now', body: 'When a proposal opens for voting, it will appear here.' };
+      if (f === 'passed') return { title: 'No passed proposals yet', body: 'The first passed proposal will appear here with its final tally.' };
+      if (f === 'rejected') return { title: 'No rejected proposals', body: 'Rejected proposals are kept on record permanently.' };
+      return { title: 'No proposals in this phase', body: 'Try a different filter.' };
+    },
+
+    filteredProposals() {
+      if (this.filterPhase === 'all') return this.proposals;
+      return this.proposals.filter(p => p.phase === this.filterPhase);
+    },
+
+    decidedProposals() {
+      return this.proposals
+        .filter(p => p.phase === 'passed' || p.phase === 'rejected')
+        .sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+    },
+
+    phaseClass(phase) {
+      const map = {
+        draft: 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300',
+        vote: 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300',
+        passed: 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300',
+        rejected: 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300',
+        withdrawn: 'bg-gray-200 dark:bg-gray-700 text-gray-500',
+      };
+      return map[phase] || map.draft;
+    },
+
+    pct(n, total) { if (!total) return 0; return Math.round(((n || 0) / total) * 100); },
+
+    async openProposal(p) {
+      this.current = { ...p, comments: p.comments || [], tallies: p.tallies || { yes: 0, no: 0, abstain: 0 }, voteCount: p.voteCount || 0 };
+      this.view = 'detail';
+      try {
+        const url = new URL(location.href);
+        url.searchParams.set('p', p.slug);
+        history.pushState({}, '', url);
+        document.title = (p.title || 'Proposal') + ' — Round Table — Traffic Torch';
+      } catch (e) {}
+      await this.loadProposal(p.slug);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+
+    backToList() {
+      this.view = 'proposals';
+      this.current = null;
+      try {
+        history.pushState({}, '', location.pathname);
+        document.title = 'Round Table — Community Governance for Traffic Torch';
+      } catch (e) {}
+    },
+
+    async loadProposal(slug) {
+      try {
+        const data = await this.fetchAPI('/api/rt/proposals/' + slug + '?b=' + Date.now());
+        if (data.error) {
+          this.toast(data.error === 'Not found' ? 'Proposal not found' : 'Error: ' + data.error);
+          this.backToList();
+          return;
+        }
+        const p = data.proposal;
+        this.current = {
+          ...this.current,
+          ...p,
+          tallies: data.tally || { yes: 0, no: 0, abstain: 0 },
+          voteCount: (data.tally?.yes || 0) + (data.tally?.no || 0) + (data.tally?.abstain || 0),
+          comments: (data.comments || []).map(c => ({
+            ...c,
+            author: 'u' + c.entity_id,
+            createdAt: new Date((c.created_at || 0) * 1000).toLocaleDateString(),
+          })),
+          myVote: null,
+          author: (p.author_entity_id && String(p.author_entity_id) !== 'system') ? ('u' + p.author_entity_id) : 'system',
+          createdAt: new Date((p.created_at || 0) * 1000).toLocaleDateString(),
+          body: p.body_md || '',
+          draftDaysLeft: 0,
+        };
+      } catch (e) { this.toast('Error: ' + e.message); }
+    },
+
+    async castVote(choice) {
+      if (!this.current || this.current.phase !== 'vote') return;
+      if (!this.token()) { this.toast('Log in to vote'); return; }
+      try {
+        const data = await this.fetchAPI('/api/rt/proposals/' + this.current.slug + '/vote', {
+          method: 'POST',
+          body: JSON.stringify({ choice }),
+        });
+        if (data.error) { this.toast('Vote failed: ' + data.error); return; }
+        const c = this.current;
+        if (c.myVote) c.tallies[c.myVote] = Math.max(0, (c.tallies[c.myVote] || 0) - 1);
+        else c.voteCount = (c.voteCount || 0) + 1;
+        c.myVote = choice;
+        c.tallies[choice] = (c.tallies[choice] || 0) + 1;
+        this.toast('Vote recorded: ' + choice);
+      } catch (e) { this.toast('Error: ' + e.message); }
+    },
+
+    async openVote() {
+      if (!this.current) return;
+      if (!this.token()) { this.toast('Log in first'); return; }
+      try {
+        const data = await this.fetchAPI('/api/rt/proposals/' + this.current.slug + '/open-vote', { method: 'POST' });
+        if (data.error) { this.toast('Failed: ' + data.error); return; }
+        this.toast('Vote opened');
+        await this.loadProposal(this.current.slug);
+        await this.loadProposals();
+      } catch (e) { this.toast('Error: ' + e.message); }
+    },
+
+    async submitComment() {
+      if (!this.newComment.trim() || !this.current) return;
+      if (!this.token()) { this.toast('Log in to comment'); return; }
+      try {
+        const data = await this.fetchAPI('/api/rt/proposals/' + this.current.slug + '/comments', {
+          method: 'POST',
+          body: JSON.stringify({ body_md: this.newComment.trim() }),
+        });
+        if (data.error) { this.toast('Failed: ' + data.error); return; }
+        this.current.comments = this.current.comments || [];
+        this.current.comments.push({
+          id: data.id,
+          author: 'You',
+          createdAt: 'just now',
+          body_md: this.newComment.trim(),
+        });
+        this.newComment = '';
+        this.toast('Comment posted');
+      } catch (e) { this.toast('Error: ' + e.message); }
+    },
+
+    async submitProposal() {
+      if (!this.draft.title.trim()) { this.toast('Give it a title'); return; }
+      if (!this.token()) { this.toast('Log in first'); return; }
+      try {
+        const data = await this.fetchAPI('/api/rt/proposals', {
+          method: 'POST',
+          body: JSON.stringify({
+            title: this.draft.title,
+            body_md: this.draft.body,
+            kind: this.draft.kind,
+            category: this.draft.category,
+          }),
+        });
+        if (data.error) { this.toast('Failed: ' + data.error); return; }
+        this.toast('Draft created: ' + data.slug);
+        this.draft = { title: '', kind: 'advisory', category: 'feature', body: '' };
+        this.view = 'proposals';
+        await this.loadProposals();
+      } catch (e) { this.toast('Error: ' + e.message); }
+    },
+
+    async signReconsider() {
+      if (!this.current?.resolution_id) { this.toast('No resolution to reconsider'); return; }
+      if (!this.token()) { this.toast('Log in first'); return; }
+      try {
+        const d = await this.fetchAPI('/api/rt/resolutions/' + this.current.resolution_id + '/sign-reconsider', { method: 'POST' });
+        if (d.error) { this.toast('Failed: ' + d.error); return; }
+        if (d.triggered) this.toast('Reconsider triggered — new vote opened');
+        else this.toast('Signed: ' + d.signature_count + '/' + d.threshold + ' needed');
+      } catch (e) { this.toast('Error: ' + e.message); }
+    },
+
+    async loadBench() {
+      try {
+        const d = await this.fetchAPI('/api/rt/bench');
+        this.benchMembers = (d.bench || []).map(x => ({
+          id: x.id,
+          name: 'u' + x.entity_id,
+          termEnds: new Date((x.term_ends_at || 0) * 1000).toLocaleDateString(),
+        }));
+      } catch (e) { this.toast('Bench load failed: ' + e.message); }
+    },
+
+    async drawBench() {
+      if (!this.token()) { this.toast('Log in to draw'); return; }
+      try {
+        const d = await this.fetchAPI('/api/rt/bench/draw', { method: 'POST' });
+        if (d.error) { this.toast('Failed: ' + d.error); return; }
+        await this.loadBench();
+        this.toast('Bench drawn');
+      } catch (e) { this.toast('Error: ' + e.message); }
+    },
+
+    async loadExecutions() {
+      try {
+        const d = await this.fetchAPI('/api/rt/executions');
+        this.executions = d.executions || [];
+      } catch (e) { this.toast('Executions load failed: ' + e.message); }
+    },
+
+    async loadAudit() {
+      this.auditResult = null;
+      try {
+        const d = await this.fetchAPI('/api/rt/audit/verify?b=' + Date.now());
+        this.auditResult = d;
+      } catch (e) {
+        this.auditResult = { intact: false, chain_count: 0, broken_at: null, votes_tampered: [], error: e.message };
+      }
+    },
+
+    toast(msg) {
+      this.toastMsg = msg;
+      clearTimeout(this._t);
+      this._t = setTimeout(() => { this.toastMsg = ''; }, 2800);
+    },
+  };
+}
+
+window.roundTable = roundTable;
+
+// Footer banner: swap self-link for "You're here" state when on this page
+(function(){
+  if (!location.pathname.startsWith('/community/round-table')) return;
+  function patch() {
+    var banner = document.querySelector('footer a[href="/community/round-table/"]');
+    if (!banner || banner.dataset.rtpatched) return;
+    banner.dataset.rtpatched = '1';
+    banner.removeAttribute('href');
+    banner.style.cursor = 'default';
+    banner.setAttribute('aria-label', 'You are already on the Round Table page');
+    var spans = banner.querySelectorAll('span');
+    for (var i = 0; i < spans.length; i++) {
+      if (spans[i].textContent.trim().indexOf('Enter the Round Table') === 0) {
+        spans[i].textContent = "You're here — scroll up to vote ↑";
+        spans[i].className = 'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-orange-500/30 text-orange-500 dark:text-orange-400 font-bold min-h-[48px] w-full md:w-auto text-sm';
+        break;
+      }
+    }
+  }
+  patch();
+  var obs = new MutationObserver(patch);
+  obs.observe(document.body, { childList: true, subtree: true });
+  setTimeout(function(){ obs.disconnect(); }, 8000);
+})();
+</script>
+
+<script src="/shared/governance-rules.js"></script>
+<script src="/shared/governance-scenarios.js"></script>
+<script src="/shared/governance-simulator.js"></script>
+<script>
+  (function () {
+    function boot() {
+      var el = document.getElementById('rt-sim');
+      if (!el || !window.GovernanceSimulator) return;
+      window.GovernanceSimulator.init(el, {
+        mode: 'compact',
+        brand: 'Governance Simulator',
+        brandColor: '#ff8a3d',
+        autoplay: false
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      boot();
+    }
+  })();
+</script>
+</body>
+</html>

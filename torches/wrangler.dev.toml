@@ -1,0 +1,14 @@
+name = "torches-page-render"
+main = "src/index.js"
+compatibility_date = "2026-10-07"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+AUTH_API = "https://traffic-torch-auth.traffictorch.workers.dev"
+SITE_ORIGIN = "https://traffictorch.net"
+HIGH_SCORES_API = "https://traffic-torch-high-scores.traffictorch.workers.dev"
+
+[assets]
+directory = "./dev-public"
+binding = "ASSETS"
+not_found_handling = "none"

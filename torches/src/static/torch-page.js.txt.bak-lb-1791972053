@@ -1,0 +1,308 @@
+const API_BASE = 'https://traffic-torch-auth.traffictorch.workers.dev';
+
+function torchPage() {
+  return {
+    torchId: null, authorId: null, authorUsername: '',
+    activeTab: 'torch',
+    comments: [], commentsLoading: false, draft: '', submitting: false, commentError: '',
+    postType: 'audit', bodyMd: '', bodyExpanded: false,
+    commentMeta: { total: 0, offset: 0, limit: 30, has_more: false, loading: false },
+    isAuthenticated: false, inNetwork: false, isOwnTorch: false, myUserId: null, myAvatar: 'owner',
+    endorseCount: 0, viewerEndorsed: false, endorsing: false,
+    copyLabel: 'Copy link',
+
+    excerpt(text, max) {
+      max = max || 600;
+      if (!text) return '';
+      var str = String(text);
+      return str.length <= max ? str : str.slice(0, max).replace(/\s+\S*$/, '') + '\u2026';
+    },
+
+    plainExcerpt(text, max) {
+      max = max || 600;
+      if (!text) return '';
+      var stripped = String(text)
+        .replace(/^#{1,6}\s+/gm, '')
+        .replace(/\*\*([^*]+)\*\*/g, '$1')
+        .replace(/__([^_]+)__/g, '$1')
+        .replace(/\*([^*]+)\*/g, '$1')
+        .replace(/_([^_]+)_/g, '$1')
+        .replace(/`([^`]+)`/g, '$1')
+        .replace(/```[\s\S]*?```/g, '[code]')
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .replace(/^\s*[-*+]\s+/gm, '')
+        .replace(/^\s*\d+\.\s+/gm, '')
+        .replace(/^\s*>\s+/gm, '');
+      return this.excerpt(stripped.trim(), max);
+    },
+
+    shouldCollapse(text, max) {
+      max = max || 600;
+      return !!text && String(text).length > max;
+    },
+
+    youtubeEmbedSrc(url) {
+      try {
+        var u = new URL(url);
+        var h = u.hostname.replace(/^www\./, '');
+        if (h === 'youtu.be') { var id = u.pathname.slice(1).split('/')[0]; return id ? 'https://www.youtube-nocookie.com/embed/' + id : null; }
+        if (h === 'youtube.com' || h === 'm.youtube.com') {
+          if (u.pathname === '/watch') { var v = u.searchParams.get('v'); return v ? 'https://www.youtube-nocookie.com/embed/' + v : null; }
+          var m = u.pathname.match(/^\/(?:embed|shorts|v)\/([^/?]+)/);
+          if (m) return 'https://www.youtube-nocookie.com/embed/' + m[1];
+        }
+      } catch (e) {}
+      return null;
+    },
+
+    vimeoEmbedSrc(url) {
+      try {
+        var u = new URL(url);
+        var h = u.hostname.replace(/^www\./, '');
+        if (h === 'vimeo.com' || h === 'player.vimeo.com') {
+          var m = u.pathname.match(/^\/(?:video\/)?(\d+)/);
+          if (m) return 'https://player.vimeo.com/video/' + m[1];
+        }
+      } catch (e) {}
+      return null;
+    },
+
+    embedFrame(src, title) {
+      return '<div class="md-embed"><iframe src="' + src + '" title="' + title + '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>';
+    },
+
+    embedifyHtml(html) {
+      try {
+        var self = this;
+        return html.replace(/<a href="([^"]+)"[^>]*>[^<]*<\/a>/g, function (match, url) {
+          try {
+            var yt = self.youtubeEmbedSrc(url);
+            if (yt) return self.embedFrame(yt, 'YouTube video');
+            var vm = self.vimeoEmbedSrc(url);
+            if (vm) return self.embedFrame(vm, 'Vimeo video');
+          } catch (e) {}
+          return match;
+        });
+      } catch (e) { return html; }
+    },
+
+    renderMarkdown(text) {
+      if (!text) return '';
+      var raw = String(text);
+      if (!window.markdownit) {
+        return '<p style="white-space:pre-wrap;margin:0;">' + raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>';
+      }
+      if (!window._ttMd) {
+        window._ttMd = window.markdownit({
+          html: false, linkify: true, breaks: true, typographer: false,
+          highlight: function (str, lang) {
+            if (lang && window.hljs && window.hljs.getLanguage(lang)) {
+              try { return '<pre class="hljs"><code>' + window.hljs.highlight(str, { language: lang, ignoreIllegals: true }).value + '</code></pre>'; } catch (e) {}
+            }
+            return '<pre class="hljs"><code>' + window._ttMd.utils.escapeHtml(str) + '</code></pre>';
+          }
+        });
+        var defLink = window._ttMd.renderer.rules.link_open || function (t, i, o, e, self) { return self.renderToken(t, i, o); };
+        window._ttMd.renderer.rules.link_open = function (t, i, o, e, self) {
+          t[i].attrSet('target', '_blank');
+          t[i].attrSet('rel', 'nofollow ugc noopener');
+          return defLink(t, i, o, e, self);
+        };
+      }
+      var html = window._ttMd.render(raw);
+      try { html = this.embedifyHtml(html); } catch (e) {}
+      return html;
+    },
+
+    formatTime(ts) {
+      var now = Date.now(), diff = now - ts, min = Math.floor(diff / 60000);
+      if (min < 1) return 'Just now';
+      if (min < 60) return min + 'm ago';
+      var hr = Math.floor(min / 60);
+      if (hr < 24) return hr + 'h ago';
+      var d = Math.floor(hr / 24);
+      if (d < 7) return d + 'd ago';
+      return new Date(ts).toLocaleDateString();
+    },
+
+    async init() {
+      var parts = window.location.pathname.split('/').filter(Boolean);
+      this.torchId = parseInt(parts[1], 10) || null;
+      var dataEl = document.getElementById('torch-data');
+      if (dataEl) {
+        try {
+          var d = JSON.parse(dataEl.textContent);
+          this.authorId = d.author_id;
+          this.authorUsername = d.author_username;
+          this.endorseCount = d.endorse_count || 0;
+          this.postType = d.post_type || 'audit';
+          this.bodyMd = d.body_md || '';
+        } catch (e) {}
+      }
+      var token = localStorage.getItem('authToken');
+      if (token) {
+        this.isAuthenticated = true;
+        try {
+          var payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+          this.myUserId = payload.id || payload.userId || payload.sub || null;
+          this.isOwnTorch = this.myUserId && this.authorId && String(this.myUserId) === String(this.authorId);
+        } catch (e) {}
+      }
+      if (!this.isOwnTorch && this.authorId && this.isAuthenticated) {
+        this.checkNetwork();
+        this.checkEndorseStatus();
+      }
+      await this.loadComments();
+    },
+
+    async checkNetwork() {
+      try {
+        var token = localStorage.getItem('authToken');
+        if (!token) return;
+        var res = await fetch(API_BASE + '/api/network/list', { headers: { 'Authorization': 'Bearer ' + token } });
+        if (!res.ok) return;
+        var data = await res.json();
+        var self = this;
+        this.inNetwork = (data.network || []).some(function (u) { return u.id === self.authorId; });
+      } catch (e) {}
+    },
+
+    async toggleNetwork() {
+      var token = localStorage.getItem('authToken');
+      if (!token) { window.location.href = '/login/'; return; }
+      var ep = this.inNetwork ? 'remove' : 'add';
+      try {
+        var res = await fetch(API_BASE + '/api/network/' + ep, { method: 'POST', headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id: this.authorId }) });
+        if (res.ok) this.inNetwork = !this.inNetwork;
+        else { var d = await res.json().catch(function () { return {}; }); alert(d.error || 'Failed'); }
+      } catch (e) {}
+    },
+
+    async loadComments(offset) {
+      offset = offset || 0;
+      if (!this.torchId) return;
+      this.commentsLoading = true;
+      try {
+        var res = await fetch(API_BASE + '/api/posts/' + this.torchId + '/comments?offset=' + offset + '&limit=30');
+        if (res.ok) {
+          var d = await res.json();
+          var incoming = d.comments || [];
+          this.comments = offset === 0 ? incoming : this.comments.concat(incoming);
+          this.commentMeta = {
+            total: d.total || 0,
+            offset: offset + incoming.length,
+            limit: d.limit || 30,
+            has_more: !!d.has_more,
+            loading: false
+          };
+        }
+      } catch (e) {}
+      finally { this.commentsLoading = false; }
+    },
+
+    async loadMoreComments() {
+      if (!this.commentMeta.has_more || this.commentMeta.loading) return;
+      this.commentMeta.loading = true;
+      await this.loadComments(this.commentMeta.offset);
+    },
+
+    async submitComment() {
+      var body = (this.draft || '').trim();
+      if (!body || body.length > 6000) return;
+      this.submitting = true; this.commentError = '';
+      try {
+        var res = await fetch(API_BASE + '/api/posts/' + this.torchId + '/comments', { method: 'POST', headers: { 'Authorization': 'Bearer ' + localStorage.getItem('authToken'), 'Content-Type': 'application/json' }, body: JSON.stringify({ body: body }) });
+        var data = await res.json();
+        if (data.success) {
+          this.comments = this.comments.concat([data.comment]);
+          this.draft = '';
+          this.commentMeta.total = (this.commentMeta.total || 0) + 1;
+          this.commentMeta.offset = (this.commentMeta.offset || 0) + 1;
+        } else this.commentError = data.error || 'Failed';
+      } catch (e) { this.commentError = 'Network error'; }
+      finally { this.submitting = false; }
+    },
+
+    async editComment(c) {
+      var nb = prompt('Edit comment (6000 chars max):', c.body);
+      if (nb === null) return;
+      if (!nb.trim() || nb.length > 6000) { alert('Must be 1-6000 chars'); return; }
+      try {
+        var res = await fetch(API_BASE + '/api/comments/' + c.id, { method: 'PATCH', headers: { 'Authorization': 'Bearer ' + localStorage.getItem('authToken'), 'Content-Type': 'application/json' }, body: JSON.stringify({ body: nb.trim() }) });
+        if (res.ok) c.body = nb.trim();
+      } catch (e) {}
+    },
+
+    async deleteComment(id) {
+      if (!confirm('Delete this comment?')) return;
+      try {
+        var res = await fetch(API_BASE + '/api/comments/' + id, { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + localStorage.getItem('authToken') } });
+        if (res.ok) {
+          this.comments = this.comments.filter(function (c) { return c.id !== id; });
+          this.commentMeta.total = Math.max(0, (this.commentMeta.total || 1) - 1);
+        }
+      } catch (e) {}
+    },
+
+    async share() {
+      var url = window.location.href;
+      var text = (document.querySelector('h1') || {}).textContent || 'Traffic Torch';
+      try {
+        if (navigator.share) await navigator.share({ title: document.title, text: text, url: url });
+        else await this.copyLink();
+      } catch (e) {}
+    },
+
+    async copyLink() {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        this.copyLabel = 'Copied';
+        var self = this;
+        setTimeout(function () { self.copyLabel = 'Copy link'; }, 1800);
+      } catch (e) {}
+    },
+
+    async report() {
+      var reason = prompt('Reason for report:');
+      if (!reason) return;
+      try {
+        await fetch(API_BASE + '/api/reports', { method: 'POST', headers: { 'Authorization': 'Bearer ' + localStorage.getItem('authToken'), 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'post', target_id: this.torchId, reason: reason }) });
+        alert('Reported. Thank you.');
+      } catch (e) {}
+    },
+
+    async checkEndorseStatus() {
+      try {
+        var token = localStorage.getItem('authToken');
+        var headers = token ? { 'Authorization': 'Bearer ' + token } : {};
+        var res = await fetch(API_BASE + '/api/torch/' + this.torchId, { headers: headers });
+        if (!res.ok) return;
+        var data = await res.json();
+        if (data.post) {
+          this.endorseCount = data.post.endorse_count || 0;
+          this.viewerEndorsed = !!data.post.viewer_endorsed;
+        }
+      } catch (e) {}
+    },
+
+    async endorsePost() {
+      var token = localStorage.getItem('authToken');
+      if (!token) { window.location.href = '/login/'; return; }
+      if (this.endorsing || this.viewerEndorsed) return;
+      this.endorsing = true;
+      try {
+        var res = await fetch(API_BASE + '/api/posts/' + this.torchId + '/endorse', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } });
+        var data = await res.json();
+        if (data.success) {
+          this.viewerEndorsed = true;
+          this.endorseCount = data.endorse_count || (this.endorseCount + 1);
+        } else {
+          alert(data.error || 'Could not endorse');
+        }
+      } catch (e) { alert('Network error: ' + e.message); }
+      finally { this.endorsing = false; }
+    }
+  };
+}
+
+window.torchPage = torchPage;

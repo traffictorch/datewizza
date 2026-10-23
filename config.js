@@ -1,0 +1,2 @@
+// config.js
+window.STRIPE_PUBLISHABLE_KEY = 'pk_live_51SyjNi35Al6CUgc4jAcWAszElUF4iMpBZOj5UGM9gk7KZKxBSlDGP06S9S0kv7mlkUfZa7yTgFtP6PBEl39b5dKt00hzl1NEgr'; 

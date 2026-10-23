@@ -1,0 +1,22 @@
+/* About Page Screenshot Gallery */
+#tool-results-gallery .overflow-x-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #f97316 #e5e7eb;
+}
+
+#tool-results-gallery img {
+  max-height: 260px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  transition: transform 0.2s ease;
+}
+
+#tool-results-gallery img:hover {
+  transform: scale(1.03);
+}
+
+/* Mobile improvements */
+@media (max-width: 640px) {
+  #tool-results-gallery img {
+    max-height: 220px;
+  }
+}

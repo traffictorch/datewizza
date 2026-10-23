@@ -1,2157 +1,763 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="dark scroll-smooth">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>DateWizza · Plan Magical Dates</title>
-    <meta name="description" content="DateWizza helps you plan magical dates with friends and family – text reminders, RSVPs, no app needed." />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>DateWizza — Save time, money & CO₂ by merging your trips</title>
+<meta name="description" content="DateWizza is the calendar that merges your trips, plans your dates, and shows exactly how much carbon and cash you save. 1% of revenue funds carbon removal." />
+<meta property="og:title" content="DateWizza — Save time, money & CO₂" />
+<meta property="og:description" content="The calendar that merges your trips and shows your carbon + cash savings. Free to start." />
+<meta property="og:image" content="https://datewizza.com/images/date-wizza-1200w.webp" />
+<meta property="og:url" content="https://datewizza.com/" />
+<meta property="og:type" content="website" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="DateWizza · Plan · Alert · Network" />
-    <meta property="og:description" content="A social network calendar for creating events and networking with family, friends and coworkers." />
-    <meta property="og:image" content="https://datewizza.com/datewizza.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://datewizza.com/" />
-    <meta property="og:site_name" content="DateWizza" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
 
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+<!-- Tailwind (swap for a build in Phase 1b) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          display: ['"Playfair Display"', 'serif'],
+        },
+        colors: {
+          ink: { 950: '#05080f', 900: '#0a0f1a', 800: '#0f172a' },
+        },
+        boxShadow: {
+          glow: '0 0 40px -8px rgba(16,185,129,.55)',
+          'glow-rose': '0 0 40px -8px rgba(244,63,94,.55)',
+          card: '0 30px 80px -30px rgba(0,0,0,.8)',
+        },
+        animation: {
+          float: 'float 14s ease-in-out infinite alternate',
+          'float-slow': 'float 22s ease-in-out infinite alternate',
+          'pulse-glow': 'pulseGlow 3.5s ease-in-out infinite',
+        },
+        keyframes: {
+          float: {
+            '0%':   { transform: 'translate(0,0) scale(1)' },
+            '50%':  { transform: 'translate(40px,-30px) scale(1.08)' },
+            '100%': { transform: 'translate(-20px,40px) scale(.95)' },
+          },
+          pulseGlow: {
+            '0%,100%': { opacity: '.55' },
+            '50%':     { opacity: '1' },
+          },
+        },
+      },
+    },
+  };
+</script>
 
-    <style>
-        /* ===== RESET & BASE ===== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
-            height: 100%; height: 100dvh;
-            overflow: hidden;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: #fef2f2;
-            color: #1a0b0b;
-            transition: background 0.4s, color 0.4s;
-        }
-        [data-theme="dark"] body {
-            background: #1a0b0b;
-            color: #fef2f2;
-        }
+<style>
+  :root {
+    --emerald: #10b981;
+    --rose: #f43f5e;
+    --violet: #8b5cf6;
+  }
+  html, body { background:#05080f; }
+  body { font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
 
-        /* ===== ANIMATED MESH BACKGROUND ===== */
-        .mesh-bg {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .mesh-bg .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            animation: floatOrb 18s ease-in-out infinite alternate;
-        }
-        .mesh-bg .orb:nth-child(1) {
-            width: 500px; height: 500px;
-            background: #e11d48;
-            top: -10%; left: -5%;
-            animation-duration: 22s;
-        }
-        .mesh-bg .orb:nth-child(2) {
-            width: 600px; height: 600px;
-            background: #7c3aed;
-            bottom: -15%; right: -10%;
-            animation-duration: 26s;
-            animation-delay: -6s;
-        }
-        .mesh-bg .orb:nth-child(3) {
-            width: 400px; height: 400px;
-            background: #f59e0b;
-            top: 40%; left: 40%;
-            animation-duration: 20s;
-            animation-delay: -10s;
-            opacity: 0.15;
-        }
-        [data-theme="dark"] .mesh-bg .orb { opacity: 0.4; }
-        [data-theme="dark"] .mesh-bg .orb:nth-child(3) { opacity: 0.25; }
+  /* Mesh orbs */
+  .mesh { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+  .orb { position:absolute; border-radius:9999px; filter:blur(90px); opacity:.35; }
+  .orb-a { width:520px; height:520px; background:#10b981; top:-12%; left:-8%; }
+  .orb-b { width:600px; height:600px; background:#8b5cf6; bottom:-18%; right:-10%; opacity:.28; }
+  .orb-c { width:420px; height:420px; background:#f43f5e; top:38%; left:42%; opacity:.18; }
 
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(60px, -40px) scale(1.1); }
-            66% { transform: translate(-30px, 60px) scale(0.9); }
-            100% { transform: translate(40px, -20px) scale(1.05); }
-        }
+  /* Subtle grid */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 50% 0%, black 40%, transparent 78%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 40%, transparent 78%);
+  }
 
-        /* ===== APP CONTAINER ===== */
-        .app-container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 0 1rem 0.5rem;
-            position: relative;
-            z-index: 2;
-        }
-        @media (min-width: 768px) {
-            .app-container { max-width: 100%; padding: 0 2rem 1rem; }
-        }
+  /* Glass */
+  .glass {
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+  .glass-strong {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+  }
 
-        /* ===== HEADER ===== */
-        .app-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.4rem 0 0.1rem;
-            flex-shrink: 0;
-        }
-        .app-header h1 {
-            font-size: 1.4rem;
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            background: linear-gradient(135deg, #e11d48, #7c3aed, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-family: 'Playfair Display', serif;
-            display: inline-block;
-        }
-        .purpose-indicator {
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #6b7280;
-            margin-left: 0.3rem;
-            font-family: 'Inter', sans-serif;
-            background: rgba(225,29,72,0.08);
-            padding: 0.1rem 0.6rem;
-            border-radius: 40px;
-            border: 1px solid rgba(225,29,72,0.08);
-            display: none;
-        }
-        [data-theme="dark"] .purpose-indicator {
-            color: #94a3b8;
-            background: rgba(225,29,72,0.1);
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        .header-right button {
-            background: none; border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            padding: 0.2rem 0.3rem;
-            border-radius: 40px;
-            transition: 0.2s;
-            color: #4b5563;
-        }
-        [data-theme="dark"] .header-right button { color: #94a3b8; }
-        .header-right button:hover {
-            background: rgba(225,29,72,0.1);
-            color: #e11d48;
-        }
-        [data-theme="dark"] .header-right button:hover {
-            background: rgba(225,29,72,0.15);
-            color: #fb7185;
-        }
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(110deg,#34d399 0%,#22d3ee 35%,#a78bfa 70%,#fb7185 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-        /* ===== SEARCH ===== */
-        .search-bar {
-            flex-shrink: 0;
-            margin: 0.2rem 0 0.3rem;
-            position: relative;
-            display: none;
-        }
-        .search-bar.open { display: block; }
-        .search-bar input {
-            width: 100%; padding: 0.5rem 1rem;
-            border-radius: 60px;
-            border: 1px solid #fecdd3;
-            background: rgba(255,255,255,0.8);
-            font-size: 0.9rem;
-            outline: none;
-            transition: 0.2s;
-            color: inherit;
-            backdrop-filter: blur(8px);
-        }
-        [data-theme="dark"] .search-bar input {
-            background: rgba(30,11,11,0.6);
-            border-color: #4a1a1a;
-            color: #fef2f2;
-        }
-        .search-bar input:focus {
-            border-color: #e11d48;
-            box-shadow: 0 0 0 3px rgba(225,29,72,0.15);
-        }
-        .search-bar .search-icon {
-            position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
-            color: #94a3b8; font-size: 1rem; pointer-events: none;
-        }
+  /* Primary button */
+  .btn-primary {
+    background: linear-gradient(110deg,#10b981 0%,#059669 45%,#7c3aed 100%);
+    box-shadow: 0 12px 40px -12px rgba(16,185,129,.7), inset 0 1px 0 rgba(255,255,255,.25);
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+  }
+  .btn-primary:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 20px 50px -14px rgba(16,185,129,.85), inset 0 1px 0 rgba(255,255,255,.3); }
 
-        /* ===== MONTH NAV ===== */
-        .month-nav {
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.05rem 0 0.2rem;
-            flex-shrink: 0;
-        }
-        .month-nav .month-label {
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-align: center;
-            flex: 1;
-            font-family: 'Playfair Display', serif;
-            color: #1a0b0b;
-            cursor: default;
-        }
-        [data-theme="dark"] .month-nav .month-label { color: #fef2f2; }
-        .month-nav button {
-            background: none; border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: #4b5563;
-            padding: 0 0.3rem;
-            transition: 0.2s;
-            line-height: 1;
-            touch-action: manipulation;
-        }
-        [data-theme="dark"] .month-nav button { color: #94a3b8; }
-        .month-nav button:hover { color: #e11d48; }
+  .btn-ghost {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    transition: background .2s, border-color .2s, transform .2s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); transform: translateY(-1px); }
 
-        /* ===== CALENDAR WRAPPER ===== */
-        .calendar-wrapper {
-            flex: 1 1 0;
-            min-height: 0;
-            position: relative;
-            display: none;
-        }
-        .calendar-scroll {
-            height: 100%;
-            width: 100%;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
-            position: relative;
-            padding-bottom: 0.25rem;
-        }
-        .calendar-scroll::-webkit-scrollbar { width: 0; height: 0; background: transparent; }
+  /* Reveal on scroll */
+  .reveal { opacity:0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); }
+  .reveal.is-visible { opacity:1; transform:none; }
 
-        .calendar-page {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 100%;
-        }
+  /* Range slider */
+  input[type=range] { -webkit-appearance:none; height:6px; border-radius:9999px; outline:none; }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance:none; width:22px; height:22px; border-radius:9999px;
+    background: linear-gradient(135deg,#34d399,#8b5cf6);
+    border: 2px solid #fff; cursor:pointer;
+    box-shadow: 0 0 0 4px rgba(16,185,129,.18);
+  }
+  input[type=range]::-moz-range-thumb {
+    width:22px; height:22px; border-radius:9999px; border:2px solid #fff;
+    background: linear-gradient(135deg,#34d399,#8b5cf6); cursor:pointer;
+  }
 
-        .weekday-row {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-            margin-bottom: 2px;
-            flex-shrink: 0;
-        }
-        .weekday-label {
-            padding: 0.3rem 0;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: #6b7280;
-            background: rgba(255,255,255,0.3);
-            border-radius: 4px;
-        }
-        [data-theme="dark"] .weekday-label {
-            background: rgba(255,255,255,0.02);
-            color: #9ca3af;
-        }
+  /* FAQ */
+  details > summary { list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker { display:none; }
+  details[open] .faq-chevron { transform: rotate(180deg); }
+  .faq-chevron { transition: transform .25s; }
 
-        /* ===== CALENDAR GRID – 6 rows × 7 cols ===== */
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            grid-template-rows: repeat(6, 1fr);
-            gap: 6px;
-            background: transparent;
-            border-radius: 1.2rem;
-            width: 100%;
-            height: 100%;
-            min-height: 0;
-        }
-
-        .day-cell {
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(4px);
-            padding: 0.35rem 0.35rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.15s, transform 0.1s;
-            display: flex;
-            flex-direction: column;
-            touch-action: manipulation;
-            min-width: 0;
-            overflow: hidden;
-            border: 1px solid transparent;
-            position: relative;
-        }
-        .day-cell:active { transform: scale(0.96); }
-        [data-theme="dark"] .day-cell { background: rgba(255,255,255,0.04); }
-        .day-cell.other-month {
-            opacity: 0.25;
-            pointer-events: none;
-            background: rgba(255,255,255,0.2);
-        }
-        [data-theme="dark"] .day-cell.other-month {
-            background: rgba(255,255,255,0.02);
-        }
-        .day-cell.today {
-            background: rgba(225,29,72,0.12);
-            border-color: rgba(225,29,72,0.3);
-        }
-        [data-theme="dark"] .day-cell.today {
-            background: rgba(225,29,72,0.15);
-            border-color: rgba(225,29,72,0.4);
-        }
-        .day-cell.today .day-number {
-            background: #e11d48;
-            color: white;
-            padding: 0.05rem 0.4rem;
-            border-radius: 40px;
-            display: inline-block;
-            width: fit-content;
-        }
-
-        .day-number {
-            font-weight: 700;
-            font-size: 0.95rem;
-            line-height: 1.2;
-            margin-bottom: 0.25rem;
-            flex-shrink: 0;
-        }
-
-        .day-cell .event-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            min-height: 0;
-            overflow: hidden;
-        }
-        .event-pill {
-            font-size: 0.62rem;
-            line-height: 1.35;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding: 0.08rem 0.35rem;
-            border-radius: 5px;
-            background: rgba(225,29,72,0.1);
-            color: #1a0b0b;
-            font-weight: 500;
-            max-width: 100%;
-            flex-shrink: 0;
-            border-left: 2px solid #e11d48;
-        }
-        .event-pill.shared {
-            background: rgba(124,58,237,0.1);
-            border-left-color: #7c3aed;
-        }
-        .event-pill.task {
-            background: rgba(245,158,11,0.1);
-            border-left-color: #f59e0b;
-        }
-        .event-pill.task.done {
-            text-decoration: line-through;
-            opacity: 0.55;
-        }
-        [data-theme="dark"] .event-pill { color: #fef2f2; }
-        .day-cell .more-count {
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: #6b7280;
-            padding: 0.05rem 0.35rem;
-            flex-shrink: 0;
-        }
-        [data-theme="dark"] .day-cell .more-count { color: #94a3b8; }
-
-        /* ===== RESPONSIVE SIZING ===== */
-        @media (min-width: 768px) {
-            .calendar-grid { gap: 8px; }
-            .day-cell { padding: 0.5rem 0.6rem; }
-            .day-cell:hover { background: rgba(225,29,72,0.06); }
-            .day-number { font-size: 1.15rem; }
-            .event-pill { font-size: 0.72rem; }
-            .app-container { padding: 0 2rem 1rem; }
-        }
-        @media (max-width: 480px) {
-            .app-container { padding: 0 0.5rem 0.2rem; }
-            .day-cell { padding: 0.3rem 0.3rem; }
-            .day-number { font-size: 0.85rem; }
-            .event-pill { font-size: 0.58rem; }
-            .app-header h1 { font-size: 1.1rem; }
-            .month-nav .month-label { font-size: 0.9rem; }
-            .calendar-grid { gap: 4px; }
-            .weekday-label { font-size: 0.5rem; padding: 0.15rem 0; }
-        }
-        @media (max-width: 360px) {
-            .day-number { font-size: 0.78rem; }
-            .day-cell { padding: 0.25rem 0.25rem; }
-            .calendar-grid { gap: 3px; }
-        }
-        @media (min-width: 1024px) {
-            .calendar-grid { gap: 10px; }
-            .day-cell { padding: 0.6rem 0.7rem; }
-            .day-number { font-size: 1.3rem; }
-            .event-pill { font-size: 0.78rem; }
-        }
-        @media (min-width: 1440px) {
-            .calendar-grid { gap: 12px; }
-        }
-
-        /* ===== LANDING HERO ===== */
-        .hero {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1rem 0.5rem;
-            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
-        }
-        .hero.hidden {
-            opacity: 0;
-            transform: scale(0.95) translateY(20px);
-            pointer-events: none;
-            position: absolute;
-            width: 100%;
-        }
-        .hero .badge {
-            display: inline-block;
-            padding: 0.3rem 1.2rem;
-            border-radius: 9999px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            background: rgba(225,29,72,0.12);
-            color: #e11d48;
-            border: 1px solid rgba(225,29,72,0.15);
-            margin-bottom: 1rem;
-            font-family: 'Inter', sans-serif;
-        }
-        [data-theme="dark"] .hero .badge {
-            background: rgba(225,29,72,0.18);
-            color: #fb7185;
-            border-color: rgba(225,29,72,0.2);
-        }
-        .hero h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 8vw, 5rem);
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
-            max-width: 800px;
-            margin: 0 auto 0.5rem;
-        }
-        .hero h2 .highlight {
-            background: linear-gradient(135deg, #e11d48, #7c3aed, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero .tagline {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: #7c3aed;
-            margin-bottom: 0.25rem;
-        }
-        [data-theme="dark"] .hero .tagline { color: #a78bfa; }
-        .hero .sub {
-            font-size: 1.1rem;
-            color: #475569;
-            max-width: 500px;
-            margin: 0.5rem auto 1.5rem;
-        }
-        [data-theme="dark"] .hero .sub { color: #94a3b8; }
-        .hero .btn-primary {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.9rem 2.8rem;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
-            background: linear-gradient(135deg, #e11d48, #7c3aed);
-            color: white;
-            box-shadow: 0 8px 25px -6px rgba(225,29,72,0.4);
-            text-decoration: none;
-        }
-        .hero .btn-primary:hover {
-            transform: scale(1.04) translateY(-2px);
-            box-shadow: 0 15px 35px -8px rgba(225,29,72,0.5);
-        }
-        .hero .pillars {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-        .hero .pillar {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.2rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #64748b;
-            letter-spacing: 0.02em;
-        }
-        [data-theme="dark"] .hero .pillar { color: #94a3b8; }
-        .hero .pillar .icon { font-size: 1.8rem; }
-
-        /* ===== PURPOSE SELECTION OVERLAY ===== */
-        .purpose-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
-            animation: fadeIn 0.4s cubic-bezier(0.16,1,0.3,1);
-        }
-        .purpose-overlay.visible { display: flex; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .purpose-modal {
-            max-width: 700px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 2.5rem;
-            padding: 2rem 1.8rem;
-            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.4);
-            transition: background 0.3s;
-        }
-        [data-theme="dark"] .purpose-modal {
-            background: rgba(26,11,11,0.85);
-            border-color: rgba(255,255,255,0.06);
-        }
-
-        .purpose-modal h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 0.2rem;
-        }
-        .purpose-modal .sub {
-            text-align: center;
-            color: #475569;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-        [data-theme="dark"] .purpose-modal .sub { color: #94a3b8; }
-
-        .purpose-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 0.8rem;
-        }
-        @media (max-width: 480px) {
-            .purpose-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-        }
-
-        .purpose-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 0.5rem;
-            border-radius: 1.2rem;
-            background: rgba(255,255,255,0.4);
-            border: 1.5px solid transparent;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
-            text-align: center;
-            gap: 0.2rem;
-            touch-action: manipulation;
-        }
-        [data-theme="dark"] .purpose-card {
-            background: rgba(255,255,255,0.03);
-        }
-        .purpose-card:hover {
-            background: rgba(225,29,72,0.04);
-            border-color: rgba(225,29,72,0.15);
-            transform: translateY(-2px);
-        }
-        .purpose-card.selected {
-            border-color: #e11d48;
-            background: rgba(225,29,72,0.06);
-            box-shadow: 0 0 0 2px rgba(225,29,72,0.1);
-        }
-        .purpose-card .icon { font-size: 1.8rem; line-height: 1.2; }
-        .purpose-card .label { font-size: 0.75rem; font-weight: 700; letter-spacing: -0.01em; }
-        .purpose-card .desc {
-            font-size: 0.55rem;
-            color: #64748b;
-            line-height: 1.2;
-            max-width: 100%;
-            display: none;
-        }
-        [data-theme="dark"] .purpose-card .desc { color: #94a3b8; }
-        @media (min-width: 500px) {
-            .purpose-card .desc { display: block; }
-        }
-
-        .purpose-actions {
-            display: flex;
-            gap: 0.8rem;
-            justify-content: center;
-            margin-top: 1.8rem;
-            padding-top: 1.2rem;
-            border-top: 1px solid rgba(0,0,0,0.04);
-        }
-        [data-theme="dark"] .purpose-actions { border-top-color: rgba(255,255,255,0.04); }
-
-        .purpose-actions .btn {
-            padding: 0.6rem 2rem;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .purpose-actions .btn-primary {
-            background: linear-gradient(135deg, #e11d48, #7c3aed);
-            color: white;
-        }
-        .purpose-actions .btn-primary:hover { transform: scale(1.02); }
-        .purpose-actions .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-        .purpose-actions .btn-outline {
-            background: transparent;
-            border: 1px solid #fecdd3;
-            color: #1a0b0b;
-        }
-        [data-theme="dark"] .purpose-actions .btn-outline {
-            border-color: #4a1a1a;
-            color: #fef2f2;
-        }
-        .purpose-actions .btn-outline:hover { background: rgba(225,29,72,0.04); }
-
-        /* ===== BOTTOM SHEET ===== */
-        .bottom-sheet-overlay {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            opacity: 0; visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-        .bottom-sheet-overlay.visible { opacity: 1; visibility: visible; }
-
-        .bottom-sheet {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            max-width: 500px;
-            margin: 0 auto;
-            background: #ffffff;
-            backdrop-filter: blur(20px);
-            border-radius: 2rem 2rem 0 0;
-            padding: 1.5rem 1.5rem 2rem;
-            z-index: 1001;
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-            box-shadow: 0 -20px 60px -20px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            height: 100dvh;
-            max-height: 100dvh;
-            overflow: hidden;
-        }
-        [data-theme="dark"] .bottom-sheet {
-            background: #1e0b0b;
-        }
-        .bottom-sheet.visible {
-            transform: translateY(0);
-        }
-
-        .bottom-sheet .handle {
-            width: 40px; height: 4px;
-            background: #fecdd3;
-            border-radius: 4px;
-            margin: 0 auto 0.8rem;
-            flex-shrink: 0;
-        }
-        [data-theme="dark"] .bottom-sheet .handle { background: #4a1a1a; }
-
-        .bottom-sheet .sheet-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.6rem;
-            flex-shrink: 0;
-        }
-        .bottom-sheet .sheet-header h2 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #1a0b0b;
-        }
-        [data-theme="dark"] .bottom-sheet .sheet-header h2 { color: #fef2f2; }
-        .bottom-sheet .sheet-header .close-sheet {
-            background: none; border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: #6b7280;
-            padding: 0 0.2rem;
-            touch-action: manipulation;
-        }
-        .bottom-sheet .sheet-header .close-sheet:hover { color: #e11d48; }
-
-        .sheet-tabs {
-            display: flex;
-            gap: 0.3rem;
-            margin-bottom: 0.6rem;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding-bottom: 0.4rem;
-            flex-shrink: 0;
-        }
-        [data-theme="dark"] .sheet-tabs { border-bottom-color: rgba(255,255,255,0.05); }
-        .sheet-tabs button {
-            background: none; border: none;
-            padding: 0.3rem 0.8rem;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            color: #6b7280;
-            transition: 0.2s;
-            touch-action: manipulation;
-        }
-        .sheet-tabs button.active {
-            background: rgba(225,29,72,0.1);
-            color: #e11d48;
-        }
-        .sheet-tabs button:hover { color: #e11d48; }
-        [data-theme="dark"] .sheet-tabs button { color: #94a3b8; }
-        [data-theme="dark"] .sheet-tabs button.active {
-            background: rgba(225,29,72,0.15);
-            color: #fb7185;
-        }
-
-        .sheet-content {
-            flex: 1 1 0;
-            min-height: 0;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
-            padding-bottom: 0.5rem;
-        }
-
-        .sheet-tab-content { display: none; }
-        .sheet-tab-content.active { display: block; }
-
-        /* ===== EVENT / TASK ITEMS ===== */
-        .sheet-event-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        [data-theme="dark"] .sheet-event-item { border-bottom-color: rgba(255,255,255,0.05); }
-        .sheet-event-item .time {
-            font-weight: 500;
-            color: #e11d48;
-            margin-right: 0.6rem;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-        }
-        .sheet-event-item .title {
-            flex: 1;
-            font-weight: 500;
-            font-size: 0.9rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .sheet-event-item .badge-tag {
-            font-size: 0.5rem;
-            padding: 0.05rem 0.4rem;
-            border-radius: 40px;
-            background: rgba(124,58,237,0.1);
-            color: #7c3aed;
-            margin-right: 0.3rem;
-            flex-shrink: 0;
-        }
-        .sheet-event-item .badge-location {
-            font-size: 0.5rem;
-            padding: 0.05rem 0.4rem;
-            border-radius: 40px;
-            background: rgba(16,185,129,0.1);
-            color: #059669;
-            margin-right: 0.3rem;
-            flex-shrink: 0;
-        }
-        .sheet-event-item .item-actions {
-            display: flex;
-            gap: 0.3rem;
-            flex-shrink: 0;
-        }
-        .sheet-event-item .item-actions button {
-            background: none; border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 0 0.15rem;
-            transition: 0.2s;
-            touch-action: manipulation;
-        }
-        .sheet-event-item .item-actions .edit-btn { color: #7c3aed; }
-        .sheet-event-item .item-actions .edit-btn:hover { color: #5b21b6; }
-        .sheet-event-item .item-actions .delete-btn { color: #e11d48; }
-        .sheet-event-item .item-actions .delete-btn:hover { color: #be123c; }
-
-        .task-item {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.4rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-        }
-        [data-theme="dark"] .task-item { border-bottom-color: rgba(255,255,255,0.03); }
-        .task-item input[type="checkbox"] {
-            width: 18px; height: 18px;
-            accent-color: #e11d48;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        .task-item .task-title { flex: 1; font-size: 0.85rem; }
-        .task-item .task-title.done { text-decoration: line-through; color: #6b7280; }
-        .task-item .task-delete {
-            background: none; border: none;
-            color: #e11d48;
-            cursor: pointer;
-            font-size: 0.9rem;
-            padding: 0 0.2rem;
-            touch-action: manipulation;
-        }
-
-        /* ===== ADD FORM ===== */
-        .add-form {
-            margin-top: 0.3rem;
-            padding-top: 0.3rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-        [data-theme="dark"] .add-form { border-top-color: rgba(255,255,255,0.05); }
-        .add-form label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.7rem;
-            margin-bottom: 0.05rem;
-            margin-top: 0.3rem;
-            color: #475569;
-        }
-        [data-theme="dark"] .add-form label { color: #94a3b8; }
-        .add-form input, .add-form select, .add-form textarea {
-            width: 100%;
-            padding: 0.5rem 0.8rem;
-            border-radius: 60px;
-            border: 1px solid #fecdd3;
-            background: rgba(255,255,255,0.6);
-            font-size: 0.85rem;
-            outline: none;
-            transition: 0.2s;
-            color: inherit;
-        }
-        .add-form select { appearance: auto; -webkit-appearance: auto; }
-        [data-theme="dark"] .add-form input,
-        [data-theme="dark"] .add-form select,
-        [data-theme="dark"] .add-form textarea {
-            background: rgba(30,11,11,0.5);
-            border-color: #4a1a1a;
-            color: #fef2f2;
-        }
-        .add-form input:focus, .add-form select:focus {
-            border-color: #e11d48;
-            box-shadow: 0 0 0 3px rgba(225,29,72,0.15);
-        }
-        .add-form textarea { border-radius: 1rem; resize: vertical; min-height: 35px; }
-        .add-form .row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
-        @media (max-width: 420px) {
-            .add-form .row { grid-template-columns: 1fr; }
-        }
-
-        .add-form .alert-row {
-            display: flex;
-            gap: 0.3rem;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 0.3rem;
-        }
-        .add-form .alert-row select, .add-form .alert-row input { flex: 1; min-width: 70px; margin: 0; }
-        .add-form .alert-row .remove-alert {
-            background: none; border: none;
-            color: #e11d48;
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 0 0.2rem;
-            touch-action: manipulation;
-        }
-        .add-form .add-alert-btn {
-            background: none;
-            border: 1px dashed #fecdd3;
-            border-radius: 60px;
-            padding: 0.2rem 0.8rem;
-            font-size: 0.7rem;
-            cursor: pointer;
-            color: #6b7280;
-            transition: 0.2s;
-            touch-action: manipulation;
-        }
-        [data-theme="dark"] .add-form .add-alert-btn {
-            border-color: #4a1a1a;
-            color: #94a3b8;
-        }
-        .add-form .add-alert-btn:hover { border-color: #e11d48; color: #e11d48; }
-
-        .add-form .participant-input {
-            display: flex;
-            gap: 0.3rem;
-            align-items: center;
-        }
-        .add-form .participant-input input { flex: 1; }
-        .add-form .participant-input .btn { padding: 0.3rem 0.8rem; font-size: 0.75rem; }
-
-        .add-form .participant-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.2rem;
-            margin-top: 0.2rem;
-        }
-        .add-form .participant-tags .tag {
-            background: rgba(225,29,72,0.1);
-            padding: 0.1rem 0.5rem;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            gap: 0.2rem;
-            border: 1px solid rgba(225,29,72,0.15);
-            color: #1a0b0b;
-        }
-        [data-theme="dark"] .add-form .participant-tags .tag { color: #fef2f2; }
-        .add-form .participant-tags .tag .remove {
-            cursor: pointer;
-            font-weight: 700;
-            color: #e11d48;
-            touch-action: manipulation;
-        }
-
-        .add-form .form-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        .add-form .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
-            touch-action: manipulation;
-        }
-        .add-form .btn-primary {
-            background: linear-gradient(135deg, #e11d48, #7c3aed);
-            color: white;
-            flex: 1;
-            box-shadow: 0 4px 15px -6px rgba(225,29,72,0.3);
-        }
-        .add-form .btn-primary:hover { transform: scale(1.02); }
-        .add-form .btn-outline {
-            background: transparent;
-            border: 1px solid #fecdd3;
-            color: #1a0b0b;
-        }
-        [data-theme="dark"] .add-form .btn-outline {
-            border-color: #4a1a1a;
-            color: #fef2f2;
-        }
-        .add-form .btn-outline:hover { background: rgba(225,29,72,0.04); }
-
-        .empty-state {
-            text-align: center;
-            padding: 1rem 0;
-            color: #6b7280;
-            font-size: 0.85rem;
-        }
-        .search-results { margin-top: 0.3rem; }
-        .search-results .result-item {
-            padding: 0.4rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-            font-size: 0.85rem;
-        }
-        [data-theme="dark"] .search-results .result-item {
-            border-bottom-color: rgba(255,255,255,0.03);
-        }
-
-        #searchResultsContainer {
-            padding: 0.5rem 0 1rem;
-            overflow-y: auto;
-            flex: 1 1 0;
-            min-height: 0;
-        }
-        #searchResultsContainer h4 {
-            font-weight: 600;
-            margin: 0.5rem 0 0.1rem;
-            font-size: 0.85rem;
-            color: #1a0b0b;
-        }
-        [data-theme="dark"] #searchResultsContainer h4 { color: #fef2f2; }
-
-        @media (max-width: 480px) {
-            .bottom-sheet { padding: 1rem 1rem 1.5rem; }
-            .bottom-sheet .sheet-header h2 { font-size: 0.9rem; }
-            .sheet-tabs button { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
-            .add-form input, .add-form select, .add-form textarea { font-size: 0.8rem; padding: 0.4rem 0.6rem; }
-            .add-form .btn { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
-        }
-        @media (min-width: 768px) {
-            .bottom-sheet { max-width: 600px; border-radius: 2rem 2rem 0 0; padding: 1.8rem 2rem 2rem; }
-        }
-    </style>
+  /* Nav blur on scroll */
+  #nav.scrolled { background: rgba(5,8,15,.72); backdrop-filter: blur(20px) saturate(150%); border-bottom-color: rgba(255,255,255,.08); }
+</style>
 </head>
-<body>
 
-    <div class="mesh-bg" aria-hidden="true">
-        <div class="orb"></div>
-        <div class="orb"></div>
-        <div class="orb"></div>
+<body class="min-h-screen text-slate-200 antialiased selection:bg-emerald-400/30 selection:text-white">
+
+<!-- Mesh + grid -->
+<div class="mesh" aria-hidden="true">
+  <div class="orb orb-a animate-float"></div>
+  <div class="orb orb-b animate-float-slow"></div>
+  <div class="orb orb-c animate-float"></div>
+</div>
+<div class="grid-bg fixed inset-0 -z-10 pointer-events-none" aria-hidden="true"></div>
+
+<!-- ===================== NAV ===================== -->
+<header id="nav" class="fixed top-0 inset-x-0 z-50 border-b border-transparent transition-all duration-300">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+    <a href="/" class="flex items-center gap-2.5 group">
+      <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-emerald-400 via-cyan-400 to-violet-500 text-base shadow-glow">📅</span>
+      <span class="font-display text-xl font-black tracking-tight text-white">DateWizza</span>
+    </a>
+
+    <div class="hidden items-center gap-8 md:flex">
+      <a href="#how" class="text-sm font-medium text-slate-300 transition hover:text-white">How it works</a>
+      <a href="#savings" class="text-sm font-medium text-slate-300 transition hover:text-white">Savings</a>
+      <a href="#features" class="text-sm font-medium text-slate-300 transition hover:text-white">Features</a>
+      <a href="#pricing" class="text-sm font-medium text-slate-300 transition hover:text-white">Pricing</a>
+      <a href="#faq" class="text-sm font-medium text-slate-300 transition hover:text-white">FAQ</a>
     </div>
 
-    <div class="app-container" id="app">
+    <div class="flex items-center gap-2.5">
+      <a href="app.html" class="hidden rounded-full px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white sm:inline-block">Log in</a>
+      <a href="app.html" class="btn-primary inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-bold text-white">
+        Start free
+        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
+      </a>
+      <button id="menuBtn" class="grid h-10 w-10 place-items-center rounded-xl btn-ghost md:hidden" aria-label="Menu">
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M3 5.75A.75.75 0 013.75 5h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 5.75zm0 4.25a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10zm.75 3.5a.75.75 0 000 1.5h12.5a.75.75 0 000-1.5H3.75z"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div id="mobileMenu" class="hidden border-t border-white/5 bg-ink-950/90 px-5 py-4 backdrop-blur-xl md:hidden">
+    <div class="flex flex-col gap-3 text-sm font-medium text-slate-300">
+      <a href="#how" class="hover:text-white">How it works</a>
+      <a href="#savings" class="hover:text-white">Savings</a>
+      <a href="#features" class="hover:text-white">Features</a>
+      <a href="#pricing" class="hover:text-white">Pricing</a>
+      <a href="#faq" class="hover:text-white">FAQ</a>
+      <a href="app.html" class="mt-2 rounded-full bg-white/5 px-4 py-2.5 text-center font-semibold text-white">Log in</a>
+    </div>
+  </div>
+</header>
 
-        <header class="app-header">
+<!-- ===================== HERO ===================== -->
+<section class="relative px-5 pt-32 pb-20 lg:px-8 lg:pt-40 lg:pb-28">
+  <div class="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.1fr_1fr]">
+
+    <!-- Copy -->
+    <div class="reveal">
+      <a href="#sustainability" class="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold text-emerald-300 ring-1 ring-emerald-400/20">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+        </span>
+        1% of every plan funds carbon removal · Stripe Climate
+      </a>
+
+      <h1 class="mt-6 font-display text-5xl font-black leading-[1.03] tracking-tight text-white sm:text-6xl lg:text-7xl">
+        Save time,<br />
+        <span class="text-gradient">money &amp; CO₂</span><br />
+        by merging your trips.
+      </h1>
+
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-400">
+        DateWizza is the calendar that plans your dates <em class="text-slate-200 not-italic font-semibold">and</em> merges your journeys — so every week you bank real cash, real hours, and real carbon. No spreadsheets. No guilt.
+      </p>
+
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a href="app.html" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-bold text-white">
+          Start free — no card
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
+        </a>
+        <a href="#savings" class="btn-ghost inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-base font-semibold text-white">
+          <svg class="h-5 w-5 text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.34-5.89a1.5 1.5 0 000-2.54L6.3 2.84z"/></svg>
+          See your savings
+        </a>
+      </div>
+
+      <div class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 text-xs font-medium text-slate-500">
+        <span class="inline-flex items-center gap-1.5"><svg class="h-4 w-4 text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd"/></svg>Works offline (PWA)</span>
+        <span class="inline-flex items-center gap-1.5"><svg class="h-4 w-4 text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd"/></svg>No install required</span>
+        <span class="inline-flex items-center gap-1.5"><svg class="h-4 w-4 text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd"/></svg>Free forever tier</span>
+      </div>
+    </div>
+
+    <!-- Hero mockup -->
+    <div class="reveal relative" style="transition-delay:.12s">
+      <div class="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-emerald-500/20 via-cyan-500/10 to-violet-500/20 blur-2xl"></div>
+
+      <div class="glass-strong relative rounded-[2rem] p-5 shadow-card">
+        <!-- window dots -->
+        <div class="mb-4 flex items-center gap-1.5">
+          <span class="h-2.5 w-2.5 rounded-full bg-rose-400/80"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-amber-400/80"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-emerald-400/80"></span>
+          <span class="ml-3 text-[11px] font-medium text-slate-500">datewizza.com/app</span>
+        </div>
+
+        <!-- Savings widget -->
+        <div class="rounded-2xl bg-gradient-to-br from-emerald-500/15 via-transparent to-violet-500/15 p-4 ring-1 ring-white/10">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-300">Trip Merge · This month</span>
+            <span class="rounded-full bg-emerald-400/15 px-2 py-0.5 text-[10px] font-bold text-emerald-300">LIVE</span>
+          </div>
+          <div class="mt-2 flex items-end gap-2">
+            <span class="font-display text-5xl font-black leading-none text-white">12.4</span>
+            <span class="pb-1 text-lg font-bold text-emerald-300">kg CO₂</span>
+          </div>
+          <div class="mt-1 text-sm text-slate-400">saved · <span class="font-semibold text-white">$87</span> saved · <span class="font-semibold text-white">14</span> trips merged</div>
+
+          <!-- bars -->
+          <div class="mt-4 flex h-16 items-end gap-1.5">
+            <div class="w-full rounded-t bg-emerald-400/30" style="height:35%"></div>
+            <div class="w-full rounded-t bg-emerald-400/40" style="height:55%"></div>
+            <div class="w-full rounded-t bg-emerald-400/50" style="height:42%"></div>
+            <div class="w-full rounded-t bg-emerald-400/70" style="height:78%"></div>
+            <div class="w-full rounded-t bg-emerald-400/60" style="height:64%"></div>
+            <div class="w-full rounded-t bg-gradient-to-t from-emerald-400 to-cyan-400" style="height:95%"></div>
+            <div class="w-full rounded-t bg-emerald-400/40" style="height:50%"></div>
+            <div class="w-full rounded-t bg-emerald-400/30" style="height:30%"></div>
+          </div>
+        </div>
+
+        <!-- mini calendar -->
+        <div class="mt-4 rounded-2xl bg-white/[.03] p-3 ring-1 ring-white/5">
+          <div class="mb-2 flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-300">October</span>
+            <span class="text-[10px] text-slate-500">Week 42</span>
+          </div>
+          <div id="miniCal" class="grid grid-cols-7 gap-1 text-center text-[10px] text-slate-500"></div>
+        </div>
+      </div>
+
+      <!-- floating badge -->
+      <div class="glass absolute -bottom-5 -left-4 rounded-2xl px-4 py-3 shadow-card sm:-left-6">
+        <div class="flex items-center gap-2.5">
+          <span class="grid h-9 w-9 place-items-center rounded-xl bg-emerald-400/15 text-lg">🌱</span>
+          <div>
+            <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Equivalent</div>
+            <div class="text-sm font-bold text-white">≈ 590 trees planted</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat strip -->
+  <div class="reveal mx-auto mt-20 max-w-7xl">
+    <div class="glass grid grid-cols-2 divide-white/5 rounded-3xl px-6 py-6 sm:grid-cols-4 sm:divide-x">
+      <div class="px-4 py-2 text-center"><div class="font-display text-3xl font-black text-white">1.9t</div><div class="mt-1 text-xs font-medium text-slate-500">avg CO₂ saved / user / yr</div></div>
+      <div class="px-4 py-2 text-center"><div class="font-display text-3xl font-black text-white">$640</div><div class="mt-1 text-xs font-medium text-slate-500">avg cash saved / yr</div></div>
+      <div class="px-4 py-2 text-center"><div class="font-display text-3xl font-black text-white">3.2h</div><div class="mt-1 text-xs font-medium text-slate-500">time reclaimed / wk</div></div>
+      <div class="px-4 py-2 text-center"><div class="font-display text-3xl font-black text-white">1%</div><div class="mt-1 text-xs font-medium text-slate-500">revenue → carbon removal</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section id="how" class="relative px-5 py-24 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <span class="text-xs font-bold uppercase tracking-[.2em] text-emerald-400">Trip Merge</span>
+      <h2 class="mt-3 font-display text-4xl font-black text-white sm:text-5xl">Three taps. One merged route.</h2>
+      <p class="mt-4 text-lg text-slate-400">Stop zig-zagging across town. DateWizza groups what you're already doing and shows the route that saves the most.</p>
+    </div>
+
+    <div class="mt-16 grid gap-6 md:grid-cols-3">
+      <div class="reveal glass group rounded-3xl p-7 transition duration-300 hover:-translate-y-1 hover:border-emerald-400/30">
+        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-emerald-400/10 text-2xl ring-1 ring-emerald-400/20">🗓️</div>
+        <div class="mt-5 text-[11px] font-bold uppercase tracking-widest text-emerald-400">Step 1</div>
+        <h3 class="mt-1 text-xl font-bold text-white">Plan your dates &amp; tasks</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-400">Add events, tasks and reminders as usual — by text, voice or natural language like "dinner with Mum tomorrow 7pm".</p>
+      </div>
+      <div class="reveal glass group rounded-3xl p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30" style="transition-delay:.08s">
+        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-cyan-400/10 text-2xl ring-1 ring-cyan-400/20">🔀</div>
+        <div class="mt-5 text-[11px] font-bold uppercase tracking-widest text-cyan-400">Step 2</div>
+        <h3 class="mt-1 text-xl font-bold text-white">Merge the journeys</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-400">One tap merges nearby trips across your day. Choose car, transit, walk or bike — we compute the cleanest route.</p>
+      </div>
+      <div class="reveal glass group rounded-3xl p-7 transition duration-300 hover:-translate-y-1 hover:border-violet-400/30" style="transition-delay:.16s">
+        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-violet-400/10 text-2xl ring-1 ring-violet-400/20">🌍</div>
+        <div class="mt-5 text-[11px] font-bold uppercase tracking-widest text-violet-400">Step 3</div>
+        <h3 class="mt-1 text-xl font-bold text-white">Watch savings land</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-400">Your dashboard instantly shows kg CO₂, dollars and hours saved — and we fund carbon removal with 1% of revenue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CALCULATOR ===================== -->
+<section id="savings" class="relative px-5 py-24 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <div class="glass-strong reveal overflow-hidden rounded-[2.5rem] p-6 shadow-card sm:p-10 lg:p-14">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-[.2em] text-emerald-400">Your potential</span>
+          <h2 class="mt-3 font-display text-4xl font-black leading-tight text-white sm:text-5xl">How much could <span class="text-gradient">you</span> save?</h2>
+          <p class="mt-4 text-slate-400">Drag the sliders. This is what a typical DateWizza user reclaims every year.</p>
+
+          <div class="mt-8 space-y-7">
             <div>
-                <h1>✨ DateWizza</h1>
-                <span class="purpose-indicator" id="purposeIndicator"></span>
+              <div class="flex items-center justify-between text-sm">
+                <label for="trips" class="font-semibold text-slate-300">Trips per week</label>
+                <span id="tripsVal" class="rounded-full bg-white/5 px-3 py-1 text-sm font-bold text-white">6</span>
+              </div>
+              <input id="trips" type="range" min="1" max="20" value="6" class="mt-3 w-full" style="background:linear-gradient(to right,#10b981 26%,rgba(255,255,255,.1) 26%)" />
             </div>
-            <div class="header-right">
-                <button id="changePurposeBtn" title="Change purpose">✨</button>
-                <button id="searchToggle" title="Search">🔍</button>
-                <button id="themeToggle" class="theme-icon">🌙</button>
+            <div>
+              <div class="flex items-center justify-between text-sm">
+                <label for="km" class="font-semibold text-slate-300">Avg km per trip</label>
+                <span id="kmVal" class="rounded-full bg-white/5 px-3 py-1 text-sm font-bold text-white">12 km</span>
+              </div>
+              <input id="km" type="range" min="2" max="50" value="12" class="mt-3 w-full" style="background:linear-gradient(to right,#10b981 20%,rgba(255,255,255,.1) 20%)" />
             </div>
-        </header>
-
-        <div class="search-bar" id="searchBar">
-            <input type="text" id="searchInput" placeholder="Search events, tasks, people..." />
-            <span class="search-icon">🔍</span>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="fromMode" class="mb-1.5 block text-xs font-semibold text-slate-400">You drive now</label>
+                <select id="fromMode" class="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white outline-none focus:border-emerald-400/60">
+                  <option value="car">🚗 Petrol car</option>
+                  <option value="rideshare">🚕 Rideshare</option>
+                </select>
+              </div>
+              <div>
+                <label for="toMode" class="mb-1.5 block text-xs font-semibold text-slate-400">DateWizza merges to</label>
+                <select id="toMode" class="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white outline-none focus:border-emerald-400/60">
+                  <option value="transit">🚌 Public transit</option>
+                  <option value="ev">⚡ EV / carpool</option>
+                  <option value="walk">🚶 Walk / bike</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="month-nav" id="monthNav">
-            <button id="prevMonth">‹</button>
-            <span class="month-label" id="monthLabel">January 2025</span>
-            <button id="nextMonth">›</button>
-        </div>
-
-        <div class="hero" id="hero">
-            <span class="badge">✨ Plan Magical Dates</span>
-            <h2>
-                Make<br />
-                <span class="highlight">Moments</span><br />
-                more.
-            </h2>
-            <div class="tagline">Discover · Plan · Save</div>
-            <p class="sub">The first calendar that texts your friends, polls for RSVPs, and spreads organically.</p>
-            <button class="btn-primary" id="planDateBtn">🚀 Plan a Date</button>
-            <div class="pillars">
-                <span class="pillar"><span class="icon">📅</span>Discover</span>
-                <span class="pillar"><span class="icon">✨</span>Plan</span>
-                <span class="pillar"><span class="icon">💾</span>Save</span>
-                <span class="pillar"><span class="icon">❤️</span>Make Moments</span>
+        <!-- Results -->
+        <div class="grid gap-4">
+          <div class="rounded-3xl bg-gradient-to-br from-emerald-500/20 via-emerald-500/5 to-transparent p-6 ring-1 ring-emerald-400/20">
+            <div class="text-xs font-bold uppercase tracking-widest text-emerald-300">CO₂ saved per year</div>
+            <div class="mt-2 flex items-end gap-2">
+              <span id="co2Out" class="font-display text-5xl font-black leading-none text-white">—</span>
+              <span class="pb-1 text-lg font-bold text-emerald-300">kg</span>
             </div>
-        </div>
-
-        <div class="calendar-wrapper" id="calendarWrapper">
-            <div class="calendar-scroll" id="calendarScroll">
-                <!-- Injected by JS -->
+            <div class="mt-2 text-sm text-slate-400">≈ <span id="treesOut" class="font-semibold text-white">0</span> trees planted a year</div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-3xl bg-white/[.04] p-5 ring-1 ring-white/10">
+              <div class="text-[11px] font-bold uppercase tracking-widest text-slate-500">Cash saved / yr</div>
+              <div id="cashOut" class="mt-1.5 font-display text-3xl font-black text-white">—</div>
             </div>
+            <div class="rounded-3xl bg-white/[.04] p-5 ring-1 ring-white/10">
+              <div class="text-[11px] font-bold uppercase tracking-widest text-slate-500">Hours saved / yr</div>
+              <div id="hoursOut" class="mt-1.5 font-display text-3xl font-black text-white">—</div>
+            </div>
+          </div>
+          <a href="app.html" class="btn-primary mt-1 inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-base font-bold text-white">
+            Lock in my savings — free
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
+          </a>
+          <p class="text-center text-[11px] text-slate-500">Based on DEFRA emission factors &amp; average urban trip lengths.</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div id="searchResultsContainer" style="display:none; padding: 1rem 0;"></div>
-
+<!-- ===================== FEATURES ===================== -->
+<section id="features" class="relative px-5 py-24 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <span class="text-xs font-bold uppercase tracking-[.2em] text-violet-400">Everything you need</span>
+      <h2 class="mt-3 font-display text-4xl font-black text-white sm:text-5xl">A calendar that pays you back.</h2>
     </div>
 
-    <!-- ===== PURPOSE SELECTION OVERLAY ===== -->
-    <div class="purpose-overlay" id="purposeOverlay">
-        <div class="purpose-modal">
-            <h2>✨ What are you planning?</h2>
-            <p class="sub">Choose a purpose and we'll tailor the experience</p>
-            <div class="purpose-grid" id="purposeGrid">
-                <!-- Injected by JS -->
-            </div>
-            <div class="purpose-actions">
-                <button class="btn btn-outline" id="purposeSkip">Skip for now</button>
-                <button class="btn btn-primary" id="purposeConfirm" disabled>Select a purpose →</button>
-            </div>
-        </div>
+    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20">
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-emerald-400/10 text-xl">📅</div>
+        <h3 class="text-lg font-bold text-white">7×6 smart calendar</h3>
+        <p class="mt-2 text-sm text-slate-400">A beautiful month view that shows events, tasks and merged trips in one glance. Swipeable on mobile.</p>
+      </div>
+      <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20" style="transition-delay:.05s">
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-cyan-400/10 text-xl">💡</div>
+        <h3 class="text-lg font-bold text-white">Smart Insights</h3>
+        <p class="mt-2 text-sm text-slate-400">Automatic CO₂ and cost tracking per travel mode — car, transit, EV, walk. See your impact grow.</p>
+      </div>
+      <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20" style="transition-delay:.1s">
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-violet-400/10 text-xl">🔔</div>
+        <h3 class="text-lg font-bold text-white">Text &amp; email reminders</h3>
+        <p class="mt-2 text-sm text-slate-400">No app required for your guests. Poll for RSVPs, confirm bookings, and nudge the group chat.</p>
+      </div>
+      <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20">
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-amber-400/10 text-xl">📚</div>
+        <h3 class="text-lg font-bold text-white">Resource booking</h3>
+        <p class="mt-2 text-sm text-slate-400">Book rooms, cars and equipment with built-in conflict detection (409-safe). Perfect for teams.</p>
+      </div>
+      <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20" style="transition-delay:.05s">
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-rose-400/10 text-xl">🌐</div>
+        <h3 class="text-lg font-bold text-white">Public events</h3>
+        <p class="mt-2 text-sm text-slate-400">Discover community happenings or publish your own. Grow organically, not through ads.</p>
+      </div>
+      <div class="reveal glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-white/20" style="transition-delay:.1s">
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-emerald-400/10 text-xl">📲</div>
+        <h3 class="text-lg font-bold text-white">Installable PWA</h3>
+        <p class="mt-2 text-sm text-slate-400">Works offline, installs in one tap, and feels native on iOS and Android. No app store needed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section id="pricing" class="relative px-5 py-24 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <span class="text-xs font-bold uppercase tracking-[.2em] text-rose-400">Freemium</span>
+      <h2 class="mt-3 font-display text-4xl font-black text-white sm:text-5xl">Start free. Upgrade when it pays for itself.</h2>
+      <p class="mt-4 text-slate-400">Every paid plan funds carbon removal. Cancel anytime.</p>
+
+      <div class="mt-8 inline-flex items-center gap-1 rounded-full bg-white/5 p-1 ring-1 ring-white/10">
+        <button id="billMonthly" class="rounded-full px-5 py-2 text-sm font-bold text-white transition">Monthly</button>
+        <button id="billYearly" class="rounded-full px-5 py-2 text-sm font-bold text-slate-400 transition">Yearly <span class="text-emerald-400">−20%</span></button>
+      </div>
     </div>
 
-    <!-- ===== BOTTOM SHEET ===== -->
-    <div class="bottom-sheet-overlay" id="sheetOverlay"></div>
-    <div class="bottom-sheet" id="bottomSheet">
-        <div class="handle"></div>
-        <div class="sheet-header">
-            <h2 id="sheetDateTitle">📅 Day View</h2>
-            <button class="close-sheet" id="closeSheet">✕</button>
+    <div class="mt-14 grid gap-6 lg:grid-cols-3">
+      <!-- Free -->
+      <div class="reveal glass flex flex-col rounded-3xl p-7">
+        <h3 class="font-display text-2xl font-black text-white">Free</h3>
+        <p class="mt-1 text-sm text-slate-400">Everything you need to start saving.</p>
+        <div class="mt-6 flex items-end gap-1">
+          <span class="font-display text-5xl font-black text-white">$0</span>
+          <span class="pb-1.5 text-sm text-slate-500">forever</span>
         </div>
+        <ul class="mt-6 flex-1 space-y-3 text-sm text-slate-300">
+          <li class="flex gap-2"><span class="text-emerald-400">✓</span>25 events / month</li>
+          <li class="flex gap-2"><span class="text-emerald-400">✓</span>3 trip merges / month</li>
+          <li class="flex gap-2"><span class="text-emerald-400">✓</span>Basic CO₂ dashboard</li>
+          <li class="flex gap-2"><span class="text-emerald-400">✓</span>Email reminders</li>
+          <li class="flex gap-2"><span class="text-emerald-400">✓</span>Community events (read)</li>
+        </ul>
+        <a href="app.html" class="btn-ghost mt-7 rounded-xl px-5 py-3 text-center text-sm font-bold text-white">Start free</a>
+      </div>
 
-        <div class="sheet-tabs">
-            <button class="active" data-tab="events">📋 Events</button>
-            <button data-tab="tasks">✅ Tasks</button>
-            <button data-tab="add">➕ Add</button>
+      <!-- Pro -->
+      <div class="reveal relative flex flex-col rounded-3xl bg-gradient-to-b from-emerald-500/15 via-white/[.04] to-violet-500/10 p-[1px] shadow-glow" style="transition-delay:.06s">
+        <div class="flex h-full flex-col rounded-3xl bg-ink-950/80 p-7 backdrop-blur-xl">
+          <div class="flex items-center justify-between">
+            <h3 class="font-display text-2xl font-black text-white">Pro</h3>
+            <span class="rounded-full bg-emerald-400/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-300">Most popular</span>
+          </div>
+          <p class="mt-1 text-sm text-slate-400">For the everyday optimizer.</p>
+          <div class="mt-6 flex items-end gap-1">
+            <span id="proPrice" class="font-display text-5xl font-black text-white">$7</span>
+            <span id="proPer" class="pb-1.5 text-sm text-slate-500">/ month</span>
+          </div>
+          <ul class="mt-6 flex-1 space-y-3 text-sm text-slate-200">
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span>Unlimited events &amp; tasks</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span>Unlimited trip merges</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span>Full CO₂ dashboard + export</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span>SMS + email reminders</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span>Resource booking</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span>Create public events</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span>Up to 5 members</li>
+          </ul>
+          <a href="app.html?plan=pro" class="btn-primary mt-7 rounded-xl px-5 py-3 text-center text-sm font-bold text-white">Get Pro</a>
         </div>
+      </div>
 
-        <div class="sheet-content">
-            <div class="sheet-tab-content active" id="tabEvents">
-                <div id="sheetEventList"><div class="empty-state">No magical moments yet — add one ✨</div></div>
-            </div>
-
-            <div class="sheet-tab-content" id="tabTasks">
-                <div id="taskList"><div class="empty-state">No tasks — add one below</div></div>
-                <div style="margin-top:0.3rem; display:flex; gap:0.3rem;">
-                    <input type="text" id="newTaskInput" placeholder="Add task..." style="flex:1; padding:0.4rem 0.8rem; border-radius:60px; border:1px solid #fecdd3; background:rgba(255,255,255,0.6); font-size:0.8rem; outline:none; color:inherit;" />
-                    <button id="addTaskBtn" style="padding:0.4rem 1rem; font-size:0.75rem; background:linear-gradient(135deg,#e11d48,#7c3aed); color:white; border:none; border-radius:60px; cursor:pointer;">+</button>
-                </div>
-                <div style="margin-top:0.2rem; font-size:0.65rem; color:#6b7280;">Press Enter to add</div>
-            </div>
-
-            <div class="sheet-tab-content" id="tabAdd">
-                <div class="add-form" style="border-top:none; padding-top:0;">
-                <input type="hidden" id="editEventId" value="" />
-
-                    <!-- Planning Category -->
-                    <label for="addPurpose" style="display:block; font-weight:600; font-size:0.7rem; margin-top:0.3rem; color:#475569;">Planning Category</label>
-                    <select id="addPurpose" style="width:100%; padding:0.5rem 0.8rem; border-radius:60px; border:1px solid #fecdd3; background:rgba(255,255,255,0.6); font-size:0.85rem; outline:none; transition:0.2s; color:inherit; appearance:auto; -webkit-appearance:auto;">
-                        <option value="custom">✨ Custom</option>
-                        <option value="family">👨‍👩‍👧‍👦 Family</option>
-                        <option value="personal">🧘 Personal</option>
-                        <option value="relationship">❤️ Relationship</option>
-                        <option value="friends">👯 Friends</option>
-                        <option value="shift">🔄 Shift Schedule</option>
-                        <option value="work">💼 Work</option>
-                        <option value="lesson">📚 Lesson</option>
-                        <option value="school">🏫 School Events</option>
-                        <option value="hobbies">🎮 Hobbies</option>
-                    </select>
-
-                    <label for="addTitle">What are you planning?</label>
-                    <input type="text" id="addTitle" placeholder='e.g. "Dinner with Mum tomorrow 7pm"' value="" />
-
-                    <div class="row">
-                        <div><label for="addDate">Date</label><input type="date" id="addDate" /></div>
-                        <div><label for="addTime">Time</label><input type="time" id="addTime" value="09:00" /></div>
-                    </div>
-                    <div class="row">
-                        <div><label for="addDuration">Duration (min)</label><input type="number" id="addDuration" value="30" min="5" step="5" /></div>
-                        <div><label for="addTag">Tag</label>
-                            <select id="addTag">
-                                <option value="">None</option>
-                                <option value="Date Night">❤️ Date Night</option>
-                                <option value="Family">👨‍👩‍👧‍👦 Family</option>
-                                <option value="Friends">👯 Friends</option>
-                                <option value="Work">💼 Work</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- LOCATION FIELD -->
-                    <label for="addLocation">Location (optional)</label>
-                    <input type="text" id="addLocation" placeholder="e.g. 'Il Forno', 'Home', 'Zoom link'" value="" />
-
-                    <label>Reminders (1-3)</label>
-                    <div id="alertsContainer"></div>
-                    <button class="add-alert-btn" id="addAlertBtn">+ Add Reminder</button>
-
-                    <label for="addNote">Notes (optional)</label>
-                    <textarea id="addNote" placeholder="Details, link, agenda..."></textarea>
-
-                    <label>Invite friends</label>
-                    <div class="participant-input">
-                        <input type="email" id="emailInput" placeholder="friend@example.com" />
-                        <button class="btn btn-outline" id="addEmailBtn" style="padding:0.3rem 0.8rem; font-size:0.7rem;">+</button>
-                    </div>
-                    <div class="participant-tags" id="participantTags"></div>
-
-                    <div style="font-size:0.65rem; color:#6b7280; margin-top:0.2rem;">
-                        🔔 Reminders sent: 1 week, 1 day, 1 hour before
-                    </div>
-
-                    <div class="form-actions">
-                        <button class="btn btn-outline" id="cancelAddBtn">Cancel</button>
-                        <button class="btn btn-primary" id="saveEventBtn">✨ Schedule</button>
-                    </div>
-                </div>
-            </div>
+      <!-- Expert -->
+      <div class="reveal glass flex flex-col rounded-3xl p-7" style="transition-delay:.12s">
+        <div class="flex items-center justify-between">
+          <h3 class="font-display text-2xl font-black text-white">Expert</h3>
+          <span class="rounded-full bg-violet-400/15 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-violet-300">Enterprise</span>
         </div>
+        <p class="mt-1 text-sm text-slate-400">For teams that report on impact.</p>
+        <div class="mt-6 flex items-end gap-1">
+          <span id="expertPrice" class="font-display text-5xl font-black text-white">$19</span>
+          <span id="expertPer" class="pb-1.5 text-sm text-slate-500">/ month</span>
+        </div>
+        <ul class="mt-6 flex-1 space-y-3 text-sm text-slate-300">
+          <li class="flex gap-2"><span class="text-violet-400">✓</span>Everything in Pro</li>
+          <li class="flex gap-2"><span class="text-violet-400">✓</span>Unlimited members</li>
+          <li class="flex gap-2"><span class="text-violet-400">✓</span>API access &amp; webhooks</li>
+          <li class="flex gap-2"><span class="text-violet-400">✓</span>Custom sustainability reports</li>
+          <li class="flex gap-2"><span class="text-violet-400">✓</span>SSO &amp; audit logs</li>
+          <li class="flex gap-2"><span class="text-violet-400">✓</span>Priority support</li>
+        </ul>
+        <a href="app.html?plan=expert" class="btn-ghost mt-7 rounded-xl px-5 py-3 text-center text-sm font-bold text-white">Talk to us</a>
+      </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            "use strict";
-
-            // ===== THEME =====
-            const html = document.documentElement;
-            const themeToggle = document.getElementById('themeToggle');
-            const savedTheme = localStorage.getItem('datewizza_theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                html.setAttribute('data-theme', 'dark');
-                themeToggle.textContent = '☀️';
-            } else {
-                html.setAttribute('data-theme', 'light');
-                themeToggle.textContent = '🌙';
-            }
-            themeToggle.addEventListener('click', function() {
-                const isDark = html.getAttribute('data-theme') === 'dark';
-                html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-                localStorage.setItem('datewizza_theme', isDark ? 'light' : 'dark');
-                this.textContent = isDark ? '☀️' : '🌙';
-            });
-
-            // ===== PURPOSE SELECTION =====
-            const purposes = [
-                { id: 'family', icon: '👨‍👩‍👧‍👦', label: 'Family', desc: 'See the whole family\'s schedule at a glance.' },
-                { id: 'personal', icon: '🧘', label: 'Personal', desc: 'Your private events, alongside your other calendars.' },
-                { id: 'relationship', icon: '❤️', label: 'Relationship', desc: 'Find time for each other by sharing schedules.' },
-                { id: 'friends', icon: '👯', label: 'Friends', desc: 'Schedule hangouts and share thoughts in comments.' },
-                { id: 'shift', icon: '🔄', label: 'Shift Schedule', desc: 'Share your shift table and see who\'s working.' },
-                { id: 'work', icon: '💼', label: 'Work', desc: 'Work events, meetings, and deadlines.' },
-                { id: 'lesson', icon: '📚', label: 'Lesson', desc: 'Easily see lesson schedules and changes.' },
-                { id: 'school', icon: '🏫', label: 'School Events', desc: 'Important school events and assignment deadlines.' },
-                { id: 'hobbies', icon: '🎮', label: 'Hobbies', desc: 'Movie premieres, game updates, music releases.' },
-                { id: 'custom', icon: '✨', label: 'Custom', desc: 'Create your own purpose that fits your needs.' }
-            ];
-
-            let selectedPurpose = localStorage.getItem('datewizza_purpose') || null;
-            const purposeOverlay = document.getElementById('purposeOverlay');
-            const purposeGrid = document.getElementById('purposeGrid');
-            const purposeConfirm = document.getElementById('purposeConfirm');
-            const purposeSkip = document.getElementById('purposeSkip');
-            const purposeIndicator = document.getElementById('purposeIndicator');
-            const changePurposeBtn = document.getElementById('changePurposeBtn');
-
-            function updatePurposeIndicator() {
-                if (selectedPurpose && selectedPurpose !== 'skip') {
-                    const p = purposes.find(p => p.id === selectedPurpose);
-                    if (p) {
-                        purposeIndicator.textContent = `${p.icon} ${p.label}`;
-                        purposeIndicator.style.display = 'inline-block';
-                        return;
-                    }
-                }
-                purposeIndicator.style.display = 'none';
-            }
-
-            function renderPurposeCards() {
-                purposeGrid.innerHTML = purposes.map(p => `
-                    <div class="purpose-card ${selectedPurpose === p.id ? 'selected' : ''}" data-id="${p.id}">
-                        <span class="icon">${p.icon}</span>
-                        <span class="label">${p.label}</span>
-                        <span class="desc">${p.desc}</span>
-                    </div>
-                `).join('');
-
-                purposeGrid.querySelectorAll('.purpose-card').forEach(card => {
-                    card.addEventListener('click', function() {
-                        const id = this.dataset.id;
-                        selectedPurpose = id;
-                        localStorage.setItem('datewizza_purpose', id);
-                        purposeGrid.querySelectorAll('.purpose-card').forEach(c => c.classList.remove('selected'));
-                        this.classList.add('selected');
-                        purposeConfirm.disabled = false;
-                        purposeConfirm.textContent = `Continue with ${purposes.find(p => p.id === id)?.label} →`;
-                        updatePurposeIndicator();
-                    });
-                });
-            }
-
-            function showPurposeOverlay() {
-                purposeOverlay.classList.add('visible');
-                renderPurposeCards();
-                if (selectedPurpose) {
-                    const selectedCard = purposeGrid.querySelector(`[data-id="${selectedPurpose}"]`);
-                    if (selectedCard) selectedCard.classList.add('selected');
-                    purposeConfirm.disabled = false;
-                    purposeConfirm.textContent = `Continue with ${purposes.find(p => p.id === selectedPurpose)?.label} →`;
-                } else {
-                    purposeConfirm.disabled = true;
-                    purposeConfirm.textContent = 'Select a purpose →';
-                }
-            }
-
-            function hidePurposeOverlay() {
-                purposeOverlay.classList.remove('visible');
-                hero.classList.add('hidden');
-                calendarWrapper.style.display = 'flex';
-                monthNav.style.display = 'flex';
-                if (!calendarWrapper.dataset.initialized) {
-                    renderCalendar();
-                    calendarWrapper.dataset.initialized = 'true';
-                }
-                updatePurposeIndicator();
-            }
-
-            purposeConfirm.addEventListener('click', function() {
-                if (!selectedPurpose) return;
-                hidePurposeOverlay();
-            });
-
-            purposeSkip.addEventListener('click', function() {
-                selectedPurpose = 'skip';
-                localStorage.setItem('datewizza_purpose', 'skip');
-                purposeIndicator.style.display = 'none';
-                hidePurposeOverlay();
-            });
-
-            const planDateBtn = document.getElementById('planDateBtn');
-            const hero = document.getElementById('hero');
-            const calendarWrapper = document.getElementById('calendarWrapper');
-            const monthNav = document.getElementById('monthNav');
-
-            planDateBtn.addEventListener('click', function() {
-                showPurposeOverlay();
-            });
-
-            changePurposeBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (calendarWrapper.style.display === 'flex') {
-                    calendarWrapper.style.display = 'none';
-                    monthNav.style.display = 'none';
-                    hero.classList.remove('hidden');
-                    showPurposeOverlay();
-                } else {
-                    showPurposeOverlay();
-                }
-            });
-
-            // ===== DATA LAYER =====
-            const STORAGE_KEY = 'datewizza_data_v1';
-            let data = { events: [], tasks: [] };
-            let currentDate = new Date();
-            let selectedDay = null;
-            let editingEventId = null;
-            let isSearching = false;
-            let participants = [];
-
-            function loadData() {
-                const stored = localStorage.getItem(STORAGE_KEY);
-                if (stored) {
-                    try { data = JSON.parse(stored); } catch (e) { resetDemoData(); }
-                } else { resetDemoData(); }
-                data.events = (data.events || []).map(e => ({ ...e, alerts: e.alerts || [{ offset: -1440, message: '' }],
-                    participants: e.participants || [], purpose: e.purpose || 'custom', location: e.location || '' }));
-                data.tasks = data.tasks || [];
-            }
-
-            function resetDemoData() {
-                const today = new Date();
-                const y = today.getFullYear(),
-                    m = today.getMonth();
-                data = {
-                    events: [
-                        { id: 'e1', title: 'Date Night ❤️', date: new Date(y, m, 12, 19, 0).getTime(), duration: 120,
-                            note: 'Reserve table at Il Forno', tag: 'Date Night', location: 'Il Forno Ristorante',
-                            alerts: [{ offset: -10080, message: 'Plan outfit' }, { offset: -1440,
-                                message: 'Confirm booking' }, { offset: -60, message: 'Head out!' }],
-                            participants: [{ email: 'alex@example.com', name: 'Alex', ready: false }],
-                            status: 'scheduled', rating: null, completed_at: null, created_at: Date.now(),
-                            purpose: 'relationship' },
-                        { id: 'e2', title: 'Family Dinner 🍽️', date: new Date(y, m, 5, 18, 30).getTime(), duration: 90,
-                            note: 'Mum\'s cooking', tag: 'Family', location: 'Home',
-                            alerts: [{ offset: -1440, message: 'Call mum' }, { offset: -60, message: 'Leave now' }],
-                            participants: [{ email: 'mum@example.com', name: 'Mum', ready: null }],
-                            status: 'scheduled', rating: null, completed_at: null, created_at: Date.now(),
-                            purpose: 'family' }
-                    ],
-                    tasks: [
-                        { id: 't1', date: new Date(y, m, 12, 0, 0).getTime(), title: 'Buy flowers 💐', done: false },
-                        { id: 't2', date: new Date(y, m, 12, 0, 0).getTime(), title: 'Choose wine 🍷', done: true }
-                    ]
-                };
-                saveData();
-            }
-
-            function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
-
-            // ===== CRUD =====
-            function createEvent(title, date, duration, note, tag, alerts, participants, purpose, location) {
-                const event = {
-                    id: 'e_' + Date.now(),
-                    title,
-                    date: date.getTime ? date.getTime() : date,
-                    duration: duration || 30,
-                    note: note || '',
-                    tag: tag || '',
-                    location: location || '',
-                    alerts: alerts || [{ offset: -1440, message: '' }],
-                    participants: participants || [],
-                    purpose: purpose || 'custom',
-                    status: 'scheduled',
-                    rating: null,
-                    completed_at: null,
-                    created_at: Date.now()
-                };
-                data.events.push(event);
-                saveData();
-                return event;
-            }
-
-            function updateEvent(id, updates) {
-                const idx = data.events.findIndex(e => e.id === id);
-                if (idx === -1) return null;
-                data.events[idx] = { ...data.events[idx], ...updates };
-                saveData();
-                return data.events[idx];
-            }
-
-            function deleteEvent(id) { data.events = data.events.filter(e => e.id !== id);
-                saveData(); }
-
-            function addTask(date, title) { data.tasks.push({ id: 't_' + Date.now(), date: date.getTime ? date.getTime() :
-                        date, title, done: false });
-                saveData(); }
-
-            function toggleTask(id) { const task = data.tasks.find(t => t.id === id); if (task) { task.done = !task.done;
-                    saveData(); } }
-
-            function deleteTask(id) { data.tasks = data.tasks.filter(t => t.id !== id);
-                saveData(); }
-
-            function getEventsForDate(year, month, day) {
-                return data.events.filter(e => {
-                    const d = new Date(e.date);
-                    return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day;
-                });
-            }
-
-            function getTasksForDate(year, month, day) {
-                return data.tasks.filter(t => {
-                    const d = new Date(t.date);
-                    return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day;
-                });
-            }
-
-            function formatTime(date) { return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
-
-            // ===== CALENDAR RENDER =====
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-                'October', 'November', 'December'
-            ];
-            const daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-            function renderCalendar() {
-                if (isSearching) return;
-                const year = currentDate.getFullYear(),
-                    month = currentDate.getMonth();
-                const today = new Date();
-                document.getElementById('monthLabel').textContent = `${monthNames[month]} ${year}`;
-                const scrollContainer = document.getElementById('calendarScroll');
-                let html = `<div class="calendar-page">`;
-                html += buildCalendarGrid(year, month, today);
-                html += `</div>`;
-                scrollContainer.innerHTML = html;
-
-                scrollContainer.querySelectorAll('.day-cell:not(.other-month)').forEach(cell => {
-                    cell.addEventListener('click', function() {
-                        const year = parseInt(this.dataset.year),
-                            month = parseInt(this.dataset.month),
-                            day = parseInt(this.dataset.day);
-                        openSheetForDay(year, month, day);
-                    });
-                });
-            }
-
-            function buildCalendarGrid(year, month, today) {
-                const firstDay = new Date(year, month, 1).getDay();
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const daysInPrevMonth = new Date(year, month, 0).getDate();
-
-                let html = `<div class="weekday-row">`;
-                for (let i = 0; i < 7; i++) {
-                    html += `<div class="weekday-label">${daysShort[i]}</div>`;
-                }
-                html += `</div>`;
-
-                html += `<div class="calendar-grid">`;
-
-                for (let i = 0; i < 42; i++) {
-                    let day, cellMonth = month,
-                        cellYear = year;
-                    let isOtherMonth = false;
-
-                    if (i < firstDay) {
-                        day = daysInPrevMonth - firstDay + i + 1;
-                        cellMonth = month - 1;
-                        isOtherMonth = true;
-                        if (cellMonth < 0) { cellMonth = 11;
-                            cellYear = year - 1; }
-                    } else if (i >= firstDay + daysInMonth) {
-                        day = i - (firstDay + daysInMonth) + 1;
-                        cellMonth = month + 1;
-                        isOtherMonth = true;
-                        if (cellMonth > 11) { cellMonth = 0;
-                            cellYear = year + 1; }
-                    } else {
-                        day = i - firstDay + 1;
-                    }
-
-                    const dateObj = new Date(cellYear, cellMonth, day);
-                    const isToday = dateObj.toDateString() === today.toDateString();
-
-                    const dayEvents = getEventsForDate(cellYear, cellMonth, day);
-                    const dayTasks = getTasksForDate(cellYear, cellMonth, day);
-                    const allItems = [...dayEvents, ...dayTasks];
-
-                    const isClickable = !isOtherMonth;
-                    const cellClasses = `day-cell${isToday ? ' today' : ''}${isOtherMonth ? ' other-month' : ''}`;
-
-                    html += `<div class="${cellClasses}" 
-                                 data-year="${cellYear}" 
-                                 data-month="${cellMonth}" 
-                                 data-day="${day}"
-                                 data-other="${isOtherMonth}"
-                                 style="${isClickable ? '' : 'pointer-events:none;'}">`;
-
-                    html += `<span class="day-number">${day}</span>`;
-
-                    if (allItems.length > 0) {
-                        const sorted = [...allItems].sort((a, b) => a.date - b.date);
-                        const maxShow = 4;
-                        const shown = sorted.slice(0, maxShow);
-
-                        html += `<div class="event-list">`;
-                        shown.forEach(item => {
-                            const isEvent = item.note !== undefined;
-                            const itemDate = new Date(item.date);
-                            if (isEvent) {
-                                const timeStr = itemDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
-                                    .replace(' ', '');
-                                html += `<div class="event-pill shared">${timeStr} ${item.title}</div>`;
-                            } else {
-                                html += `<div class="event-pill task${item.done ? ' done' : ''}">${item.done ? '✓' : '○'} ${item.title}</div>`;
-                            }
-                        });
-                        html += `</div>`;
-
-                        if (sorted.length > maxShow) {
-                            html += `<div class="more-count">+${sorted.length - maxShow} more</div>`;
-                        }
-                    }
-
-                    html += `</div>`;
-                }
-
-                html += `</div>`;
-                return html;
-            }
-
-            // ===== SEARCH =====
-            function searchEvents(query) {
-                if (!query.trim()) {
-                    isSearching = false;
-                    document.getElementById('searchResultsContainer').style.display = 'none';
-                    document.getElementById('calendarScroll').style.display = 'block';
-                    renderCalendar();
-                    return;
-                }
-                isSearching = true;
-                const q = query.toLowerCase().trim();
-                const eventResults = data.events.filter(e => {
-                    const d = new Date(e.date);
-                    const participantEmails = e.participants.map(p => p.email).join(' ');
-                    return e.title.toLowerCase().includes(q) || d.toLocaleDateString().includes(q) || (e.note && e
-                        .note.toLowerCase().includes(q)) || (e.tag && e.tag.toLowerCase().includes(q)) ||
-                        participantEmails.toLowerCase().includes(q) || (e.purpose && e.purpose.toLowerCase().includes(q)) ||
-                        (e.location && e.location.toLowerCase().includes(q));
-                });
-                const taskResults = data.tasks.filter(t => t.title.toLowerCase().includes(q));
-                const scroll = document.getElementById('calendarScroll');
-                const container = document.getElementById('searchResultsContainer');
-                scroll.style.display = 'none';
-                container.style.display = 'block';
-                let html = '';
-                if (eventResults.length === 0 && taskResults.length === 0) {
-                    html = `<div class="empty-state">No results found</div>`;
-                } else {
-                    if (eventResults.length > 0) {
-                        html += `<h4>📅 Events</h4>`;
-                        html += eventResults.map(e => {
-                            const d = new Date(e.date);
-                            return `<div class="result-item">📅 <strong>${e.title}</strong> · ${d.toLocaleDateString()} ${formatTime(d)} ${e.tag ? '· ' + e.tag : ''} ${e.location ? '📍 ' + e.location : ''}</div>`;
-                        }).join('');
-                    }
-                    if (taskResults.length > 0) {
-                        html += `<h4>✅ Tasks</h4>`;
-                        html += taskResults.map(t => {
-                            const d = new Date(t.date);
-                            return `<div class="result-item">✅ ${t.title} · ${d.toLocaleDateString()} ${t.done ? '✓ Done' : ''}</div>`;
-                        }).join('');
-                    }
-                }
-                container.innerHTML = html;
-            }
-
-            // ===== BOTTOM SHEET FUNCTIONS =====
-            function openSheetForDay(year, month, day) {
-                selectedDay = { year, month, day };
-                const sheet = document.getElementById('bottomSheet');
-                const overlay = document.getElementById('sheetOverlay');
-                const dateObj = new Date(year, month, day);
-
-                const titleEl = document.getElementById('sheetDateTitle');
-                if (titleEl) {
-                    titleEl.textContent = `📅 ${dateObj.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}`;
-                }
-
-                renderSheetEvents(year, month, day);
-                renderSheetTasks(year, month, day);
-
-                const addDate = document.getElementById('addDate');
-                if (addDate) addDate.value = dateObj.toISOString().split('T')[0];
-                const addTime = document.getElementById('addTime');
-                if (addTime) addTime.value = new Date().toTimeString().slice(0, 5);
-                const editId = document.getElementById('editEventId');
-                if (editId) editId.value = '';
-                const saveBtn = document.getElementById('saveEventBtn');
-                if (saveBtn) saveBtn.textContent = '✨ Schedule';
-                const loc = document.getElementById('addLocation');
-                if (loc) loc.value = '';
-                editingEventId = null;
-
-                let purposeSelect = document.getElementById('addPurpose');
-                if (!purposeSelect) {
-                    console.warn('addPurpose not found – creating fallback');
-                    const fallback = document.createElement('select');
-                    fallback.id = 'addPurpose';
-                    fallback.style.cssText = 'width:100%; padding:0.5rem 0.8rem; border-radius:60px; border:1px solid #fecdd3; background:rgba(255,255,255,0.6); font-size:0.85rem; outline:none; transition:0.2s; color:inherit; appearance:auto; -webkit-appearance:auto;';
-                    fallback.innerHTML = `
-                        <option value="custom">✨ Custom</option>
-                        <option value="family">👨‍👩‍👧‍👦 Family</option>
-                        <option value="personal">🧘 Personal</option>
-                        <option value="relationship">❤️ Relationship</option>
-                        <option value="friends">👯 Friends</option>
-                        <option value="shift">🔄 Shift Schedule</option>
-                        <option value="work">💼 Work</option>
-                        <option value="lesson">📚 Lesson</option>
-                        <option value="school">🏫 School Events</option>
-                        <option value="hobbies">🎮 Hobbies</option>
-                    `;
-                    const container = document.querySelector('#tabAdd .add-form');
-                    if (container) {
-                        container.prepend(fallback);
-                        const label = document.createElement('label');
-                        label.setAttribute('for', 'addPurpose');
-                        label.textContent = 'Planning Category';
-                        label.style.cssText = 'display:block; font-weight:600; font-size:0.7rem; margin-top:0.3rem; color:#475569;';
-                        container.prepend(label);
-                    }
-                    purposeSelect = document.getElementById('addPurpose');
-                }
-                if (purposeSelect) {
-                    purposeSelect.value = (selectedPurpose && selectedPurpose !== 'skip') ? selectedPurpose : 'custom';
-                }
-
-                if (sheet) sheet.classList.add('visible');
-                if (overlay) overlay.classList.add('visible');
-                document.body.style.overflow = 'hidden';
-                switchTab('events');
-            }
-
-            function renderSheetEvents(year, month, day) {
-                const listEl = document.getElementById('sheetEventList');
-                const dayEvents = getEventsForDate(year, month, day);
-                if (dayEvents.length === 0) {
-                    listEl.innerHTML = `<div class="empty-state">No magical moments yet — add one ✨</div>`;
-                    return;
-                }
-                listEl.innerHTML = dayEvents.map(e => {
-                    const d = new Date(e.date);
-                    const timeStr = formatTime(d);
-                    const dur = e.duration ? ` (${e.duration}m)` : '';
-                    const tagHtml = e.tag ? `<span class="badge-tag">${e.tag}</span>` : '';
-                    const locHtml = e.location ? `<span class="badge-location">📍 ${e.location}</span>` : '';
-                    const alertCount = e.alerts ? e.alerts.length : 0;
-                    const alertIcon = alertCount > 0 ? `🔔${alertCount}` : '';
-                    return `<div class="sheet-event-item">
-                            <span class="time">${timeStr}${dur}</span>
-                            <span class="title">${e.title} ${tagHtml} ${locHtml} ${alertIcon} ${e.note ? '📎' : ''}</span>
-                            <div class="item-actions">
-                                <button class="edit-btn" data-id="${e.id}">✏️</button>
-                                <button class="delete-btn" data-id="${e.id}">✕</button>
-                            </div>
-                        </div>`;
-                }).join('');
-                listEl.querySelectorAll('.delete-btn').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const id = this.dataset.id;
-                        if (confirm('Delete this event?')) {
-                            deleteEvent(id);
-                            renderAll();
-                            if (selectedDay) openSheetForDay(selectedDay.year, selectedDay.month, selectedDay
-                                .day);
-                        }
-                    });
-                });
-                listEl.querySelectorAll('.edit-btn').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const id = this.dataset.id;
-                        loadEventForEditing(id);
-                    });
-                });
-            }
-
-            function renderSheetTasks(year, month, day) {
-                const listEl = document.getElementById('taskList');
-                const dayTasks = getTasksForDate(year, month, day);
-                if (dayTasks.length === 0) {
-                    listEl.innerHTML = `<div class="empty-state">No tasks — add one below</div>`;
-                    return;
-                }
-                listEl.innerHTML = dayTasks.map(t => {
-                    return `<div class="task-item">
-                            <input type="checkbox" ${t.done ? 'checked' : ''} data-id="${t.id}">
-                            <span class="task-title${t.done ? ' done' : ''}">${t.title}</span>
-                            <button class="task-delete" data-id="${t.id}">✕</button>
-                        </div>`;
-                }).join('');
-                listEl.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-                    cb.addEventListener('change', function() {
-                        toggleTask(this.dataset.id);
-                        renderAll();
-                        if (selectedDay) renderSheetTasks(selectedDay.year, selectedDay.month, selectedDay
-                        .day);
-                    });
-                });
-                listEl.querySelectorAll('.task-delete').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const id = this.dataset.id;
-                        if (confirm('Delete this task?')) {
-                            deleteTask(id);
-                            renderAll();
-                            if (selectedDay) renderSheetTasks(selectedDay.year, selectedDay.month, selectedDay
-                                .day);
-                        }
-                    });
-                });
-            }
-
-            function loadEventForEditing(id) {
-                const event = data.events.find(e => e.id === id);
-                if (!event) return;
-                editingEventId = id;
-                const d = new Date(event.date);
-                document.getElementById('addTitle').value = event.title;
-                document.getElementById('addDate').value = d.toISOString().split('T')[0];
-                document.getElementById('addTime').value = d.toTimeString().slice(0, 5);
-                document.getElementById('addDuration').value = event.duration || 30;
-                document.getElementById('addTag').value = event.tag || '';
-                document.getElementById('addNote').value = event.note || '';
-                const loc = document.getElementById('addLocation');
-                if (loc) loc.value = event.location || '';
-                document.getElementById('editEventId').value = id;
-                document.getElementById('saveEventBtn').textContent = '💾 Update';
-
-                const purposeSelect = document.getElementById('addPurpose');
-                if (purposeSelect) {
-                    purposeSelect.value = event.purpose || 'custom';
-                }
-
-                const container = document.getElementById('alertsContainer');
-                container.innerHTML = '';
-                (event.alerts || [{ offset: -1440, message: '' }]).forEach((alert, index) => addAlertRow(alert.offset,
-                    alert.message, index));
-                participants = (event.participants || []).map(p => p.email);
-                renderParticipantTags();
-                switchTab('add');
-            }
-
-            function closeSheet() {
-                document.getElementById('bottomSheet').classList.remove('visible');
-                document.getElementById('sheetOverlay').classList.remove('visible');
-                document.body.style.overflow = '';
-                selectedDay = null;
-                editingEventId = null;
-                document.getElementById('editEventId').value = '';
-                document.getElementById('saveEventBtn').textContent = '✨ Schedule';
-            }
-
-            function switchTab(tabId) {
-                document.querySelectorAll('.sheet-tabs button').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.sheet-tab-content').forEach(c => c.classList.remove('active'));
-                document.querySelector(`.sheet-tabs button[data-tab="${tabId}"]`)?.classList.add('active');
-                document.getElementById(`tab${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`)?.classList.add('active');
-            }
-
-            // ===== ALERTS =====
-            function addAlertRow(offset, message, index) {
-                const container = document.getElementById('alertsContainer');
-                const currentCount = container.querySelectorAll('.alert-row').length;
-                if (currentCount >= 3) return;
-                const row = document.createElement('div');
-                row.className = 'alert-row';
-                const isCustom = ![-10080, -4320, -1440, -60, 0].includes(offset);
-                row.innerHTML = `
-                        <select class="alert-offset">
-                            <option value="-10080" ${offset === -10080 ? 'selected' : ''}>1 week</option>
-                            <option value="-4320" ${offset === -4320 ? 'selected' : ''}>3 days</option>
-                            <option value="-1440" ${offset === -1440 ? 'selected' : ''}>1 day</option>
-                            <option value="-60" ${offset === -60 ? 'selected' : ''}>1 hour</option>
-                            <option value="0" ${offset === 0 ? 'selected' : ''}>At time</option>
-                            <option value="custom" ${isCustom ? 'selected' : ''}>Custom</option>
-                        </select>
-                        <input type="number" class="alert-custom" placeholder="min" value="${isCustom ? Math.abs(offset) : ''}" style="display:${isCustom ? 'inline-block' : 'none'}; width:70px;">
-                        <input type="text" class="alert-message" placeholder="Msg" value="${message || ''}" style="flex:1; min-width:60px;">
-                        <button class="remove-alert" ${currentCount === 1 ? 'disabled style="opacity:0.3;"' : ''}>✕</button>
-                    `;
-                container.appendChild(row);
-                const select = row.querySelector('.alert-offset');
-                const customInput = row.querySelector('.alert-custom');
-                select.addEventListener('change', function() {
-                    customInput.style.display = this.value === 'custom' ? 'inline-block' : 'none';
-                    if (this.value === 'custom') customInput.focus();
-                });
-                row.querySelector('.remove-alert').addEventListener('click', function() {
-                    if (container.querySelectorAll('.alert-row').length <= 1) return;
-                    row.remove();
-                });
-            }
-
-            // ===== PARTICIPANTS =====
-            function addParticipantTag(email) {
-                if (!email || participants.includes(email)) return;
-                participants.push(email);
-                renderParticipantTags();
-            }
-
-            function removeParticipantTag(email) {
-                participants = participants.filter(p => p !== email);
-                renderParticipantTags();
-            }
-
-            function renderParticipantTags() {
-                const container = document.getElementById('participantTags');
-                if (participants.length === 0) {
-                    container.innerHTML = `<span style="font-size:0.65rem; color:#6b7280;">No one invited yet</span>`;
-                    return;
-                }
-                container.innerHTML = participants.map(email =>
-                    `<span class="tag">${email} <span class="remove" data-email="${email}">×</span></span>`
-                ).join('');
-                container.querySelectorAll('.remove').forEach(el => {
-                    el.addEventListener('click', function() {
-                        removeParticipantTag(this.dataset.email);
-                    });
-                });
-            }
-
-            // ===== SAVE EVENT =====
-            function saveEvent() {
-                const title = document.getElementById('addTitle').value.trim();
-                const dateStr = document.getElementById('addDate').value;
-                const timeStr = document.getElementById('addTime').value;
-                const duration = parseInt(document.getElementById('addDuration').value) || 30;
-                const note = document.getElementById('addNote').value.trim();
-                const tag = document.getElementById('addTag').value;
-                const purposeSelect = document.getElementById('addPurpose');
-                const purpose = purposeSelect ? purposeSelect.value : 'custom';
-                const locInput = document.getElementById('addLocation');
-                const location = locInput ? locInput.value.trim() : '';
-
-                if (!title) { alert('Please enter a title for your magical moment ✨'); return; }
-                if (!dateStr) { alert('Please select a date.'); return; }
-                const dateObj = new Date(dateStr + 'T' + (timeStr || '09:00'));
-                if (isNaN(dateObj.getTime())) { alert('Invalid date/time.'); return; }
-                const alertRows = document.querySelectorAll('.alert-row');
-                const alerts = [];
-                alertRows.forEach(row => {
-                    const select = row.querySelector('.alert-offset');
-                    const custom = row.querySelector('.alert-custom');
-                    const msg = row.querySelector('.alert-message').value.trim();
-                    let offset = parseInt(select.value);
-                    if (select.value === 'custom') {
-                        const val = parseInt(custom.value);
-                        if (!isNaN(val) && val > 0) offset = -val;
-                        else offset = -1440;
-                    }
-                    if (offset > 0) offset = -offset;
-                    alerts.push({ offset, message: msg });
-                });
-                const participantsList = participants.map(email => ({ email, name: email.split('@')[0] || '',
-                    ready: null }));
-                const editId = document.getElementById('editEventId').value;
-                if (editId) {
-                    updateEvent(editId, {
-                        title,
-                        date: dateObj.getTime(),
-                        duration,
-                        note,
-                        tag,
-                        location,
-                        alerts,
-                        participants: participantsList,
-                        purpose
-                    });
-                    closeSheet();
-                    renderAll();
-                    const d = new Date(dateObj);
-                    openSheetForDay(d.getFullYear(), d.getMonth(), d.getDate());
-                } else {
-                    createEvent(title, dateObj, duration, note, tag, alerts, participantsList, purpose, location);
-                    if (participantsList.length > 0) {
-                        const emails = participantsList.map(p => p.email).join(', ');
-                        alert(`📧 Reminders sent to:\n${emails}\n\n✨ "${title}" on ${dateObj.toLocaleDateString()} at ${formatTime(dateObj)}`);
-                    } else {
-                        alert(`✅ "${title}" scheduled for ${dateObj.toLocaleDateString()} at ${formatTime(dateObj)} ✨`);
-                    }
-                    closeSheet();
-                    renderAll();
-                    const d = new Date(dateObj);
-                    openSheetForDay(d.getFullYear(), d.getMonth(), d.getDate());
-                }
-                document.getElementById('addTitle').value = '';
-                document.getElementById('addNote').value = '';
-                const locClear = document.getElementById('addLocation');
-                if (locClear) locClear.value = '';
-                document.getElementById('addDuration').value = '30';
-                document.getElementById('editEventId').value = '';
-                document.getElementById('saveEventBtn').textContent = '✨ Schedule';
-                document.getElementById('alertsContainer').innerHTML = '';
-                addAlertRow(-1440, '', 0);
-                participants = [];
-                renderParticipantTags();
-                editingEventId = null;
-                switchTab('events');
-            }
-
-            // ===== NATURAL LANGUAGE PARSER =====
-            const titleInput = document.getElementById('addTitle');
-            titleInput.addEventListener('focus', function() {
-                const original = this.value;
-                if (original && !this.dataset.parsed) {
-                    const text = original.toLowerCase();
-                    let matched = false;
-                    if (text.includes('tomorrow')) {
-                        const tomorrow = new Date();
-                        tomorrow.setDate(tomorrow.getDate() + 1);
-                        document.getElementById('addDate').value = tomorrow.toISOString().split('T')[0];
-                        matched = true;
-                    }
-                    if (text.match(/\b(\d{1,2}(?::\d{2})?\s*(?:am|pm))\b/)) {
-                        const timeMatch = text.match(/\b(\d{1,2}(?::\d{2})?\s*(?:am|pm))\b/);
-                        if (timeMatch) {
-                            let t = timeMatch[1];
-                            const parts = t.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
-                            if (parts) {
-                                let h = parseInt(parts[1]);
-                                const m = parts[2] ? parseInt(parts[2]) : 0;
-                                const ampm = parts[3] ? parts[3].toLowerCase() : null;
-                                if (ampm === 'pm' && h < 12) h += 12;
-                                if (ampm === 'am' && h === 12) h = 0;
-                                document.getElementById('addTime').value =
-                                    `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-                                matched = true;
-                            }
-                        }
-                    }
-                    if (matched) {
-                        this.dataset.parsed = 'true';
-                        this.style.borderColor = '#f59e0b';
-                        setTimeout(() => { this.style.borderColor = ''; }, 2000);
-                    }
-                }
-            });
-
-            // ===== NAVIGATION =====
-            function navigateMonth(delta) {
-                currentDate.setMonth(currentDate.getMonth() + delta);
-                isSearching = false;
-                document.getElementById('searchInput').value = '';
-                document.getElementById('searchBar').classList.remove('open');
-                document.getElementById('searchResultsContainer').style.display = 'none';
-                document.getElementById('calendarScroll').style.display = 'block';
-                renderCalendar();
-            }
-            document.getElementById('prevMonth').addEventListener('click', () => navigateMonth(-1));
-            document.getElementById('nextMonth').addEventListener('click', () => navigateMonth(1));
-            document.getElementById('monthLabel').addEventListener('dblclick', function() {
-                currentDate = new Date();
-                renderCalendar();
-            });
-
-            // ===== SEARCH TOGGLE =====
-            document.getElementById('searchToggle').addEventListener('click', function() {
-                const bar = document.getElementById('searchBar');
-                bar.classList.toggle('open');
-                if (bar.classList.contains('open')) {
-                    document.getElementById('searchInput').focus();
-                } else {
-                    document.getElementById('searchInput').value = '';
-                    searchEvents('');
-                }
-            });
-            document.getElementById('searchInput').addEventListener('input', function() {
-                searchEvents(this.value);
-            });
-
-            // ===== SHEET CONTROLS =====
-            document.getElementById('closeSheet').addEventListener('click', closeSheet);
-            document.getElementById('sheetOverlay').addEventListener('click', closeSheet);
-            document.querySelectorAll('.sheet-tabs button').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    switchTab(this.dataset.tab);
-                });
-            });
-
-            // ===== ALERTS BUTTON =====
-            document.getElementById('addAlertBtn').addEventListener('click', function() {
-                const container = document.getElementById('alertsContainer');
-                const count = container.querySelectorAll('.alert-row').length;
-                if (count < 3) { addAlertRow(-1440, '', count); } else { alert('Maximum 3 reminders per event.'); }
-            });
-
-            // ===== PARTICIPANTS =====
-            document.getElementById('addEmailBtn').addEventListener('click', function() {
-                const input = document.getElementById('emailInput');
-                const email = input.value.trim();
-                if (email && email.includes('@') && !participants.includes(email)) {
-                    addParticipantTag(email);
-                    input.value = '';
-                }
-            });
-            document.getElementById('emailInput').addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') { e.preventDefault();
-                    document.getElementById('addEmailBtn').click(); }
-            });
-
-            // ===== TASKS =====
-            document.getElementById('addTaskBtn').addEventListener('click', addTaskFromInput);
-            document.getElementById('newTaskInput').addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') { e.preventDefault();
-                    addTaskFromInput(); }
-            });
-
-            function addTaskFromInput() {
-                const input = document.getElementById('newTaskInput');
-                const title = input.value.trim();
-                if (!title || !selectedDay) return;
-                const { year, month, day } = selectedDay;
-                const dateObj = new Date(year, month, day);
-                addTask(dateObj, title);
-                input.value = '';
-                renderAll();
-                if (selectedDay) {
-                    openSheetForDay(selectedDay.year, selectedDay.month, selectedDay.day);
-                    renderSheetTasks(selectedDay.year, selectedDay.month, selectedDay.day);
-                }
-            }
-
-            // ===== SAVE & CANCEL =====
-            document.getElementById('saveEventBtn').addEventListener('click', saveEvent);
-            document.getElementById('cancelAddBtn').addEventListener('click', function() {
-                document.getElementById('addTitle').value = '';
-                document.getElementById('addNote').value = '';
-                const loc = document.getElementById('addLocation');
-                if (loc) loc.value = '';
-                document.getElementById('addDuration').value = '30';
-                document.getElementById('editEventId').value = '';
-                document.getElementById('saveEventBtn').textContent = '✨ Schedule';
-                document.getElementById('alertsContainer').innerHTML = '';
-                addAlertRow(-1440, '', 0);
-                participants = [];
-                renderParticipantTags();
-                editingEventId = null;
-                switchTab('events');
-            });
-
-            function renderAll() {
-                renderCalendar();
-                if (selectedDay) {
-                    renderSheetEvents(selectedDay.year, selectedDay.month, selectedDay.day);
-                    renderSheetTasks(selectedDay.year, selectedDay.month, selectedDay.day);
-                }
-            }
-
-            // ===== INIT =====
-            loadData();
-            document.getElementById('alertsContainer').innerHTML = '';
-            addAlertRow(-1440, '', 0);
-            updatePurposeIndicator();
-
-            // Keyboard shortcuts
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') { closeSheet(); }
-                if (e.key === 'n' && !e.ctrlKey && !e.metaKey && !document.getElementById('searchInput').matches(
-                        ':focus')) {
-                    e.preventDefault();
-                    if (selectedDay) {
-                        openSheetForDay(selectedDay.year, selectedDay.month, selectedDay.day);
-                        switchTab('add');
-                    }
-                }
-                if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
-                    e.preventDefault();
-                    const bar = document.getElementById('searchBar');
-                    bar.classList.toggle('open');
-                    if (bar.classList.contains('open')) {
-                        document.getElementById('searchInput').focus();
-                    } else {
-                        document.getElementById('searchInput').value = '';
-                        searchEvents('');
-                    }
-                }
-            });
-
-            let resizeTimeout;
-            window.addEventListener('resize', function() {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    if (!isSearching && calendarWrapper.dataset.initialized) renderCalendar();
-                }, 200);
-            });
-
-            window.renderAll = renderAll;
-        });
-    </script>
-
+  </div>
+</section>
+
+<!-- ===================== SUSTAINABILITY ===================== -->
+<section id="sustainability" class="relative px-5 py-24 lg:px-8">
+  <div class="reveal mx-auto max-w-5xl overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-emerald-500/20 via-cyan-500/10 to-violet-500/20 p-[1px]">
+    <div class="rounded-[2.5rem] bg-ink-950/85 p-8 backdrop-blur-xl sm:p-14">
+      <div class="grid items-center gap-10 md:grid-cols-[1fr_auto]">
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-emerald-300 ring-1 ring-emerald-400/20">🌍 1% for the planet</span>
+          <h2 class="mt-4 font-display text-4xl font-black leading-tight text-white sm:text-5xl">Every plan removes carbon.</h2>
+          <p class="mt-4 max-w-xl text-slate-400">1% of all DateWizza revenue goes directly to vetted carbon-removal projects through Stripe Climate. No greenwashing — just receipts. Our entire product exists to help people consume less, not more.</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="grid h-28 w-28 place-items-center rounded-full bg-gradient-to-br from-emerald-400/20 to-cyan-400/10 text-5xl ring-1 ring-emerald-400/30 animate-pulse-glow">🌱</div>
+          <span class="text-xs font-semibold text-slate-400">Stripe Climate partner</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="relative px-5 py-24 lg:px-8">
+  <div class="mx-auto max-w-3xl">
+    <div class="reveal text-center">
+      <span class="text-xs font-bold uppercase tracking-[.2em] text-cyan-400">FAQ</span>
+      <h2 class="mt-3 font-display text-4xl font-black text-white sm:text-5xl">Questions, answered.</h2>
+    </div>
+    <div class="reveal mt-12 space-y-3">
+      <details class="glass group rounded-2xl p-5 open:border-emerald-400/30">
+        <summary class="flex items-center justify-between font-semibold text-white">What exactly is a "trip merge"?<svg class="faq-chevron h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></summary>
+        <p class="mt-3 text-sm leading-relaxed text-slate-400">When you have multiple errands or dates in a day, DateWizza groups nearby trips into one optimised route. Instead of three separate car journeys, you make one — cutting fuel, time and CO₂.</p>
+      </details>
+      <details class="glass group rounded-2xl p-5 open:border-emerald-400/30">
+        <summary class="flex items-center justify-between font-semibold text-white">How are my savings calculated?<svg class="faq-chevron h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></summary>
+        <p class="mt-3 text-sm leading-relaxed text-slate-400">We use DEFRA and EPA emission factors per travel mode, combined with your actual trip lengths. Cash savings use average fuel/transit costs for your region.</p>
+      </details>
+      <details class="glass group rounded-2xl p-5 open:border-emerald-400/30">
+        <summary class="flex items-center justify-between font-semibold text-white">Do my guests need an account?<svg class="faq-chevron h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></summary>
+        <p class="mt-3 text-sm leading-relaxed text-slate-400">No. Guests get SMS and email reminders plus a one-tap RSVP link. They can optionally create an account later to see their own savings.</p>
+      </details>
+      <details class="glass group rounded-2xl p-5 open:border-emerald-400/30">
+        <summary class="flex items-center justify-between font-semibold text-white">Can I cancel anytime?<svg class="faq-chevron h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></summary>
+        <p class="mt-3 text-sm leading-relaxed text-slate-400">Yes — one click in billing. You keep Pro features until the period ends, then drop to Free. Your data stays put.</p>
+      </details>
+      <details class="glass group rounded-2xl p-5 open:border-emerald-400/30">
+        <summary class="flex items-center justify-between font-semibold text-white">Is my data private?<svg class="faq-chevron h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></summary>
+        <p class="mt-3 text-sm leading-relaxed text-slate-400">Your events live in your account only. Public events are opt-in. We never sell data, and Stripe handles all payment details end-to-end.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<section class="relative px-5 py-24 lg:px-8">
+  <div class="reveal mx-auto max-w-4xl rounded-[2.5rem] bg-gradient-to-br from-emerald-500/20 via-cyan-500/10 to-violet-500/20 p-[1px]">
+    <div class="rounded-[2.5rem] bg-ink-950/85 px-8 py-14 text-center backdrop-blur-xl sm:px-14">
+      <h2 class="font-display text-4xl font-black text-white sm:text-5xl">Your next date could<br class="hidden sm:block" /> save the planet a little.</h2>
+      <p class="mx-auto mt-4 max-w-xl text-slate-400">Join the calendar that turns everyday plans into measurable savings — for your wallet and the world.</p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="app.html" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-bold text-white">
+          Start free — no card
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
+        </a>
+        <a href="#pricing" class="btn-ghost rounded-full px-7 py-4 text-base font-semibold text-white">Compare plans</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="border-t border-white/5 px-5 py-14 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid gap-10 md:grid-cols-4">
+      <div class="md:col-span-2">
+        <a href="/" class="flex items-center gap-2.5">
+          <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-emerald-400 via-cyan-400 to-violet-500 text-base">📅</span>
+          <span class="font-display text-xl font-black text-white">DateWizza</span>
+        </a>
+        <p class="mt-4 max-w-sm text-sm text-slate-400">The calendar that merges your trips, plans your dates, and proves your savings. 1% of revenue funds carbon removal.</p>
+        <p class="mt-6 text-xs text-slate-600">© <span id="year"></span> DateWizza. Built for people who'd rather save than spend.</p>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold text-white">Product</h4>
+        <ul class="mt-3 space-y-2 text-sm text-slate-400">
+          <li><a href="#how" class="hover:text-white">How it works</a></li>
+          <li><a href="#savings" class="hover:text-white">Savings calculator</a></li>
+          <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
+          <li><a href="app.html" class="hover:text-white">Open app</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold text-white">Company</h4>
+        <ul class="mt-3 space-y-2 text-sm text-slate-400">
+          <li><a href="#sustainability" class="hover:text-white">Sustainability</a></li>
+          <li><a href="#faq" class="hover:text-white">FAQ</a></li>
+          <li><a href="mailto:hello@datewizza.com" class="hover:text-white">Contact</a></li>
+          <li><a href="/privacy" class="hover:text-white">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---- Year ---- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---- Nav scroll + mobile menu ---- */
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+  /* ---- Scroll reveal ---- */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ---- Mini calendar in hero ---- */
+  const mini = document.getElementById('miniCal');
+  if (mini) {
+    const days = ['M','T','W','T','F','S','S'];
+    days.forEach(d => { const el = document.createElement('div'); el.textContent = d; el.className = 'font-bold text-slate-600 pb-1'; mini.appendChild(el); });
+    const events = new Set([3, 9, 12, 17, 18, 24]);
+    const today = 16;
+    for (let i = 1; i <= 28; i++) {
+      const el = document.createElement('div');
+      el.textContent = i;
+      el.className = 'grid h-6 place-items-center rounded-md ' + (i === today ? 'bg-emerald-400 text-ink-950 font-bold' : events.has(i) ? 'bg-white/10 text-emerald-300' : 'text-slate-500');
+      mini.appendChild(el);
+    }
+  }
+
+  /* ---- Billing toggle ---- */
+  const proPrice = document.getElementById('proPrice');
+  const proPer = document.getElementById('proPer');
+  const expertPrice = document.getElementById('expertPrice');
+  const expertPer = document.getElementById('expertPer');
+  const btnM = document.getElementById('billMonthly');
+  const btnY = document.getElementById('billYearly');
+  const setBill = (yearly) => {
+    proPrice.textContent = yearly ? '$67' : '$7';
+    proPer.textContent = yearly ? '/ year' : '/ month';
+    expertPrice.textContent = yearly ? '$190' : '$19';
+    expertPer.textContent = yearly ? '/ year' : '/ month';
+    btnM.className = 'rounded-full px-5 py-2 text-sm font-bold transition ' + (yearly ? 'text-slate-400' : 'bg-white/10 text-white');
+    btnY.className = 'rounded-full px-5 py-2 text-sm font-bold transition ' + (yearly ? 'bg-white/10 text-white' : 'text-slate-400');
+  };
+  btnM.addEventListener('click', () => setBill(false));
+  btnY.addEventListener('click', () => setBill(true));
+  setBill(false);
+
+  /* ---- Savings calculator ---- */
+  const FACTORS = {
+    car:       { co2: 0.192, cost: 0.18 },
+    rideshare: { co2: 0.210, cost: 0.45 },
+    transit:   { co2: 0.041, cost: 0.06 },
+    ev:        { co2: 0.053, cost: 0.05 },
+    walk:      { co2: 0.000, cost: 0.00 }
+  };
+  const SPEED = { car: 28, rideshare: 26, transit: 20, ev: 28, walk: 5 }; // km/h
+
+  const trips = document.getElementById('trips');
+  const km = document.getElementById('km');
+  const fromMode = document.getElementById('fromMode');
+  const toMode = document.getElementById('toMode');
+  const tripsVal = document.getElementById('tripsVal');
+  const kmVal = document.getElementById('kmVal');
+  const co2Out = document.getElementById('co2Out');
+  const treesOut = document.getElementById('treesOut');
+  const cashOut = document.getElementById('cashOut');
+  const hoursOut = document.getElementById('hoursOut');
+
+  const paintRange = (el) => {
+    const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+    el.style.background = `linear-gradient(to right,#10b981 ${pct}%,rgba(255,255,255,.1) ${pct}%)`;
+  };
+
+  function calc() {
+    const t = +trips.value, k = +km.value;
+    const a = FACTORS[fromMode.value], b = FACTORS[toMode.value];
+    const weeklyCo2 = Math.max(0, (a.co2 - b.co2) * k * t);
+    const yearlyCo2 = weeklyCo2 * 52;
+    const weeklyCash = Math.max(0, (a.cost - b.cost) * k * t);
+    const yearlyCash = weeklyCash * 52;
+
+    // time saved: difference in travel time if we merge (assume 30% fewer trips → 35% fewer hours)
+    const baseHours = (k / SPEED[fromMode.value]) * t * 52;
+    const newHours = (k / SPEED[toMode.value]) * t * 0.7 * 52;
+    const hoursSaved = Math.max(0, baseHours - newHours);
+
+    tripsVal.textContent = t;
+    kmVal.textContent = k + ' km';
+    paintRange(trips); paintRange(km);
+
+    co2Out.textContent = yearlyCo2.toFixed(1);
+    treesOut.textContent = Math.round(yearlyCo2 / 21);
+    cashOut.textContent = '$' + Math.round(yearlyCash);
+    hoursOut.textContent = Math.round(hoursSaved) + 'h';
+  }
+
+  [trips, km, fromMode, toMode].forEach(el => el.addEventListener('input', calc));
+  calc();
+})();
+</script>
 </body>
 </html>

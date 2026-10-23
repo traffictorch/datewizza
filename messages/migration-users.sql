@@ -1,0 +1,3 @@
+ALTER TABLE users ADD COLUMN allow_messages INTEGER DEFAULT 1;
+ALTER TABLE users ADD COLUMN message_policy TEXT DEFAULT 'all';
+ALTER TABLE users ADD COLUMN messages_blocked INTEGER DEFAULT 0;

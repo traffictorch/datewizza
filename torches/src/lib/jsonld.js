@@ -1,0 +1,282 @@
+import { TOOL_PATH } from './tools.js';
+const SITE = 'https://datewizza.com';
+
+export function profileJsonLd(profile, username) {
+  const display = profile.display_name || username;
+  const url = `${SITE}/torcher/${username}/`;
+  const sameAs = [profile.website_url, profile.social1_url, profile.social2_url].filter(Boolean);
+
+  const person = {
+    '@type': 'Person',
+    name: display,
+    alternateName: `@${username}`,
+    url,
+    image: `${SITE}/images/avatars/${profile.avatar_preset || 'owner'}.svg`,
+  };
+  if (profile.bio) person.description = profile.bio;
+  if (profile.job_title) person.jobTitle = profile.job_title;
+  if (profile.company) person.worksFor = { '@type': 'Organization', name: profile.company };
+  if (profile.location) person.address = profile.location;
+  if (sameAs.length) person.sameAs = sameAs;
+
+  const graph = [
+    {
+      '@type': 'ProfilePage',
+      '@id': url,
+      url,
+      name: `${display} (@${username}) · DateWizza`,
+      isPartOf: { '@type': 'WebSite', url: SITE },
+      mainEntity: person,
+      primaryImageOfPage: { '@type': 'ImageObject', url: person.image },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
+        { '@type': 'ListItem', position: 2, name: 'Community', item: SITE + '/community/' },
+        { '@type': 'ListItem', position: 3, name: `@${username}`, item: url },
+      ],
+    },
+  ];
+
+  return { '@context': 'https://schema.org', '@graph': graph };
+}
+
+export function jsonLdScript(obj) {
+  // escape closing script tag inside strings
+  const json = JSON.stringify(obj).replace(/<\/script/gi, '<\\/script');
+  return `<script type="application/ld+json">${json}</script>`;
+}
+
+function stripMarkdown(text, max) {
+  if (!text) return '';
+  const stripped = String(text)
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/_([^_]+)_/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/```[\s\S]*?```/g, '[code]')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/^\s*[-*+]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    .replace(/^\s*>\s+/gm, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return max ? (stripped.length <= max ? stripped : stripped.slice(0, max).replace(/\s+\S*$/, '') + '…') : stripped;
+}
+
+function discussionJsonLd(post, author, id) {
+  const url = SITE + '/torch/' + id + '/';
+  const bodyText = stripMarkdown(post.body_md || post.note || '').slice(0, 500);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'DiscussionForumPosting',
+        '@id': url + '#discussion',
+        url: url,
+        headline: (post.title && post.title.trim()) || ('Discussion #' + id),
+        text: bodyText,
+        datePublished: new Date(post.created_at).toISOString(),
+        dateModified: new Date(post.created_at).toISOString(),
+        author: {
+          '@type': 'Person',
+          name: author.display_name || author.username,
+          url: SITE + '/torcher/' + author.username + '/',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'DateWizza',
+          url: SITE + '/',
+          logo: { '@type': 'ImageObject', url: SITE + '/logo-512.webp' },
+        },
+        isPartOf: {
+          '@type': 'CollectionPage',
+          name: 'Community Discussions',
+          url: SITE + '/community/',
+        },
+        keywords: [post.category, 'discussion'].filter(Boolean),
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1'],
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
+          { '@type': 'ListItem', position: 2, name: 'Community', item: SITE + '/community/' },
+          { '@type': 'ListItem', position: 3, name: '@' + author.username, item: SITE + '/torcher/' + author.username + '/' },
+          { '@type': 'ListItem', position: 4, name: 'Discussion #' + id, item: url },
+        ],
+      },
+    ],
+  };
+}
+
+function workflowJsonLd(post, author, id) {
+  const url = SITE + '/torch/' + id + '/';
+  let wf = null;
+  try { wf = post.workflow_meta ? (typeof post.workflow_meta === 'string' ? JSON.parse(post.workflow_meta) : post.workflow_meta) : null; } catch (e) {}
+  const titleText = (post.title && post.title.trim()) || ('Workflow #' + id);
+  const summary = (wf && wf.summary) || stripMarkdown(post.body_md || post.note || '', 500);
+  const keywords = [post.category].concat(wf && Array.isArray(wf.ai_models) ? wf.ai_models : []).concat(wf && Array.isArray(wf.ai_tools) ? wf.ai_tools : []).filter(Boolean);
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        '@id': url + '#workflow',
+        url: url,
+        headline: titleText + (wf && wf.version ? ' ' + wf.version : ''),
+        description: summary,
+        articleBody: stripMarkdown(post.body_md || post.note || '').slice(0, 3000),
+        datePublished: new Date(post.created_at).toISOString(),
+        dateModified: new Date(post.created_at).toISOString(),
+        author: {
+          '@type': 'Person',
+          name: author.display_name || author.username,
+          url: SITE + '/torcher/' + author.username + '/'
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'DateWizza',
+          url: SITE + '/',
+          logo: { '@type': 'ImageObject', url: SITE + '/logo-512.webp' }
+        },
+        articleSection: post.category,
+        keywords: keywords,
+        isPartOf: {
+          '@type': 'CollectionPage',
+          name: 'Community Workflows',
+          url: SITE + '/community/'
+        },
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1']
+        }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
+          { '@type': 'ListItem', position: 2, name: 'Community', item: SITE + '/community/' },
+          { '@type': 'ListItem', position: 3, name: '@' + author.username, item: SITE + '/torcher/' + author.username + '/' },
+          { '@type': 'ListItem', position: 4, name: 'Workflow #' + id, item: url }
+        ]
+      }
+    ]
+  };
+}
+
+export function torchJsonLd(post, author, id) {
+  if (post.post_type === 'discussion') return discussionJsonLd(post, author, id);
+  if (post.post_type === 'workflow') return workflowJsonLd(post, author, id);
+  const url = `${SITE}/torch/${id}/`;
+  const domain = post.domain_mode === 'hidden'
+    ? (post.domain_label || 'Hidden site')
+    : (post.url ? new URL(post.url).hostname.replace(/^www\./, '') : 'Unknown');
+  const headline = (post.page_title && post.page_title.trim()) || `Torch #${id}`;
+  const toolLabel = (post.tool || '').replace(/-tool$/, '').replace(/-/g, ' ');
+  const toolPath = TOOL_PATH[post.tool] || '/';
+  const summary = `${author.display_name || author.username} scored ${post.score}/100 on ${domain} using the ${toolLabel} audit.`;
+
+  const article = {
+    '@type': 'TechArticle',
+    '@id': url + '#article',
+    url,
+    headline,
+    description: summary,
+    datePublished: new Date(post.created_at).toISOString(),
+    dateModified: new Date(post.created_at).toISOString(),
+    author: {
+      '@type': 'Person',
+      name: author.display_name || author.username,
+      url: `${SITE}/torcher/${author.username}/`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'DateWizza',
+      url: SITE + '/',
+      logo: { '@type': 'ImageObject', url: SITE + '/logo-512.webp' },
+    },
+    about: {
+      '@type': 'WebSite',
+      name: domain,
+      url: post.url || undefined,
+    },
+    mentions: {
+      '@type': 'SoftwareApplication',
+      name: toolLabel.charAt(0).toUpperCase() + toolLabel.slice(1),
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web Browser',
+      url: SITE + toolPath,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    },
+    keywords: [post.category, toolLabel, domain].filter(Boolean),
+    isPartOf: {
+      '@type': 'CollectionPage',
+      name: 'Community Torches',
+      url: SITE + '/community/',
+    },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1'],
+    },
+  };
+  if (post.note) article.articleBody = post.note;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      article,
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
+          { '@type': 'ListItem', position: 2, name: 'Community', item: SITE + '/community/' },
+          { '@type': 'ListItem', position: 3, name: '@' + author.username, item: `${SITE}/torcher/${author.username}/` },
+          { '@type': 'ListItem', position: 4, name: `Torch #${id}`, item: url },
+        ],
+      },
+    ],
+  };
+}
+
+export function communityJsonLd(posts, tool) {
+  const url = `${SITE}/community/`;
+  const items = (posts || []).slice(0, 20).map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `${SITE}/torch/${p.id}/`,
+    name: (p.page_title && p.page_title.trim()) || `Torch #${p.id}`,
+  }));
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': url,
+        url,
+        name: tool ? `${tool} Torches` : 'Community Torches',
+        isPartOf: { '@type': 'WebSite', url: SITE },
+        mainEntity: { '@type': 'ItemList', itemListElement: items },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
+          { '@type': 'ListItem', position: 2, name: 'Community', item: url },
+        ],
+      },
+    ],
+  };
+}

@@ -1,0 +1,67 @@
+name = "torches-page-render"
+main = "src/index.js"
+compatibility_date = "2026-10-07"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+AUTH_API = "https://traffic-torch-auth.traffictorch.workers.dev"
+SITE_ORIGIN = "https://traffictorch.net"
+HIGH_SCORES_API = "https://traffic-torch-high-scores.traffictorch.workers.dev"
+
+[observability]
+enabled = true
+
+[[services]]
+binding = "AUTH"
+service = "traffic-torch-auth"
+
+[[routes]]
+pattern = "traffictorch.net/torcher/*"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/torch/*"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/community"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/community/*"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/sitemap.xml"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/sitemap-static.xml"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/sitemap-profiles.xml"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/sitemap-torches.xml"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/llms.txt"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/og/*"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/torches/*"
+zone_name = "traffictorch.net"
+
+[[routes]]
+pattern = "traffictorch.net/tools/*"
+zone_name = "traffictorch.net"
+
+[triggers]
+crons = ["0 3 * * *"]

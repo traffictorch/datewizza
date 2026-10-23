@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founding Document — The Round Table | DateWizza</title>
+<meta name="description" content="How the Round Table began. The 7 founding proposals, who seeded them, and how to challenge them.">
+<link rel="canonical" href="https://datewizza.com/community/round-table/founding/">
+<meta name="robots" content="index, follow">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+<script>(function(){var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&d))document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+<div x-data="{}" class="flex flex-1 min-h-screen"><div class="flex flex-1 min-h-screen">
+<aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 overflow-y-auto sticky top-0 h-screen flex-col self-start">
+<div class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+<a href="/" class="flex items-center gap-4"><img src="/logo-160w.webp" alt="DateWizza" class="w-10 rounded-xl" width="40" height="40"><span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent hidden">DateWizza</span></a>
+</div>
+<div id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in"></div>
+<div class="p-4 border-t border-white/10 dark:border-white/5"><button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-400 hover:bg-white/10 rounded-lg transition">←</button></div>
+</aside>
+<div class="flex-1 flex flex-col">
+<header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+<div class="container mx-auto px-6 py-4 flex justify-between items-center">
+<a href="/" class="flex items-center gap-4 md:hidden"><img src="/logo-100w.webp" alt="DateWizza" class="w-10 rounded-xl" width="40" height="40"><p class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">DateWizza</p></a>
+<div class="w-10 md:hidden"></div>
+<button id="menuToggle" class="md:hidden text-3xl text-gray-500">☰</button>
+<button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 mr-4">☰</button>
+<button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl">🌙</button>
+</div>
+<div id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10"><button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl">×</button><div id="mobile-menu-placeholder"></div></div>
+</header>
+<main class="container mx-auto px-4 py-10 max-w-3xl">
+<nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-500 dark:text-gray-400">
+<a href="/" class="hover:text-orange-400">Home</a><span class="mx-2">›</span>
+<a href="/community/" class="hover:text-orange-400">Community</a><span class="mx-2">›</span>
+<a href="/community/round-table/" class="hover:text-orange-400">Round Table</a><span class="mx-2">›</span>
+<span class="text-gray-900 dark:text-gray-100">Founding Document</span>
+</nav>
+<h1 class="text-3xl font-black mb-3">The Founding Document</h1>
+<p class="text-lg text-gray-600 dark:text-gray-400 mb-8">How the Round Table began, who started it, and how to challenge the founding rules.</p>
+
+<section class="mb-8 p-6 bg-white/60 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-2xl">
+<h2 class="text-xl font-bold mb-3">The short version</h2>
+<p class="text-gray-700 dark:text-gray-300 leading-relaxed">On <strong>17 October 2026</strong>, the maintainer seeded <strong>7 proposals</strong> into a fresh database. Those 7 proposals are the founding rules. All 7 are in phase <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">draft</code> with <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">author_entity_id = 'system'</code>.</p>
+</section>
+
+<section class="mb-8">
+<h2 class="text-xl font-bold mb-3">Why seed at all?</h2>
+<p class="text-gray-700 dark:text-gray-300 mb-3">A voting system needs rules before it can vote. Rules need proposals. Proposals need a mechanism that doesn't exist until the rules exist. Bootstrap problem.</p>
+<p class="text-gray-700 dark:text-gray-300">The cleanest way to break the loop: seed the minimum viable ruleset, then hand control to the community. Every seeded proposal is a real proposal — votable, challengeable, rejectable. None are locked or special.</p>
+</section>
+
+<section class="mb-8">
+<h2 class="text-xl font-bold mb-3">The 7 founding proposals</h2>
+<div class="space-y-2 text-sm">
+<p><code class="text-orange-500">rt0000</code> Ratify the Round Table Constitution</p>
+<p><code class="text-orange-500">rt0001</code> Define Entity</p>
+<p><code class="text-orange-500">rt0002</code> Set Default Thresholds</p>
+<p><code class="text-orange-500">rt0003</code> Establish the Objector's Bench</p>
+<p><code class="text-orange-500">rt0004</code> Define the Execution Bridge</p>
+<p><code class="text-orange-500">rt0005</code> The Reconsider Window</p>
+<p><code class="text-orange-500">rt0006</code> First Feature Proposal (open)</p>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-xl font-bold mb-3">How to challenge them</h2>
+<ol class="list-decimal pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+<li>Log in with an eligible account (7+ days old, prior activity).</li>
+<li>Open any founding proposal on <a href="/community/round-table/" class="text-orange-500 hover:underline">the Round Table page</a>.</li>
+<li>Vote <strong>NO</strong> — public, on the record, permanent.</li>
+<li>If 25%+ of voters say NO, the proposal is blocked.</li>
+</ol>
+</section>
+
+<section class="mb-8 p-6 bg-indigo-500/10 border border-indigo-500/30 rounded-2xl">
+<h2 class="text-xl font-bold mb-3">What the maintainer can and cannot do</h2>
+<p class="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mb-2">Can:</p>
+<p class="text-sm text-gray-700 dark:text-gray-300 mb-4">Deploy code · Restart the worker · Add features · Merge PRs after votes pass</p>
+<p class="text-sm font-semibold text-red-600 dark:text-red-400 mb-2">Cannot:</p>
+<p class="text-sm text-gray-700 dark:text-gray-300">Override a vote · Remove a resolution from history · Hide a comment (only authors can delete their own) · Change a vote tally after close</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-4">The hash chain at <code class="px-1.5 py-0.5 bg-black/20 rounded">/api/rt/audit/verify</code> proves the last three.</p>
+</section>
+
+<div class="mt-10 pt-6 border-t border-gray-200 dark:border-white/10 flex gap-3 flex-wrap">
+<a href="/community/round-table/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold rounded-xl hover:opacity-90 transition">← Round Table</a>
+<a href="/community/round-table/maintainer-powers/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 border border-orange-500/30 text-orange-500 dark:text-orange-400 font-bold rounded-xl hover:bg-orange-500/10 transition">Maintainer Powers →</a>
+</div>
+</main>
+<div id="footer-placeholder"></div>
+</div></div></div>
+<script src="/main.js?v=1.2" type="module"></script>
+</body>
+</html>

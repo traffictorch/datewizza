@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover — DateWizza</title>
+<meta name="description" content="Discover community members on DateWizza.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://datewizza.com/discover/">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+<script>(function(){var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&d))document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+<div x-data="{}" class="flex flex-1 min-h-screen"><div class="flex flex-1 min-h-screen">
+<aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 transition-all duration-300 ease-in-out overflow-y-auto sticky top-0 h-screen flex-col self-start">
+<header class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+<a href="/" class="flex items-center gap-4">
+<img src="/logo-160w.webp" alt="DateWizza" class="w-10 rounded-xl" width="40" height="40" loading="eager">
+<span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent hidden">DateWizza</span>
+</a>
+</header>
+<nav id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in" aria-label="Main menu"></nav>
+<div class="p-4 border-t border-white/10 dark:border-white/5">
+<button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-400 hover:bg-white/10 rounded-lg transition" aria-label="Collapse sidebar">←</button>
+</div>
+</aside>
+<div class="flex-1 flex flex-col">
+<header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+<div class="container mx-auto px-6 py-4 flex justify-between items-center">
+<a href="/" class="flex items-center gap-4 md:hidden">
+<img src="/logo-100w.webp" alt="DateWizza" class="w-10 rounded-xl" width="40" height="40" loading="eager">
+<p class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">DateWizza</p>
+</a>
+<div class="w-10 md:hidden"></div>
+<button id="menuToggle" class="md:hidden text-3xl text-gray-500" aria-label="Open menu">☰</button>
+<button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 hover:text-orange-400 transition mr-4" aria-label="Toggle sidebar">☰</button>
+<button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl" aria-label="Toggle theme">🌙</button>
+</div>
+<nav id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10" aria-label="Mobile menu">
+<button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl" aria-label="Close menu">×</button>
+<div id="mobile-menu-placeholder"></div>
+</nav>
+</header>
+<main class="container mx-auto px-4 py-10 max-w-4xl">
+<section class="text-center mb-8">
+<div class="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-orange-500 dark:text-orange-400">
+<span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>Community
+</div>
+<h1 class="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Discover the Community</h1>
+<p class="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-6">Find experts in your niche, browse public profiles, and connect with others working on SEO, UX, and AEO.</p>
+<div id="discover-container" class="py-12">
+<p class="text-sm text-gray-500 mb-4">Log in to see community members you can connect with.</p>
+<a href="/login/" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold rounded-xl hover:opacity-90 transition">Log in to discover →</a>
+</div>
+</section>
+<noscript><p class="text-center text-sm text-gray-500">Discover requires JavaScript. <a href="/community/" class="text-orange-500 hover:underline">Visit the community feed</a> instead.</p></noscript>
+<script type="module">
+  const API = 'https://datewizza-auth.traffictorch.workers.dev';
+  const container = document.getElementById('discover-container');
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    container.innerHTML = '<div class="text-center"><p class="text-sm text-gray-500 mb-4">Log in to see community members you can connect with.</p><a href="/login/" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold rounded-xl hover:opacity-90 transition">Log in to discover →</a></div>';
+  } else {
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+    const avatar = u => {
+      if (u.avatar_url) return u.avatar_url.startsWith('http') ? u.avatar_url : API + u.avatar_url;
+      if (u.avatar_r2_key) {
+        const m = String(u.avatar_r2_key).match(/^avatars\/(\d+)\//);
+        if (m) return API + '/api/profile/avatar/' + m[1] + '?v=' + (u.avatar_updated_at || 0);
+      }
+      return '/images/avatars/' + (u.avatar_preset || 'owner') + '.svg';
+    };
+    container.innerHTML = '<div class="text-center py-6"><div class="inline-block w-9 h-9 rounded-full border-4 border-orange-500 border-t-transparent animate-spin"></div></div>';
+    fetch(API + '/api/users/discover?seed=today&limit=24', { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(r => r.json())
+      .then(d => {
+        const users = d.users || [];
+        if (!users.length) {
+          container.innerHTML = '<div class="text-center"><p class="text-gray-500">No new people to discover yet. Check back later or invite someone.</p></div>';
+          return;
+        }
+        container.innerHTML = '<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-left">' + users.map(u => `
+          <div class="rounded-2xl p-3 flex flex-col items-center text-center bg-white/60 dark:bg-black/30 border border-gray-200 dark:border-white/10">
+            <img src="${esc(avatar(u))}" width="56" height="56" style="width:56px;height:56px;" class="rounded-full object-cover mb-2" alt="" loading="lazy" onerror="this.onerror=null;this.src='/images/avatars/owner.svg';">
+            <a href="/torcher/${esc(u.username)}/" class="font-bold text-sm hover:text-orange-500 truncate w-full">${esc(u.display_name || u.username)}</a>
+            <p class="text-xs text-gray-500 truncate w-full">@${esc(u.username)}</p>
+            <div class="flex items-center gap-2 mt-1.5 text-[10px] text-gray-500">
+              ${u.total_points > 0 ? '<span>🏅 ' + esc(u.total_points) + '</span>' : ''}
+              ${u.torch_count > 0 ? '<span>🔥 ' + esc(u.torch_count) + '</span>' : ''}
+            </div>
+            <button data-uid="${esc(u.id)}" class="disc-add mt-2 w-full py-1.5 text-xs font-bold rounded-lg border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition">+ Add</button>
+          </div>`).join('') + '</div>';
+        container.querySelectorAll('.disc-add').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const uid = btn.getAttribute('data-uid');
+            btn.disabled = true;
+            const label = btn.textContent;
+            btn.textContent = '…';
+            try {
+              const res = await fetch(API + '/api/network/add', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: parseInt(uid, 10) })
+              });
+              if (res.ok) {
+                btn.textContent = '✓ Added';
+                btn.classList.remove('border-orange-500', 'text-orange-500');
+                btn.classList.add('border-green-500', 'text-green-500');
+              } else {
+                btn.textContent = '⚠️';
+                btn.disabled = false;
+              }
+            } catch {
+              btn.textContent = '⚠️';
+              btn.disabled = false;
+            }
+          });
+        });
+      })
+      .catch(err => {
+        container.innerHTML = '<div class="text-center"><p class="text-red-500">Could not load: ' + esc(err.message) + '</p></div>';
+      });
+  }
+</script>
+</main>
+<div id="footer-placeholder"></div>
+</div></div></div>
+<script src="/main.js?v=1.2" type="module"></script>
+</body>
+</html>

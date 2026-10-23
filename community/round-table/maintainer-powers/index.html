@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maintainer Powers — The Round Table | DateWizza</title>
+<meta name="description" content="Exactly what the site maintainer can and cannot do in the Round Table governance system.">
+<link rel="canonical" href="https://datewizza.com/community/round-table/maintainer-powers/">
+<meta name="robots" content="index, follow">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+<script>(function(){var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&d))document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+<div x-data="{}" class="flex flex-1 min-h-screen"><div class="flex flex-1 min-h-screen">
+<aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 overflow-y-auto sticky top-0 h-screen flex-col self-start">
+<div class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+<a href="/" class="flex items-center gap-4"><img src="/logo-160w.webp" alt="DateWizza" class="w-10 rounded-xl" width="40" height="40"><span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent hidden">DateWizza</span></a>
+</div>
+<div id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in"></div>
+<div class="p-4 border-t border-white/10 dark:border-white/5"><button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-400 hover:bg-white/10 rounded-lg transition">←</button></div>
+</aside>
+<div class="flex-1 flex flex-col">
+<header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+<div class="container mx-auto px-6 py-4 flex justify-between items-center">
+<a href="/" class="flex items-center gap-4 md:hidden"><img src="/logo-100w.webp" alt="DateWizza" class="w-10 rounded-xl" width="40" height="40"><p class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">DateWizza</p></a>
+<div class="w-10 md:hidden"></div>
+<button id="menuToggle" class="md:hidden text-3xl text-gray-500">☰</button>
+<button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 mr-4">☰</button>
+<button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl">🌙</button>
+</div>
+<div id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10"><button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl">×</button><div id="mobile-menu-placeholder"></div></div>
+</header>
+<main class="container mx-auto px-4 py-10 max-w-3xl">
+<nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-500 dark:text-gray-400">
+<a href="/" class="hover:text-orange-400">Home</a><span class="mx-2">›</span>
+<a href="/community/" class="hover:text-orange-400">Community</a><span class="mx-2">›</span>
+<a href="/community/round-table/" class="hover:text-orange-400">Round Table</a><span class="mx-2">›</span>
+<span class="text-gray-900 dark:text-gray-100">Maintainer Powers</span>
+</nav>
+<h1 class="text-3xl font-black mb-3">Maintainer Powers</h1>
+<p class="text-lg text-gray-600 dark:text-gray-400 mb-8">The complete, honest list of what the site maintainer can and cannot do inside the Round Table system.</p>
+
+<section class="mb-8 p-6 bg-orange-500/10 border border-orange-500/30 rounded-2xl">
+<h2 class="text-xl font-bold mb-3">Who is the maintainer?</h2>
+<p class="text-gray-700 dark:text-gray-300 mb-3">Current maintainer: <strong>Ylia Callan</strong> — creator of DateWizza, operator of the Cloudflare infrastructure, holder of the GitHub merge button, and sole person with production database access.</p>
+<p class="text-gray-700 dark:text-gray-300 mb-3">The maintainer role is <strong>bootstrap</strong>. There is no election mechanism yet. This is a disclosed limitation of v1. A future Meta proposal can define how the maintainer is chosen, rotated, or removed — the current maintainer commits to honoring such a proposal if passed by the community's normal threshold.</p>
+</section>
+
+<section class="mb-8">
+<h2 class="text-xl font-bold mb-3">What the maintainer CAN do</h2>
+<ul class="space-y-2 text-gray-700 dark:text-gray-300">
+<li>🚀 <strong>Deploy code</strong> — push changes to production via Cloudflare Pages.</li>
+<li>⚙️ <strong>Deploy the auth worker</strong> — restart or update the API on Cloudflare Workers.</li>
+<li>🗄️ <strong>Access the D1 database directly</strong> — run any SQL, including UPDATE and DELETE.</li>
+<li>🔀 <strong>Merge pull requests</strong> on GitHub — including PRs linked to passed code proposals.</li>
+<li>✨ <strong>Add features</strong> — write and deploy new functionality.</li>
+<li>🎲 <strong>Trigger the bench draw</strong> — initiate Objector's Bench sortition.</li>
+<li>🔐 <strong>Rotate secrets</strong> — change JWT_SECRET, API keys, and other credentials.</li>
+</ul>
+</section>
+
+<section class="mb-8 p-6 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl">
+<h2 class="text-xl font-bold mb-3 text-emerald-700 dark:text-emerald-400">What the maintainer CANNOT do (with proof)</h2>
+
+<h3 class="font-semibold text-sm mt-4 mb-2">❌ Cannot override a vote</h3>
+<p class="text-sm text-gray-700 dark:text-gray-300 mb-3">A cast vote writes a row to <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">rt_votes</code> and inserts into <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">rt_audit_chain</code>. The maintainer <em>could</em> run UPDATE or DELETE SQL directly — but the chain's SHA-256 hash covers the vote's payload. Any change breaks the chain for that entry and every subsequent one. <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">/api/rt/audit/verify</code> would report <code>intact: false</code> with the exact broken row.</p>
+
+<h3 class="font-semibold text-sm mt-4 mb-2">❌ Cannot remove a resolution from history</h3>
+<p class="text-sm text-gray-700 dark:text-gray-300 mb-3">Every resolution writes an audit entry with <code>prev_hash → this_hash</code>. Deleting a resolution means deleting its chain entry, which breaks the link to the next entry. The daily external snapshots (committed to GitHub at <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">audit-history/</code>) record the historical chain head — so any rewrite is visible against the public record.</p>
+
+<h3 class="font-semibold text-sm mt-4 mb-2">❌ Cannot hide a comment they don't own</h3>
+<p class="text-sm text-gray-700 dark:text-gray-300 mb-3">Comments can only be soft-deleted by the comment's author (<code>deleted_at</code> set on their own <code>entity_id</code>). The maintainer technically <em>could</em> run <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">UPDATE rt_comments SET deleted_at = ...</code> on someone else's comment — but the delete itself would appear in the audit chain (via the author-delete path only). Maintainer direct SQL deletes are <strong>not currently chained</strong> — this is a disclosed gap and covered in "Limitations" below.</p>
+
+<h3 class="font-semibold text-sm mt-4 mb-2">❌ Cannot change a vote tally after close</h3>
+<p class="text-sm text-gray-700 dark:text-gray-300">Closing a vote writes a <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">votes_hash</code> to <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">rt_resolutions</code> — a SHA-256 of the exact vote set at close. Anyone can recompute this hash from the current <code>rt_votes</code> and compare. If they don't match, votes have been altered since close.</p>
+</section>
+
+<section class="mb-8 p-6 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl">
+<h2 class="text-xl font-bold mb-3 text-yellow-700 dark:text-yellow-400">Known limitations of v1</h2>
+<ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+<li><strong>Audit chain doesn't cover maintainer SQL writes.</strong> A direct UPDATE or DELETE on <code>rt_votes</code>, <code>rt_comments</code>, or <code>rt_proposals</code> won't create a new audit entry. It will break verification for entries that depended on the deleted content, but the SQL itself isn't logged.</li>
+<li><strong>Maintainer role is not elected.</strong> No formal mechanism for the community to replace the maintainer yet.</li>
+<li><strong>Vote privacy:</strong> votes are public by design. This is disclosed in the FAQ — coercion risk is real, and anonymity isn't offered.</li>
+<li><strong>The chain runs on our server.</strong> The daily external snapshots help detect rewrites, but they don't prevent them. Absolute trust-minimization would require the chain to live somewhere independent — future work.</li>
+</ul>
+</section>
+
+<section class="mb-8">
+<h2 class="text-xl font-bold mb-3">Community recourse</h2>
+<p class="text-gray-700 dark:text-gray-300 mb-3">If the maintainer goes rogue or the system is compromised:</p>
+<ol class="list-decimal pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+<li><strong>Fork the repo.</strong> Every line of code, database schema, and audit chain pattern is public on GitHub. A community fork can restart from the same rules.</li>
+<li><strong>Verify the chain first.</strong> Run <code class="px-1.5 py-0.5 bg-black/20 rounded text-xs">curl https://datewizza-auth.traffictorch.workers.dev/api/rt/audit/verify</code> before believing any accusation of tampering.</li>
+<li><strong>Check the historical snapshots.</strong> Compare today's <code>audit-history/</code> against earlier commits. A non-monotonic chain_count is a red flag.</li>
+<li><strong>Propose a change.</strong> The Round Table itself is the mechanism for fixing governance problems — including maintaining the maintainer role.</li>
+</ol>
+</section>
+
+<div class="mt-10 pt-6 border-t border-gray-200 dark:border-white/10 flex gap-3">
+<a href="/community/round-table/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold rounded-xl hover:opacity-90 transition">← Round Table</a>
+<a href="/community/round-table/founding/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 border border-orange-500/30 text-orange-500 dark:text-orange-400 font-bold rounded-xl hover:bg-orange-500/10 transition">Founding Document</a>
+</div>
+</main>
+<div id="footer-placeholder"></div>
+</div></div></div>
+<script src="/main.js?v=1.2" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+/* Traffic Torch PWA floating dock + bottom sheets */
+.tt-pwa-dock {
+  position: fixed;
+  bottom: max(0.75rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem));
+  left: 0.75rem; right: 0.75rem;
+  display: none; justify-content: space-around; align-items: stretch;
+  padding: 6px;
+  /* Matches header: light frosted over content, dark frosted in dark mode */
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  box-shadow:
+    0 12px 36px -8px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  z-index: 40;
+  font-family: inherit;
+  transition: transform 0.28s cubic-bezier(0.22,1,0.36,1), opacity 0.28s ease;
+  transform: translateY(calc(100% + 24px));
+  opacity: 0; pointer-events: none;
+}
+.dark .tt-pwa-dock {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 12px 36px -8px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
+.tt-pwa-dock.tt-show { display: flex; }
+.tt-pwa-dock.tt-ready { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.tt-pwa-dock.tt-hide { transform: translateY(calc(100% + 24px)); opacity: 0; pointer-events: none; }
+.tt-pwa-dock button {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; padding: 8px 2px 6px;
+  background: transparent; border: 0;
+  color: #374151;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em;
+  cursor: pointer; border-radius: 14px;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit; min-width: 0; line-height: 1.1;
+}
+.dark .tt-pwa-dock button { color: rgba(255,255,255,0.72); }
+.tt-pwa-dock button:hover:not(:disabled) { background: rgba(249,115,22,0.15); color: #ea580c; }
+.dark .tt-pwa-dock button:hover:not(:disabled) { background: rgba(249,115,22,0.12); color: #fff; }
+.tt-pwa-dock button:active:not(:disabled) { background: rgba(249,115,22,0.22); transform: scale(0.95); }
+.tt-pwa-dock button:disabled { opacity: 0.32; cursor: not-allowed; }
+.tt-pwa-dock .tt-ico { font-size: 19px; line-height: 1; display: block; }
+.tt-pwa-dock .tt-lbl { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+/* Bottom sheets */
+.tt-pwa-sheet { position: fixed; inset: 0; display: none; z-index: 60; }
+.tt-pwa-sheet.tt-open { display: block; }
+.tt-pwa-sheet-bd {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  opacity: 0; transition: opacity 0.25s ease;
+}
+.tt-pwa-sheet.tt-open .tt-pwa-sheet-bd { opacity: 1; }
+.tt-pwa-sheet-pn {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  max-height: 78vh; overflow-y: auto; overscroll-behavior: contain;
+  background: rgba(17, 24, 39, 0.96);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border-top: 1px solid rgba(249, 115, 22, 0.22);
+  border-radius: 24px 24px 0 0;
+  padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px));
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
+  color: #fff; font-family: inherit;
+}
+.tt-pwa-sheet.tt-open .tt-pwa-sheet-pn { transform: translateY(0); }
+.tt-pwa-sheet-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.tt-pwa-sheet-hd h3 {
+  margin: 0; font-size: 18px; font-weight: 800;
+  background: linear-gradient(90deg, #fb923c, #db2777);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.tt-pwa-sheet-close {
+  background: rgba(255,255,255,0.08); border: 0; color: #fff;
+  font-size: 22px; width: 36px; height: 36px; border-radius: 10px;
+  cursor: pointer; display: grid; place-items: center; line-height: 1;
+  transition: background 0.15s ease;
+}
+.tt-pwa-sheet-close:hover { background: rgba(255,255,255,0.14); }
+.tt-pwa-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.tt-pwa-tool {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px; color: #e5e7eb; text-decoration: none;
+  font-size: 13px; font-weight: 600;
+  transition: all 0.15s ease;
+}
+.tt-pwa-tool:hover, .tt-pwa-tool:active {
+  background: rgba(249,115,22,0.12);
+  border-color: rgba(249,115,22,0.35);
+  transform: translateY(-1px);
+}
+.tt-pwa-tool .em { font-size: 22px; line-height: 1; flex-shrink: 0; }
+.tt-pwa-tool .nm { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.tt-pwa-tool .nm small { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.5); }
+
+.tt-pwa-menu-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.tt-pwa-menu-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 12px; background: transparent; border: 0;
+  color: #e5e7eb; font-size: 14.5px; font-weight: 500;
+  border-radius: 12px; cursor: pointer; text-align: left; text-decoration: none;
+  transition: background 0.15s ease; font-family: inherit; width: 100%;
+}
+.tt-pwa-menu-item:hover, .tt-pwa-menu-item:active { background: rgba(255,255,255,0.06); }
+.tt-pwa-menu-item .em { font-size: 20px; width: 26px; text-align: center; flex-shrink: 0; }
+.tt-pwa-menu-item .meta { margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 500; }
+.tt-pwa-menu-item.is-off { opacity: 0.4; cursor: not-allowed; }
+.tt-pwa-menu-sep { height: 1px; background: rgba(255,255,255,0.08); margin: 8px 4px; }
+
+.tt-pwa-toast {
+  position: fixed; bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  left: 50%; transform: translate(-50%, 20px);
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(249,115,22,0.3);
+  color: #fff; padding: 10px 18px; border-radius: 999px;
+  font-size: 13px; font-weight: 600; z-index: 70;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+  box-shadow: 0 12px 30px -6px rgba(0,0,0,0.6);
+}
+.tt-pwa-toast.tt-show { opacity: 1; transform: translate(-50%, 0); }
+
+/* Extra bottom breathing room so the dock doesn't cover the last content row */
+body.tt-has-dock { padding-bottom: 88px; }
+@media (min-width: 768px) { body.tt-has-dock { padding-bottom: 0; } }
+
+/* Hide legacy floating install button on mobile — install lives in dock's Menu sheet */
+@media (max-width: 767px) {
+  #pwa-install-btn {
+    display: none !important;
+  }
+}

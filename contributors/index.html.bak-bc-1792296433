@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contributors | Traffic Torch</title>
+  <meta name="description" content="The people whose feedback shaped Traffic Torch tools. Verified contributors from the SEO, AEO, and developer community.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://traffictorch.net/contributors/">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:title" content="Contributors | Traffic Torch">
+  <meta property="og:description" content="The people whose feedback shaped Traffic Torch tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://traffictorch.net/contributors/">
+  <meta property="og:site_name" content="Traffic Torch">
+  <meta property="og:image" content="https://traffictorch.net/images/traffic-torch-toolkit.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {
+      "@type":"WebPage",
+      "@id":"https://traffictorch.net/contributors/#webpage",
+      "url":"https://traffictorch.net/contributors/",
+      "name":"Contributors | Traffic Torch",
+      "description":"The people whose feedback shaped Traffic Torch tools.",
+      "isPartOf":{"@type":"WebSite","url":"https://traffictorch.net/"},
+      "publisher":{"@type":"Organization","name":"Traffic Torch","url":"https://traffictorch.net/"},
+      "speakable":{"@type":"SpeakableSpecification","cssSelector":["h1","#faq h2"]}
+    },
+    {
+      "@type":"CollectionPage",
+      "@id":"https://traffictorch.net/contributors/#collection",
+      "url":"https://traffictorch.net/contributors/",
+      "name":"Traffic Torch Contributors",
+      "about":{"@id":"https://traffictorch.net/contributors/#webpage"}
+    },
+    {
+      "@type":"BreadcrumbList",
+      "@id":"https://traffictorch.net/contributors/#breadcrumb",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://traffictorch.net/"},
+        {"@type":"ListItem","position":2,"name":"Contributors","item":"https://traffictorch.net/contributors/"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://traffictorch.net/contributors/#faq",
+      "mainEntityOfPage":{"@id":"https://traffictorch.net/contributors/#webpage"},
+      "mainEntity":[
+        {
+          "@type":"Question",
+          "name":"What counts as a contribution?",
+          "acceptedAnswer":{"@type":"Answer","text":"A contribution is any piece of feedback that changed how a Traffic Torch tool works. That includes flagging a bug, correcting a scoring assumption, providing real-world log data that shaped an architecture decision, or suggesting a feature that shipped. Posts, comments, leaderboard submissions and development work also earn community points, which are shown in the Community Contributors section below."}
+        },
+        {
+          "@type":"Question",
+          "name":"How do I get added as a contributor?",
+          "acceptedAnswer":{"@type":"Answer","text":"Run any Traffic Torch tool, spot something that is wrong or missing, and tell us — on Reddit, by email, or through the in-tool feedback form. If your feedback changes how a tool behaves, you get a card here. There is no application process and no minimum contribution threshold. The test is simply whether the tool is better because of what you said."}
+        },
+        {
+          "@type":"Question",
+          "name":"What is the difference between tool contributors and community contributors?",
+          "acceptedAnswer":{"@type":"Answer","text":"Tool contributors appear in the top section as named cards — each card credits the specific feedback that shaped a specific tool, with links to the person's public profile. Community contributors appear in the bottom section as a live leaderboard of everyone earning points from comments, posts, leaderboard submissions and development contributions across the Traffic Torch site. Tool contributor cards are added manually when feedback ships; community points update automatically."}
+        },
+        {
+          "@type":"Question",
+          "name":"Can I have my contributor card removed?",
+          "acceptedAnswer":{"@type":"Answer","text":"Yes. Any contributor card or community entry can be hidden on request. Use the Contact link in the footer and include the handle or name shown on the card. Removals are processed within a few days and the URL or contribution data attached to the entry is deleted from the page."}
+        }
+      ]
+    }
+  ]}
+  </script>
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.webp">
+
+  <link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/style.css?v=1.0"></noscript>
+  <style>html{visibility:hidden;opacity:0;transition:opacity 0.4s ease}</style>
+  <link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet';document.documentElement.style.visibility='visible';document.documentElement.style.opacity='1'">
+  <noscript><link rel="stylesheet" href="/tailwind-local.css?v=1.0"></noscript>
+
+  <link rel="preload" as="style" href="/leader-board/contributions-widget.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/leader-board/contributions-widget.css?v=1.0"></noscript>
+  <script src="/shared/avatar.js?v=1.0"></script>
+  <script src="/leader-board/contributions-widget.js?v=1.1" defer></script>
+
+  <script>
+    (function() {
+      const s = localStorage.getItem('theme');
+      const d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (s === 'dark' || (!s && d)) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+    })();
+  </script>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+  <div class="flex flex-1 min-h-screen">
+    <aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 transition-all duration-300 ease-in-out overflow-y-auto sticky top-0 h-screen flex flex-col self-start">
+      <div class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+        <a href="/" class="flex items-center gap-4">
+          <img src="/logo-160w.webp" srcset="/logo-160w.webp 160w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+          <span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent hidden">Traffic Torch</span>
+        </a>
+      </div>
+      <div id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in"></div>
+      <div class="p-4 border-t border-white/10 dark:border-white/5">
+        <button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-400 hover:bg-white/10 rounded-lg transition" aria-label="Collapse sidebar">←</button>
+      </div>
+    </aside>
+    <div class="flex-1 flex flex-col">
+      <header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <a href="/" class="flex items-center gap-4 md:hidden">
+            <img src="/logo-100w.webp" srcset="/logo-100w.webp 100w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+            <p class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">Traffic Torch</p>
+          </a>
+          <div class="w-10 md:hidden"></div>
+          <button id="menuToggle" class="md:hidden text-3xl text-gray-500 relative left-0 -top-1" aria-label="Open mobile menu">☰</button>
+          <button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 hover:text-orange-400 transition mr-4" aria-label="Toggle sidebar">☰</button>
+          <button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl" aria-label="Toggle theme">🌙</button>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10">
+          <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl focus:outline-none" aria-label="Close menu">×</button>
+          <div id="mobile-menu-placeholder"></div>
+        </div>
+      </header>
+
+      <main class="container mx-auto px-3 py-8 max-w-6xl">
+        <nav aria-label="breadcrumb" class="max-w-6xl mx-auto px-2 py-2 text-sm mb-6">
+          <ol class="flex flex-wrap items-center gap-2 text-gray-600 dark:text-gray-400">
+            <li><a href="/" class="text-orange-600 dark:text-orange-400 hover:underline font-medium">Home</a></li>
+            <li aria-hidden="true" class="opacity-60">›</li>
+            <li aria-current="page" class="font-semibold text-gray-800 dark:text-gray-200">Contributors</li>
+          </ol>
+        </nav>
+
+        <section class="text-center mb-12 px-4">
+          <h1 class="text-3xl md:text-5xl font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent leading-tight mb-4">
+            Contributors
+          </h1>
+			<p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+			  Traffic Torch is built in the open. Real sites, real logs, real pushback — the SEOs, developers, designers, and site owners who audit, break, and refine these tools don't just use them, they shape them. Every sharp edge on this platform came from somebody who noticed a blunt one.
+			</p>
+        </section>
+        
+        <!-- ═══ Submit Contribution Form ═══ -->
+<section class="max-w-3xl mx-auto my-16 px-4">
+  <div class="bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-700 shadow-xl">
+    <h2 class="text-2xl md:text-3xl font-black text-center mb-2 bg-gradient-to-r from-orange-500 to-pink-600 bg-clip-text text-transparent">
+      Submit a Contribution
+    </h2>
+    <p class="text-center text-gray-600 dark:text-gray-400 mb-6 text-sm">
+      Found a bug, have a feature request, or want to share real-world data? Let us know. Contributions earn +25 points. High value submissions are considered for a custom widget in Tool Contributions. Plus additional +50 points.
+    </p>
+    
+    <form id="contribution-form" class="space-y-4">
+      <!-- Name/Handle -->
+      <div>
+        <label class="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Your Name / Username</label>
+        <input type="text" id="contrib-name" required maxlength="100" placeholder="e.g., JohnDoe or @johndoe" class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none">
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Email Address</label>
+        <input type="email" id="contrib-email" required maxlength="150" placeholder="you@example.com" class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none">
+      </div>
+
+      <!-- Tool Name -->
+      <div>
+        <label class="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Which tool is this regarding?</label>
+<select id="contrib-tool" required>
+  <option value="">Select a tool...</option>
+  <option value="nusa">NUSA (Homepage)</option>
+  <option value="ofux-tool">OFUX Tool</option>
+  <option value="lighthouse-plus-tool">Lighthouse Plus</option>
+  <option value="topical-authority-audit-tool">Topical Authority</option>
+  <option value="seo-entity-extractor-tool">SEO Entity Extractor</option>
+  <option value="seo-ux-tool">SEO + UX Tool</option>
+  <option value="schema-generator">Schema Generator</option>
+  <option value="local-seo-tool">Local SEO Tool</option>
+  <option value="seo-intent-tool">SEO Intent Tool</option>
+  <option value="product-seo-tool">Product SEO Tool</option>
+  <option value="aeo-performance-tool">AEO Performance</option>
+  <option value="ai-search-optimization-tool">AI Search Optimization</option>
+  <option value="ai-voice-search-tool">AI Voice Search</option>
+  <option value="ai-audit-tool">AI Audit Tool</option>
+  <option value="quit-risk-tool">Quit Risk Tool</option>
+  <option value="keyword-research-tool">Keyword Research</option>
+  <option value="keyword-tool">Keyword Placement</option>
+  <option value="keyword-vs-tool">Keyword VS Tool</option>
+  <option value="other">Other / General Feedback</option>
+</select>
+      </div>
+
+      <!-- Contribution Details (Increased to 6000) -->
+      <div>
+        <label class="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Contribution Details</label>
+        <textarea id="contrib-details" required maxlength="6000" rows="8" placeholder="Describe the bug, feature request, or feedback in detail (max 6000 characters)..." class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none resize-y"></textarea>
+        <p class="text-xs text-right text-gray-500 mt-1"><span id="char-count">0</span> / 6000</p>
+      </div>
+
+      <!-- Public toggle -->
+      <div class="flex items-start gap-3 bg-blue-500/5 border border-blue-500/20 rounded-lg p-3">
+        <input type="checkbox" id="contrib-public" checked class="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0">
+        <label for="contrib-public" class="text-sm text-gray-700 dark:text-gray-300 leading-snug cursor-pointer">
+          <strong>Make this public</strong> — show it in the 🌐 Recent Contributions feed below. Visible to everyone, including your name, tool, and message. Uncheck to keep it private (only support sees it).
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" id="contrib-submit-btn" class="w-full py-4 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-bold rounded-xl hover:brightness-110 transition shadow-lg">
+        Submit Contribution
+      </button>
+    </form>
+    
+    <!-- Status Message -->
+    <p id="contrib-status" class="text-center text-sm mt-4 hidden"></p>
+  </div>
+</section>
+
+<section id="recent-contributions" class="max-w-5xl mx-auto my-16 px-2">
+  <h2 class="text-2xl md:text-3xl font-black text-center mb-3 bg-gradient-to-r from-orange-500 to-pink-600 bg-clip-text text-transparent">
+    🌐 Recent Contributions
+  </h2>
+  <p class="text-center text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 text-sm">
+    Public feed of the last 60 contributions. Oldest drops off automatically as new ones arrive.
+  </p>
+  <div id="recent-contributions-list" class="space-y-3 max-w-4xl mx-auto">
+    <div class="text-center text-gray-500 dark:text-gray-400 text-sm py-8">Loading…</div>
+  </div>
+  <div class="text-center mt-6">
+    <button type="button" id="recent-contrib-load-more" class="hidden px-6 py-3 bg-white/10 border border-orange-500/40 text-orange-500 dark:text-orange-400 font-bold rounded-xl hover:bg-orange-500/10 transition">
+      Load more contributions →
+    </button>
+  </div>
+</section>
+
+        <section class="mb-16 px-2">
+          <h2 class="text-2xl md:text-3xl font-black text-center mb-8 bg-gradient-to-r from-orange-500 to-pink-600 bg-clip-text text-transparent">
+            Tool Contributors
+          </h2>
+          <div id="contributors-root"></div>
+        </section>
+
+        <section class="mb-16 px-2">
+          <h2 class="text-2xl md:text-3xl font-black text-center mb-3 bg-gradient-to-r from-orange-500 to-pink-600 bg-clip-text text-transparent">
+            🏅 Community Contributors
+          </h2>
+          <p class="text-center text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 text-sm">
+            Community members earning points from comments, posts, leaderboard submissions, and development contributions.
+          </p>
+          <div class="tt-contrib max-w-4xl mx-auto" data-limit="12" data-title="All-Time Contributors"></div>
+        </section>
+
+        <section class="max-w-3xl mx-auto my-16 px-4 text-center">
+          <div class="rounded-3xl border border-orange-200 dark:border-orange-800/40 bg-gradient-to-br from-orange-50 to-pink-50 dark:from-orange-950/20 dark:to-pink-950/20 p-8">
+            <h2 class="text-2xl md:text-3xl font-black mb-3 text-gray-800 dark:text-gray-200">Want to contribute?</h2>
+            <p class="text-gray-700 dark:text-gray-300 mb-6">
+              Run any Traffic Torch tool, spot something wrong, and tell us. Real feedback that changes how a tool works gets a card here.
+            </p>
+            <a href="/" class="inline-block px-8 py-4 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-bold rounded-xl hover:brightness-110 transition shadow-lg">
+              Try a tool →
+            </a>
+          </div>
+        </section>
+
+        <section id="faq" class="max-w-4xl mx-auto my-16 px-2">
+          <h2 class="text-3xl md:text-4xl font-black text-center mb-10 bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">
+            Frequently Asked Questions
+          </h2>
+          <div class="space-y-4">
+            <details class="group bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <summary class="flex justify-between items-center cursor-pointer p-5 text-lg font-semibold text-gray-800 dark:text-gray-200 hover:text-orange-500 transition">
+                What counts as a contribution?
+                <span class="text-2xl text-orange-500 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div class="px-5 pb-5 pt-2 text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p>A contribution is any piece of feedback that changed how a Traffic Torch tool works. That includes flagging a bug, correcting a scoring assumption, providing real-world log data that shaped an architecture decision, or suggesting a feature that shipped. Posts, comments, leaderboard submissions and development work also earn community points, which are shown in the Community Contributors section above.</p>
+              </div>
+            </details>
+
+            <details class="group bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <summary class="flex justify-between items-center cursor-pointer p-5 text-lg font-semibold text-gray-800 dark:text-gray-200 hover:text-orange-500 transition">
+                How do I get added as a contributor?
+                <span class="text-2xl text-orange-500 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div class="px-5 pb-5 pt-2 text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p>Run any Traffic Torch tool, spot something that is wrong or missing, and tell us — on Reddit, by email, or through the in-tool feedback form. If your feedback changes how a tool behaves, you get a card here. There is no application process and no minimum contribution threshold. The test is simply whether the tool is better because of what you said.</p>
+              </div>
+            </details>
+
+            <details class="group bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <summary class="flex justify-between items-center cursor-pointer p-5 text-lg font-semibold text-gray-800 dark:text-gray-200 hover:text-orange-500 transition">
+                What is the difference between tool contributors and community contributors?
+                <span class="text-2xl text-orange-500 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div class="px-5 pb-5 pt-2 text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p>Tool contributors appear in the top section as named cards — each card credits the specific feedback that shaped a specific tool, with links to the person's public profile. Community contributors appear in the bottom section as a live leaderboard of everyone earning points from comments, posts, leaderboard submissions and development contributions across the Traffic Torch site. Tool contributor cards are added manually when feedback ships; community points update automatically.</p>
+              </div>
+            </details>
+
+            <details class="group bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <summary class="flex justify-between items-center cursor-pointer p-5 text-lg font-semibold text-gray-800 dark:text-gray-200 hover:text-orange-500 transition">
+                Can I have my contributor card removed?
+                <span class="text-2xl text-orange-500 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div class="px-5 pb-5 pt-2 text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p>Yes. Any contributor card or community entry can be hidden on request. Use the Contact link in the footer and include the handle or name shown on the card. Removals are processed within a few days and the URL or contribution data attached to the entry is deleted from the page.</p>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section id="author-bio" class="max-w-5xl mx-auto my-12 px-2 author-bio author-box">
+          <div class="rounded-3xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+            <div class="bg-gradient-to-br from-orange-500 via-purple-600 to-cyan-600 py-12 px-2 text-center relative">
+              <div class="flex flex-col items-center gap-6 mb-6">
+                <img src="/logo-160w.webp" srcset="/logo-160w.webp 160w, /logo-320w.webp 320w, /logo-480w.webp 480w" sizes="(max-width: 768px) 100px, 160px" alt="Traffic Torch: Instant 360° SEO + UX Health Analysis, Audit and Optimization Toolkit" class="w-24 h-24 md:w-40 md:h-40 rounded-full shadow-xl object-cover border-4 border-white" width="160" height="160" loading="lazy">
+              </div>
+              <h2 class="text-3xl md:text-5xl font-black text-white mb-3">Traffic Torch</h2>
+              <p class="text-lg md:text-2xl text-gray-800 dark:text-gray-200 max-w-4xl mx-auto font-medium">Built with the people who use it.</p>
+            </div>
+            <div class="p-2 md:p-12 space-y-10 text-center md:text-left">
+              <div class="space-y-6">
+                <p class="text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed max-w-4xl mx-auto">Every card on this page exists because somebody took the time to tell us we had something wrong. The tools on Traffic Torch are built in the open — feedback changes architecture, not just copy. If you spot something, say so. That is the whole process.</p>
+              </div>
+              <div class="space-y-6 bg-gray-50/50 dark:bg-gray-900/30 p-2 md:p-8 rounded-2xl backdrop-blur-sm">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+                  <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-xl border-4 border-orange-400 dark:border-orange-500 flex-shrink-0">
+                    <img src="/images/ylia-callan-320w.webp" srcset="/images/ylia-callan-160w.webp 160w, /images/ylia-callan-320w.webp 320w, /images/ylia-callan-480w.webp 480w" sizes="(max-width: 768px) 96px, 128px" alt="Ylia Callan – Founder of Traffic Torch" class="w-full h-full object-cover object-center" loading="lazy">
+                  </div>
+                  <div class="space-y-4 text-center md:text-left">
+                    <h3 class="text-2xl md:text-3xl font-black text-orange-500 mb-2">Ylia Callan – Lead Developer</h3>
+                    <p class="text-base md:text-lg text-gray-800 dark:text-gray-200 leading-relaxed">Musician • Author • Researcher • Web Designer • TAFE NSW Australia • Creator of open-source web tools. Bridging creativity, consciousness exploration, and modern technology to build meaningful, performant, and user-centric experiences.</p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-3 mt-4">
+                      <a href="https://g.dev/traffictorch" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full text-sm font-medium hover:bg-orange-100 dark:hover:bg-gray-700 transition">Google</a>
+                      <a href="https://github.com/traffictorch" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full text-sm font-medium hover:bg-orange-100 dark:hover:bg-gray-700 transition">GitHub</a>
+                      <a href="https://www.linkedin.com/in/ylia-callan-8b889976/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full text-sm font-medium hover:bg-orange-100 dark:hover:bg-gray-700 transition">LinkedIn</a>
+                      <a href="https://x.com/Guitaralize" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full text-sm font-medium hover:bg-orange-100 dark:hover:bg-gray-700 transition">X</a>
+                      <a href="https://yliacallan.github.io/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full text-sm font-medium hover:bg-orange-100 dark:hover:bg-gray-700 transition">Ylia</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-6 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <h3 class="text-2xl md:text-3xl font-black text-orange-500 mb-4">Server Stacks</h3>
+                <p class="text-base md:text-lg text-gray-800 dark:text-gray-200 leading-relaxed max-w-4xl mx-auto">Hosted via <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">GitHub</a> for blazing-fast static delivery and updates. Protected and accelerated globally by <a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">Cloudflare</a> with edge CDN, security, and performance optimizations.</p>
+                <div class="text-sm text-gray-600 dark:text-gray-400 italic mt-6">
+                  <p>Published: 2026-10-12</p>
+                  <p>Last updated: 2026-10-12</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="share-block my-12" aria-label="Share options">
+          <strong class="share-label">Share?</strong>
+          <div class="share-row">
+            <button type="button" class="share-btn" data-native-share hidden>📤 Share</button>
+            <button type="button" class="share-btn" data-copy>Copy link 🔗</button>
+          </div>
+          <p class="share-status" aria-live="polite"></p>
+        </section>
+
+        <nav aria-label="breadcrumb" class="max-w-5xl mx-auto px-6 py-4 text-center">
+          <div class="inline-block">
+            <p class="font-medium text-orange-500 hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-300 transition text-sm"><a href="/">Traffic Torch</a></p>
+            <p class="font-medium text-gray-800 dark:text-gray-200 text-sm mt-1"><span id="page-name"></span></p>
+          </div>
+        </nav>
+
+        <script>
+          document.getElementById('page-name').textContent = document.title
+            .replace('Traffic Torch – ', '')
+            .replace(' | Traffic Torch', '')
+            .replace(' Tool', '')
+            .trim();
+        </script>
+
+        <section class="bottom-banner" aria-label="Traffic Torch visual summary">
+          <picture>
+            <img src="/images/tool-banners/seo-intent-tool-infographic-1200w.webp" srcset="/images/tool-banners/seo-intent-tool-infographic-480w.webp 480w, /images/tool-banners/seo-intent-tool-infographic-800w.webp 800w, /images/tool-banners/seo-intent-tool-infographic-1200w.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 976px" alt="Traffic Torch toolkit — SEO, UX, AEO and community" width="1200" height="263" loading="lazy" decoding="async">
+          </picture>
+        </section>
+      </main>
+
+      <div id="footer-placeholder"></div>
+    </div>
+  </div>
+
+  <script src="/main.js?v=1.2" type="module"></script>
+  <script type="module" src="/contributors/contributors-page.js?v=1.1"></script>
+  <script type="module" src="/shared/google-analytics.js?v=1.0"></script>
+  <script type="module">
+    import { renderContributorsPage } from '/contributors/contributors-page.js?v=1.1';
+    document.addEventListener('DOMContentLoaded', () => renderContributorsPage());
+  </script>
+  
+ <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contribution-form');
+    const textarea = document.getElementById('contrib-details');
+    const charCount = document.getElementById('char-count');
+    const statusEl = document.getElementById('contrib-status');
+    const submitBtn = document.getElementById('contrib-submit-btn');
+
+    // Update character count
+    textarea.addEventListener('input', () => {
+      charCount.textContent = textarea.value.length;
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        statusEl.textContent = '⚠️ You must be logged in to submit a contribution.';
+        statusEl.className = 'text-center text-sm mt-4 text-red-500 font-bold';
+        statusEl.classList.remove('hidden');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      statusEl.classList.add('hidden');
+
+      const payload = {
+        type: 'feedback', // Default type for this form
+        subject: document.getElementById('contrib-name').value.trim(),
+        message: textarea.value.trim(),
+        tool: document.getElementById('contrib-tool').value,
+        page_url: window.location.href,
+        // Send name and email so the backend can use them for the reply-to and email body
+        name: document.getElementById('contrib-name').value.trim(),
+        email: document.getElementById('contrib-email').value.trim(),
+        public: document.getElementById('contrib-public').checked ? 1 : 0
+      };
+
+      try {
+        const WORKER_URL = 'https://traffic-torch-auth.traffictorch.workers.dev';
+        const res = await fetch(`${WORKER_URL}/api/contributions`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          statusEl.textContent = '✓ Contribution submitted successfully! We will review it shortly.';
+          statusEl.className = 'text-center text-sm mt-4 text-green-500 font-bold';
+          form.reset();
+          charCount.textContent = '0';
+          // Reload the public feed so the new contribution appears
+          try { window.dispatchEvent(new Event('tt:contrib-submitted')); } catch (e) {}
+        } else {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || 'Server responded with an error');
+        }
+      } catch (err) {
+        statusEl.textContent = '⚠️ ' + (err.message || 'Failed to submit. Please try again or email us directly.');
+        statusEl.className = 'text-center text-sm mt-4 text-red-500 font-bold';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Contribution';
+        statusEl.classList.remove('hidden');
+      }
+    });
+  });
+</script>
+  
+<script>
+(function () {
+  const WORKER = 'https://traffic-torch-auth.traffictorch.workers.dev';
+  const listEl = document.getElementById('recent-contributions-list');
+  const moreBtn = document.getElementById('recent-contrib-load-more');
+  if (!listEl) return;
+
+  const TYPE = {
+    bug:      { icon: '🐛', label: 'Bug',      cls: 'bg-red-500/10 text-red-500 border-red-500/30' },
+    feature:  { icon: '💡', label: 'Feature',  cls: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/30' },
+    feedback: { icon: '💬', label: 'Feedback', cls: 'bg-blue-500/10 text-blue-500 border-blue-500/30' },
+    docs:     { icon: '📖', label: 'Docs',     cls: 'bg-purple-500/10 text-purple-500 border-purple-500/30' }
+  };
+  const STATUS = {
+    published: { label: 'Published', cls: 'bg-green-500/10 text-green-500 border-green-500/30' },
+    pending:   { label: 'Pending',   cls: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/30' },
+    accepted:  { label: 'Accepted',  cls: 'bg-blue-500/10 text-blue-500 border-blue-500/30' },
+    shipped:   { label: 'Shipped',   cls: 'bg-purple-500/10 text-purple-500 border-purple-500/30' }
+  };
+
+  const INITIAL = 6;
+  const PAGE_SIZE = 12;
+
+  let allItems = [];
+  let visibleCount = INITIAL;
+
+  function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+
+  function relTime(ts) {
+    if (!ts) return '';
+    const sec = Math.floor((Date.now() - ts) / 1000);
+    if (sec < 60) return 'just now';
+    if (sec < 3600) return Math.floor(sec / 60) + 'm ago';
+    if (sec < 86400) return Math.floor(sec / 3600) + 'h ago';
+    if (sec < 2592000) return Math.floor(sec / 86400) + 'd ago';
+    return new Date(ts).toLocaleDateString();
+  }
+
+  function renderCard(c) {
+    const tm = TYPE[c.type] || TYPE.feedback;
+    const sm = STATUS[c.status] || STATUS.published;
+    const msg = c.message || '';
+    const preview = msg.length > 120 ? msg.slice(0, 120) + '\u2026' : msg;
+    const author = c.username
+      ? '<a href="/torcher/' + encodeURIComponent(c.username) + '/" class="hover:text-orange-500 hover:underline font-semibold">' + esc(c.display_name) + '</a>'
+      : '<span class="font-semibold">' + esc(c.display_name) + '</span>';
+
+    const details = document.createElement('details');
+    details.className = 'group bg-white/5 dark:bg-black/20 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden';
+    details.innerHTML =
+      '<summary class="cursor-pointer p-4 sm:p-5 list-none [&::-webkit-details-marker]:hidden">' +
+        '<div class="flex flex-wrap items-center gap-2 mb-2">' +
+          '<span class="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full border ' + tm.cls + '">' + tm.icon + ' ' + tm.label + '</span>' +
+          '<span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-full border ' + sm.cls + '">' + sm.label + '</span>' +
+          (c.tool ? '<span class="text-xs text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded-full bg-white/5 border border-white/10">' + esc(c.tool) + '</span>' : '') +
+          '<span class="ml-auto text-xs text-gray-500 dark:text-gray-400">' + relTime(c.created_at) + '</span>' +
+        '</div>' +
+        (c.subject ? '<h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">' + esc(c.subject) + '</h3>' : '') +
+        '<p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">' + esc(preview) + '</p>' +
+        '<div class="mt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">' +
+          '<span>by ' + author + '</span>' +
+          '<span class="text-orange-500 group-open:hidden">Read more \u25BE</span>' +
+          '<span class="text-orange-500 hidden group-open:inline">Show less \u25B4</span>' +
+        '</div>' +
+      '</summary>' +
+      '<div class="px-4 sm:px-5 pb-5 border-t border-white/10 pt-4">' +
+        '<div class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" style="white-space: pre-wrap;">' + esc(msg) + '</div>' +
+      '</div>';
+    return details;
+  }
+
+  function renderVisible() {
+    listEl.innerHTML = '';
+    const shown = allItems.slice(0, visibleCount);
+    if (!shown.length) {
+      listEl.innerHTML = '<div class="text-center text-gray-500 dark:text-gray-400 text-sm py-8">No public contributions yet. Submit one above to be the first!</div>';
+      if (moreBtn) moreBtn.classList.add('hidden');
+      return;
+    }
+    shown.forEach(function (c) { listEl.appendChild(renderCard(c)); });
+    if (moreBtn) {
+      const hasMore = visibleCount < allItems.length;
+      moreBtn.classList.toggle('hidden', !hasMore);
+      moreBtn.textContent = hasMore ? 'Load more contributions \u2192 (' + (allItems.length - visibleCount) + ' remaining)' : '';
+    }
+  }
+
+  function loadFeed() {
+    listEl.innerHTML = '<div class="text-center text-gray-500 dark:text-gray-400 text-sm py-8">Loading\u2026</div>';
+    if (moreBtn) moreBtn.classList.add('hidden');
+    fetch(WORKER + '/api/contributions/recent?limit=60')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        allItems = (d && d.contributions) || [];
+        visibleCount = INITIAL;
+        renderVisible();
+      })
+      .catch(function () {
+        listEl.innerHTML = '<div class="text-center text-gray-500 dark:text-gray-400 text-sm py-8">Could not load contributions.</div>';
+      });
+  }
+
+  if (moreBtn) {
+    moreBtn.addEventListener('click', function () {
+      visibleCount = Math.min(visibleCount + PAGE_SIZE, allItems.length);
+      renderVisible();
+    });
+  }
+
+  window.addEventListener('tt:contrib-submitted', loadFeed);
+  loadFeed();
+})();
+</script>
+
+</body>
+</html>
+
+</html>

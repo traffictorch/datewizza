@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – Traffic Torch</title>
+  <meta name="description" content="Log in, register, or use a magic link to access your Traffic Torch account. Get Free Pro Lifetime during Beta with code traffictorchpro.">
+
+  <!-- SEO & Crawling - Indexed -->
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://traffictorch.net/login/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Login – Traffic Torch">
+  <meta property="og:description" content="Log in, register, or use a magic link to access your Traffic Torch account. Get Free Pro Lifetime during Beta with code traffictorchpro.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://traffictorch.net/login/">
+  <meta property="og:image" content="https://traffictorch.net/images/traffic-torch-toolkit.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Traffic Torch">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Login – Traffic Torch">
+  <meta name="twitter:description" content="Log in, register, or use a magic link to access your Traffic Torch account. Get Free Pro Lifetime during Beta with code traffictorchpro.">
+  <meta name="twitter:image" content="https://traffictorch.net/images/traffic-torch-toolkit.webp">
+  <meta name="twitter:site" content="@Guitaralize">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Login – Traffic Torch",
+      "description": "Log in, register, or use a magic link to access your Traffic Torch account. Get Free Pro Lifetime during Beta with code traffictorchpro.",
+      "url": "https://traffictorch.net/login/"
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Traffic Torch",
+      "url": "https://traffictorch.net/",
+      "logo": "https://traffictorch.net/logo-512.webp",
+      "description": "Creators of free & pro privacy-first AI-powered SEO and UX analysis tools. Client-side processing – no tracking.",
+      "sameAs": [
+        "https://g.dev/traffictorch",
+        "https://github.com/traffictorch/",
+        "https://orcid.org/0009-0006-4084-0241",
+        "https://www.wikidata.org/wiki/Q139815165",
+        "https://zenodo.org/records/20149616",
+        "https://github.com/traffictorch/traffic-torch",
+        "https://chromewebstore.google.com/detail/traffic-torch-tools/ngfkdkgjjipecoklnoidfcfidpdafegl",
+        "https://addons.mozilla.org/en-US/firefox/addon/traffic-torch-tools/",
+        "https://microsoftedge.microsoft.com/addons/detail/traffic-torch-tools/cbbabinigplbmdbnkpkeocchccfalemb",
+        "https://marketplace.visualstudio.com/items?itemName=traffic-torch.traffic-torch-dev-tools",
+        "https://wordpress.org/plugins/traffic-torch-ai-geo-and-seo-tools/",
+        "https://www.framer.com/marketplace/plugins/traffic-torch/",
+        "https://www.figma.com/community/plugin/1624971170654319802/traffic-torch-seo-toolkit",
+        "https://github.com/marketplace/actions/traffic-torch-audit",
+        "https://www.linkedin.com/in/ylia-callan-8b889976/",
+        "https://x.com/Guitaralize"
+      ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://traffictorch.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Login", "item": "https://traffictorch.net/login/" }
+      ]
+    }
+  </script>
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)">
+
+  <!-- Preload critical CSS -->
+  <link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/style.css?v=1.0"></noscript>
+  <style>html{visibility:hidden;opacity:0;transition:opacity 0.4s ease}</style>
+  <link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet';document.documentElement.style.visibility='visible';document.documentElement.style.opacity='1'">
+  <noscript><style>html{visibility:visible;opacity:1}</style><link rel="stylesheet" href="/tailwind-local.css?v=1.0"></noscript>
+
+  <!-- Theme detection -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <!-- Stripe (for future upgrades) -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    .glass {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .dark .glass {
+      background: rgba(0,0,0,0.3);
+    }
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #6b7280;
+    }
+    .password-toggle svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .dark .password-toggle { color: #9ca3af; }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex items-center justify-center p-4">
+
+<div x-data="authApp()" x-init="initAuth()" class="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8">
+
+  <!-- Logo -->
+  <div class="flex justify-center mb-6">
+    <img src="/logo-160w.webp" class="w-16 rounded-xl" alt="Traffic Torch">
+  </div>
+
+  <!-- ===== RESET FORM (shown when token is present) ===== -->
+  <div x-show="resetToken" x-cloak>
+    <h3 class="text-2xl font-bold text-center mb-6">Set New Password</h3>
+    <div class="relative mb-4">
+      <input :type="resetPasswordVisible ? 'text' : 'password'"
+             x-model="resetNewPassword"
+             placeholder="New password"
+             class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none pr-12">
+      <button type="button" @click="resetPasswordVisible = !resetPasswordVisible" class="password-toggle" aria-label="Toggle password visibility">
+        <svg viewBox="0 0 24 24" x-show="!resetPasswordVisible">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <svg viewBox="0 0 24 24" x-show="resetPasswordVisible">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+      </button>
+    </div>
+    <div class="relative mb-4">
+      <input :type="resetConfirmVisible ? 'text' : 'password'"
+             x-model="resetConfirmPassword"
+             placeholder="Confirm password"
+             class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none pr-12">
+      <button type="button" @click="resetConfirmVisible = !resetConfirmVisible" class="password-toggle" aria-label="Toggle password visibility">
+        <svg viewBox="0 0 24 24" x-show="!resetConfirmVisible">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <svg viewBox="0 0 24 24" x-show="resetConfirmVisible">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+      </button>
+    </div>
+    <button @click="resetPassword()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition" :disabled="loading">
+      Reset Password
+    </button>
+    <p class="text-center text-sm text-gray-500 mt-4">
+      <a href="/login/" class="hover:underline">← Back to login</a>
+    </p>
+  </div>
+
+  <!-- ===== NORMAL LOGIN/REGISTER (hidden when reset token is present) ===== -->
+  <div x-show="!resetToken" x-cloak>
+    <!-- Tabs -->
+    <div class="flex border-b border-gray-200 dark:border-gray-700 mb-6">
+      <button @click="activeTab='magic'" class="flex-1 py-2 text-sm font-medium" :class="activeTab==='magic' ? 'text-orange-500 border-b-2 border-orange-500' : 'text-gray-500'">Magic Link</button>
+      <button @click="activeTab='login'" class="flex-1 py-2 text-sm font-medium" :class="activeTab==='login' ? 'text-orange-500 border-b-2 border-orange-500' : 'text-gray-500'">Login</button>
+      <button @click="activeTab='register'" class="flex-1 py-2 text-sm font-medium" :class="activeTab==='register' ? 'text-orange-500 border-b-2 border-orange-500' : 'text-gray-500'">Register</button>
+    </div>
+
+    <!-- Message -->
+    <div x-show="message" class="mb-4 p-3 rounded-lg text-sm" :class="messageType==='success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'" x-text="message"></div>
+
+    <!-- Magic Link Tab -->
+    <div x-show="activeTab==='magic'" x-cloak>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Email</label>
+        <input type="email" x-model="magicEmail" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none">
+      </div>
+      <button @click="sendMagicLink()" class="w-full py-3 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition" :disabled="loading">Send Magic Link</button>
+    </div>
+
+    <!-- Login Tab -->
+    <div x-show="activeTab==='login'" x-cloak>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Email</label>
+        <input type="email" x-model="loginEmail" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none">
+      </div>
+      <div class="mb-4 relative">
+        <label class="block text-sm font-medium mb-1">Password</label>
+        <input :type="loginPasswordVisible ? 'text' : 'password'" x-model="loginPassword" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none pr-12">
+        <button type="button" @click="loginPasswordVisible = !loginPasswordVisible" class="password-toggle" aria-label="Toggle password visibility">
+          <svg viewBox="0 0 24 24" x-show="!loginPasswordVisible">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg viewBox="0 0 24 24" x-show="loginPasswordVisible">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+      <button @click="login()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition" :disabled="loading">Login</button>
+      <div class="mt-2 text-right">
+        <button @click="showForgot=true" class="text-sm text-gray-500 hover:underline">Forgot password?</button>
+      </div>
+      <div x-show="showForgot" x-cloak class="mt-3 p-3 border border-gray-200 rounded-lg">
+        <p class="text-sm text-gray-600">Enter your email to reset password.</p>
+        <div class="flex gap-2 mt-2">
+          <input type="email" x-model="resetEmail" placeholder="Your email" class="flex-1 p-2 rounded-lg border border-gray-300 outline-none focus:ring-2 focus:ring-orange-500">
+          <button @click="sendResetLink()" class="px-4 py-2 bg-purple-600 text-white rounded-lg" :disabled="loading">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Tab -->
+    <div x-show="activeTab==='register'" x-cloak x-init="$nextTick(() => { if (window.a2a) window.a2a.init('page'); })">
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Email</label>
+        <input type="email" x-model="registerEmail" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none">
+      </div>
+      <div class="mb-4 relative">
+        <label class="block text-sm font-medium mb-1">Password</label>
+        <input :type="registerPasswordVisible ? 'text' : 'password'" x-model="registerPassword" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none pr-12">
+        <button type="button" @click="registerPasswordVisible = !registerPasswordVisible" class="password-toggle" aria-label="Toggle password visibility">
+          <svg viewBox="0 0 24 24" x-show="!registerPasswordVisible">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg viewBox="0 0 24 24" x-show="registerPasswordVisible">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+      <div class="mb-4 relative">
+        <label class="block text-sm font-medium mb-1">Confirm Password</label>
+        <input :type="registerConfirmVisible ? 'text' : 'password'" x-model="registerConfirm" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none pr-12">
+        <button type="button" @click="registerConfirmVisible = !registerConfirmVisible" class="password-toggle" aria-label="Toggle password visibility">
+          <svg viewBox="0 0 24 24" x-show="!registerConfirmVisible">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg viewBox="0 0 24 24" x-show="registerConfirmVisible">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Promo & Share -->
+      <div class="mb-5 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+        <p class="text-sm text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
+          🎉 Use promo code <strong class="font-mono bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded text-orange-600 dark:text-orange-400">traffictorchpro</strong> during Beta to get <strong>Lifetime Pro</strong> for free!
+          <br><span class="text-xs text-gray-500">Sharing is optional but appreciated.</span>
+        </p>
+        <input type="text" x-model="registerPromoCode" placeholder="Enter promo code (optional)" class="w-full p-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-black/50 focus:ring-2 focus:ring-orange-500 outline-none text-sm">
+        <p class="text-xs text-gray-400 mt-3">🐞 Found a bug? Submit feedback via the tool results.</p>
+      </div>
+
+<!-- Share -->
+ <section class="share-block" aria-label="Share options">
+     <div class="share-row">
+        <button type="button" class="share-btn" data-native-share hidden>📤 Share?</button>
+        <button type="button" class="share-btn" data-copy>Copy link 🔗</button>
+         </div>
+        <p class="share-status" aria-live="polite"></p>
+   </section>
+
+      <button @click="register()" class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition" :disabled="loading">Register</button>
+    </div>
+  </div>
+  <!-- END NORMAL CONTENT -->
+
+</div>
+<!-- END CARD -->
+  <script type="module" src="/shared/google-analytics.js?v=1.0"></script>
+
+<script>
+// ============================================================
+// TRAFFIC TORCH – LOGIN SCRIPT (ORIGINAL, WORKING)
+// ============================================================
+const API_BASE = 'https://traffic-torch-auth.traffictorch.workers.dev';
+
+function authApp() {
+  return {
+    activeTab: 'magic',
+    loading: false,
+    message: '',
+    messageType: 'error',
+    magicEmail: '',
+    loginEmail: '',
+    loginPassword: '',
+    loginPasswordVisible: false,
+    showForgot: false,
+    registerEmail: '',
+    registerPassword: '',
+    registerPasswordVisible: false,
+    registerConfirm: '',
+    registerConfirmVisible: false,
+    registerPromoCode: '',
+    resetEmail: '',
+    resetToken: new URLSearchParams(window.location.search).get('reset_token') || '',
+    resetNewPassword: '',
+    resetPasswordVisible: false,
+    resetConfirmPassword: '',
+    resetConfirmVisible: false,
+    msgTimeout: null,
+
+    initAuth() {
+      if (this.resetToken) {
+        this.activeTab = 'login';
+        this.showForgot = false;
+      }
+
+      const magicToken = new URLSearchParams(window.location.search).get('magic_token');
+      if (magicToken) {
+        localStorage.setItem('authToken', magicToken);
+        window.location.href = '/dashboard/';
+      }
+
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        window.location.href = '/dashboard/';
+      }
+    },
+
+    setMessage(msg, type = 'error') {
+      this.message = msg;
+      this.messageType = type;
+      clearTimeout(this.msgTimeout);
+      this.msgTimeout = setTimeout(() => (this.message = ''), 5000);
+    },
+
+    // ---- Magic Link ----
+    async sendMagicLink() {
+      this.loading = true;
+      try {
+        const res = await fetch(API_BASE + '/api/auth/magic-link', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: this.magicEmail })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          this.setMessage('Magic link sent! Check your email.', 'success');
+          this.magicEmail = '';
+        } else {
+          this.setMessage(data.error || 'Failed to send');
+        }
+      } catch {
+        this.setMessage('Network error');
+      }
+      this.loading = false;
+    },
+
+    // ---- Login ----
+    async login() {
+      this.loading = true;
+      try {
+        const res = await fetch(API_BASE + '/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: this.loginEmail, password: this.loginPassword })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          localStorage.setItem('authToken', data.token);
+          window.location.href = '/dashboard/';
+        } else {
+          this.setMessage(data.error || 'Login failed');
+        }
+      } catch {
+        this.setMessage('Network error');
+      }
+      this.loading = false;
+    },
+
+    // ---- Register ----
+    async register() {
+      if (this.registerPassword !== this.registerConfirm) {
+        this.setMessage('Passwords do not match');
+        return;
+      }
+      if (this.registerPassword.length < 8) {
+        this.setMessage('Password must be at least 8 characters');
+        return;
+      }
+      this.loading = true;
+      try {
+        const res = await fetch(API_BASE + '/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email: this.registerEmail, 
+            password: this.registerPassword,
+            promo_code: this.registerPromoCode
+          })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          localStorage.setItem('authToken', data.token);
+          window.location.href = '/dashboard/';
+        } else {
+          this.setMessage(data.error || 'Registration failed');
+        }
+      } catch {
+        this.setMessage('Network error');
+      }
+      this.loading = false;
+    },
+
+    // ---- Send Reset Link ----
+    async sendResetLink() {
+      this.loading = true;
+      try {
+        const res = await fetch(API_BASE + '/api/forgot-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: this.resetEmail })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          this.setMessage('Reset link sent! Check your email.', 'success');
+          this.resetEmail = '';
+          this.showForgot = false;
+        } else {
+          this.setMessage(data.error || 'Failed to send reset link');
+        }
+      } catch {
+        this.setMessage('Network error');
+      }
+      this.loading = false;
+    },
+
+    // ---- Reset Password ----
+    async resetPassword() {
+      if (this.resetNewPassword !== this.resetConfirmPassword) {
+        this.setMessage('Passwords do not match');
+        return;
+      }
+      if (this.resetNewPassword.length < 8) {
+        this.setMessage('Password must be at least 8 characters');
+        return;
+      }
+      this.loading = true;
+      try {
+        const res = await fetch(API_BASE + '/api/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: this.resetToken, password: this.resetNewPassword })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          this.setMessage('Password reset successfully!', 'success');
+          this.resetToken = '';
+          this.resetNewPassword = '';
+          this.resetConfirmPassword = '';
+          this.showForgot = false;
+          this.activeTab = 'login';
+          window.history.replaceState({}, '', '/login/');
+        } else {
+          this.setMessage(data.error || 'Reset failed');
+        }
+      } catch {
+        this.setMessage('Network error');
+      }
+      this.loading = false;
+    }
+  };
+}
+</script>
+
+</body>
+</html>

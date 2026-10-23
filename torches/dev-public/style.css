@@ -1,0 +1,973 @@
+/* Traffic Torch Global CSS */
+
+/* Prevent FOUC / plain text flash on gradient titles – earliest possible */
+/* Light mode (default) */
+#sidebarTitle,
+p.text-1\.25rem.font-black.bg-gradient-to-r,
+span.bg-gradient-to-r.text-transparent,
+.gradient-text {
+  color: transparent !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+}
+
+/* Dark mode — only if you change gradient colors; otherwise remove this block */
+.dark #sidebarTitle,
+.dark p.text-1\.25rem.font-black.bg-gradient-to-r,
+.dark span.bg-gradient-to-r.text-transparent,
+.dark .gradient-text {
+  color: transparent !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+}
+
+/* Theme variables */
+:root {
+  --bg-gradient: linear-gradient(to bottom right, #f8fafc, #e2e8f0, #cbd5e1);
+  --accent: #ea580c;
+  --track: rgba(0,0,0,0.15);
+}
+
+.dark {
+  --bg-gradient: linear-gradient(to bottom right, #0f172a, #020617, #000000);
+  --accent: #f97316;
+  --track: rgba(255,255,255,0.15);
+}
+
+/* Global resets & base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Preserve gradient on logo/title (desktop + mobile variants) */
+#sidebarTitle,
+p.text-\[1\.25rem\].font-black.bg-gradient-to-r,
+span.bg-gradient-to-r.text-transparent,
+[class*="Traffic Torch"] {
+  color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.dark #sidebarTitle,
+.dark p.text-\[1\.25rem\].font-black.bg-gradient-to-r,
+.dark span.bg-gradient-to-r.text-transparent,
+.dark [class*="Traffic Torch"] {
+  color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Mobile menu – full-height right-side drawer, scrollable content, modern mobile standard */
+#mobileMenu {
+  position: fixed;
+  inset: 0 0 0 auto;                  /* top/right/bottom/left = full height, right-anchored */
+  height: 100dvh;                     /* 100% dynamic viewport height – best for mobile (addresses address bar issues) */
+  width: 85vw;                        /* wide enough to show most links without too much scroll */
+  max-width: 380px;                   /* comfortable max on larger phones */
+  z-index: 999;
+  background-color: #f8fafc;
+  color: #1f2937;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); /* smoother slide feel */
+  padding: 2rem 0.25rem 2rem;         /* more top padding = safe space for close button + status bar */
+}
+
+/* When open (remove .hidden or add .open class – but since you use .hidden, override */
+#mobileMenu:not(.hidden) {
+  transform: translateX(0);       /* slide in from right */
+}
+
+/* Dark mode */
+.dark #mobileMenu {
+  background-color: #0f172a;
+  color: #e5e7eb;                 /* gray-200 base text dark mode */
+}
+
+/* Close button – visible, touch-friendly */
+#close-mobile-menu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  color: #111827;                 /* gray-900 light mode */
+  font-size: 2.5rem;
+  font-weight: 300;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.75rem;
+  line-height: 1;
+  border-radius: 9999px;
+}
+
+.dark #close-mobile-menu {
+  color: #f3f4f6;                 /* gray-100 dark mode */
+}
+
+#close-mobile-menu:hover,
+#close-mobile-menu:focus {
+  background: rgba(0,0,0,0.1);
+  opacity: 0.9;
+}
+
+html.overflow-hidden,
+body.overflow-hidden {
+  overflow: hidden;
+  height: 100%;
+  position: fixed;                /* extra iOS fix if needed */
+  width: 100%;
+}
+
+/* Mobile menu nav & links – force visible colors overriding Tailwind text-gray-100 */
+#mobileMenu nav.flex.flex-col,
+#mobileMenu a,
+#mobileMenu .sidebar-link {
+  color: #1f2937 !important;      /* gray-800 light – visible on light bg */
+}
+
+.dark #mobileMenu nav.flex.flex-col,
+.dark #mobileMenu a,
+.dark #mobileMenu .sidebar-link {
+  color: #e5e7eb !important;      /* gray-200 dark – visible on dark bg */
+}
+
+#mobileMenu a:hover,
+#mobileMenu .sidebar-link:hover {
+  color: #fb923c !important;      /* orange hover */
+}
+
+
+/* Sidebar links - base + stronger hover (both modes) */
+.sidebar-link {
+  transition: color 0.3s ease;
+}
+
+/* Stronger sidebar hover override to beat Tailwind utilities */
+nav a.sidebar-link:hover,
+nav a.sidebar-link:focus,
+.sidebar-link:hover,
+.sidebar-link:focus {
+  color: #fb923c !important;
+  transition: color 0.2s ease !important;
+}
+
+.dark nav a.sidebar-link:hover,
+.dark nav a.sidebar-link:focus,
+.dark .sidebar-link:hover,
+.dark .sidebar-link:focus {
+  color: #fb923c !important;
+}
+
+/* Footer links hover (both modes) */
+footer a:hover {
+  color: #fb923c !important;
+}
+
+/* Header & footer glass */
+header, footer {
+  backdrop-filter: blur(12px);
+}
+
+/* Desktop Sidebar – Base styles */
+#desktopSidebar {
+  width: 16rem !important;
+  transition: width 0.3s ease-in-out;
+  overflow-x: hidden; /* prevent horizontal scroll/clipping */
+}
+
+/* Collapsed state */
+#desktopSidebar.collapsed {
+  width: 8rem !important;
+}
+
+/* Hide text, titles and arrows ONLY when collapsed */
+#desktopSidebar.collapsed .sidebar-text,
+#desktopSidebar.collapsed #sidebarTitle,
+#desktopSidebar.collapsed .sidebar-arrow {
+  display: none !important;
+}
+
+/* Explicitly SHOW text, titles and arrows when expanded */
+#desktopSidebar:not(.collapsed) .sidebar-text,
+#desktopSidebar:not(.collapsed) #sidebarTitle,
+#desktopSidebar:not(.collapsed) .sidebar-arrow {
+  display: block !important;
+}
+
+/* Collapsed mode: perfect centering for all interactive elements */
+#desktopSidebar.collapsed button[data-category],
+#desktopSidebar.collapsed .sidebar-link,
+#desktopSidebar.collapsed .flex.items-center.justify-center,
+#desktopSidebar.collapsed .logo-container-or-img {
+  justify-content: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  gap: 0 !important;
+  text-align: center;
+}
+
+/* Icons: fixed width + perfect centering in both states */
+#desktopSidebar .text-2xl {
+  width: 2.5rem;               /* consistent column width for emojis */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Prevent overflow and keep layout clean */
+#desktopSidebar button,
+#desktopSidebar .sidebar-link {
+  overflow: hidden;
+  white-space: nowrap;         /* prevent text wrapping in expanded mode */
+}
+
+/* Extra safety for expanded mode text (ellipsis if too long) */
+#desktopSidebar:not(.collapsed) .sidebar-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;                     /* let text take remaining space */
+}
+
+/* Subtle hover background in collapsed mode for better UX */
+#desktopSidebar.collapsed button[data-category]:hover,
+#desktopSidebar.collapsed .sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile typography */
+@media (max-width: 640px) {
+  .text-5xl { font-size: 2.25rem; }
+  .text-6xl { font-size: 2.5rem; }
+}
+
+/* Word break */
+#priority-fixes p,
+.details p,
+.details li {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Narrow screen header */
+@media (max-width: 420px) {
+  header .flex.items-center.gap-4 p {
+    font-size: 1rem !important;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  header .flex.items-center.gap-4 {
+    gap: 0.5rem;
+  }
+}
+
+/* Reflow prevention */
+.grid > *,
+.flex > *,
+.checklist-card,
+[class*="grid-cols-"] > * {
+  min-width: 0;
+}
+
+details > div,
+.grid:not(body),
+.flex:not(body),
+.container:not(body) {
+  contain: layout paint;
+}
+
+/* Bottom Banner */
+.bottom-banner {
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+  max-width: 1200px;
+}
+
+.bottom-banner picture {
+  display: block;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+
+.bottom-banner img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+}
+
+@media (max-width: 767px) {
+  .bottom-banner picture {
+    padding-top: var(--banner-ratio, 31.25%);
+  }
+  .bottom-banner img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .bottom-banner picture {
+    padding-top: 0;
+  }
+  .bottom-banner img {
+    position: static;
+  }
+}
+
+/* PWA Install Button – Glassmorphism */
+#pwa-install-btn {
+  position: fixed;
+  inset: auto 1.5rem 1.5rem auto;
+  z-index: 9999;
+  background: rgba(42, 236, 15, 0.18);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(241, 29, 29, 0.35);
+  border-radius: 9999px;
+  color: #2568ef !important; 
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.85rem 2rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 32px -8px rgba(249, 115, 22, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0,0,0);
+  will-change: transform, box-shadow, background;
+  pointer-events: auto;
+  user-select: none;
+  isolation: isolate;
+}
+
+.dark #pwa-install-btn {
+  color: #e5e7eb; /* gray-200 – light in dark mode */
+  background: rgba(30, 41, 59, 0.45);
+  border-color: rgba(234, 28, 28, 0.3);
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+#pwa-install-btn:hover {
+  transform: translateY(-4px) scale(1.04) translate3d(0,0,0);
+  box-shadow: 0 20px 40px -12px rgba(249, 115, 22, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.28);
+  background: rgba(249, 115, 22, 0.26);
+}
+
+#pwa-install-btn:active {
+  transform: translateY(-1px) scale(0.97) translate3d(0,0,0);
+  transition-duration: 0.15s;
+  box-shadow: 0 6px 20px -6px rgba(249, 115, 22, 0.45), inset 0 2px 4px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 640px) {
+  #pwa-install-btn {
+    inset: auto 1rem 1rem auto;
+    padding: 0.75rem 1.8rem;
+    font-size: 0.96rem;
+  }
+}
+
+@media (max-width: 360px) {
+  #pwa-install-btn {
+    padding: 0.65rem 1.5rem;
+    font-size: 0.92rem;
+  }
+}
+
+/* Copy Link Button – no flash, gentle entrance */
+.center-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 3.5rem;          /* exactly matches button natural height → prevents vertical jump */
+  height: 3.5rem;              /* fixed height locks layout from first paint */
+  padding: 0;
+}
+
+.copy-link-btn {
+  padding: 0.8rem 1.8rem;
+  font-size: 1.05rem;
+  font-weight: 501;
+  color: #297ce7;
+  background: rgba(255, 255, 255, 0.25);
+  border: 2px solid rgba(49, 140, 237, 0.35);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: 
+    transform 0.18s ease,
+    opacity 0.5s ease;         /* soft fade-in on load */
+  opacity: 0;                  /* hidden at first */
+  animation: appear 0.6s ease forwards; /* very light entrance */
+}
+
+.copy-link-btn:hover {
+  transform: translateY(-2px);
+}
+
+.dark .copy-link-btn {
+  background: rgba(30, 41, 59, 0.45);
+  border-color: rgba(234, 28, 28, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Minimal fade-in to cover any micro-paint delay */
+@keyframes appear {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/*  Paragraph spacing – readable + accessible */
+div.prose p:not([class*="bg-gradient"]):not(:last-child) {
+  margin-top: 0 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+/* No trailing margin after final paragraph */
+div.prose p:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Comfortable line-height (WCAG-friendly for long reads) */
+div.prose p {
+  line-height: 1.625 !important;
+}
+
+/* Mobile: slightly tighter to save vertical space without crowding */
+@media (max-width: 640px) {
+  div.prose p:not([class*="bg-gradient"]):not(:last-child) {
+    margin-bottom: 1rem !important;  /* 16px */
+  }
+}
+
+/* Brighter in dark mode for better contrast */
+.dark .pro-badge {
+  background-color: #34d399 !important; /* emerald-400, more visible on dark bg */
+}
+
+/* Force visibility if parent has overflow-hidden or low opacity */
+.sidebar-link:has(.pro-badge),
+.pro-menu-link:has(.pro-badge) {
+  overflow: visible !important;
+}
+
+/* Smooth fade-in for loaded menu partials */
+.menu-fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.menu-fade-in.loaded {
+  opacity: 1;
+}
+
+/* Styled menu tooltips using data-tooltip – appears on hover */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:hover:after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.6rem 1.2rem;
+  background: rgba(0,0,0,0.9);
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  margin-bottom: 0.8rem;
+  opacity: 0;
+  animation: tooltip-in 0.2s forwards;
+}
+
+[data-tooltip]:hover:before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(0,0,0,0.9);
+  z-index: 100;
+  margin-bottom: 0.6rem;
+}
+
+@keyframes tooltip-in {
+  to { opacity: 1; }
+}
+
+/* Center the auth form container but left‑align inputs */
+#auth-forms form {
+  text-align: left;
+}
+#auth-forms .flex.border-b {
+  justify-content: center;
+}
+
+/* New upgradeModal */
+#upgradeModal {
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+#upgradeModal:not(.hidden) {
+  display: flex;
+}
+#upgradeModalContent {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+#upgradeModal:not(.hidden) #upgradeModalContent {
+  transform: scale(1);
+  opacity: 1;
+}
+
+#upgradeModal {
+  position: sticky !important;
+  top: 0 !important;
+  height: 100vh !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+}
+
+/* Pro badge RED/GREEN dot */
+.pro-badge {
+  display: inline-block !important;
+  width: 0.625rem !important;
+  height: 0.625rem !important;
+  border-radius: 9999px !important;
+  margin-left: 0.5rem !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+}
+
+/* Custom Share buttons  */
+.share-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 0rem 0;
+  text-align: center;
+}
+
+.share-block .share-label {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+.dark .share-block .share-label { color: #e5e7eb; }
+
+.share-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  max-width: 100%;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;          /* 44px touch target */
+  padding: 0.6rem 1.15rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(49, 140, 237, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #297ce7;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.2s ease, border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(49, 140, 237, 0.6);
+}
+
+.share-btn:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}
+
+.share-btn:active { transform: translateY(0) scale(0.97); }
+
+.share-btn[hidden] { display: none !important; }
+
+.dark .share-btn {
+  color: #e5e7eb;
+  background: rgba(30, 41, 59, 0.45);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.dark .share-btn:hover {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(251, 146, 60, 0.5);
+}
+
+/* Optional tiny status for copy-link */
+.share-status {
+  font-size: 0.8rem;
+  min-height: 1rem;
+  color: #6b7280;
+}
+.dark .share-status { color: #9ca3af; }
+
+/* AI output code blocks */
+.code-block {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+  border: 1px solid #333;
+}
+
+.code-block code {
+  white-space: pre;
+  word-break: normal;
+  tab-size: 2;
+}
+
+/* Optional: light mode */
+@media (prefers-color-scheme: light) {
+  .code-block {
+    background: #f5f5f5;
+    color: #333;
+    border-color: #ddd;
+  }
+}
+
+/* ── Distinguish links without relying on colour ── */
+p a, li a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+p a:hover, li a:hover {
+  text-decoration: none; /* optional: underline disappears on hover – still distinguishable */
+}
+
+/* ── Minimum touch target size (WCAG 2.5.5) ── */
+.sidebar-link,
+.pro-menu-link,
+#desktopSidebar button,
+#mobileMenu a,
+#mobileMenu button,
+.skip-link,
+.carousel-btn,
+.trust-badges li,
+.share-btn,
+#nusa-app .nusa-url-btn,
+#nusa-app .sum-full-results {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Ensure specific small controls are centered */
+.carousel-dot, .skip-link, .share-btn, .carousel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Carousel dots: visible size stays 10px, hit area becomes 44px ── */
+.carousel-dot {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-dot::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.carousel-dot.active::before {
+  background: #f97316;
+  transform: scale(1.25);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   QR audit tuning — mobile tap targets, forced-colors fallback
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── 1. Standalone interactive elements — mobile 44px tap targets ── */
+@media (max-width: 768px) {
+  .suite-block a,
+  .trust-badges li,
+  .share-btn,
+  footer a:not(.inline-link),
+  #nusa-app .sum-full-results,
+  #nusa-app .sum-more-btn,
+  #nusa-app .nusa-url-btn,
+  #nusa-app .ask button,
+  #nusa-app .chamber-form button,
+  .carousel-btn,
+  .carousel-dot {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Suite-block links stay as chips, just taller. */
+  .suite-block a {
+    padding: 0.5rem 0.85rem;
+    line-height: 1.2;
+  }
+
+  /* Trust badges get a slightly taller pill. */
+  .trust-badges li {
+    padding: 0.5rem 0.9rem;
+  }
+
+  /* Pricing CTA buttons (they are already big; keep padding, enforce
+     min height for accessibility). */
+  #upgrade-short a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ── 2. Forced-colors fallback for gradient text ── */
+@media (forced-colors: active) {
+  .bg-clip-text,
+  .text-transparent,
+  [class*="bg-gradient-to-r"][class*="text-transparent"] {
+    color: CanvasText !important;
+    -webkit-text-fill-color: CanvasText !important;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+  }
+}
+
+/* ── 3. Slightly stronger contrast for small gray labels on cards ── */
+.dark #ga4-card .text-gray-400,
+.dark #gsc-card .text-gray-400,
+.dark #trust .text-gray-400,
+.dark #problem .text-gray-400,
+.dark #built-for .text-gray-400 {
+  color: #9ca3af; /* gray-400 in Tailwind — slightly brighter than default */
+}
+
+/*  iOS Beams drawer hardening (see messages.js)  */
+#tt-msg-panel {
+  /* Stop iOS from chaining the drawer's scroll to the page behind it. */
+  overscroll-behavior: contain;
+  /* Declare that vertical panning is handled locally. */
+  touch-action: pan-y;
+  /* Prevent Safari auto-zooming / text inflating on rotate. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#tt-msg-panel [data-tt-thread-body] {
+  /* The actual scroll container — this is the one that leaks. */
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* The dim overlay should never scroll or accept gestures at all. */
+#tt-msg-overlay {
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+/* ── Avatar tier ring (Phase A) ──────────────────────────────────────── */
+.avatar-ring {
+  display: inline-block;
+  padding: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #94a3b8, #cbd5e1); /* default: free */
+  flex-shrink: 0;
+  line-height: 0;
+}
+.avatar-ring.tier-free       { background: linear-gradient(135deg, #94a3b8, #cbd5e1); }
+.avatar-ring.tier-pro        { background: linear-gradient(135deg, #f97316, #ec4899); }
+.avatar-ring.tier-enterprise { background: linear-gradient(135deg, #8b5cf6, #a855f7); }
+.avatar-ring > img {
+  display: block;
+  border-radius: 9999px;
+  background: #fff;
+}
+.dark .avatar-ring > img { background: #0f172a; }
+
+/* Mobile-only: center profile header */
+@media (max-width: 639px) {
+  .profile-header-flex {
+    align-items: center !important;
+    text-align: center;
+  }
+  .profile-header-flex .profile-info { width: 100%; text-align: center; }
+  .profile-header-flex .profile-actions { justify-content: center; }
+}
+
+/* Avatar click-to-enlarge */
+[x-cloak] { display: none !important; }
+.avatar-ring { transition: transform 0.18s ease; }
+.avatar-ring.cursor-pointer:hover { transform: scale(1.04); }
+.avatar-ring.cursor-pointer:active { transform: scale(0.98); }
+
+/* Mobile: center @username + role row on profile header */
+@media (max-width: 639px) {
+  .profile-header-flex .profile-info p {
+    justify-content: center;
+  }
+  .profile-header-flex .profile-info h1 {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ── Global responsive iframe (YouTube, Vimeo, etc.) ── */
+iframe[src*="youtube.com"],
+iframe[src*="youtube-nocookie.com"],
+iframe[src*="youtu.be"],
+iframe[src*="vimeo.com"] {
+  max-width: 100% !important;
+  width: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  height: auto !important;
+  border: 0;
+  border-radius: 0.5em;
+  display: block;
+}
+.md-embed {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  margin: 0.8em 0;
+  border-radius: 0.6em;
+  background: #0f172a;
+}
+.md-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Avatar tier rings + role accents ── */
+@property --tt-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
+.avatar-ring {
+  position: relative;
+  border-radius: 22px;
+  isolation: isolate;
+  transition: transform 0.18s ease;
+}
+.avatar-ring img { display: block; border-radius: 16px; }
+
+/* Free — subtle neutral ring */
+.avatar-ring.tier-free {
+  background: rgba(148,163,184,0.35);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+/* Pro — orange/pink gradient ring */
+.avatar-ring.tier-pro {
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.25), 0 8px 28px -8px rgba(249,115,22,0.55);
+  transform: translateZ(0);
+}
+
+/* Expert — rotating conic ring */
+.avatar-ring.tier-enterprise {
+  background: conic-gradient(from var(--tt-angle),
+    #8b5cf6, #06b6d4, #ec4899, #f97316, #8b5cf6);
+  box-shadow: 0 0 0 1px rgba(139,92,246,0.3), 0 8px 32px -8px rgba(139,92,246,0.6);
+  /* Static by default — rotation is a hover reward only, so no per-frame cost at rest */
+  transform: translateZ(0);
+  contain: layout paint;
+}
+.avatar-ring.tier-enterprise:hover {
+  animation: tt-rotate 3s linear infinite;
+  will-change: background;
+}
+@keyframes tt-rotate { to { --tt-angle: 360deg; } }
+@media (prefers-reduced-motion: reduce) {
+  .avatar-ring.tier-enterprise { animation: none; }
+}
+
+/* Inner role accent — 1px line just inside the tier ring */
+.avatar-ring.role-ai-lens     { box-shadow: inset 0 0 0 1px #ec4899; }
+.avatar-ring.role-ai-director { box-shadow: inset 0 0 0 1px #8b5cf6; }
+.avatar-ring.role-owner       { box-shadow: inset 0 0 0 1px #f97316; }
+.avatar-ring.role-designer    { box-shadow: inset 0 0 0 1px #06b6d4; }
+.avatar-ring.role-seo         { box-shadow: inset 0 0 0 1px #22c55e; }
+.avatar-ring.role-developer,
+.avatar-ring.role-ai-conductor,
+.avatar-ring.role-context-engineer,
+.avatar-ring.role-other       { box-shadow: inset 0 0 0 1px #64748b; }
+
+/* Pro/Expert ribbons */
+.tier-ribbon {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  z-index: 2;
+  font-size: 9.5px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  font-family: inherit;
+  pointer-events: none;
+  line-height: 1;
+}
+.tier-pro .tier-ribbon  { background: linear-gradient(135deg, #f97316, #ec4899); }
+.tier-enterprise .tier-ribbon { background: linear-gradient(135deg, #8b5cf6, #06b6d4); }

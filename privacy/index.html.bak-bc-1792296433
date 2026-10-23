@@ -1,0 +1,374 @@
+<!DOCTYPE html> 
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Optimized SEO Title & Description -->
+  <title>Privacy Policy | Traffic Torch – 100% Private SEO &amp; UX Tools</title>
+  <meta name="description" content="Traffic Torch Privacy Policy: Analysis runs in-browser with secure proxy fetching. No data collection, tracking, cookies, logging or storage – strong privacy.">
+  
+  <!-- Robots & Canonical (index for transparency; use noindex if preferred for privacy pages) -->
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://traffictorch.net/privacy/">
+  
+    <!-- Theme Color -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)">
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="en" href="https://traffictorch.net/privacy/">
+  <link rel="alternate" hreflang="x-default" href="https://traffictorch.net/privacy/">
+  
+  <!-- Open Graph Tags (Facebook, LinkedIn, etc.) -->
+  <meta property="og:title" content="Privacy Policy | Traffic Torch – Complete Data Privacy">
+  <meta property="og:description" content="Traffic Torch respects your privacy: All analysis is 100% client-side. No data is collected, stored, or transmitted. Free AI SEO &amp; UX tools with zero tracking.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://traffictorch.net/privacy/">
+  <meta property="og:image" content="https://traffictorch.net/images/traffic-torch-toolkit.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Traffic Torch">
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy Policy | Traffic Torch – Complete Data Privacy">
+  <meta name="twitter:description" content="Traffic Torch respects your privacy: All analysis is 100% client-side. No data is collected, stored, or transmitted. Free AI SEO &amp; UX tools with zero tracking.">
+  <meta name="twitter:image" content="https://traffictorch.net/images/traffic-torch-toolkit.webp">
+  <meta name="twitter:site" content="@Guitaralize"> 
+  
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PrivacyPolicy",
+  "name": "Privacy Policy - Traffic Torch",
+  "description": "Traffic Torch privacy policy: All analysis runs in your browser with secure proxy fetching. No data is collected, stored, tracked, logged, or shared. Strong user privacy with no tracking.",
+  "url": "https://traffictorch.net/privacy/",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Traffic Torch",
+    "url": "https://traffictorch.net/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Traffic Torch"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Traffic Torch",
+  "url": "https://traffictorch.net/",
+  "logo": "https://traffictorch.net/logo-512.webp",
+  "description": "Creators of free, privacy-first AI-powered SEO and UX analysis tools. All processing happens client-side – no data collection, no tracking, no servers involved.",
+  "sameAs": [
+         "https://g.dev/traffictorch",
+         "https://github.com/traffictorch/",
+         "https://orcid.org/0009-0006-4084-0241",
+         "https://www.wikidata.org/wiki/Q139815165",
+         "https://zenodo.org/records/20149616",
+         "https://github.com/traffictorch/traffic-torch",
+         "https://chromewebstore.google.com/detail/traffic-torch-tools/ngfkdkgjjipecoklnoidfcfidpdafegl",
+         "https://addons.mozilla.org/en-US/firefox/addon/traffic-torch-tools/",
+         "https://microsoftedge.microsoft.com/addons/detail/traffic-torch-tools/cbbabinigplbmdbnkpkeocchccfalemb",
+         "https://marketplace.visualstudio.com/items?itemName=traffic-torch.traffic-torch-dev-tools",
+         "https://wordpress.org/plugins/traffic-torch-ai-geo-and-seo-tools/",
+         "https://www.framer.com/marketplace/plugins/traffic-torch/",
+         "https://www.figma.com/community/plugin/1624971170654319802/traffic-torch-seo-toolkit",
+         "https://github.com/marketplace/actions/traffic-torch-audit",
+         "https://www.linkedin.com/in/ylia-callan-8b889976/",
+         "https://x.com/Guitaralize"
+     ]
+}
+</script>
+
+<!-- BreadcrumbList for consistent site hierarchy signals -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://traffictorch.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Privacy Policy",
+      "item": "https://traffictorch.net/privacy/"
+    }
+  ]
+}
+</script>
+  
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo-180.webp">
+  <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.webp">
+  <link rel="apple-touch-icon" sizes="512x512" href="/logo-512.webp">
+  <meta name="apple-mobile-web-app-title" content="Torch">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" type="image/webp" sizes="192x192" href="/logo-192.webp">
+  <link rel="icon" type="image/webp" sizes="512x512" href="/logo-512.webp">
+  <link rel="manifest" href="/manifest.json">
+  
+  
+  <!-- Preload critical CSS -->
+  <link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/style.css?v=1.0">
+  </noscript>
+
+  <style>html{visibility:hidden;opacity:0;transition:opacity 0.4s ease}</style>
+  <link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet';document.documentElement.style.visibility='visible';document.documentElement.style.opacity='1'">
+  <noscript>
+    <style>html{visibility:visible;opacity:1}</style>
+    <link rel="stylesheet" href="/tailwind-local.css?v=1.0">
+  </noscript>
+
+<script>
+    // Apply dark class to <html> immediately (fixes Tailwind dark: variants)
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+  
+</head>
+
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+  <!-- Main Layout Container - Desktop flex with sidebar -->
+  <div class="flex flex-1 min-h-screen">
+    <!-- Desktop-only Sticky Collapsible Sidebar (hidden on mobile) -->
+	<aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 transition-all duration-300 ease-in-out overflow-y-auto sticky top-0 h-screen flex flex-col self-start">      
+	<!-- Sidebar Header with Logo -->
+      <div class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+        <a href="/" class="flex items-center gap-4">
+            <img src="/logo-160w.webp" srcset="/logo-160w.webp 160w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch – SEO • UX • AI Analysis Tools" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+          <span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent hidden">
+            Traffic Torch
+          </span>
+        </a>
+      </div>
+<!-- Menu Items -->
+<div id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in"></div>
+      <!-- Collapse/Expand Button - Always visible -->
+      <div class="p-4 border-t border-white/10 dark:border-white/5">
+        <button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition">
+          ←
+        </button>
+      </div>
+    </aside>
+    <!-- Main Content Area (full width on mobile, shifted on desktop) -->
+    <div class="flex-1 flex flex-col">
+      <!-- Header (unchanged logic, but adjusted for desktop sidebar) -->
+      <header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <!-- Logo hidden on desktop since in sidebar -->
+          <a href="/" class="flex items-center gap-4 md:hidden">
+          <img src="/logo-100w.webp" srcset="/logo-100w.webp 100w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch SEO Analysis Tools Logo" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+            <p class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">
+              Traffic Torch
+            </p>
+          </a>
+          <!-- Empty spacer on mobile to balance -->
+          <div class="w-10 md:hidden"></div>
+          <button id="menuToggle" class="md:hidden text-3xl text-gray-500 relative left-0 -top-1">☰</button>
+         
+          <!-- New: Desktop Sidebar Toggle Hamburger (hidden on mobile, right side) -->
+          <button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 hover:text-orange-400 transition mr-4">
+            ☰
+          </button>
+         
+          <!-- Theme Toggle -->
+          <button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl">
+            🌙
+          </button>
+        </div>
+        <!-- Mobile Menu Dropdown (unchanged) -->
+        <div id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10">
+          <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl focus:outline-none" aria-label="Close menu">
+			  ×
+			</button>
+<div id="mobile-menu-placeholder"></div>
+        </div>
+      </header>
+
+  <!-- Main Content – Epic Privacy -->
+  <main class="container mx-auto px-4 py-4 max-w-7xl">
+    <div class="text-center mb-16">
+ <h1 class="text-3xl md:text-4xl font-black mb-6 bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">
+        Privacy Policy 
+      </h1>
+      <!-- Expanding Intro Summary -->
+      <details class="max-w-3xl mx-auto text-left bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-orange-500/30 cursor-pointer">
+        <summary class="text-2xl font-bold mb-4 flex items-center gap-2 cursor-pointer">
+          Quick Privacy Summary <svg class="chevron ml-auto" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </summary>
+        <p class="text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+          Traffic Torch audits run client-side — no server storage of page data. Pro Dashboard connects to GA4/GSC via OAuth; tokens and cached data are stored securely to power your real-time analytics. Theme preference only cookie. Privacy-first by design! 🔒
+        </p>
+      </details>
+    </div>
+
+    <!-- Epic Sections in Cards -->
+    <div class="grid md:grid-cols-2 mb-10 gap-8">
+      <div class="tool-card group block rounded-3xl overflow-hidden shadow-2xl hover:shadow-orange-500/50">
+        <div class="h-full bg-white/10 backdrop-blur-xl p-10 border border-orange-500/30 group-hover:border-orange-400 transition-all">
+          <div class="text-orange-400 text-7xl mb-6 group-hover:animate-spin">🔒</div>
+          <h2 class="text-2xl font-bold mb-3">1. No Data Collection</h2>
+        <p class="text-gray-800 dark:text-gray-200">We don't collect personal info. Audit analysis runs in your browser. Pro Dashboard OAuth tokens and cached GA4/GSC data are stored securely to power your dashboard.</p>
+        </div>
+      </div>
+      <div class="tool-card group block rounded-3xl overflow-hidden shadow-2xl hover:shadow-pink-500/50">
+        <div class="h-full bg-white/10 backdrop-blur-xl p-10 border border-pink-500/30 group-hover:border-pink-400 transition-all">
+          <div class="text-pink-400 text-7xl mb-6 group-hover:animate-bounce">🍪</div>
+          <h2 class="text-2xl font-bold mb-3">2. Cookies & Storage</h2>
+          <p class="text-gray-800 dark:text-gray-200">Only theme preference cookie. For Pro Dashboard, OAuth refresh tokens and encrypted cached analytics data are stored securely.</p>
+        </div>
+      </div>
+      <div class="tool-card group block rounded-3xl overflow-hidden shadow-2xl hover:shadow-emerald-500/50">
+        <div class="h-full bg-white/10 backdrop-blur-xl p-10 border border-emerald-500/30 group-hover:border-emerald-400 transition-all">
+          <div class="text-emerald-400 text-7xl mb-6 group-hover:animate-pulse">🌐</div>
+          <h2 class="text-2xl font-bold mb-3">3. Third-Party Services</h2>
+          <p class="text-gray-800 dark:text-gray-200">We use Google Analytics for anonymized stats, and Stripe for payments. GA4/GSC APIs for Pro Dashboard.</p>
+        </div>
+      </div>
+      <div class="tool-card group block rounded-3xl overflow-hidden shadow-2xl hover:shadow-purple-500/50">
+        <div class="h-full bg-white/10 backdrop-blur-xl p-10 border border-purple-500/30 group-hover:border-purple-400 transition-all">
+          <div class="text-purple-400 text-7xl mb-6 group-hover:animate-wiggle">🔄</div>
+          <h2 class="text-2xl font-bold mb-3">4. Changes & Contact</h2>
+          <p class="text-gray-800 dark:text-gray-200">Policy may update. Questions? Reach us on Linkedin or X @guitaralize.</p>
+        </div>
+      </div>
+    </div>
+    
+    <section class="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-4xl mx-auto px-6 prose prose-lg dark:prose-invert">
+    <h2 class="text-4xl font-bold text-center mb-8 text-gray-800 dark:text-gray-200">Privacy Policy</h2>
+    <p class="text-center text-gray-600 dark:text-gray-400 mb-12">Last updated: September 4, 2026</p>
+
+    <p>At Traffic Torch (traffictorch.net), we are committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our website, free tools, reports, Pro Dashboard, and paid subscription services ("Service").</p>
+
+    <p>We designed Traffic Torch with a dual approach:</p>
+    <ul>
+      <li><strong>Core audits (OFUX, standalone tools)</strong> are 100% client‑side – all analysis happens in your browser using client‑side JavaScript and a secure CORS proxy for fetching public page content. We do not store, log, or send your analyzed URLs, page content, screenshots, or report data to our servers.</li>
+      <li><strong>Pro Dashboard</strong> requires server‑side handling to connect to Google Analytics 4 and Search Console via OAuth. We securely store your OAuth refresh tokens and temporarily cache analytics data (sessions, users, clicks, impressions, top content, etc.) to display your dashboards efficiently. This data is encrypted and never shared with third parties.</li>
+    </ul>
+
+    <h2>1. Information We Collect</h2>
+    <p>We collect only the minimal data necessary to operate the Service:</p>
+    <ul>
+      <li><strong>No account required for free use</strong>: You can run audits anonymously without logging in or providing any personal information.</li>
+      <li><strong>Pro subscription</strong>: To access Pro features (25 daily runs, full modules, CSV exports, etc.), you create an account with an email address and password (handled securely). We store only your email and Stripe customer ID for subscription management.</li>
+      <li><strong>Pro Dashboard (GA4/GSC connections)</strong>: When you connect your Google Analytics 4 or Search Console property, we securely store OAuth refresh tokens and encrypted cached report data (metrics, dimensions, top content, traffic sources, etc.) to provide real‑time analytics and custom date ranges. This data is only accessed to display your dashboard and is never exposed to other users or third parties.</li>
+      <li><strong>Usage analytics</strong>: We use Google Analytics (GA4) with IP anonymization enabled to understand site traffic, popular tools, and improve the Service. No personally identifiable information is collected via GA. You can opt out at any time using the cookie consent banner, your browser's Do Not Track setting, or browser extensions (e.g., uBlock Origin, Privacy Badger).</li>
+      <li><strong>Technical data</strong>: Browser type, device type, approximate location (country/region only, never precise), referrer URL, and pages visited, all anonymized and aggregated.</li>
+      <li><strong>No cookies for tracking</strong>: We do not use persistent tracking cookies, third‑party ad trackers, or cross‑site identifiers. Any necessary session cookies expire when you close the browser.</li>
+    </ul>
+
+    <h2>2. How We Use Information</h2>
+    <p>We use collected data solely to:</p>
+    <ul>
+      <li>Provide and improve the Service (e.g., fix bugs, add requested features)</li>
+      <li>Manage Pro subscriptions and send important service emails (e.g., renewal reminders, rare updates)</li>
+      <li>Display your connected GA4/GSC analytics in the Pro Dashboard</li>
+      <li>Understand aggregate usage patterns via anonymized analytics</li>
+      <li>Comply with legal obligations</li>
+    </ul>
+    <p>We do not sell, rent, or share your personal information with third parties for marketing or advertising purposes.</p>
+
+    <h2>3. Third-Party Services</h2>
+    <ul>
+      <li><strong>Stripe</strong>: All payments are processed directly by Stripe (PCI DSS Level 1 compliant). We never see or store your full payment details — only a customer ID and subscription status.</li>
+      <li><strong>Google Analytics 4 & Search Console APIs</strong>: Used exclusively for the Pro Dashboard to fetch your analytics data. OAuth tokens are stored securely and refreshed automatically. Data is cached temporarily for performance.</li>
+      <li><strong>Google Analytics (anonymized)</strong>: Usage stats only. Data is processed under Google's privacy terms (you can review Google's privacy policy <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-indigo-600 dark:text-indigo-400 hover:underline">here</a>).</li>
+      <li><strong>CORS Proxy</strong>: We use a public/open‑source CORS‑anywhere proxy (or self‑hosted equivalent) solely to bypass browser same‑origin restrictions when fetching public webpage HTML, no data is retained by the proxy.</li>
+    </ul>
+
+    <h2>4. Data Storage & Security</h2>
+    <p>All server‑side data (Pro emails, Stripe IDs, OAuth tokens, cached GA4/GSC reports) is stored securely using industry‑standard encryption (HTTPS everywhere, secure hosting on Cloudflare Workers / Pages). Cached analytics data is encrypted and retained only as long as needed to serve your dashboard requests. We do not store analysis results from the core audit tools (OFUX, etc.) – those remain 100% client‑side. Access to Pro data is restricted and protected by strong authentication.</p>
+
+    <h2>5. Your Rights</h2>
+    <p>Under Australian Privacy Principles (and where applicable GDPR/CCPA):</p>
+    <ul>
+      <li>Access, correct, or delete your Pro account data (email/login).</li>
+      <li>Opt out of analytics tracking at any time.</li>
+      <li>Disconnect GA4/GSC from your Pro Dashboard at any time – this revokes OAuth tokens and removes cached data.</li>
+      <li>Request deletion of your Pro account can be done on your account page (Pro Dashboard). Subscription will be canceled via Stripe; data removed within 30 days.</li>
+    </ul>
+    <p>We respond to valid requests within 30 days.</p>
+
+    <h2>6. Children's Privacy</h2>
+    <p>Our Service is not directed to children under 16. We do not knowingly collect personal information from children.</p>
+
+    <h2>7. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Changes will be posted here with an updated date. For Pro users, we may notify via email for material changes. Continued use after changes constitutes acceptance.</p>
+
+    <h2>8. Contact Us</h2>
+    <p>If you have questions about this Privacy Policy or our practices, contact us via:</p>
+    <ul>
+      <li><a href="/contact/" class="text-indigo-600 dark:text-indigo-400 hover:underline">Contact Form</a></li>
+    </ul>
+    <p class="mt-12 text-center text-sm text-gray-500 dark:text-gray-400">Traffic Torch is Privacy first by design – core audits in your browser, Pro Dashboard analytics securely cached. Let's keep SEO, UX & AI private and powerful. 🔥</p>
+  </div>
+</section>
+    
+<!-- Share -->
+ <section class="share-block" aria-label="Share options">
+     <div class="share-row">
+        <button type="button" class="share-btn" data-native-share hidden>📤 Share?</button>
+        <button type="button" class="share-btn" data-copy>Copy link 🔗</button>
+         </div>
+        <p class="share-status" aria-live="polite"></p>
+   </section>
+
+<!-- Breadcrumbs – semantic & detectable by analyzer -->
+<nav aria-label="breadcrumb" class="max-w-5xl mx-auto px-6 py-4 text-center">
+  <div class="inline-block">
+    <p class="font-medium text-orange-500 hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-300 transition text-sm">
+      <a href="/">Traffic Torch</a>
+    </p>
+    <p class="font-medium text-gray-800 dark:text-gray-200 text-sm mt-1">
+      <span id="page-name"></span>
+    </p>
+  </div>
+</nav>
+
+<script>
+  // Set page name (unchanged)
+  document.getElementById('page-name').textContent = document.title
+    .replace('Traffic Torch – ', '')
+    .replace(' | Traffic Torch', '')
+    .replace(' Tool', '')
+    .trim();
+</script>
+
+    
+  </main>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+</div>
+</div>
+  
+  <script src="/main.js?v=1.2" type="module"></script>
+  <script type="module" src="/shared/google-analytics.js?v=1.0"></script>
+    
+</body>
+</html>

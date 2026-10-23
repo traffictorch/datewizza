@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About DateWizza · Plan Smarter. Save Money. Save the Planet.</title>
+    <meta name="description" content="DateWizza is the first calendar that helps you merge trips, save money, and reduce your carbon footprint." />
+    
+    <!-- OG Tags -->
+    <meta property="og:title" content="About DateWizza" />
+    <meta property="og:description" content="The first calendar that helps you merge trips, save money, and reduce your carbon footprint." />
+    <meta property="og:image" content="https://datewizza.com/images/date-wizza-1200w.webp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://datewizza.com/about/" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); }
+        [data-theme="light"] .glass { background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-gray-200 min-h-screen selection:bg-emerald-500 selection:text-white transition-colors duration-300">
+
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full glass z-50 px-6 py-4 flex justify-between items-center">
+        <a href="/" class="text-xl font-black bg-gradient-to-r from-emerald-400 to-rose-400 bg-clip-text text-transparent hover:scale-105 transition-transform">
+            ✨ DateWizza
+        </a>
+        <div class="flex items-center gap-4">
+            <button onclick="toggleTheme()" class="text-xl hover:rotate-12 transition-transform" title="Toggle theme">🌙</button>
+            <a href="/" class="text-sm font-bold bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition">← Back to App</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 max-w-4xl mx-auto text-center">
+        <span class="inline-block py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-bold tracking-wide uppercase mb-6">The Future of Planning</span>
+        <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">
+            Plan Smarter.<br>
+            <span class="bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">Save Money.</span><br>
+            Save the Planet.
+        </h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            DateWizza isn't just another calendar. It's a smart productivity engine that looks at your schedule, calculates your travel footprint, and helps you merge trips to save time, money, and CO₂.
+        </p>
+        <a href="/login/?tab=register" class="inline-block bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-lg px-8 py-4 rounded-full shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:scale-105 transition-transform">
+            Start Planning for Free
+        </a>
+    </section>
+
+    <!-- Feature Grid -->
+    <section class="px-6 py-20 max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Why DateWizza is different</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300">
+                <div class="text-4xl mb-4">🌱</div>
+                <h3 class="text-xl font-bold mb-2">Smart Insights & CO₂</h3>
+                <p class="text-gray-400 leading-relaxed text-sm">
+                    Every time you add an event, we calculate your emissions based on travel mode (Car, Transit, Walk). Watch your savings add up on the dashboard.
+                </p>
+            </div>
+            <!-- Card 2 -->
+            <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300">
+                <div class="text-4xl mb-4">🔀</div>
+                <h3 class="text-xl font-bold mb-2">Trip Merge Engine</h3>
+                <p class="text-gray-400 leading-relaxed text-sm">
+                    Have three errands on the same day? DateWizza groups them by location and tells you exactly how much money and carbon you saved by combining them.
+                </p>
+            </div>
+            <!-- Card 3 -->
+            <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300">
+                <div class="text-4xl mb-4">🤝</div>
+                <h3 class="text-xl font-bold mb-2">Shared Calendars & Polls</h3>
+                <p class="text-gray-400 leading-relaxed text-sm">
+                    Find the perfect time for everyone without the back-and-forth. Shared calendars, group availability polls, and in-event chat make coordination effortless.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Vision -->
+    <section class="px-6 py-24 max-w-3xl mx-auto text-center border-t border-white/10">
+        <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+        <p class="text-lg text-gray-400 leading-relaxed mb-6">
+            The average person spends hours commuting, wastes money on redundant trips, and creates unnecessary emissions just by trying to stick to a schedule.
+        </p>
+        <p class="text-lg text-gray-400 leading-relaxed">
+            We built DateWizza because we believe that <strong class="text-white">a calendar should work for you, not just remind you</strong>. By combining time-management with environmental awareness, we help you plan magical dates and everyday errands—while saving the world, one merged trip at a time.
+        </p>
+    </section>
+
+    <footer class="text-center py-10 text-gray-600 text-sm">
+        © 2026 DateWizza. Built for the planet.
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            
+            // Quick inline fix for light mode background
+            if(isDark) {
+                document.body.classList.replace('bg-[#0a0a0a]', 'bg-gray-50');
+                document.body.classList.replace('text-gray-200', 'text-gray-800');
+            } else {
+                document.body.classList.replace('bg-gray-50', 'bg-[#0a0a0a]');
+                document.body.classList.replace('text-gray-800', 'text-gray-200');
+            }
+        }
+    </script>
+</body>
+</html>

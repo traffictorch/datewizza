@@ -1,0 +1,42 @@
+<!-- footer.html — DateWizza footer -->
+<footer class="border-t border-white/10 dark:border-white/5 bg-white/5 dark:bg-black/30 mt-8">
+  <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+    <div>
+      <h3 class="font-bold mb-3 text-emerald-600 dark:text-emerald-400">Product</h3>
+      <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+        <li><a href="/dashboard/" class="hover:text-emerald-500 transition">Calendar</a></li>
+        <li><a href="/dashboard/#tasks" class="hover:text-emerald-500 transition">Tasks</a></li>
+        <li><a href="/dashboard/#insights" class="hover:text-emerald-500 transition">Insights</a></li>
+        <li><a href="/apps/" class="hover:text-emerald-500 transition">Install App</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-bold mb-3 text-emerald-600 dark:text-emerald-400">Community</h3>
+      <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+        <li><a href="/community/" class="hover:text-emerald-500 transition">Community</a></li>
+        <li><a href="/dashboard/#messages" class="hover:text-emerald-500 transition">Messages</a></li>
+        <li><a href="/about/" class="hover:text-emerald-500 transition">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-bold mb-3 text-emerald-600 dark:text-emerald-400">Account</h3>
+      <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+        <li><a href="/login/" class="hover:text-emerald-500 transition">Log in</a></li>
+        <li><a href="/login/?tab=register" class="hover:text-emerald-500 transition">Sign up</a></li>
+        <li><a href="/dashboard/#settings" class="hover:text-emerald-500 transition">Settings</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-bold mb-3 text-emerald-600 dark:text-emerald-400">Legal</h3>
+      <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+        <li><a href="/terms/" class="hover:text-emerald-500 transition">Terms</a></li>
+        <li><a href="/privacy/" class="hover:text-emerald-500 transition">Privacy</a></li>
+        <li><a href="/contact/" class="hover:text-emerald-500 transition">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10 dark:border-white/5 py-4 text-center text-xs text-gray-600 dark:text-gray-400">
+    © <span id="year"></span> DateWizza · Discover · Plan · Save
+  </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</footer>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>Install DateWizza — No Bloat, No Updates, Works Offline</title>
+  <meta name="description" content="Install DateWizza as a PWA. 360° SEO, UX and AEO audits on your home screen. No app store, no storage bloat, no update downloads.">
+
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://datewizza.com/apps/">
+
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:title" content="Install DateWizza as an App">
+  <meta property="og:description" content="No bloat. No updates. No app store. Install the DateWizza PWA in seconds.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://datewizza.com/apps/">
+  <meta property="og:image" content="https://datewizza.com/images/traffic-torch-app-1200w.webp">
+  <meta property="og:site_name" content="DateWizza">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Install DateWizza as an App">
+  <meta name="twitter:description" content="No bloat, no updates, no app store. Install the PWA in seconds.">
+  <meta name="twitter:image" content="https://datewizza.com/images/traffic-torch-app-1200w.webp">
+  <meta name="twitter:site" content="@Guitaralize">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://datewizza.com/apps/",
+        "url": "https://datewizza.com/apps/",
+        "name": "Install DateWizza as an App",
+        "description": "Install DateWizza as a Progressive Web App. No bloat, no updates, no app store. Works offline."
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "DateWizza",
+        "applicationCategory": "BusinessApplication, UtilitiesApplication, SEO Tool",
+        "operatingSystem": "Web, Android, iOS, Windows, macOS, Linux",
+        "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" },
+        "url": "https://datewizza.com/apps/",
+        "installUrl": "https://datewizza.com/",
+        "screenshot": "https://datewizza.com/images/traffic-torch-app-1200w.webp"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://datewizza.com/apps/#faq",
+        "mainEntity": [
+          { "@type": "Question", "name": "Do I have to install anything from an app store?", "acceptedAnswer": { "@type": "Answer", "text": "No. DateWizza is a Progressive Web App — it installs directly from your browser in seconds. No app store, No bloat, no file on your device that bloats storage." } },
+          { "@type": "Question", "name": "How do I install the app on iPhone or iPad?", "acceptedAnswer": { "@type": "Answer", "text": "Open datewizza.com in Safari, tap the Share button, scroll down and tap Add to Home Screen, then tap Add. The DateWizza icon appears on your home screen." } },
+          { "@type": "Question", "name": "Do I have to update the app manually?", "acceptedAnswer": { "@type": "Answer", "text": "No. PWAs update automatically. When you open DateWizza, you get the latest version — no update prompts, No bloats, no waiting." } },
+          { "@type": "Question", "name": "How do I remove the app if I no longer want it?", "acceptedAnswer": { "@type": "Answer", "text": "On iOS and Android, long-press the icon and delete it. On desktop Chrome, go to chrome://apps and remove it. It leaves no residue." } },
+          { "@type": "Question", "name": "How much storage does the app use?", "acceptedAnswer": { "@type": "Answer", "text": "A typical PWA is measured in kilobytes, not megabytes. DateWizza is roughly 300× smaller than a comparable native Android app." } }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://datewizza.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Apps", "item": "https://datewizza.com/apps/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo-180.webp">
+  <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.webp">
+  <link rel="apple-touch-icon" sizes="512x512" href="/logo-512.webp">
+  <meta name="apple-mobile-web-app-title" content="Torch">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/style.css?v=1.0"></noscript>
+
+  <link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet';document.documentElement.style.visibility='visible';document.documentElement.style.opacity='1'">
+  <noscript>
+    <style>html{visibility:visible;opacity:1}</style>
+    <link rel="stylesheet" href="/tailwind-local.css?v=1.0">
+  </noscript>
+
+  <style>
+    html{visibility:hidden;opacity:0;transition:opacity 0.4s ease}
+    .skip-link{position:absolute;top:-60px;left:0;background:#c2410c;color:#fff;padding:10px 18px;z-index:9999;border-radius:0 0 8px 0;font-weight:700;text-decoration:none;transition:top 0.2s ease;}
+    .skip-link:focus{top:0;outline:3px solid #fff;}
+    header.sticky{padding-top:env(safe-area-inset-top,0);padding-left:env(safe-area-inset-left,0);padding-right:env(safe-area-inset-right,0);}
+    #site-footer{padding-bottom:env(safe-area-inset-bottom,0);}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  </style>
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+    })();
+  </script>
+</head>
+
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col" data-sidebar-start="collapsed">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="flex flex-1 min-h-screen">
+    <aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 transition-all duration-300 ease-in-out overflow-y-auto sticky top-0 h-screen flex flex-col self-start" aria-label="Primary navigation">
+      <header class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+        <a href="/" class="flex items-center gap-4">
+          <img src="/logo-160w.webp" srcset="/logo-160w.webp 160w, /logo-320w.webp 320w" sizes="70px" alt="DateWizza" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+          <span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-600 to-pink-600 dark:from-orange-400 dark:to-pink-600 bg-clip-text text-transparent hidden">DateWizza</span>
+        </a>
+      </header>
+      <nav id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in" aria-label="Main menu"></nav>
+      <div class="p-4 border-t border-white/10 dark:border-white/5">
+        <button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-700 dark:hover:text-orange-400 hover:bg-white/10 rounded-lg transition" aria-label="Collapse sidebar">←</button>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col">
+      <header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <a href="/" class="flex items-center gap-4 md:hidden">
+            <img src="/logo-100w.webp" srcset="/logo-100w.webp 100w, /logo-320w.webp 320w" sizes="70px" alt="DateWizza Logo" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+            <p class="text-[1.25rem] font-black bg-gradient-to-r from-orange-600 to-pink-600 dark:from-orange-400 dark:to-pink-600 bg-clip-text text-transparent">DateWizza</p>
+          </a>
+          <div class="w-10 md:hidden"></div>
+          <button id="menuToggle" class="md:hidden text-3xl text-gray-500 relative left-0 -top-1" aria-label="Open mobile menu">☰</button>
+          <button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 hover:text-orange-700 dark:hover:text-orange-400 transition mr-4" aria-label="Toggle sidebar">☰</button>
+          <button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl" aria-label="Toggle theme">🌙</button>
+        </div>
+        <nav id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10" aria-label="Mobile menu">
+          <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl focus:outline-none" aria-label="Close menu">×</button>
+          <div id="mobile-menu-placeholder"></div>
+        </nav>
+      </header>
+
+      <main id="main-content" class="container mx-auto px-3 py-2 max-w-7xl" tabindex="-1">
+
+        <section class="hero-section text-center pt-8 pb-4" aria-labelledby="apps-hero-heading">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-700 dark:text-orange-400 text-xs font-bold uppercase tracking-wider mb-4">
+            <span aria-hidden="true">📱</span><span>Progressive Web App</span>
+          </div>
+
+          <h1 id="apps-hero-heading" class="text-3xl md:text-5xl font-black bg-gradient-to-r from-orange-600 to-pink-600 dark:from-orange-400 dark:to-pink-500 bg-clip-text text-transparent leading-tight mb-4 max-w-3xl mx-auto">
+            Install DateWizza as an App
+          </h1>
+
+          <p class="text-base md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+            Get <strong>360° SEO, UX and AEO audits</strong> on your home screen in seconds — it's a web page that behaves like a native app.
+          </p>
+
+          <div id="installed-banner" class="hidden max-w-md mx-auto rounded-2xl border border-green-500/40 bg-green-500/10 p-5 text-left">
+            <p class="font-bold text-green-800 dark:text-green-300 mb-1">✓ You're using the installed app</p>
+            <p class="text-sm text-green-800/80 dark:text-green-300/80">Launch DateWizza any time from your home screen or app launcher. No browser needed.</p>
+          </div>
+
+          <div id="install-cta-zone" class="max-w-md mx-auto">
+            <button id="tt-install-trigger" type="button" class="w-full py-4 px-8 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-black text-lg rounded-2xl shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-wait">
+              📲 Install App
+            </button>
+			<p id="install-hint" class="mt-3 text-sm text-gray-600 dark:text-gray-400">Works on iPhone, iPad, Android, and desktop.</p>
+          </div>
+
+          <ul class="trust-badges mt-8" aria-label="Install benefits">
+            <li><span class="trust-icon" aria-hidden="true">⚡</span><span>Installs in seconds</span></li>
+            <li><span class="trust-icon" aria-hidden="true">📦</span><span>~200KB · no bloat</span></li>
+            <li><span class="trust-icon" aria-hidden="true">🔄</span><span>Always up to date</span></li>
+            <li><span class="trust-icon" aria-hidden="true">🔒</span><span>Privacy-first</span></li>
+          </ul>
+        </section>
+
+        <section id="why-pwa" class="max-w-6xl mx-auto my-16 px-2" aria-labelledby="why-pwa-heading">
+          <h2 id="why-pwa-heading" class="text-center text-2xl md:text-3xl font-extrabold mb-2">Why a PWA Beats a Normal App</h2>
+          <p class="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+            Same experience, none of the friction. Here's what you skip when you install DateWizza.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <article class="glass rounded-2xl p-6 border border-white/10 dark:border-white/5 hover:border-orange-400 transition">
+              <div class="text-4xl mb-3" aria-hidden="true">🔄</div>
+              <h3 class="font-bold text-lg mb-2">No Updates, Ever</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">PWAs update the moment you open them. No "Update Available" prompts, no downloads, no waiting. You always have the latest version.</p>
+            </article>
+
+            <article class="glass rounded-2xl p-6 border border-white/10 dark:border-white/5 hover:border-orange-400 transition">
+              <div class="text-4xl mb-3" aria-hidden="true">📦</div>
+              <h3 class="font-bold text-lg mb-2">Minimal Storage</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">A PWA is measured in <strong>kilobytes</strong>, not megabytes. Most PWAs are roughly 300× smaller than a comparable Android/iOS apps.</p>
+            </article>
+
+            <article class="glass rounded-2xl p-6 border border-white/10 dark:border-white/5 hover:border-orange-400 transition">
+              <div class="text-4xl mb-3" aria-hidden="true">🚪</div>
+              <h3 class="font-bold text-lg mb-2">No App Store</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">No account required. No reviews, no fees, no waiting for approval. You install directly from your browser — because it <em>is</em> the browser.</p>
+            </article>
+
+            <article class="glass rounded-2xl p-6 border border-white/10 dark:border-white/5 hover:border-orange-400 transition">
+              <div class="text-4xl mb-3" aria-hidden="true">📡</div>
+              <h3 class="font-bold text-lg mb-2">Works Offline</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">Key parts of a PWA app can launch without a network connection. Perfect for mobile data, flights, or weak signal areas.</p>
+            </article>
+
+            <article class="glass rounded-2xl p-6 border border-white/10 dark:border-white/5 hover:border-orange-400 transition">
+              <div class="text-4xl mb-3" aria-hidden="true">🚀</div>
+              <h3 class="font-bold text-lg mb-2">Instant Launch</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">Opens in standalone mode — no address bar, no tabs, no browser UI. One tap from your home screen and you're in.</p>
+            </article>
+
+            <article class="glass rounded-2xl p-6 border border-white/10 dark:border-white/5 hover:border-orange-400 transition">
+              <div class="text-4xl mb-3" aria-hidden="true">🔒</div>
+              <h3 class="font-bold text-lg mb-2">Privacy-First</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">Audits run in your browser. No data is sent to our servers for processing — the same privacy model as the web version.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="ios-install" class="max-w-3xl mx-auto my-16 px-2" aria-labelledby="ios-install-heading">
+          <div class="glass rounded-3xl p-6 md:p-8 border border-orange-200/40 dark:border-orange-800/30 bg-gradient-to-br from-orange-50/60 to-pink-50/40 dark:from-orange-950/20 dark:to-pink-950/20">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="text-4xl" aria-hidden="true">🍎</span>
+              <h2 id="ios-install-heading" class="text-2xl md:text-3xl font-extrabold">Install on iPhone or iPad</h2>
+            </div>
+            <p class="text-gray-700 dark:text-gray-300 mb-6">
+              Apple doesn't allow a one-tap install from Safari. The steps below take about 15 seconds.
+            </p>
+
+            <ol class="space-y-5">
+              <li class="flex gap-4">
+                <span class="flex-shrink-0 w-9 h-9 rounded-full bg-orange-500 text-white font-black flex items-center justify-center">1</span>
+                <div>
+                  <p class="font-bold mb-1">Open datewizza.com in Safari</p>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">Safari only — Chrome and Firefox on iOS cannot install PWAs.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="flex-shrink-0 w-9 h-9 rounded-full bg-orange-500 text-white font-black flex items-center justify-center">2</span>
+                <div>
+                  <p class="font-bold mb-1">Tap the Share button</p>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">It looks like a square with an arrow pointing up, at the bottom of the screen on iPhone, top-right on iPad.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="flex-shrink-0 w-9 h-9 rounded-full bg-orange-500 text-white font-black flex items-center justify-center">3</span>
+                <div>
+                  <p class="font-bold mb-1">Scroll down and tap "Add to Home Screen"</p>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">If you don't see it, tap <strong>Edit Actions</strong> at the bottom of the share sheet and enable it there.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="flex-shrink-0 w-9 h-9 rounded-full bg-orange-500 text-white font-black flex items-center justify-center">4</span>
+                <div>
+                  <p class="font-bold mb-1">Tap Add</p>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">The DateWizza icon appears on your home screen. Launch it — it opens in app mode, without the Safari UI.</p>
+                </div>
+              </li>
+            </ol>
+
+            <p class="mt-6 text-xs text-gray-600 dark:text-gray-400 italic">
+              On iOS 18+, you'll see an "Open as Web App" toggle in the install dialog. Turning it on gives you the cleanest app-like experience.
+            </p>
+          </div>
+        </section>
+
+        <section id="uninstall" class="max-w-3xl mx-auto my-16 px-2" aria-labelledby="uninstall-heading">
+          <h2 id="uninstall-heading" class="text-center text-2xl md:text-3xl font-extrabold mb-2">How to Remove the App</h2>
+          <p class="text-center text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
+            No hard feelings. Removing a PWA leaves no residue — the icon disappears and the space is freed.
+          </p>
+
+          <div class="glass rounded-3xl border border-white/10 dark:border-white/5 overflow-hidden">
+            <div class="flex border-b border-white/10 dark:border-white/5" role="tablist" aria-label="Choose your platform">
+              <button type="button" data-os-tab="ios" role="tab" aria-selected="true" class="os-tab flex-1 px-3 py-3 text-sm font-bold border-b-2 border-orange-500 text-orange-600 dark:text-orange-400">iOS</button>
+              <button type="button" data-os-tab="android" role="tab" aria-selected="false" class="os-tab flex-1 px-3 py-3 text-sm font-bold border-b-2 border-transparent text-gray-600 dark:text-gray-400 hover:text-orange-500">Android</button>
+              <button type="button" data-os-tab="desktop" role="tab" aria-selected="false" class="os-tab flex-1 px-3 py-3 text-sm font-bold border-b-2 border-transparent text-gray-600 dark:text-gray-400 hover:text-orange-500">Desktop</button>
+            </div>
+
+            <div class="p-6 md:p-8">
+              <div data-os-panel="ios">
+                <ol class="space-y-4">
+                  <li class="flex gap-4"><span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 font-bold flex items-center justify-center text-sm">1</span><p class="text-gray-800 dark:text-gray-200">Long-press the DateWizza icon on your home screen until the icons start jiggling.</p></li>
+                  <li class="flex gap-4"><span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 font-bold flex items-center justify-center text-sm">2</span><p class="text-gray-800 dark:text-gray-200">Tap the <strong>×</strong> in the top-left corner of the icon.</p></li>
+                  <li class="flex gap-4"><span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 font-bold flex items-center justify-center text-sm">3</span><p class="text-gray-800 dark:text-gray-200">Tap <strong>Delete</strong> to confirm.</p></li>
+                </ol>
+                <p class="mt-5 text-sm text-gray-600 dark:text-gray-400 italic">On iOS, removing the home-screen icon deletes the PWA. There is no separate data to clear.</p>
+              </div>
+
+              <div data-os-panel="android" class="hidden">
+                <ol class="space-y-4">
+                  <li class="flex gap-4"><span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 font-bold flex items-center justify-center text-sm">1</span><p class="text-gray-800 dark:text-gray-200">Long-press the DateWizza icon on your home screen or app drawer.</p></li>
+                  <li class="flex gap-4"><span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 font-bold flex items-center justify-center text-sm">2</span><p class="text-gray-800 dark:text-gray-200">Tap <strong>App info</strong>, then tap <strong>Uninstall</strong>.</p></li>
+                  <li class="flex gap-4"><span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 font-bold flex items-center justify-center text-sm">3</span><p class="text-gray-800 dark:text-gray-200">Confirm to remove. You can also find it in <strong>Settings → Apps → DateWizza → Uninstall</strong>.</p></li>
+                </ol>
+              </div>
+
+              <div data-os-panel="desktop" class="hidden">
+                <ol class="space-y-4">
+                  <li class="flex gap-4"><span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 font-bold flex items-center justify-center text-sm">1</span><p class="text-gray-800 dark:text-gray-200"><strong>Chrome:</strong> open <code class="px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800 text-sm">chrome://apps</code>, right-click the DateWizza icon, choose <strong>Remove from Chrome</strong>.</p></li>
+                  <li class="flex gap-4"><span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 font-bold flex items-center justify-center text-sm">2</span><p class="text-gray-800 dark:text-gray-200"><strong>Edge:</strong> open <code class="px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800 text-sm">edge://apps</code>, click <strong>Details</strong> on DateWizza, then <strong>Uninstall</strong>.</p></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="native-apps" class="max-w-3xl mx-auto my-16 px-2" aria-labelledby="native-heading">
+          <h2 id="native-heading" class="text-center text-2xl md:text-3xl font-extrabold mb-2">Native Apps Coming Soon</h2>
+          <p class="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
+            Working on dedicated native builds for the App Store and Google Play. In the meantime, the PWA gives you the full experience today.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+            <button type="button" data-coming-soon="ios" aria-disabled="true"
+                    style="background:#000;color:#fff;border:2px solid #999;"
+                    class="group flex items-center gap-3 p-4 rounded-2xl transition hover:!border-orange-500">
+              <span class="text-3xl" aria-hidden="true">🍎</span>
+              <span class="text-left">
+                <span class="block text-[10px] uppercase tracking-wider" style="color:rgba(255,255,255,0.7);">Download on the</span>
+                <span class="block text-lg font-black leading-tight" style="color:#fff;">App Store</span>
+                <span class="inline-block text-[10px] font-bold mt-1 px-2 py-0.5 rounded-full" style="color:#fb923c;border:1px solid #fb923c;">Coming Soon</span>
+              </span>
+            </button>
+
+            <button type="button" data-coming-soon="android" aria-disabled="true"
+                    style="background:#000;color:#fff;border:2px solid #999;"
+                    class="group flex items-center gap-3 p-4 rounded-2xl transition hover:!border-orange-500">
+              <span class="text-3xl" aria-hidden="true" style="color:#fff;">▶</span>
+              <span class="text-left">
+                <span class="block text-[10px] uppercase tracking-wider" style="color:rgba(255,255,255,0.7);">Get it on</span>
+                <span class="block text-lg font-black leading-tight" style="color:#fff;">Google Play</span>
+                <span class="inline-block text-[10px] font-bold mt-1 px-2 py-0.5 rounded-full" style="color:#fb923c;border:1px solid #fb923c;">Coming Soon</span>
+              </span>
+            </button>
+          </div>
+
+          <p class="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
+            Want to be notified? <a href="/blog/" class="text-orange-700 dark:text-orange-400 hover:underline">Follow the news →</a>
+          </p>
+        </section>
+
+        <section id="faq" class="max-w-3xl mx-auto my-16 px-2" aria-labelledby="apps-faq-heading">
+          <h2 id="apps-faq-heading" class="text-2xl md:text-3xl font-extrabold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-pink-600 dark:from-orange-400 dark:to-pink-500">
+            Install FAQ
+          </h2>
+
+          <div class="space-y-4">
+            <details class="group bg-white/5 dark:bg-black/20 rounded-2xl border border-white/10 dark:border-white/5 overflow-hidden">
+              <summary class="px-6 py-4 cursor-pointer font-bold text-lg flex justify-between items-center gap-4">
+                Do I have to install from an app store?
+                <span class="text-2xl transition-transform duration-300 group-open:rotate-180" aria-hidden="true">↓</span>
+              </summary>
+              <div class="px-6 pb-5 text-gray-700 dark:text-gray-300 leading-relaxed">
+                No. DateWizza is a Progressive Web App — it installs directly from your browser in seconds. No app store account, no review process, no multi-megabyte download.
+              </div>
+            </details>
+
+            <details class="group bg-white/5 dark:bg-black/20 rounded-2xl border border-white/10 dark:border-white/5 overflow-hidden">
+              <summary class="px-6 py-4 cursor-pointer font-bold text-lg flex justify-between items-center gap-4">
+                Where do I install it on Android?
+                <span class="text-2xl transition-transform duration-300 group-open:rotate-180" aria-hidden="true">↓</span>
+              </summary>
+              <div class="px-6 pb-5 text-gray-700 dark:text-gray-300 leading-relaxed">
+                Open datewizza.com in Chrome on Android and either tap the <strong>Install App</strong> button at the top of this page, or open the Chrome menu and choose <strong>Install app</strong> or <strong>Add to Home screen</strong>. The icon lands in your app drawer just like any other app.
+              </div>
+            </details>
+
+            <details class="group bg-white/5 dark:bg-black/20 rounded-2xl border border-white/10 dark:border-white/5 overflow-hidden">
+              <summary class="px-6 py-4 cursor-pointer font-bold text-lg flex justify-between items-center gap-4">
+                Do I have to update the app manually?
+                <span class="text-2xl transition-transform duration-300 group-open:rotate-180" aria-hidden="true">↓</span>
+              </summary>
+              <div class="px-6 pb-5 text-gray-700 dark:text-gray-300 leading-relaxed">
+                No. PWAs update automatically. Every time you open DateWizza, you get the latest version. No "Update Available" notifications, no downloads, no waiting.
+              </div>
+            </details>
+
+            <details class="group bg-white/5 dark:bg-black/20 rounded-2xl border border-white/10 dark:border-white/5 overflow-hidden">
+              <summary class="px-6 py-4 cursor-pointer font-bold text-lg flex justify-between items-center gap-4">
+                How much space does it use?
+                <span class="text-2xl transition-transform duration-300 group-open:rotate-180" aria-hidden="true">↓</span>
+              </summary>
+              <div class="px-6 pb-5 text-gray-700 dark:text-gray-300 leading-relaxed">
+                Roughly the size of a couple of photos. A typical PWA is measured in kilobytes — DateWizza is around 200KB, which is 300× smaller than a comparable native Android app and 500× smaller than a native iOS app.
+              </div>
+            </details>
+
+            <details class="group bg-white/5 dark:bg-black/20 rounded-2xl border border-white/10 dark:border-white/5 overflow-hidden">
+              <summary class="px-6 py-4 cursor-pointer font-bold text-lg flex justify-between items-center gap-4">
+                How do I remove it if something goes wrong?
+                <span class="text-2xl transition-transform duration-300 group-open:rotate-180" aria-hidden="true">↓</span>
+              </summary>
+              <div class="px-6 pb-5 text-gray-700 dark:text-gray-300 leading-relaxed">
+                Long-press the icon on iOS or Android and delete it. On desktop, go to <code class="px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800 text-sm">chrome://apps</code> and remove it. Nothing is left behind — no hidden data, no folders, no residue.
+              </div>
+            </details>
+
+            <details class="group bg-white/5 dark:bg-black/20 rounded-2xl border border-white/10 dark:border-white/5 overflow-hidden">
+              <summary class="px-6 py-4 cursor-pointer font-bold text-lg flex justify-between items-center gap-4">
+                Will the PWA and the website share my login?
+                <span class="text-2xl transition-transform duration-300 group-open:rotate-180" aria-hidden="true">↓</span>
+              </summary>
+              <div class="px-6 pb-5 text-gray-700 dark:text-gray-300 leading-relaxed">
+                Yes. The installed PWA is the same DateWizza under the hood. Your login, your Pro status, your audit history — all shared automatically.
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="max-w-3xl mx-auto my-16 px-2 text-center">
+          <div class="glass rounded-3xl p-8 border border-orange-200/40 dark:border-orange-800/30 bg-gradient-to-br from-orange-50/60 to-pink-50/40 dark:from-orange-950/20 dark:to-pink-950/20">
+            <h2 class="text-2xl md:text-3xl font-extrabold mb-3">Ready to install?</h2>
+            <p class="text-gray-700 dark:text-gray-300 mb-6">One tap. No bloat. No app store. The full DateWizza toolkit on your home screen.</p>
+            <button type="button" id="tt-install-trigger-footer" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-black rounded-2xl shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+              📲 Install DateWizza
+            </button>
+          </div>
+        </section>
+
+      </main>
+
+      <footer id="footer-placeholder"></footer>
+    </div>
+  </div>
+
+  <div id="upgradeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden p-4" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;">
+    <div class="relative w-full max-w-md bg-white/10 dark:bg-gray-900/80 backdrop-blur-2xl rounded-2xl p-8 text-center border border-white/20 dark:border-white/5 shadow-2xl transform transition-all duration-300 scale-95 opacity-0 max-h-[90vh] overflow-y-auto" id="upgradeModalContent">
+      <div class="sticky top-0 z-10 flex justify-end" style="margin-bottom: -3rem; pointer-events: none;">
+        <button onclick="window.closeUpgradeModal()" class="w-10 h-10 flex items-center justify-center rounded-full bg-black/30 hover:bg-black/50 dark:bg-white/20 dark:hover:bg-white/40 text-white dark:text-gray-200 text-2xl font-bold transition" style="pointer-events: auto;" aria-label="Close">&times;</button>
+      </div>
+      <div class="text-5xl mb-4" aria-hidden="true">🚀</div>
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Daily Limit Reached</h2>
+      <p class="mt-2 text-gray-700 dark:text-gray-300">You've used all your free audits today.<br>Choose a plan to continue:</p>
+      <div class="mt-6 space-y-4">
+        <a href="/upgrade/" class="block w-full py-3 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg text-center">Upgrade to Pro</a>
+        <a href="/upgrade/" class="block w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl transition shadow-lg text-center">Upgrade to Enterprise</a>
+      </div>
+      <button onclick="window.closeUpgradeModal()" class="mt-4 text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 underline">Maybe later</button>
+    </div>
+  </div>
+
+  <script src="/main.js?v=1.2" type="module"></script>
+  <script src="/apps/apps.js?v=1.0" type="module"></script>
+  <script type="module" src="/shared/google-analytics.js?v=1.0"></script>
+
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"3b5ec7016f72456a9b4484d5dc706b79","r":1}' crossorigin="anonymous"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function (err) {
+          console.warn('Service worker registration failed:', err);
+        });
+      });
+    }
+  </script>
+
+  <noscript>
+    <h2>Install DateWizza as an App</h2>
+    <p>DateWizza is a Progressive Web App. To install, open datewizza.com in Safari (iOS) or Chrome (Android) and use the browser's <strong>Add to Home Screen</strong> option.</p>
+    <p><a href="https://datewizza.com/">Return to the DateWizza homepage</a></p>
+  </noscript>
+
+</body>
+</html>

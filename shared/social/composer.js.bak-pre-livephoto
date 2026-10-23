@@ -1,0 +1,246 @@
+// shared/social/composer.js
+// New-post composer state + submit logic. Also handles image upload helpers.
+import { API_BASE, apiFetch, apiPost, apiPatch, getToken } from './api.js';
+import { loadFeed } from './feed.js';
+
+export const WORKFLOW_PRESETS = {
+  hardware: ['Mac (Apple Silicon)', 'MacBook Pro (Intel)', 'PC Desktop', 'Windows Laptop', 'Linux Desktop', 'Cloud VM', 'Raspberry Pi', 'iPad Pro'],
+  os: ['macOS Sequoia', 'macOS Sonoma', 'macOS Ventura', 'macOS Monterey', 'Windows 11', 'Ubuntu 24.04', 'Debian', 'Fedora', 'Arch'],
+  ide: ['VS Code', 'Cursor', 'Windsurf', 'Zed', 'Neovim', 'JetBrains', 'Sublime Text', 'BBEdit', 'Xcode'],
+  terminal: ['Terminal.app', 'iTerm2', 'Warp', 'Alacritty', 'Kitty', 'WezTerm', 'Ghostty', 'Windows Terminal', 'WSL'],
+  ai_models: ['DeepSeek', 'Claude Opus', 'Claude Sonnet', 'GPT-4o', 'GPT-5', 'Gemini', 'Llama', 'Mistral', 'Qwen', 'Cloudflare Workers AI', 'Ollama'],
+  ai_tools: ['Claude Code', 'Cursor AI', 'GitHub Copilot', 'Cline', 'Aider', 'Continue.dev', 'ChatGPT', 'DeepSeek Chat', 'Windsurf AI', 'Replit Agent'],
+  cloud: ['Cloudflare Workers', 'Cloudflare Pages', 'Vercel', 'Netlify', 'AWS', 'Google Cloud', 'Azure', 'Fly.io', 'Railway', 'Hetzner'],
+  databases: ['Cloudflare D1', 'Supabase', 'Neon', 'PlanetScale', 'Postgres', 'MySQL', 'MongoDB', 'SQLite', 'Turso', 'Redis', 'Upstash'],
+  devops: ['Wrangler', 'GitHub Actions', 'Docker', 'Kubernetes', 'Terraform', 'npm scripts', 'pnpm', 'bun', 'Makefile'],
+  other_tools: ['BBEdit', 'TablePlus', 'Postman', 'Figma', 'Notion', 'Obsidian', 'Linear', 'Raycast', 'Alfred', 'Firefox DevTools', 'Chrome DevTools']
+};
+
+export const WORKFLOW_CATEGORIES = [
+  { key: 'hardware', label: 'Hardware', ph: 'e.g. MacBook Pro 2016' },
+  { key: 'os', label: 'OS', ph: 'e.g. macOS 12.6' },
+  { key: 'ide', label: 'IDE / Editor', ph: 'e.g. VS Code' },
+  { key: 'terminal', label: 'Terminal', ph: 'e.g. iTerm2' },
+  { key: 'ai_models', label: 'AI Models', ph: 'e.g. DeepSeek, Claude' },
+  { key: 'ai_tools', label: 'AI Tools', ph: 'e.g. Cursor, Copilot' },
+  { key: 'cloud', label: 'Cloud', ph: 'e.g. Cloudflare' },
+  { key: 'databases', label: 'Databases', ph: 'e.g. D1' },
+  { key: 'devops', label: 'DevOps', ph: 'e.g. Wrangler' },
+  { key: 'other_tools', label: 'Other Tools', ph: 'e.g. Postman' }
+];
+
+export const EMPTY_WF_CHIPS = () => ({
+  hardware: [], os: [], ide: [], terminal: [], ai_models: [],
+  ai_tools: [], cloud: [], databases: [], devops: [], other_tools: []
+});
+
+export function openComposer(ctx) { ctx.composer.open = true; }
+
+export function closeComposer(ctx) {
+  const c = ctx.composer;
+  c.open = false;
+  c.title = '';
+  c.body = '';
+  c.preview = false;
+  c.editingId = null;
+  c.images = [];
+  c.uploading = 0;
+  c.submitting = false;
+  c.postType = 'discussion';
+  c.wfVersion = '';
+  c.wfSummary = '';
+  c.wfChips = EMPTY_WF_CHIPS();
+  c.wfChipInput = {};
+  c.wfDecisions = '';
+  c.wfPain = '';
+  c.wfNext = '';
+  c.wfRepo = '';
+  c.wfPreviousId = null;
+}
+
+export function addWfChip(ctx, cat) {
+  const v = String(ctx.composer.wfChipInput[cat] || '').trim().slice(0, 60);
+  if (!v) return;
+  if (!Array.isArray(ctx.composer.wfChips[cat])) ctx.composer.wfChips[cat] = [];
+  if (ctx.composer.wfChips[cat].includes(v)) { ctx.composer.wfChipInput[cat] = ''; return; }
+  if (ctx.composer.wfChips[cat].length >= 12) return;
+  ctx.composer.wfChips[cat].push(v);
+  ctx.composer.wfChipInput[cat] = '';
+}
+
+export function addWfChipValue(ctx, cat, v) {
+  if (!Array.isArray(ctx.composer.wfChips[cat])) ctx.composer.wfChips[cat] = [];
+  if (ctx.composer.wfChips[cat].includes(v)) return;
+  if (ctx.composer.wfChips[cat].length >= 12) return;
+  ctx.composer.wfChips[cat].push(v);
+}
+
+export function removeWfChip(ctx, cat, i) {
+  ctx.composer.wfChips[cat].splice(i, 1);
+}
+
+export function titleHint(ctx) {
+  const L = ctx.composer.title.trim().length;
+  if (L === 0) return 'Add a title';
+  if (L < 3) return (3 - L) + ' more character' + ((3 - L) === 1 ? '' : 's');
+  return '';
+}
+
+export function bodyHint(ctx) {
+  const L = ctx.composer.body.trim().length;
+  if (L === 0) return 'Add a body';
+  if (L < 10) return (10 - L) + ' more character' + ((10 - L) === 1 ? '' : 's');
+  return '';
+}
+
+export function versionHint(ctx) {
+  if (ctx.composer.postType !== 'workflow') return '';
+  return ctx.composer.wfVersion.trim() ? '' : 'Add a version (e.g. v1.0)';
+}
+
+export function canSubmitDiscussion(ctx) {
+  const c = ctx.composer;
+  if (c.submitting) return false;
+  if (c.title.trim().length < 3) return false;
+  if (c.body.trim().length < 10) return false;
+  if (c.postType === 'workflow' && !c.wfVersion.trim()) return false;
+  return true;
+}
+
+export function removeComposerImage(ctx, i) { ctx.composer.images.splice(i, 1); }
+
+export function removeCommentImage(ctx, postId, i) {
+  const arr = ctx.feed.commentImages?.[postId];
+  if (arr) arr.splice(i, 1);
+}
+
+/** Resize any image to max 1600px on its longer edge, WebP preferred. */
+export async function resizeImage(file, maxDim = 1600, quality = 0.85) {
+  let src;
+  try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+  catch {
+    src = await new Promise((res, rej) => {
+      const img = new Image();
+      img.onload = () => res(img);
+      img.onerror = rej;
+      img.src = URL.createObjectURL(file);
+    });
+  }
+  const scale = Math.min(1, maxDim / Math.max(src.width, src.height));
+  const w = Math.round(src.width * scale);
+  const h = Math.round(src.height * scale);
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const cctx = c.getContext('2d');
+  cctx.imageSmoothingQuality = 'high';
+  cctx.drawImage(src, 0, 0, w, h);
+  const toBlob = (t, q) => new Promise(r => c.toBlob(r, t, q));
+  let blob = await toBlob('image/webp', quality);
+  if (!blob || blob.type !== 'image/webp') blob = await toBlob('image/jpeg', quality);
+  return { blob, width: w, height: h };
+}
+
+export async function uploadImage(ctx, file, target) {
+  const MAX = 5 * 1024 * 1024;
+  if (file.size > MAX) { alert('Image too large (max 5MB after resize).'); return; }
+  if (!file.type.startsWith('image/') && !file.name.match(/\.(jpe?g|png|webp|heic|heif|avif)$/i)) {
+    alert('Only images allowed.'); return;
+  }
+  try {
+    if (target === 'composer') ctx.composer.uploading++;
+    const { blob, width, height } = await resizeImage(file);
+    const fd = new FormData();
+    fd.append('file', blob, 'image.' + (blob.type === 'image/webp' ? 'webp' : 'jpg'));
+    fd.append('width', String(width));
+    fd.append('height', String(height));
+    const res = await fetch(API_BASE + '/api/uploads/image', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + getToken() },
+      body: fd
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) throw new Error(data.error || 'Upload failed');
+    const imgObj = { url: data.url, key: data.key, width, height };
+    if (target === 'composer') {
+      if (ctx.composer.images.length >= 5) { alert('Max 5 images per post.'); return; }
+      ctx.composer.images.push(imgObj);
+    } else if (target.postId) {
+      if (!ctx.feed.commentImages) ctx.feed.commentImages = {};
+      if (!ctx.feed.commentImages[target.postId]) ctx.feed.commentImages[target.postId] = [];
+      if (ctx.feed.commentImages[target.postId].length >= 3) { alert('Max 3 images per comment.'); return; }
+      ctx.feed.commentImages[target.postId].push(imgObj);
+    }
+  } catch (e) {
+    alert('Upload failed: ' + e.message);
+  } finally {
+    if (target === 'composer') ctx.composer.uploading = Math.max(0, ctx.composer.uploading - 1);
+  }
+}
+
+export async function handleComposerFiles(ctx, files) {
+  for (const f of Array.from(files || [])) await uploadImage(ctx, f, 'composer');
+}
+
+export async function handleCommentFiles(ctx, postId, files) {
+  for (const f of Array.from(files || [])) await uploadImage(ctx, f, { postId });
+}
+
+export async function submitDiscussion(ctx) {
+  if (!canSubmitDiscussion(ctx)) return;
+  const c = ctx.composer;
+  c.submitting = true;
+  const editing = c.editingId;
+  try {
+    const wfMeta = c.postType === 'workflow' ? {
+      version: c.wfVersion.trim().slice(0, 20),
+      summary: c.wfSummary.trim().slice(0, 300),
+      hardware: c.wfChips.hardware,
+      os: c.wfChips.os,
+      ide: c.wfChips.ide,
+      terminal: c.wfChips.terminal,
+      ai_models: c.wfChips.ai_models,
+      ai_tools: c.wfChips.ai_tools,
+      cloud: c.wfChips.cloud,
+      databases: c.wfChips.databases,
+      devops: c.wfChips.devops,
+      other_tools: c.wfChips.other_tools,
+      decisions_md: c.wfDecisions.slice(0, 6000),
+      pain_md: c.wfPain.slice(0, 3000),
+      next_md: c.wfNext.slice(0, 2000),
+      repo_url: c.wfRepo.trim().slice(0, 500),
+      previous_id: c.wfPreviousId || null,
+      adopt_count: 0,
+      upvotes: 0,
+      downvotes: 0
+    } : null;
+    const payload = editing
+      ? { title: c.title.trim(), body_md: c.body.trim(), category: c.category, images: c.images, workflow_meta: wfMeta }
+      : { post_type: c.postType, category: c.category, title: c.title.trim(), body_md: c.body.trim(), images: c.images, workflow_meta: wfMeta };
+    const url = editing ? `/api/posts/${editing}` : `/api/posts`;
+    const data = editing
+      ? await apiPatch(url, payload)
+      : await apiPost(url, payload);
+    if (data.success) {
+      const postedCat = c.category;
+      closeComposer(ctx);
+      if (!editing && ctx.feed.category !== postedCat) ctx.feed.category = postedCat;
+      await loadFeed(ctx, true);
+    } else {
+      alert(data.error || (editing ? 'Failed to save' : 'Failed to post'));
+    }
+  } catch (e) {
+    alert('Error: ' + e.message);
+  } finally {
+    c.submitting = false;
+  }
+}
+
+export function editDiscussion(ctx, post) {
+  const c = ctx.composer;
+  c.open = true;
+  c.editingId = post.id;
+  c.title = post.title || '';
+  c.body = post.body_md || post.note || '';
+  c.category = post.category || 'seo';
+  c.preview = false;
+}

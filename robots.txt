@@ -1,0 +1,12 @@
+# Traffic Torch - robots.txt
+# Last updated: May 29, 2026
+# Domain: traffictorch.net
+
+User-agent: *
+Allow: /
+
+# Core sitemaps
+Sitemap: https://traffictorch.net/sitemap.xml
+
+# AI-friendly files
+Allow: /llms.txt

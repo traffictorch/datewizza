@@ -1,0 +1,1 @@
+ALTER TABLE events ADD COLUMN is_public INTEGER DEFAULT 0;

@@ -1,0 +1,64 @@
+<!-- ============================================================
+     Feature B — Discover sub-tab for dashboard network tab
+     Insert TWO places in dashboard/index.html:
+
+     1) Add sub-tab button alongside Feed / Network / Invite:
+        <button @click="networkSubTab = 'discover'; loadDiscover()"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition"
+                :class="networkSubTab === 'discover' ? 'bg-orange-500 text-white' : 'bg-gray-200 dark:bg-gray-700'">
+          Discover
+        </button>
+
+     2) Add this panel inside the Network tab region:
+     ============================================================ -->
+
+<div x-show="networkSubTab === 'discover'" x-cloak class="max-w-4xl mx-auto">
+  <div class="flex items-center justify-between gap-3 flex-wrap mb-4">
+    <div>
+      <h3 class="text-lg font-bold">🌟 Discover</h3>
+      <p class="text-xs text-gray-500 mt-0.5">Random people you're not connected to yet — reshuffles daily at 11:00 UTC</p>
+    </div>
+    <button @click="randomizeDiscover()" :disabled="discover.loading"
+            class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition disabled:opacity-50">
+      🎲 Randomize
+    </button>
+  </div>
+
+  <div x-show="discover.loading" class="text-center py-10">
+    <div class="spinner mx-auto"></div>
+  </div>
+
+  <div x-show="!discover.loading && discover.users.length === 0" class="glass rounded-2xl p-8 text-center">
+    <p class="text-4xl mb-3">🌱</p>
+    <p class="text-gray-500">No new people to discover yet.</p>
+    <p class="text-sm text-gray-400 mt-2">Invite a colleague or wait for the daily reshuffle.</p>
+  </div>
+
+  <div x-show="!discover.loading && discover.users.length > 0"
+       class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+    <template x-for="u in discover.users" :key="'dash-disc-' + u.id">
+      <div class="glass rounded-2xl p-3 flex flex-col items-center text-center hover:bg-white/10 transition">
+        <img :src="ttAvatarSrc(u)"
+             width="56" height="56" style="width:56px;height:56px;"
+             class="rounded-full object-cover mb-2" alt="" loading="lazy">
+        <a :href="'/torcher/' + u.username + '/'"
+           class="font-bold text-sm hover:text-orange-500 truncate w-full"
+           x-text="u.display_name || u.username"></a>
+        <p class="text-xs text-gray-500 truncate w-full">@<span x-text="u.username"></span></p>
+        <span class="inline-block mt-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide rounded-full bg-orange-500/20 text-orange-500"
+              x-text="roleLabel(u.role)"></span>
+        <div class="flex items-center gap-2 mt-1.5 text-[10px] text-gray-500">
+          <span x-show="u.total_points > 0">🏅 <span x-text="u.total_points"></span></span>
+          <span x-show="u.torch_count > 0">🔥 <span x-text="u.torch_count"></span></span>
+        </div>
+        <button @click="addDiscoverUser(u)" :disabled="discover.addLoading[u.id]"
+                class="mt-2 w-full py-1.5 text-xs font-bold rounded-lg border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition disabled:opacity-50">
+          <span x-show="!discover.addLoading[u.id]">+ Add</span>
+          <span x-show="discover.addLoading[u.id]">…</span>
+        </button>
+      </div>
+    </template>
+  </div>
+
+  <p x-show="discover.error" class="text-red-500 text-xs text-center mt-3" x-text="discover.error"></p>
+</div>

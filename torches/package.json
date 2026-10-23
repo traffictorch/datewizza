@@ -1,0 +1,22 @@
+{
+  "name": "torches-page-render",
+  "version": "1.0.0",
+  "description": "DateWizza dynamic page renderer (profiles, torches, sitemaps, RSS, OG)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "wrangler": "^4.148.0"
+  },
+  "dependencies": {
+    "workers-og": "^0.0.27"
+  }
+}

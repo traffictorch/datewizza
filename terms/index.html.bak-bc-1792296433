@@ -1,0 +1,374 @@
+<!DOCTYPE html> 
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Optimized SEO Title & Description -->
+  <title>Terms of Service | Traffic Torch – 360 AI SEO &amp; UX Tools</title>
+  <meta name="description" content="Traffic Torch Terms of Service: AI-powered SEO &amp; UX tools with 100% client-side processing. Zero commitment or data collection.">
+  
+  <!-- Robots & Canonical (index for transparency; use noindex if preferred for legal pages) -->
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://traffictorch.net/terms/"> <!-- Adjust path if page is /terms/ -->
+  
+    <!-- Theme Color -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)">
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="en" href="https://traffictorch.net/terms/">
+  <link rel="alternate" hreflang="x-default" href="https://traffictorch.net/terms/">
+  
+  <!-- Open Graph Tags (Facebook, LinkedIn, etc.) -->
+  <meta property="og:title" content="Terms of Service | Traffic Torch – AI SEO &amp; UX Tools">
+  <meta property="og:description" content="Traffic Torch is completely free with no signup required. All tools run client-side – review our simple terms for using our instant AI-powered SEO &amp; UX analysis suite.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://traffictorch.net/terms/">
+  <meta property="og:image" content="https://traffictorch.net/images/traffic-torch-toolkit.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Traffic Torch">
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terms of Service | Traffic Torch – AI SEO &amp; UX Tools">
+  <meta name="twitter:description" content="Traffic Torch is completely free with no signup required. All tools run client-side – review our simple terms for using our instant AI-powered SEO &amp; UX analysis suite.">
+  <meta name="twitter:image" content="https://traffictorch.net/images/traffic-torch-toolkit.webp">
+  <meta name="twitter:site" content="@Guitaralize">
+  
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TermsOfService",
+  "name": "Terms of Service - Traffic Torch",
+  "description": "Terms of Service for Traffic Torch: Free, 100% client-side AI-powered SEO and UX analysis tools. No data collection, no accounts required, no tracking. Use at your own risk; no warranties provided.",
+  "url": "https://traffictorch.net/terms/",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Traffic Torch",
+    "url": "https://traffictorch.net/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Traffic Torch"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Traffic Torch",
+  "url": "https://traffictorch.net/",
+  "logo": "https://traffictorch.net/logo-512.webp",
+  "description": "Creators of free, privacy-first AI-powered SEO and UX analysis tools. All processing runs in-browser with secure proxy fetching – no data stored, logged, or shared.",
+  "sameAs": [
+         "https://g.dev/traffictorch",
+         "https://github.com/traffictorch/",
+         "https://orcid.org/0009-0006-4084-0241",
+         "https://www.wikidata.org/wiki/Q139815165",
+         "https://zenodo.org/records/20149616",
+         "https://github.com/traffictorch/traffic-torch",
+         "https://chromewebstore.google.com/detail/traffic-torch-tools/ngfkdkgjjipecoklnoidfcfidpdafegl",
+         "https://addons.mozilla.org/en-US/firefox/addon/traffic-torch-tools/",
+         "https://microsoftedge.microsoft.com/addons/detail/traffic-torch-tools/cbbabinigplbmdbnkpkeocchccfalemb",
+         "https://marketplace.visualstudio.com/items?itemName=traffic-torch.traffic-torch-dev-tools",
+         "https://wordpress.org/plugins/traffic-torch-ai-geo-and-seo-tools/",
+         "https://www.framer.com/marketplace/plugins/traffic-torch/",
+         "https://www.figma.com/community/plugin/1624971170654319802/traffic-torch-seo-toolkit",
+         "https://github.com/marketplace/actions/traffic-torch-audit",
+         "https://www.linkedin.com/in/ylia-callan-8b889976/",
+         "https://x.com/Guitaralize"
+     ]
+}
+</script>
+
+<!-- BreadcrumbList for consistent site hierarchy signals -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://traffictorch.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Terms of Service",
+      "item": "https://traffictorch.net/terms/"
+    }
+  ]
+}
+</script>
+  
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo-180.webp">
+  <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.webp">
+  <link rel="apple-touch-icon" sizes="512x512" href="/logo-512.webp">
+  <meta name="apple-mobile-web-app-title" content="Torch">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" type="image/webp" sizes="192x192" href="/logo-192.webp">
+  <link rel="icon" type="image/webp" sizes="512x512" href="/logo-512.webp">
+  <link rel="manifest" href="/manifest.json">
+  <!-- Preload critical CSS -->
+  <link rel="preload" as="style" href="/style.css?v=1.0" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/style.css?v=1.0">
+  </noscript>
+
+  <style>html{visibility:hidden;opacity:0;transition:opacity 0.4s ease}</style>
+  <link rel="preload" as="style" href="/tailwind-local.css?v=1.0" onload="this.onload=null;this.rel='stylesheet';document.documentElement.style.visibility='visible';document.documentElement.style.opacity='1'">
+  <noscript>
+    <style>html{visibility:visible;opacity:1}</style>
+    <link rel="stylesheet" href="/tailwind-local.css?v=1.0">
+  </noscript>
+
+<script>
+    // Apply dark class to <html> immediately (fixes Tailwind dark: variants)
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+  
+</head>
+
+<body class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+  <!-- Main Layout Container - Desktop flex with sidebar -->
+  <div class="flex flex-1 min-h-screen">
+    <!-- Desktop-only Sticky Collapsible Sidebar (hidden on mobile) -->
+	<aside id="desktopSidebar" class="hidden md:flex w-64 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-r border-white/10 dark:border-white/5 transition-all duration-300 ease-in-out overflow-y-auto sticky top-0 h-screen flex flex-col self-start">      
+	<!-- Sidebar Header with Logo -->
+      <div class="flex items-center justify-center p-6 border-b border-white/10 dark:border-white/5">
+        <a href="/" class="flex items-center gap-4">
+            <img src="/logo-160w.webp" srcset="/logo-160w.webp 160w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch – SEO • UX • AI Analysis Tools" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+          <span id="sidebarTitle" class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent hidden">
+            Traffic Torch
+          </span>
+        </a>
+      </div>
+<!-- Menu Items -->
+<div id="desktop-menu-placeholder" class="menu-fade-in opacity-0 transition-opacity duration-500 ease-in"></div>
+      <!-- Collapse/Expand Button - Always visible -->
+      <div class="p-4 border-t border-white/10 dark:border-white/5">
+        <button id="sidebarCollapse" class="w-full flex items-center justify-center py-3 text-2xl text-gray-500 dark:text-white/70 hover:text-orange-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition">
+          ←
+        </button>
+      </div>
+    </aside>
+    <!-- Main Content Area (full width on mobile, shifted on desktop) -->
+    <div class="flex-1 flex flex-col">
+      <!-- Header (unchanged logic, but adjusted for desktop sidebar) -->
+      <header class="sticky top-0 z-50 bg-white/5 dark:bg-black/40 backdrop-blur-xl border-b border-white/10 dark:border-white/5">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <!-- Logo hidden on desktop since in sidebar -->
+          <a href="/" class="flex items-center gap-4 md:hidden">
+          <img src="/logo-100w.webp" srcset="/logo-100w.webp 100w, /logo-320w.webp 320w" sizes="70px" alt="Traffic Torch SEO Analysis Tools Logo" class="w-10 rounded-xl flex-shrink-0" width="40" height="40" loading="eager">
+            <p class="text-[1.25rem] font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">
+              Traffic Torch
+            </p>
+          </a>
+          <!-- Empty spacer on mobile to balance -->
+          <div class="w-10 md:hidden"></div>
+          <button id="menuToggle" class="md:hidden text-3xl text-gray-500 relative left-0 -top-1">☰</button>
+         
+          <!-- New: Desktop Sidebar Toggle Hamburger (hidden on mobile, right side) -->
+          <button id="desktopMenuToggle" class="hidden md:block text-3xl text-gray-500 dark:text-white/90 hover:text-orange-400 transition mr-4">
+            ☰
+          </button>
+         
+          <!-- Theme Toggle -->
+          <button id="themeToggle" class="py-1 px-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xl">
+            🌙
+          </button>
+        </div>
+        <!-- Mobile Menu Dropdown (unchanged) -->
+        <div id="mobileMenu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10">
+          <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-800 dark:text-gray-200 text-3xl focus:outline-none" aria-label="Close menu">
+			  ×
+			</button>
+<div id="mobile-menu-placeholder"></div>
+        </div>
+      </header>
+      
+  <!-- Main Content – Epic Terms -->
+  <main class="container mx-auto px-4 py-4 max-w-7xl">
+    <div class="text-center mb-16">
+<h1 class="text-3xl md:text-x4l font-black mb-6 bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">
+        Terms of Service
+      </h1>
+      <!-- Expanding Intro Summary -->
+      <details class="max-w-3xl mx-auto text-left bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-orange-500/30 cursor-pointer">
+        <summary class="text-2xl font-bold mb-4 flex items-center gap-2 cursor-pointer">
+          Quick Terms Summary <svg class="chevron ml-auto" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </summary>
+        <p class="text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+          Traffic Torch is your free SEO + UX sidekick. No warranties, use at own risk. Don't misuse tools. We respect your privacy. Have fun optimizing! 🚀
+        </p>
+      </details>
+    </div>
+
+    <!-- Epic Sections in Cards -->
+    <div class="grid md:grid-cols-2 mb-10 gap-8">
+      <div class="tool-card group block rounded-3xl overflow-hidden shadow-2xl hover:shadow-orange-500/50">
+        <div class="h-full bg-white/10 backdrop-blur-xl p-10 border border-orange-500/30 group-hover:border-orange-400 transition-all">
+          <div class="text-orange-400 text-7xl mb-6 group-hover:animate-spin">⚖️</div>
+          <h2 class="text-2xl font-bold mb-3">1. Acceptance of Terms</h2>
+          <p class="text-gray-800 dark:text-gray-200">By using Traffic Torch, you agree to these terms. If not, please don't use the site. Simple as that!</p>
+        </div>
+      </div>
+      <div class="tool-card group block rounded-3xl overflow-hidden shadow-2xl hover:shadow-pink-500/50">
+        <div class="h-full bg-white/10 backdrop-blur-xl p-10 border border-pink-500/30 group-hover:border-pink-400 transition-all">
+          <div class="text-pink-400 text-7xl mb-6 group-hover:animate-bounce">🛡️</div>
+          <h2 class="text-2xl font-bold mb-3">2. Use of Service</h2>
+          <p class="text-gray-800 dark:text-gray-200">Our tools are free for personal/commercial use. No spam, no illegal stuff. We may update or suspend anytime.</p>
+        </div>
+      </div>
+      <div class="tool-card group block rounded-3xl overflow-hidden shadow-2xl hover:shadow-emerald-500/50">
+        <div class="h-full bg-white/10 backdrop-blur-xl p-10 border border-emerald-500/30 group-hover:border-emerald-400 transition-all">
+          <div class="text-emerald-400 text-7xl mb-6 group-hover:animate-pulse">📊</div>
+          <h2 class="text-2xl font-bold mb-3">3. Data & Privacy</h2>
+          <p class="text-gray-800 dark:text-gray-200">We don't collect personal data. URLs you analyze are processed client-side. See Privacy Policy for details.</p>
+        </div>
+      </div>
+      <div class="tool-card group block rounded-3xl overflow-hidden shadow-2xl hover:shadow-purple-500/50">
+        <div class="h-full bg-white/10 backdrop-blur-xl p-10 border border-purple-500/30 group-hover:border-purple-400 transition-all">
+          <div class="text-purple-400 text-7xl mb-6 group-hover:animate-wiggle">🚫</div>
+          <h2 class="text-2xl font-bold mb-3">4. Disclaimer</h2>
+          <p class="text-gray-800 dark:text-gray-200">Tools are for info only — no guarantees on rankings. Use at your risk. We're not liable for any issues.</p>
+        </div>
+      </div>
+      <div class="tool-card group block rounded-3xl overflow-hidden shadow-2xl hover:shadow-red-500/50 md:col-span-2">
+        <div class="h-full bg-white/10 backdrop-blur-xl p-10 border border-red-500/30 group-hover:border-red-400 transition-all">
+          <div class="text-red-400 text-7xl mb-6 group-hover:animate-shake">📜</div>
+          <h2 class="text-2xl font-bold mb-3">5. Changes & Contact</h2>
+          <p class="text-gray-800 dark:text-gray-200">We can update terms anytime. Questions? Hit us up on the contact page.</p>
+        </div>
+      </div>
+    </div>
+    
+    <section class="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-4xl mx-auto px-6 prose prose-lg dark:prose-invert">
+    <h2 class="text-4xl font-bold text-center mb-8 text-gray-800 dark:text-gray-200">Terms of Service</h2>
+    <p class="text-center text-gray-600 dark:text-gray-400 mb-12">Last updated: September 4, 2026</p>
+
+    <p>Welcome to Traffic Torch (traffictorch.net). We provide a unified <strong>Pro Dashboard</strong> with real‑time Google Analytics 4 and Search Console data, the <strong>OFUX</strong> (Online Findability & User Experience) three‑in‑one audit (UX Health, SEO Intent, AI Search), and 15+ standalone SEO, GEO, AEO, and UX analysis tools. All core processing runs client‑side – we do not store or log your analyzed URLs, content, or reports. These Terms ("Terms") govern your access to and use of our website, tools, dashboards, reports, and paid subscription services ("Service").</p>
+
+    <p>By accessing or using the Service, you agree to these Terms. If you do not agree, do not use the Service.</p>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>These Terms form a binding agreement between you ("User", "you") and Traffic Torch (operated independently). We may update these Terms at any time; continued use after changes constitutes acceptance. We will notify material changes via the site or email (if you have a Pro or Enterprise account).</p>
+
+    <h2>2. Description of Service</h2>
+    <p>Traffic Torch offers the following core features:</p>
+    <ul>
+      <li><strong>Pro Dashboard</strong> – Connects your Google Analytics 4 and Search Console properties. Displays real‑time metrics (sessions, users, clicks, impressions) with custom date ranges (7, 14, 30 days, and custom for Enterprise). Includes top content, traffic sources, device/country breakdowns, and CSV exports. Enterprise users get real‑time active users and event tracking.</li>
+      <li><strong>OFUX (Online Findability & User Experience)</strong> – A free, three‑in‑one audit on the homepage. Runs UX Health, SEO Intent, and AI Search (AEO) simultaneously, delivering 0–100 scores, module breakdowns, and AI‑generated CMS fixes (Beta). All client‑side, no data stored.</li>
+      <li><strong>Standalone Tools</strong> – 15+ tools covering topical authority, entity extraction, keyword research, local SEO, product SEO, AI content audit, quit risk, schema generation, and more. Each provides instant scores, deep‑dive diagnostics, prioritized fixes, and educational explanations.</li>
+    </ul>
+    <p>All free users get a limited number of daily audits (3 runs) and 7‑day data in the Pro Dashboard. Pro and Enterprise plans unlock higher limits and advanced features.</p>
+
+    <h2>3. Accounts, Subscriptions, and Tiers</h2>
+    <ul>
+      <li><strong>Free Tier:</strong> No payment required. Includes 3 daily audit runs, all 15+ tools (limited to 7‑day data in dashboard), and basic analytics views. No CSV exports or real‑time.</li>
+      <li><strong>Pro Tier:</strong> $6/month (6‑month commit), $48/year, or $198 lifetime (one‑time). Includes 25 daily runs, 30‑day GA4 data, 28‑day GSC data, CSV exports, priority support, and all tools.</li>
+      <li><strong>Enterprise Tier:</strong> $68/month or $680/year. Includes 300 daily runs, 365‑day data, real‑time active users/events, custom date ranges, dedicated support, and all features.</li>
+    </ul>
+    <p>Payments are processed securely by Stripe (PCI DSS compliant). We do not store payment details. Subscriptions auto‑renew unless canceled via the Stripe portal. You may cancel anytime – no lock‑in. Refunds are available within 7 days of purchase (no abuse detected). Daily run limits reset at midnight UTC.</p>
+
+    <h2>4. Acceptable Use</h2>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Use the Service for illegal, harmful, or abusive purposes.</li>
+      <li>Attempt to reverse‑engineer, scrape, or overload the site.</li>
+      <li>Misrepresent reports or use them in fraudulent ways.</li>
+      <li>Share Pro or Enterprise login credentials.</li>
+    </ul>
+    <p>We may suspend or terminate access for violations without notice.</p>
+
+    <h2>5. Intellectual Property</h2>
+    <p>All content, code, AI models, designs, and reports ("Our IP") remain our property. You receive a limited, non‑exclusive, non‑transferable license to use reports for personal/commercial optimization during your subscription. Do not resell, redistribute, or claim ownership of generated insights.</p>
+
+    <h2>6. Privacy and Data</h2>
+    <p>We are privacy‑first: No personal data collection beyond optional login for Pro/Enterprise (email + Stripe customer ID). Analyses are 100% client‑side. We use Google Analytics (anonymized, no cross‑site tracking) to understand site usage and improve the tool. You can opt out via browser settings or our cookie banner. See our <a href="/privacy/" class="text-indigo-600 dark:text-indigo-400 hover:underline">Privacy Policy</a> for full details.</p>
+
+    <h2>7. Disclaimers and Limitation of Liability</h2>
+    <p>The Service is provided "as is" without warranties. SEO/UX/analytics insights are informational only. We do not guarantee rankings, traffic increases, or business results. We are not liable for any indirect, consequential, or punitive damages. Liability is limited to the amount you paid in the prior 12 months (or $100 if free user). This applies to the fullest extent permitted by law.</p>
+
+    <h2>8. Indemnification</h2>
+    <p>You agree to indemnify us against claims arising from your misuse of the Service or violation of these Terms.</p>
+
+    <h2>9. Termination</h2>
+    <p>We may terminate or suspend access anytime for violations or at our discretion. Subscriptions end on cancellation or non‑renewal; access reverts to free limits.</p>
+
+    <h2>10. Governing Law</h2>
+    <p>These Terms are governed by the laws of New South Wales, Australia, without regard to conflict of laws. Disputes resolved in Sydney courts.</p>
+
+    <h2>11. Changes to Terms</h2>
+    <p>We may update these Terms. Material changes will be posted here with updated date. For Pro/Enterprise users, we may email notice.</p>
+
+    <h2>12. Contact</h2>
+    <p>Questions? Reach out via the contact page.</p>
+
+    <p class="mt-12 text-center text-sm text-gray-500 dark:text-gray-400">Thank you for using Traffic Torch — Pro Dashboard, OFUX, and the full toolkit are here to light up your SEO & UX. 🔥</p>
+  </div>
+</section>
+    
+<!-- Share -->
+ <section class="share-block" aria-label="Share options">
+     <div class="share-row">
+        <button type="button" class="share-btn" data-native-share hidden>📤 Share?</button>
+        <button type="button" class="share-btn" data-copy>Copy link 🔗</button>
+         </div>
+        <p class="share-status" aria-live="polite"></p>
+   </section>
+
+<!-- Breadcrumbs – semantic & detectable by analyzer -->
+<nav aria-label="breadcrumb" class="max-w-5xl mx-auto px-6 py-4 text-center">
+  <div class="inline-block">
+    <p class="font-medium text-orange-500 hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-300 transition text-sm">
+      <a href="/">Traffic Torch</a>
+    </p>
+    <p class="font-medium text-gray-800 dark:text-gray-200 text-sm mt-1">
+      <span id="page-name"></span>
+    </p>
+  </div>
+</nav>
+
+<script>
+  // Set page name (unchanged)
+  document.getElementById('page-name').textContent = document.title
+    .replace('Traffic Torch – ', '')
+    .replace(' | Traffic Torch', '')
+    .replace(' Tool', '')
+    .trim();
+</script>
+
+  </main>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+</div>
+</div>
+  
+  <script src="/main.js?v=1.2" type="module"></script>
+  <script type="module" src="/shared/google-analytics.js?v=1.0"></script>
+  
+</body>
+</html>

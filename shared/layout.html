@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DateWizza</title>
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="manifest" href="/manifest.json" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white min-h-screen">
+  <!-- Header (same on every page) -->
+  <header class="border-b border-white/10">
+    <div class="container mx-auto px-6 py-6 flex justify-between items-center">
+      <a href="/" class="flex items-center gap-4">
+        <img src="/logo.webp" alt="DateWizza" class="w-12 rounded-xl">
+        <h1 class="text-3xl font-black bg-gradient-to-r from-orange-400 to-pink-600 bg-clip-text text-transparent">
+          DateWizza
+        </h1>
+      </a>
+      <button id="themeToggle" class="px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+        🌙
+      </button>
+    </div>
+  </header>
+
+  <!-- Page content goes here -->
+  <main id="app" class="container mx-auto px-6 py-12">
+    <!-- Tool injects content here -->
+  </main>
+
+  <!-- PWA + Theme Script -->
+  <script>
+    // Day/Night
+    const toggle = document.getElementById('themeToggle');
+    if (localStorage.theme === 'light') document.documentElement.classList.add('light');
+    toggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light');
+      localStorage.theme = document.documentElement.classList.contains('light') ? 'light' : 'dark';
+      toggle.textContent = document.documentElement.classList.contains('light') ? '☀️' : '🌙';
+    });
+
+    // PWA Install
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.createElement('button');
+      btn.textContent = 'Install';
+      btn.className = 'fixed bottom-6 right-6 z-50 px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-600 rounded-full shadow-2xl';
+      btn.onclick = () => deferredPrompt.prompt();
+      document.body.appendChild(btn);
+    });
+  </script>
+</body>
+</html>

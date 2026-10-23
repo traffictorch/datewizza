@@ -1,0 +1,330 @@
+<!-- desktop-menu.html – Portal + Dashboard dropdowns + tools + account links -->
+<nav class="p-2 space-y-4 flex-1">
+
+  <!-- Round Table — primary governance link -->
+  <div>
+    <a href="/community/round-table/"
+       class="group w-full flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition rounded-lg px-2 py-2 border border-orange-500/20 dark:border-orange-400/20 bg-gradient-to-r from-orange-500/10 to-pink-500/10 hover:from-orange-500/20 hover:to-pink-500/20"
+       title="Round Table — decentralized community governance">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🗳️</span>
+      <span class="sidebar-text font-semibold flex-1 text-left">Round Table</span>
+      <span class="ml-auto flex items-center gap-2">
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-500 text-white">NEW</span>
+      </span>
+    </a>
+  </div>
+
+  <!-- ═══ Portal dropdown (expanded by default) ═══ -->
+  <div>
+    <button
+      type="button"
+      role="menuitem"
+      class="group w-full flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition focus:outline-none pro-menu-link"
+      aria-expanded="true"
+      aria-controls="proportal-content"
+      data-category="proportal"
+      title="Portal – Profile, Beams & Network"
+    >
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🚦</span>
+      <span class="sidebar-text font-semibold flex-1 text-left">Portal</span>
+      <span class="ml-auto flex items-center gap-2">
+        <span data-pro-badge-slot></span>
+        <span class="text-xl transition-transform sidebar-arrow hidden md:inline">▼</span>
+        <a href="/dashboard/#notifications-section"
+           class="text-base font-bold text-orange-500 dark:text-orange-400 hover:underline cursor-pointer flex items-center gap-1"
+           title="View notifications">
+          <span>🔔</span>
+          <span data-portal-count class="hidden text-xs font-bold px-2 py-0.5 rounded-full bg-orange-500 text-white">0</span>
+        </a>
+      </span>
+    </button>
+    <div id="proportal-content" class="pl-0 md:pl-10 space-y-3 mt-1" data-category-content="proportal">
+      <a href="/dashboard/#profile" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" data-tab="profile">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">👤</span>
+        <span class="sidebar-text hidden md:block">Profile</span>
+      </a>
+      <a href="javascript:void(0)" id="tt-beams-inbox-link" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Beam – private messages">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📧</span>
+        <span class="sidebar-text hidden md:block flex-1">Beams</span>
+        <span id="tt-beams-count" class="hidden text-xs font-bold px-2 py-0.5 rounded-full bg-orange-500 text-white">0</span>
+      </a>
+      <a href="/dashboard/#network" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" data-tab="network">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🕸️</span>
+        <span class="sidebar-text hidden md:block">Network</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══ Dashboard dropdown ═══ -->
+  <div>
+    <button
+      type="button"
+      role="menuitem"
+      class="group w-full flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition focus:outline-none"
+      aria-expanded="false"
+      aria-controls="dashboard-content"
+      data-category="dashboard"
+      title="Dashboard – Audits, Analytics, Real-time, Search Console, Integrations, Upgrade & Settings"
+    >
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📊</span>
+      <span class="sidebar-text font-semibold flex-1 text-left">Dashboard</span>
+      <span class="ml-auto text-xl transition-transform sidebar-arrow hidden md:inline">▼</span>
+    </button>
+    <div id="dashboard-content" class="pl-0 md:pl-10 space-y-3 mt-1 hidden" data-category-content="dashboard">
+      <a href="/dashboard/#audits" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" data-tab="audits">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📋</span>
+        <span class="sidebar-text hidden md:block">Audits</span>
+      </a>
+      <a href="/dashboard/#analytics" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" data-tab="analytics">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📈</span>
+        <span class="sidebar-text hidden md:block">Analytics</span>
+      </a>
+      <a href="/dashboard/#realtime" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" data-tab="realtime">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🔴</span>
+        <span class="sidebar-text hidden md:block">Real‑time</span>
+      </a>
+      <a href="/dashboard/#gsc" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" data-tab="gsc">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🔍</span>
+        <span class="sidebar-text hidden md:block">Search Console</span>
+      </a>
+      <a href="/dashboard/#integrations" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" data-tab="integrations">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🔗</span>
+        <span class="sidebar-text hidden md:block">Integrations</span>
+      </a>
+      <a href="/dashboard/#upgrade" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" data-tab="upgrade">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🚀</span>
+        <span class="sidebar-text hidden md:block">Upgrade</span>
+      </a>
+      <a href="/dashboard/#settings" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" data-tab="settings">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">⚙️</span>
+        <span class="sidebar-text hidden md:block">Settings</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- UX Tools -->
+  <button
+    type="button" role="menuitem"
+    class="group w-full flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition focus:outline-none"
+    aria-expanded="false" aria-controls="ux-content" data-category="ux"
+    title="User experience analysis – quit risk, bounce rate & UX improvements">
+    <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🛠</span>
+    <span class="sidebar-text font-semibold flex-1">UX Tools</span>
+    <span class="ml-auto text-xl transition-transform sidebar-arrow hidden md:inline">▼</span>
+  </button>
+  <div id="ux-content" class="pl-0 md:pl-10 space-y-3 mt-1 hidden" data-category-content="ux">
+    <a href="/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="UX, SEO and AEO audit tool with friction points & fixes">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📈</span>
+      <span class="sidebar-text hidden md:block">NUSA Tool</span>
+    </a>
+    <a href="/ofux-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="UX, SEO Intent and AI Search audit tool with friction points & fixes">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📊</span>
+      <span class="sidebar-text hidden md:block">OFUX Tool</span>
+    </a>
+    <a href="/quit-risk-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Predict user quit risk – identify friction points & retention fixes">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">⚠️</span>
+      <span class="sidebar-text hidden md:block">Quit Risk</span>
+    </a>
+    <a href="/seo-ux-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Full SEO + UX audit tool – combined health score & actionable fixes">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">⚖️</span>
+      <span class="sidebar-text hidden md:block">SEO + UX</span>
+    </a>
+  </div>
+
+  <!-- SEO Tools -->
+  <button
+    type="button" role="menuitem"
+    class="group w-full flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition focus:outline-none"
+    aria-expanded="false" aria-controls="seo-content" data-category="seo"
+    title="Instant 360° SEO, GEO, AEO + UX audits">
+    <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🧰</span>
+    <span class="sidebar-text font-semibold flex-1">SEO Tools</span>
+    <span class="ml-auto text-xl transition-transform sidebar-arrow hidden md:inline">▼</span>
+  </button>
+  <div id="seo-content" class="pl-0 md:pl-10 space-y-3 mt-1 hidden" data-category-content="seo">
+    <a href="/lighthouse-plus-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="10-module UX, performance, accessibility & agent-readiness audit">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🗼</span>
+      <span class="sidebar-text hidden md:block">Lighthouse Plus</span>
+    </a>
+    <a href="/topical-authority-audit-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Detect main topics, subtopics and explore subtopic suggestions">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">⚜️</span>
+      <span class="sidebar-text hidden md:block">Topical Authority</span>
+    </a>
+    <a href="/seo-entity-extractor-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Extract entities from content tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🧬</span>
+      <span class="sidebar-text hidden md:block">Entity Extractor</span>
+    </a>
+    <a href="/seo-intent-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Analyze search intent EEAT tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🎯</span>
+      <span class="sidebar-text hidden md:block">SEO Intent</span>
+    </a>
+    <a href="/local-seo-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Google Maps & local pack analysis tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📍</span>
+      <span class="sidebar-text hidden md:block">Local SEO</span>
+    </a>
+    <a href="/product-seo-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="E-commerce product page audit tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🛒</span>
+      <span class="sidebar-text hidden md:block">Product SEO</span>
+    </a>
+    <a href="/schema-generator/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Generate JSON-LD structured data tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">⚙️</span>
+      <span class="sidebar-text hidden md:block">Schema Generator</span>
+    </a>
+  </div>
+
+  <!-- AEO Tools -->
+  <button
+    type="button" role="menuitem"
+    class="group w-full flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition focus:outline-none"
+    aria-expanded="false" aria-controls="ai-content" data-category="ai"
+    title="GEO AEO & AIO tools">
+    <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🤖</span>
+    <span class="sidebar-text font-semibold flex-1">AEO Tools</span>
+    <span class="ml-auto text-xl transition-transform sidebar-arrow hidden md:inline">▼</span>
+  </button>
+  <div id="ai-content" class="pl-0 md:pl-10 space-y-3 mt-1 hidden" data-category-content="ai">
+    <a href="/aeo-performance-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Optimize for answer engines">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🚀</span>
+      <span class="sidebar-text hidden md:block">AEO Performance</span>
+    </a>
+    <a href="/aeo-log-analyzer/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Verify AI crawler hits with IP-verified log analysis">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📋</span>
+      <span class="sidebar-text hidden md:block">AEO Log Analyzer</span>
+    </a>
+    <a href="/ai-search-optimization-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Optimize for Google AI Overviews">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🔍</span>
+      <span class="sidebar-text hidden md:block">AEO Audit</span>
+    </a>
+    <a href="/ai-voice-search-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Voice search optimization tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🎙️</span>
+      <span class="sidebar-text hidden md:block">AI Voice Search</span>
+    </a>
+    <a href="/ai-audit-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="AI content audit tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🤖</span>
+      <span class="sidebar-text hidden md:block">AI Content</span>
+    </a>
+  </div>
+
+  <!-- Keywords -->
+  <button
+    type="button" role="menuitem"
+    class="group w-full flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition focus:outline-none"
+    aria-expanded="false" aria-controls="keywords-content" data-category="keywords"
+    title="Keyword suggestion and audit tools">
+    <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🔐</span>
+    <span class="sidebar-text font-semibold flex-1">Keywords</span>
+    <span class="ml-auto text-xl transition-transform sidebar-arrow hidden md:inline">▼</span>
+  </button>
+  <div id="keywords-content" class="pl-0 md:pl-10 space-y-3 mt-1 hidden" data-category-content="keywords">
+    <a href="/keyword-research-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Keyword research and generator tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🔑</span>
+      <span class="sidebar-text hidden md:block">Research</span>
+    </a>
+    <a href="/keyword-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Keyword placement tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🗝️</span>
+      <span class="sidebar-text hidden md:block">Placement</span>
+    </a>
+    <a href="/keyword-vs-tool/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Competitor keyword gap analysis tool">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🆚</span>
+      <span class="sidebar-text hidden md:block">Competition</span>
+    </a>
+  </div>
+
+  <!-- Extras -->
+  <button
+    type="button" role="menuitem"
+    class="group w-full flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition focus:outline-none"
+    aria-expanded="false" aria-controls="extras-content" data-category="extras"
+    title="Extras – Browser extensions, CMS plugins, developer tools & API">
+    <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">➕</span>
+    <span class="sidebar-text font-semibold flex-1">Extras</span>
+    <span class="ml-auto text-xl transition-transform sidebar-arrow hidden md:inline">▼</span>
+  </button>
+  <div id="extras-content" class="pl-0 md:pl-10 space-y-3 mt-1 hidden" data-category-content="extras">
+    <a href="/community/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="DateWizza Developer Community">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🤝</span>
+      <span class="sidebar-text hidden md:block">Community</span>
+    </a>
+    <a href="/contributors/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Tool and community contributors">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🏅</span>
+      <span class="sidebar-text hidden md:block">Contributors</span>
+    </a>
+    <a href="/integrations/browser-extensions/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="DateWizza Browser Extensions">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🌐</span>
+      <span class="sidebar-text hidden md:block">Browser Extensions</span>
+    </a>
+    <a href="/integrations/plugins/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="DateWizza Plugins">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🎨</span>
+      <span class="sidebar-text hidden md:block">Plugins</span>
+    </a>
+    <a href="/integrations/developer-tools/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="DateWizza Developer Tools">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🛠️</span>
+      <span class="sidebar-text hidden md:block">Developer Tools</span>
+    </a>
+    <a href="/integrations/developer/api/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="DateWizza Developer API">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🧑‍💻</span>
+      <span class="sidebar-text hidden md:block">Developer API</span>
+    </a>
+    <a href="/research/traffic-torch-whitepaper/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="DateWizza WhitePaper">
+      <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📝</span>
+      <span class="sidebar-text hidden md:block">WhitePaper</span>
+    </a>
+  </div>
+
+  <!-- Apps -->
+  <a href="/apps/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Install DateWizza as an App">
+    <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📱</span>
+    <span class="sidebar-text hidden md:block">PWA Apps</span>
+  </a>
+
+  <!-- Help Guides -->
+  <a href="/ai-ux-seo-help-guides/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Free guides & tutorials">
+    <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">📋</span>
+    <span class="sidebar-text hidden md:block">Help Guides</span>
+  </a>
+
+  <!-- Leader Board -->
+  <a href="/leader-board/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="Leader Board">
+    <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🥇</span>
+    <span class="sidebar-text hidden md:block">Leader Board</span>
+  </a>
+
+  <!-- Upgrade -->
+  <a href="/upgrade/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition" title="DateWizza Upgrade">
+    <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🚀</span>
+    <span class="sidebar-text hidden md:block">Upgrade</span>
+  </a>
+
+  <!-- ─── Auth section (dynamic) ─── -->
+  <div class="mt-2 border-t border-white/10 dark:border-white/5 pt-4">
+
+    <!-- Logged OUT -->
+    <div data-auth="out" class="space-y-2">
+      <a href="/login/" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition px-3 py-2 rounded-lg">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🔑</span>
+        <span class="sidebar-text hidden md:block">Login / Register</span>
+      </a>
+    </div>
+
+    <!-- Logged IN -->
+    <div data-auth="in" class="hidden space-y-2">
+      <div class="px-3 py-2 flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">👋</span>
+        <span class="sidebar-text hidden md:block truncate" data-auth-email>Signed in</span>
+      </div>
+      <a href="/dashboard/#profile" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition px-3 py-2 rounded-lg">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🧑</span>
+        <span class="sidebar-text hidden md:block">My Profile</span>
+      </a>
+      <a href="/dashboard/#settings" class="sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-orange-400 transition px-3 py-2 rounded-lg">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">⚙️</span>
+        <span class="sidebar-text hidden md:block">Settings</span>
+      </a>
+      <button type="button" data-auth-logout
+              class="w-full sidebar-link flex items-center gap-4 text-lg text-gray-800 dark:text-gray-200 hover:text-red-400 transition px-3 py-2 rounded-lg">
+        <span class="text-2xl w-10 flex items-center justify-center flex-shrink-0">🚪</span>
+        <span class="sidebar-text hidden md:block">Log out</span>
+      </button>
+    </div>
+  </div>
+</nav>

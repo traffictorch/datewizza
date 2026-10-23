@@ -1,0 +1,21 @@
+{
+  "name": "cors-proxy-worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@cloudflare/puppeteer": "^1.0.4",
+    "basic-ftp": "^6.0.1",
+    "ip-address": "^10.2.0"
+  },
+  "overrides": {
+    "yauzl": "^3.2.1"
+  }
+}

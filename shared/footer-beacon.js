@@ -1,0 +1,271 @@
+// shared/footer-beacon.js
+// Beacon — ⌘K / Ctrl+K site-wide search & launcher. Self-contained, styles injected on first open.
+(function () {
+  if (window.__ttBeacon) return;
+  window.__ttBeacon = true;
+
+  var RECENTS_KEY = 'tt-search-recent';
+  var index = null;
+  var overlay = null;
+  var inputEl = null;
+  var resultsEl = null;
+  var selectedIdx = 0;
+  var filtered = [];
+  var isOpen = false;
+
+  function getRecents() {
+    try { return JSON.parse(localStorage.getItem(RECENTS_KEY) || '[]'); }
+    catch { return []; }
+  }
+  function addRecent(url) {
+    try {
+      var r = getRecents().filter(function (u) { return u !== url; });
+      r.unshift(url);
+      localStorage.setItem(RECENTS_KEY, JSON.stringify(r.slice(0, 5)));
+    } catch {}
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  async function loadIndex() {
+    if (index) return index;
+    try {
+      var res = await fetch('/shared/search-index.json', { cache: 'force-cache' });
+      index = await res.json();
+    } catch {
+      index = [];
+    }
+    return index;
+  }
+
+  function score(item, q) {
+    var ql = q.toLowerCase();
+    var t = (item.title || '').toLowerCase();
+    var d = (item.desc || '').toLowerCase();
+    var u = (item.url || '').toLowerCase();
+    var b = (item.body || '').toLowerCase();
+    if (t === ql) return 1000;
+    if (t.startsWith(ql)) return 500;
+    if (t.includes(ql)) return 300;
+    if (u.includes(ql)) return 200;
+    if (d.includes(ql)) return 100;
+    if (b.includes(ql)) return 50;
+    return -1;
+  }
+
+  function search(q) {
+    if (!index) return [];
+    q = q.trim();
+    if (!q) {
+      var recents = getRecents();
+      var recentItems = recents
+        .map(function (url) { return index.find(function (i) { return i.url === url; }); })
+        .filter(Boolean);
+      var featured = index.filter(function (i) { return i.featured; }).slice(0, 8);
+      var combined = recentItems.concat(featured.filter(function (i) {
+        return !recents.includes(i.url);
+      }));
+      return combined.slice(0, 12);
+    }
+    return index
+      .map(function (item) { return { item: item, s: score(item, q) }; })
+      .filter(function (x) { return x.s > 0; })
+      .sort(function (a, b) { return b.s - a.s; })
+      .slice(0, 20)
+      .map(function (x) { return x.item; });
+  }
+
+  function render() {
+    if (!resultsEl) return;
+    if (!filtered.length) {
+      resultsEl.innerHTML = '<div class="tt-cp-empty">No matches. Try “audit”, “blog”, “round table”…</div>';
+      return;
+    }
+    var grouped = {};
+    filtered.forEach(function (item, i) {
+      (grouped[item.category] = grouped[item.category] || []).push({ item: item, i: i });
+    });
+    var html = '';
+    Object.keys(grouped).forEach(function (cat) {
+      html += '<div class="tt-cp-group">' + esc(cat) + '</div>';
+      grouped[cat].forEach(function (x) {
+        var active = x.i === selectedIdx ? ' active' : '';
+        html += '<a href="' + esc(x.item.url) + '" class="tt-cp-item' + active + '" data-idx="' + x.i + '">' +
+          '<div class="tt-cp-emoji">' + esc(x.item.emoji || '📄') + '</div>' +
+          '<div class="tt-cp-text">' +
+            '<div class="tt-cp-title">' + esc(x.item.title) + '</div>' +
+            (x.item.desc ? '<div class="tt-cp-desc">' + esc(x.item.desc) + '</div>' : '') +
+          '</div>' +
+          '<div class="tt-cp-enter">⏎</div>' +
+        '</a>';
+      });
+    });
+    resultsEl.innerHTML = html;
+    var activeEl = resultsEl.querySelector('.tt-cp-item.active');
+    if (activeEl) activeEl.scrollIntoView({ block: 'nearest' });
+  }
+
+  function injectStyles() {
+    if (document.getElementById('tt-cp-styles')) return;
+    var st = document.createElement('style');
+    st.id = 'tt-cp-styles';
+    st.textContent = `
+      .tt-cp-overlay { position: fixed; inset: 0; z-index: 2147483000; display: none; align-items: flex-start; justify-content: center; padding: 80px 16px 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+      .tt-cp-overlay.open { display: flex; }
+      .tt-cp-panel { width: 100%; max-width: 640px; background: #fff; border-radius: 16px; box-shadow: 0 25px 60px -12px rgba(0,0,0,0.6); overflow: hidden; display: flex; flex-direction: column; max-height: calc(100vh - 120px); }
+      .dark .tt-cp-panel { background: #111827; color: #f3f4f6; }
+      .tt-cp-inputwrap { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+      .dark .tt-cp-inputwrap { border-bottom-color: rgba(255,255,255,0.08); }
+      .tt-cp-inputwrap svg { flex-shrink: 0; opacity: 0.5; }
+      .tt-cp-input { flex: 1; border: 0; outline: 0; font-size: 16px; background: transparent; color: inherit; font-family: inherit; }
+      .tt-cp-input::placeholder { color: #9ca3af; }
+      .tt-cp-kbd { display: inline-flex; align-items: center; justify-content: center; min-width: 26px; height: 22px; padding: 0 6px; font-size: 11px; font-weight: 700; color: #6b7280; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; font-family: ui-monospace, monospace; }
+      .dark .tt-cp-kbd { background: #1f2937; border-color: #374151; color: #9ca3af; }
+      .tt-cp-results { overflow-y: auto; flex: 1; padding: 6px 0; }
+      .tt-cp-group { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #9ca3af; padding: 10px 18px 4px; }
+      .tt-cp-item { display: flex; align-items: center; gap: 12px; padding: 10px 18px; text-decoration: none; color: inherit; border-left: 3px solid transparent; }
+      .tt-cp-item:hover, .tt-cp-item.active { background: rgba(249,115,22,0.08); border-left-color: #f97316; }
+      .tt-cp-emoji { font-size: 20px; flex-shrink: 0; width: 24px; text-align: center; }
+      .tt-cp-text { flex: 1; min-width: 0; }
+      .tt-cp-title { font-weight: 700; font-size: 14px; line-height: 1.3; }
+      .tt-cp-desc { font-size: 12px; color: #6b7280; line-height: 1.3; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .dark .tt-cp-desc { color: #9ca3af; }
+      .tt-cp-enter { flex-shrink: 0; font-size: 12px; color: #9ca3af; opacity: 0; }
+      .tt-cp-item.active .tt-cp-enter { opacity: 1; }
+      .tt-cp-empty { padding: 32px 18px; text-align: center; color: #9ca3af; font-size: 14px; }
+      .tt-cp-hint { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 18px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 11px; color: #9ca3af; }
+      .dark .tt-cp-hint { border-top-color: rgba(255,255,255,0.08); }
+      .tt-cp-hint kbd { font-family: ui-monospace, monospace; padding: 1px 5px; border-radius: 3px; background: #f3f4f6; border: 1px solid #e5e7eb; }
+      .dark .tt-cp-hint kbd { background: #1f2937; border-color: #374151; }
+      @media (max-width: 640px) {
+        .tt-cp-overlay { padding: 8px; }
+        .tt-cp-panel { max-height: calc(100vh - 16px); border-radius: 12px; }
+        .tt-cp-inputwrap { padding: 12px 14px; }
+      }
+    `;
+    document.head.appendChild(st);
+  }
+
+  function buildOverlay() {
+    if (overlay) return;
+    injectStyles();
+    overlay = document.createElement('div');
+    overlay.className = 'tt-cp-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Beacon search');
+    overlay.innerHTML = `
+      <div class="tt-cp-panel">
+        <div class="tt-cp-inputwrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" class="tt-cp-input" placeholder="Beacon — search everything…" aria-label="Search">
+          <span class="tt-cp-kbd">esc</span>
+          <button type="button" data-tt-beacon-close aria-label="Close search" style="flex-shrink:0;width:28px;height:28px;border:0;background:transparent;color:#9ca3af;font-size:20px;line-height:1;cursor:pointer;border-radius:6px;display:flex;align-items:center;justify-content:center;">&#215;</button>
+        </div>
+        <div class="tt-cp-results" role="listbox"></div>
+        <div class="tt-cp-hint">
+          <span><kbd>↑</kbd> <kbd>↓</kbd> navigate · <kbd>⏎</kbd> open · <kbd>esc</kbd> close</span>
+          <span>Beacon · DateWizza</span>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    inputEl = overlay.querySelector('.tt-cp-input');
+    resultsEl = overlay.querySelector('.tt-cp-results');
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target.closest('[data-tt-beacon-close]')) { close(); return; }
+      if (!e.target.closest('.tt-cp-panel')) close();
+    });
+    inputEl.addEventListener('input', onInput);
+    inputEl.addEventListener('keydown', onKeydown);
+    resultsEl.addEventListener('mousemove', function (e) {
+      var item = e.target.closest('.tt-cp-item');
+      if (!item) return;
+      var idx = parseInt(item.getAttribute('data-idx'), 10);
+      if (idx !== selectedIdx) { selectedIdx = idx; render(); }
+    });
+    resultsEl.addEventListener('click', function (e) {
+      var item = e.target.closest('.tt-cp-item');
+      if (item) addRecent(item.getAttribute('href'));
+    });
+  }
+
+  function onInput() {
+    var q = inputEl.value;
+    filtered = search(q);
+    selectedIdx = 0;
+    render();
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!filtered.length) return;
+      selectedIdx = (selectedIdx + 1) % filtered.length;
+      render();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!filtered.length) return;
+      selectedIdx = (selectedIdx - 1 + filtered.length) % filtered.length;
+      render();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      var target = filtered[selectedIdx];
+      if (target) {
+        addRecent(target.url);
+        window.location.href = target.url;
+      }
+    }
+  }
+
+  async function open() {
+    buildOverlay();
+    if (isOpen) return;
+    isOpen = true;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    resultsEl.innerHTML = '<div class="tt-cp-empty">Loading…</div>';
+    setTimeout(function () { inputEl.focus(); }, 30);
+    await loadIndex();
+    if (!isOpen) return;
+    filtered = search('');
+    selectedIdx = 0;
+    render();
+  }
+
+  function close() {
+    if (!overlay) return;
+    isOpen = false;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if (inputEl) inputEl.value = '';
+  }
+
+  window.ttOpenBeacon = open;
+  window.ttCloseBeacon = close;
+
+  document.addEventListener('keydown', function (e) {
+    var isMac = navigator.platform.toUpperCase().includes('MAC');
+    var isMod = isMac ? e.metaKey : e.ctrlKey;
+    if (isMod && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (isOpen) close(); else open();
+      return;
+    }
+    if (isOpen && e.key === 'Escape') {
+      close();
+    }
+  });
+
+  // Let any "Search" button on the page trigger it
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-tt-search]');
+    if (btn) { e.preventDefault(); open(); }
+  });
+})();
